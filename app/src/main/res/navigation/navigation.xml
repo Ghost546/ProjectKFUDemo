@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation"
+    app:startDestination="@+id/navigation_current_task">
+
+    <fragment
+        android:id="@+id/navigation_current_task"
+        android:name="com.example.projectkfudemo.ui.currenttask.CurrentTaskFragment"
+        android:label="@string/title_current_task"
+        tools:layout="@layout/fragment_current_task" />
+
+    <fragment
+        android:id="@+id/navigation_my_task"
+        android:name="com.example.projectkfudemo.ui.mytask.MyTaskFragment"
+        android:label="@string/title_my_task"
+        tools:layout="@layout/fragment_my_task" />
+
+    <fragment
+        android:id="@+id/navigation_search"
+        android:name="com.example.projectkfudemo.ui.search.SearchFragment"
+        android:label="@string/title_search"
+        tools:layout="@layout/fragment_search" />
+
+    <fragment
+        android:id="@+id/navigation_menu"
+        android:name="com.example.projectkfudemo.ui.menu.MenuFragment"
+        android:label="@string/title_menu"
+        tools:layout="@layout/fragment_menu"/>
+</navigation>
