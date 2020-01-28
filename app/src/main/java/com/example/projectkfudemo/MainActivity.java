@@ -101,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
 //                finish();
 //                return;
 //            } else {
-//                user = mFirebaseUser.getDisplayName();                                             // что блять такое UserName
+//                user = mFirebaseUser.getDisplayName();
 //                if (mFirebaseUser.getPhotoUrl() != null) {
 //                    mPhotoUrl = mFirebaseUser.getPhotoUrl().toString();
 //                }
