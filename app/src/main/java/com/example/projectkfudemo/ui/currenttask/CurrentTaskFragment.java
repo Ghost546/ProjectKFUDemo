@@ -48,6 +48,8 @@ public class CurrentTaskFragment extends Fragment {
         // создаем адаптер
         CurrentRequestStateAdapter stateAdapter = new CurrentRequestStateAdapter(getContext(), R.layout.task, states); // getActivity?
 
+
+
         // получаем элемент ListView
         requestList = root.findViewById(R.id.tasksList);
         // устанавливаем адаптер
