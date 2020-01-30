@@ -32,9 +32,7 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseAuth mFirebaseAuth;
     private FirebaseUser mFirebaseUser;
     FirebaseUser user;
-    private List<Request> states = new ArrayList();
 
-    ListView requestList;
 
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -72,24 +70,7 @@ public class MainActivity extends AppCompatActivity {
             NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
             NavigationUI.setupWithNavController(navView, navController);
 
-            // начальная инициализация списка
-            // получаем элемент ListView
-            requestList = findViewById(R.id.tasksList);
-            // создаем адаптер
-            CurrentRequestStateAdapter stateAdapter = new CurrentRequestStateAdapter(this, R.layout.task, states);
-            // устанавливаем адаптер
-            requestList.setAdapter(stateAdapter);
-            // слушатель выбора в списке
-            AdapterView.OnItemClickListener itemListener = new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
-                    // получаем выбранный пункт
-                    Request selectedRequest = (Request) parent.getItemAtPosition(position);
-                    Toast.makeText(getApplicationContext(), "Был выбран пункт " + selectedRequest.getId(),
-                            Toast.LENGTH_SHORT).show();
-                }
-            };
-            requestList.setOnItemClickListener(itemListener);
+
         }
 
 

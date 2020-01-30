@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 
 
@@ -17,6 +18,7 @@ public class CurrentRequestStateAdapter extends ArrayAdapter<Request> {
     private int layout;
     private List<Request> requests;
 
+
     public CurrentRequestStateAdapter(Context context, int resource, List<Request> requests) {
         super(context, resource, requests);
         this.requests = requests;
@@ -26,6 +28,8 @@ public class CurrentRequestStateAdapter extends ArrayAdapter<Request> {
     public View getView(int position, View convertView, ViewGroup parent) {
 
         View view=inflater.inflate(this.layout, parent, false);
+
+
 
         TextView idView = view.findViewById(R.id.request_id);
         TextView textView = view.findViewById(R.id.text_of_request);
