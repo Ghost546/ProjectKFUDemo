@@ -14,10 +14,25 @@
     <string name="loading">Loading...</string>
     <string name="emailpassword_status_fmt">EmailPasswordStatus</string>
     <string name="firebase_status_fmt">FirebaseStatus</string>
+    
     <string name="title_search">Search</string>
     <string name="title_menu">Menu</string>
     <string name="title_activity_second">second</string>
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
+    
+    <string name="request_number">Номер заявки</string>
+    <string name="request_registration_date">Дата регистрации заявки</string>
+    <string name="request_finish_date">Дата окончания заявки</string>
+    <string name="declarer">Заявитель</string>
+    <string name="adres">Местонахождение(адрес)</string>
+    <string name="subdivision">Подразделение</string>
+    <string name="number_of_cabinet">Номер комнаты (кабинета)</string>
+    <string name="application_executors_department">Отдел(исполнителей заявки)</string>
+    <string name="name_of_executor">ФИО исполнителя</string>
+    <string name="request_status">Статус заявки</string>
+    <string name="request_registration">Заявку зарегестрировал</string>
+    <string name="type_of_request">Тип заявки</string>
+    <string name="text_of_request">Текст заявки</string>
 </resources>

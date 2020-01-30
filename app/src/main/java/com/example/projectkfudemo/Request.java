@@ -10,7 +10,7 @@ public class Request {
     private int periodOfExecution; //срок выполнения(предварительно)
 
 
-    private String statsuOfRequest;
+    private String statusOfRequest;
 
     private String acceptedTheApplication;
 
@@ -99,11 +99,11 @@ public class Request {
     }
 
     public String getStatsuOfRequest() {
-        return statsuOfRequest;
+        return statusOfRequest;
     }
 
     public void setStatsuOfRequest(String statsuOfRequest) {
-        this.statsuOfRequest = statsuOfRequest;
+        this.statusOfRequest = statsuOfRequest;
     }
 
 }

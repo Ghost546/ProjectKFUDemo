@@ -41,19 +41,32 @@ public class MainActivity extends AppCompatActivity {
         public boolean onNavigationItemSelected(MenuItem item) {
             Fragment selectedFragment = null;
             FragmentTransaction fragmentTransaction;
+
             switch (item.getItemId()) {
                 case R.id.navigation_current_task:
                     selectedFragment = CurrentTaskFragment.newInstance();
-
+                    fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                    fragmentTransaction.replace(R.id.nav_host_fragment, selectedFragment);
+                    fragmentTransaction.commit();
                     return true;
                 case R.id.navigation_my_task:
                     selectedFragment = MyTaskFragment.newInstance();
+
+                    fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                    fragmentTransaction.replace(R.id.nav_host_fragment, selectedFragment);
+                    fragmentTransaction.commit();
                     return true;
                 case R.id.navigation_search:
                     selectedFragment = SearchFragment.newInstance();
+                    fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                    fragmentTransaction.replace(R.id.nav_host_fragment, selectedFragment);
+                    fragmentTransaction.commit();
                     return true;
                 case R.id.navigation_menu:
                     selectedFragment = MenuFragment.newInstance();
+                    fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                    fragmentTransaction.replace(R.id.nav_host_fragment, selectedFragment);
+                    fragmentTransaction.commit();
                     return true;
             }
             return false;
@@ -70,7 +83,15 @@ public class MainActivity extends AppCompatActivity {
         navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
 
-
+        if (savedInstanceState == null) {
+            // при первом запуске программы
+            Fragment fragment = CurrentTaskFragment.newInstance();
+            FragmentTransaction fragmentTransaction = getSupportFragmentManager()
+                    .beginTransaction();
+            // добавляем в контейнер при помощи метода add()
+            fragmentTransaction.add(R.id.container, fragment);
+            fragmentTransaction.commit();
+        }
     }
 
 
