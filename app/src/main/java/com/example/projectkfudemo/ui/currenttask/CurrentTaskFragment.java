@@ -28,7 +28,7 @@ import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
 
 public class CurrentTaskFragment extends Fragment {
 
-    private List<Request> states = new ArrayList();
+    private ArrayList<Request> states = new ArrayList<>();
 
     CurrentTaskViewModel currentTaskViewModel;
 
@@ -44,9 +44,17 @@ public class CurrentTaskFragment extends Fragment {
         currentTaskViewModel = ViewModelProviders.of(this).get(CurrentTaskViewModel.class);
         View root = inflater.inflate(R.layout.fragment_current_task, container, false);
 
+        Request request1 = new Request();
+        request1.setId(12345);
+        request1.setTextOfRequest("It is text. Nut");
+        request1.setStatusOfRequest("I'm ready");
+        request1.setPeriodOfExecution(14);
+
+        states.add(request1); //добавляем элемент в массив
+
         // начальная инициализация списка
         // создаем адаптер
-        CurrentRequestStateAdapter stateAdapter = new CurrentRequestStateAdapter(getContext(), R.layout.task, states); // getActivity?
+        CurrentRequestStateAdapter stateAdapter = new CurrentRequestStateAdapter(inflater.getContext(), R.layout.task, states); // getActivity?
 
         // получаем элемент ListView
         requestList = root.findViewById(R.id.tasksList);
@@ -63,15 +71,10 @@ public class CurrentTaskFragment extends Fragment {
             }
         };
         requestList.setOnItemClickListener(itemListener);
+
         return root;
 
     }
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-
-    }
 
 }

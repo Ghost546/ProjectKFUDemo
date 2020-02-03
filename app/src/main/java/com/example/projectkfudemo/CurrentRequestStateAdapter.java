@@ -29,8 +29,6 @@ public class CurrentRequestStateAdapter extends ArrayAdapter<Request> {
 
         View view=inflater.inflate(this.layout, parent, false);
 
-
-
         TextView idView = view.findViewById(R.id.request_id);
         TextView textView = view.findViewById(R.id.text_of_request);
         TextView statusView = view.findViewById(R.id.status);
@@ -38,10 +36,10 @@ public class CurrentRequestStateAdapter extends ArrayAdapter<Request> {
 
         Request request = requests.get(position);
 
-        idView.setText(request.getId());
+        idView.setText(Integer.toString(request.getId()));
         textView.setText(request.getTextOfRequest());
-        statusView.setText(request.getStatsuOfRequest());
-        dateView.setText(request.getPeriodOfExecution());
+        statusView.setText(request.getStatusOfRequest());
+        dateView.setText(Integer.toString(request.getPeriodOfExecution()));
 
         return view;
     }

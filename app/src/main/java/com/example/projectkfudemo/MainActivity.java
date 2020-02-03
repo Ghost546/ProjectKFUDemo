@@ -30,16 +30,16 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     public static final String EXTRA_AССESS = "com.example.";
-    private FirebaseAuth mFirebaseAuth;
-    private FirebaseUser mFirebaseUser;
-    FirebaseUser user;
+//    private FirebaseAuth mFirebaseAuth;
+//    private FirebaseUser mFirebaseUser;
+//    FirebaseUser user;
 
 
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
         @Override
         public boolean onNavigationItemSelected(MenuItem item) {
-            Fragment selectedFragment = null;
+            Fragment selectedFragment;
             FragmentTransaction fragmentTransaction;
 
             switch (item.getItemId()) {
@@ -51,7 +51,6 @@ public class MainActivity extends AppCompatActivity {
                     return true;
                 case R.id.navigation_my_task:
                     selectedFragment = MyTaskFragment.newInstance();
-
                     fragmentTransaction = getSupportFragmentManager().beginTransaction();
                     fragmentTransaction.replace(R.id.nav_host_fragment, selectedFragment);
                     fragmentTransaction.commit();
@@ -79,7 +78,6 @@ public class MainActivity extends AppCompatActivity {
         BottomNavigationView navView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
-
         navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
 
@@ -88,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
             Fragment fragment = CurrentTaskFragment.newInstance();
             FragmentTransaction fragmentTransaction = getSupportFragmentManager()
                     .beginTransaction();
-            // добавляем в контейнер при помощи метода add()
+           // добавляем в контейнер при помощи метода add()
             fragmentTransaction.add(R.id.container, fragment);
             fragmentTransaction.commit();
         }

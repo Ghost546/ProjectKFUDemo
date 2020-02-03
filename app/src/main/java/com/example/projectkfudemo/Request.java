@@ -98,12 +98,12 @@ public class Request {
         this.actionsOverRequest = actionsOverRequest;
     }
 
-    public String getStatsuOfRequest() {
+    public String getStatusOfRequest() {
         return statusOfRequest;
     }
 
-    public void setStatsuOfRequest(String statsuOfRequest) {
-        this.statusOfRequest = statsuOfRequest;
+    public void setStatusOfRequest(String statusOfRequest) {
+        this.statusOfRequest = statusOfRequest;
     }
 
 }

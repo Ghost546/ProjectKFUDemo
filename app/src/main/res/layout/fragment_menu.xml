@@ -4,66 +4,6 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="15dp"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="0dp">
 
-        <TextView
-            android:id="@+id/request_number_id"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/request_number"
-            android:textSize="20dp" />
 
-        <EditText
-            android:id="@+id/request_number_id_edit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/request_number_id"
-            android:hint="Введите номер заявки" />
-
-        <TextView
-            android:id="@+id/request_registration_date_id"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/request_number_id_edit"
-            android:layout_marginTop="20dp"
-            android:text="@string/request_registration_date"
-            android:textSize="20dp" />
-
-        <TextView
-            android:id="@+id/c_id"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/request_registration_date_id"
-            android:layout_marginTop="10dp"
-            android:text="C" />
-
-        <EditText
-            android:id="@+id/request_registration_date_id_edit_start"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/c_id"
-            android:hint="Введите дату"/>
-
-        <TextView
-            android:id="@+id/do_id"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/request_registration_date_id_edit_start"
-            android:text="До"/>
-
-        <EditText
-            android:id="@+id/request_registration_date_id_edit_finish"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:hint="Введите дату"
-            android:layout_below="@id/do_id" />
-
-        
-
-    </RelativeLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

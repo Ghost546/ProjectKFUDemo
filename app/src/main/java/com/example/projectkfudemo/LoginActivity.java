@@ -56,32 +56,32 @@ public class LoginActivity extends AppCompatActivity {
     private static final String USER_KEY = "user key";
     public final String Auth_TAG = "Log by FireBase: ";
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
-
-        mSignIn = findViewById(id.email_sign_in_button);
-        mEmailSetText = findViewById(id.field_email);
-        mPasswordSetText = findViewById(id.field_password);
-
-
-        mAuth = FirebaseAuth.getInstance();
-
-        mAuthListener = new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                user = firebaseAuth.getCurrentUser();
-                if(user != null) {
-                    Log.d(Auth_TAG, "onAuthStateChanged:signed_in:" + user.getUid());
-                }
-                else {
-                    Log.d(Auth_TAG, "onAuthStateChanged:signed_out");
-                }
-                updateUI(user);
-            }
-        };
-    }
+//    @Override
+//    public void onCreate(Bundle savedInstanceState) {
+//        super.onCreate(savedInstanceState);
+//        setContentView(R.layout.activity_login);
+//
+//        mSignIn = findViewById(id.email_sign_in_button);
+//        mEmailSetText = findViewById(id.field_email);
+//        mPasswordSetText = findViewById(id.field_password);
+//
+//
+//        mAuth = FirebaseAuth.getInstance();
+//
+//        mAuthListener = new FirebaseAuth.AuthStateListener() {
+//            @Override
+//            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+//                user = firebaseAuth.getCurrentUser();
+//                if(user != null) {
+//                    Log.d(Auth_TAG, "onAuthStateChanged:signed_in:" + user.getUid());
+//                }
+//                else {
+//                    Log.d(Auth_TAG, "onAuthStateChanged:signed_out");
+//                }
+//                updateUI(user);
+//            }
+//        };
+//    }
 
     @Override
     public void onStart() {
