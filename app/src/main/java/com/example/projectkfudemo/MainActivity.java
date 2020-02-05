@@ -30,6 +30,8 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     public static final String EXTRA_AССESS = "com.example.";
+    Fragment selectedFragment;
+    Fragment lastFragment;
 //    private FirebaseAuth mFirebaseAuth;
 //    private FirebaseUser mFirebaseUser;
 //    FirebaseUser user;
@@ -39,32 +41,31 @@ public class MainActivity extends AppCompatActivity {
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
         @Override
         public boolean onNavigationItemSelected(MenuItem item) {
-            Fragment selectedFragment;
             FragmentTransaction fragmentTransaction;
 
             switch (item.getItemId()) {
                 case R.id.navigation_current_task:
-                    selectedFragment = CurrentTaskFragment.newInstance();
                     fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                    fragmentTransaction.replace(R.id.nav_host_fragment, selectedFragment);
+                    selectedFragment = CurrentTaskFragment.newInstance();
+                    fragmentTransaction.replace(R.id.fragment_container, selectedFragment);
                     fragmentTransaction.commit();
                     return true;
                 case R.id.navigation_my_task:
-                    selectedFragment = MyTaskFragment.newInstance();
                     fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                    fragmentTransaction.replace(R.id.nav_host_fragment, selectedFragment);
+                    selectedFragment = MyTaskFragment.newInstance();
+                    fragmentTransaction.replace(R.id.fragment_container, selectedFragment);
                     fragmentTransaction.commit();
                     return true;
                 case R.id.navigation_search:
-                    selectedFragment = SearchFragment.newInstance();
                     fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                    fragmentTransaction.replace(R.id.nav_host_fragment, selectedFragment);
+                    selectedFragment = SearchFragment.newInstance();
+                    fragmentTransaction.replace(R.id.fragment_container, selectedFragment);
                     fragmentTransaction.commit();
                     return true;
                 case R.id.navigation_menu:
-                    selectedFragment = MenuFragment.newInstance();
                     fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                    fragmentTransaction.replace(R.id.nav_host_fragment, selectedFragment);
+                    selectedFragment = MenuFragment.newInstance();
+                    fragmentTransaction.replace(R.id.fragment_container, selectedFragment);
                     fragmentTransaction.commit();
                     return true;
             }
@@ -83,11 +84,12 @@ public class MainActivity extends AppCompatActivity {
 
         if (savedInstanceState == null) {
             // при первом запуске программы
-            Fragment fragment = CurrentTaskFragment.newInstance();
+            selectedFragment = CurrentTaskFragment.newInstance();
+            lastFragment = CurrentTaskFragment.newInstance();
             FragmentTransaction fragmentTransaction = getSupportFragmentManager()
                     .beginTransaction();
            // добавляем в контейнер при помощи метода add()
-            fragmentTransaction.add(R.id.container, fragment);
+            fragmentTransaction.add(R.id.fragment_container, selectedFragment);
             fragmentTransaction.commit();
         }
     }
