@@ -45,27 +45,31 @@ public class MainActivity extends AppCompatActivity {
 
             switch (item.getItemId()) {
                 case R.id.navigation_current_task:
-                    fragmentTransaction = getSupportFragmentManager().beginTransaction();
                     selectedFragment = CurrentTaskFragment.newInstance();
-                    fragmentTransaction.replace(R.id.fragment_container, selectedFragment);
+                    fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                    fragmentTransaction.replace(R.id.fragment_frame_layout, selectedFragment);
+                    fragmentTransaction.addToBackStack(null);
                     fragmentTransaction.commit();
                     return true;
                 case R.id.navigation_my_task:
-                    fragmentTransaction = getSupportFragmentManager().beginTransaction();
                     selectedFragment = MyTaskFragment.newInstance();
-                    fragmentTransaction.replace(R.id.fragment_container, selectedFragment);
+                    fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                    fragmentTransaction.replace(R.id.fragment_frame_layout, selectedFragment);
+                    fragmentTransaction.addToBackStack(null);
                     fragmentTransaction.commit();
                     return true;
                 case R.id.navigation_search:
-                    fragmentTransaction = getSupportFragmentManager().beginTransaction();
                     selectedFragment = SearchFragment.newInstance();
-                    fragmentTransaction.replace(R.id.fragment_container, selectedFragment);
+                    fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                    fragmentTransaction.replace(R.id.fragment_frame_layout, selectedFragment);
+                    fragmentTransaction.addToBackStack(null);
                     fragmentTransaction.commit();
                     return true;
                 case R.id.navigation_menu:
-                    fragmentTransaction = getSupportFragmentManager().beginTransaction();
                     selectedFragment = MenuFragment.newInstance();
-                    fragmentTransaction.replace(R.id.fragment_container, selectedFragment);
+                    fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                    fragmentTransaction.replace(R.id.fragment_frame_layout, selectedFragment);
+                    fragmentTransaction.addToBackStack(null); //добаление
                     fragmentTransaction.commit();
                     return true;
             }
@@ -89,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
             FragmentTransaction fragmentTransaction = getSupportFragmentManager()
                     .beginTransaction();
            // добавляем в контейнер при помощи метода add()
-            fragmentTransaction.add(R.id.fragment_container, selectedFragment);
+            fragmentTransaction.add(R.id.fragment_frame_layout, selectedFragment);
             fragmentTransaction.commit();
         }
     }
