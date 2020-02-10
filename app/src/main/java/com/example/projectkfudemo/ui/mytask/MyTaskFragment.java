@@ -30,7 +30,7 @@ public class MyTaskFragment extends Fragment {
 
     private List<Request> states = new ArrayList();
 
-    MyTaskFragment myTaskFragment;
+    MyTaskViewModel myTaskViewModel;
 
     ListView requestList;
 
@@ -41,29 +41,29 @@ public class MyTaskFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        myTaskViewModel = ViewModelProviders.of(this).get(MyTaskViewModel.class);
         View rootView = inflater.inflate(R.layout.fragment_menu, container, false);
 
-//        // начальная инициализация списка
-//        // создаем адаптер
-//        CurrentRequestStateAdapter stateAdapter = new CurrentRequestStateAdapter(getContext(), R.layout.task, states); // getActivity?
-//
-//        // получаем элемент ListView
-//        requestList = rootView.findViewById(R.id.tasksList);
-//        // устанавливаем адаптер
-//        requestList.setAdapter(stateAdapter);
-//        // слушатель выбора в списке
-//        AdapterView.OnItemClickListener itemListener = new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
-//                // получаем выбранный пункт
-//                Request selectedRequest = (Request) parent.getItemAtPosition(position);
-//                Toast.makeText(getApplicationContext(), "Был выбран пункт " + selectedRequest.getId(),
-//                        Toast.LENGTH_SHORT).show();
-//            }
-//        };
-//        requestList.setOnItemClickListener(itemListener);
 
+        // начальная инициализация списка
+        // создаем адаптер
+        CurrentRequestStateAdapter stateAdapter = new CurrentRequestStateAdapter(inflater.getContext(), R.layout.task, states); // getActivity?
 
+        // получаем элемент ListView
+        requestList = rootView.findViewById(R.id.myTasksList);
+        // устанавливаем адаптер
+        requestList.setAdapter(stateAdapter);
+        // слушатель выбора в списке
+        AdapterView.OnItemClickListener itemListener = new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
+                // получаем выбранный пункт
+                Request selectedRequest = (Request) parent.getItemAtPosition(position);
+                Toast.makeText(getApplicationContext(), "Был выбран пункт " + selectedRequest.getId(),
+                        Toast.LENGTH_SHORT).show();
+            }
+        };
+        requestList.setOnItemClickListener(itemListener);
 
         return rootView;
     }

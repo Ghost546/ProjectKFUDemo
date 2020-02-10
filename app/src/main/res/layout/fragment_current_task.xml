@@ -12,7 +12,7 @@
         android:layout_height="match_parent"
         android:orientation="horizontal">
 
-        <ListView android:id="@+id/tasksList"
+        <ListView android:id="@+id/currentTasksList"
             android:layout_height="match_parent"
             android:layout_width="match_parent" />
 
