@@ -11,58 +11,158 @@
         tools:layout_editor_absoluteX="0dp"
         tools:layout_editor_absoluteY="0dp">
 
-        <TextView
-            android:id="@+id/request_number_id"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/request_number"
-            android:textSize="20dp" />
+            android:id="@+id/request_number_block"
+            android:orientation="vertical" >
+            <TextView
+                android:id="@+id/request_number_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/request_number"
+                android:textSize="20sp" />
 
-        <EditText
-            android:id="@+id/request_number_id_edit"
+            <EditText
+                android:id="@+id/request_number_id_edit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="Введите номер заявки" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/request_registration_date_id_block"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/request_number_id"
-            android:hint="Введите номер заявки" />
+            android:orientation="vertical"
+            android:layout_below="@id/request_number_block">
+            <TextView
+                android:id="@+id/request_registration_date_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="@string/request_registration_date"
+                android:textSize="20sp" />
 
-        <TextView
-            android:id="@+id/request_registration_date_id"
+            <TextView
+                android:id="@+id/c_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="C" />
+
+            <EditText
+                android:id="@+id/request_registration_date_id_edit_start"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="Введите дату"/>
+
+            <TextView
+                android:id="@+id/do_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="До"/>
+
+            <EditText
+                android:id="@+id/request_registration_date_id_edit_finish"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/do_id" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/declarer_block"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/request_number_id_edit"
-            android:layout_marginTop="20dp"
-            android:text="@string/request_registration_date"
-            android:textSize="20dp" />
+            android:layout_below="@id/request_registration_date_id_block"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/declarer_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/declarer"
+                android:textSize="20sp"/>
 
-        <TextView
-            android:id="@+id/c_id"
+            <EditText
+                android:id="@+id/declarer_edit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="Введите имя заявителя"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/subdivision_block"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/request_registration_date_id"
-            android:layout_marginTop="10dp"
-            android:text="C" />
+            android:orientation="vertical"
+            android:layout_below="@id/declarer_block">
 
-        <EditText
-            android:id="@+id/request_registration_date_id_edit_start"
+            <TextView
+                android:id="@+id/subdivision_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/subdivision"
+                android:textSize="20sp"/>
+
+            <EditText
+                android:id="@+id/subdivision_edit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="Введите подразделение"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/address_block"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/c_id"
-            android:hint="Введите дату"/>
+            android:orientation="vertical"
+            android:layout_below="@id/subdivision_block">
 
-        <TextView
-            android:id="@+id/do_id"
+            <TextView
+                android:id="@+id/address_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/address"
+                android:textSize="20sp"/>
+            <EditText
+                android:id="@+id/address_edit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="Введите адрес"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/number_of_cabinet_block"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/request_registration_date_id_edit_start"
-            android:text="До"/>
+            android:orientation="vertical"
+            android:layout_below="@id/address_block">
 
-        <EditText
-            android:id="@+id/request_registration_date_id_edit_finish"
+            <TextView
+                android:id="@+id/number_of_cabinet_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/number_of_cabinet"
+                android:textSize="20sp"/>
+
+            <EditText
+                android:id="@+id/number_of_cabinet_edit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="Введите номер"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/application_executors_department_block"
+            android:orientation="vertical"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="Введите дату"
-            android:layout_below="@id/do_id" />
+            android:layout_below="@id/number_of_cabinet_block">
 
+
+        </LinearLayout>
 
 
     </RelativeLayout>

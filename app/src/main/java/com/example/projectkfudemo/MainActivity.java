@@ -48,28 +48,24 @@ public class MainActivity extends AppCompatActivity {
                     selectedFragment = CurrentTaskFragment.newInstance();
                     fragmentTransaction = getSupportFragmentManager().beginTransaction();
                     fragmentTransaction.replace(R.id.fragment_container, selectedFragment);
-                    fragmentTransaction.addToBackStack(null);                                       //удаление предыдущего фрагмента
                     fragmentTransaction.commit();
                     return true;
                 case R.id.navigation_my_task:
                     selectedFragment = MyTaskFragment.newInstance();
                     fragmentTransaction = getSupportFragmentManager().beginTransaction();
                     fragmentTransaction.replace(R.id.fragment_container, selectedFragment);
-                    fragmentTransaction.addToBackStack(null);
                     fragmentTransaction.commit();
                     return true;
                 case R.id.navigation_search:
                     selectedFragment = SearchFragment.newInstance();
                     fragmentTransaction = getSupportFragmentManager().beginTransaction();
                     fragmentTransaction.replace(R.id.fragment_container, selectedFragment);
-                    fragmentTransaction.addToBackStack(null);
                     fragmentTransaction.commit();
                     return true;
                 case R.id.navigation_menu:
                     selectedFragment = MenuFragment.newInstance();
                     fragmentTransaction = getSupportFragmentManager().beginTransaction();
                     fragmentTransaction.replace(R.id.fragment_container, selectedFragment);
-                    fragmentTransaction.addToBackStack(null);
                     fragmentTransaction.commit();
                     return true;
             }

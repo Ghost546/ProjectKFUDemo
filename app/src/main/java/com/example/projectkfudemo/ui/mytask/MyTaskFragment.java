@@ -42,7 +42,7 @@ public class MyTaskFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         myTaskViewModel = ViewModelProviders.of(this).get(MyTaskViewModel.class);
-        View rootView = inflater.inflate(R.layout.fragment_menu, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_my_task, container, false);
 
 
         // начальная инициализация списка

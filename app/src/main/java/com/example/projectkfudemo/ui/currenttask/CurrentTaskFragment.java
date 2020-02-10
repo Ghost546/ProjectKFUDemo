@@ -28,9 +28,8 @@ import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
 
 public class CurrentTaskFragment extends Fragment {
 
-    final String FIRST_TAG = "FIRST_TAG";
 
-    private ArrayList<Request> states = new ArrayList<>();
+    private List<Request> states = new ArrayList<>();
 
     CurrentTaskViewModel currentTaskViewModel;
 
