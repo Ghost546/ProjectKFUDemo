@@ -5,16 +5,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.Nullable;
-import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.example.projectkfudemo.CurrentRequestStateAdapter;
@@ -43,13 +37,13 @@ public class CurrentTaskFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         currentTaskViewModel = ViewModelProviders.of(this).get(CurrentTaskViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_current_task, container, false);
+        View root = inflater.inflate(R.layout.fragment_current_task_list, container, false);
 
         Request request1 = new Request();
         request1.setId(12345);
         request1.setTextOfRequest("It is text. Nut");
         request1.setStatusOfRequest("I'm ready");
-        request1.setPeriodOfExecution(14);
+        request1.setPeriodOfExecution("12.12.2012");
 
         states.add(request1); //добавляем элемент в массив
 

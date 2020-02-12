@@ -2,13 +2,17 @@ package com.example.projectkfudemo;
 
 import com.google.gson.annotations.SerializedName;
 
+import org.joda.time.LocalDate;
+
+import java.util.Collection;
+import java.util.Collections;
+
 public class Request {
     private int id; //номер заявки
 
-    private int dateOfRegistration; //дата регистрации (предварительно)
+    private String dateOfRegistration; //дата регистрации (предварительно)
 
-    private int periodOfExecution; //срок выполнения(предварительно)
-
+    private String periodOfExecution; //срок выполнения(предварительно)
 
     private String statusOfRequest;
 
@@ -34,20 +38,31 @@ public class Request {
         this.id = id;
     }
 
-    public int getDateOfRegistration() {
+    public String getDateOfRegistration() {
         return dateOfRegistration;
     }
 
-    public void setDateOfRegistration(int dateOfRegistration) {
+    public void setDateOfRegistration(String dateOfRegistration) {
         this.dateOfRegistration = dateOfRegistration;
     }
 
-    public int getPeriodOfExecution() {
+    public LocalDate getDateOfRegistrationInDateFormat() {                                          //used joda-time
+        LocalDate thisDate = new LocalDate(dateOfRegistration);
+        return thisDate;
+    }
+
+    public String getPeriodOfExecution() {
         return periodOfExecution;
     }
 
-    public void setPeriodOfExecution(int periodOfExecution) {
+
+    public void setPeriodOfExecution(String periodOfExecution) {
         this.periodOfExecution = periodOfExecution;
+    }
+
+    public LocalDate getPeriodOfExecutionInDateFormat() {                                           //used joda-time
+        LocalDate thisDate = new LocalDate(periodOfExecution);
+        return thisDate;
     }
 
     public String getAcceptedTheApplication() {
@@ -105,5 +120,6 @@ public class Request {
     public void setStatusOfRequest(String statusOfRequest) {
         this.statusOfRequest = statusOfRequest;
     }
+
 
 }

@@ -6,20 +6,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.Nullable;
-import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.example.projectkfudemo.CurrentRequestStateAdapter;
 import com.example.projectkfudemo.R;
 import com.example.projectkfudemo.Request;
-import com.example.projectkfudemo.ui.currenttask.CurrentTaskViewModel;
-import com.example.projectkfudemo.ui.search.SearchFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,7 +36,7 @@ public class MyTaskFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         myTaskViewModel = ViewModelProviders.of(this).get(MyTaskViewModel.class);
-        View rootView = inflater.inflate(R.layout.fragment_my_task, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_my_task_list, container, false);
 
 
         // начальная инициализация списка

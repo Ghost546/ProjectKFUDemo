@@ -11,6 +11,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 
+import org.joda.time.LocalDate;
+
 import java.util.List;
 
 public class CurrentRequestStateAdapter extends ArrayAdapter<Request> {
@@ -39,7 +41,7 @@ public class CurrentRequestStateAdapter extends ArrayAdapter<Request> {
         idView.setText(Integer.toString(request.getId()));
         textView.setText(request.getTextOfRequest());
         statusView.setText(request.getStatusOfRequest());
-        dateView.setText(Integer.toString(request.getPeriodOfExecution()));
+        dateView.setText(request.getPeriodOfExecution());
 
         return view;
     }

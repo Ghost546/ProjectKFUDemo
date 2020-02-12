@@ -9,13 +9,13 @@
         android:id="@+id/navigation_current_task"
         android:name="com.example.projectkfudemo.ui.currenttask.CurrentTaskFragment"
         android:label="@string/title_current_task"
-        tools:layout="@layout/fragment_current_task" />
+        tools:layout="@layout/fragment_current_task_list" />
 
     <fragment
         android:id="@+id/navigation_my_task"
         android:name="com.example.projectkfudemo.ui.mytask.MyTaskFragment"
         android:label="@string/title_my_task"
-        tools:layout="@layout/fragment_my_task" />
+        tools:layout="@layout/fragment_my_task_list" />
 
     <fragment
         android:id="@+id/navigation_search"
