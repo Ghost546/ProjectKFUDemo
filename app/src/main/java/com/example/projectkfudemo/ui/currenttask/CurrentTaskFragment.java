@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.example.projectkfudemo.CurrentRequestStateAdapter;
+import com.example.projectkfudemo.MainActivity;
 import com.example.projectkfudemo.R;
 import com.example.projectkfudemo.Request;
 
@@ -40,7 +41,7 @@ public class CurrentTaskFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_current_task_list, container, false);
 
         Request request1 = new Request();
-        request1.setId(12345);
+        request1.setRequestId(12345);
         request1.setTextOfRequest("It is text. Nut");
         request1.setStatusOfRequest("I'm ready");
         request1.setPeriodOfExecution("12.12.2012");
@@ -61,8 +62,14 @@ public class CurrentTaskFragment extends Fragment {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
                 // получаем выбранный пункт
                 Request selectedRequest = (Request) parent.getItemAtPosition(position);
-                Toast.makeText(getApplicationContext(), "Был выбран пункт " + selectedRequest.getId(),
-                        Toast.LENGTH_SHORT).show();
+                //настраиваем будущий фрагмент
+                MainActivity mainActivity = (MainActivity)getActivity();
+                        mainActivity.startFragmentGeneralView(CurrentTaskFragment.newInstance(selectedRequest));
+                        //((MainActivity)getActivity())
+
+
+                //запускаем фрагмент
+
             }
         };
         requestList.setOnItemClickListener(itemListener);

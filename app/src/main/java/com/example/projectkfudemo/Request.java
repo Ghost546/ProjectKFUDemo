@@ -8,9 +8,9 @@ import java.util.Collection;
 import java.util.Collections;
 
 public class Request {
-    private int id; //номер заявки
+    private int requestId; //номер заявки
 
-    private String dateOfRegistration; //дата регистрации (предварительно)
+    private String requestRegistrationDate; //дата регистрации (предварительно)
 
     private String periodOfExecution; //срок выполнения(предварительно)
 
@@ -26,28 +26,28 @@ public class Request {
 
     private String textOfRequest;
 
-    //ответственные по исполнению заявки
+    private String responsibleForTheExecutionOfTheApplication;
 
     private String actionsOverRequest; //действия по заявке
 
-    public int getId() {
-        return id;
+    public int getRequestId() {
+        return requestId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setRequestId(int requestId) {
+        this.requestId = requestId;
     }
 
-    public String getDateOfRegistration() {
-        return dateOfRegistration;
+    public String getRequestRegistrationDate() {
+        return requestRegistrationDate;
     }
 
-    public void setDateOfRegistration(String dateOfRegistration) {
-        this.dateOfRegistration = dateOfRegistration;
+    public void setRequestRegistrationDate(String requestRegistrationDate) {
+        this.requestRegistrationDate = requestRegistrationDate;
     }
 
     public LocalDate getDateOfRegistrationInDateFormat() {                                          //used joda-time
-        LocalDate thisDate = new LocalDate(dateOfRegistration);
+        LocalDate thisDate = new LocalDate(requestRegistrationDate);
         return thisDate;
     }
 

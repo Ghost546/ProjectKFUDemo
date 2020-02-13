@@ -22,10 +22,12 @@
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
 
-    <string name="request_number">Номер заявки</string>
+    <string name="request_id">Номер заявки</string>
     <string name="request_registration_date">Дата регистрации заявки</string>
     <string name="request_finish_date">Дата окончания заявки</string>
-
+    <string name="period_of_execution">Срок выполнения заявки</string>
+    <string name="data_about_declarer">Данные о заявителе</string>
+    <string name="responsible_for_the_execution_of_the_application">Ответственные по исполнению заявки</string>
     <string name="declarer">Заявитель</string>
     <string name="address">Местонахождение(адрес)</string>
     <string name="subdivision">Подразделение</string>
@@ -33,7 +35,9 @@
     <string name="application_executors_department">Отдел(исполнителей заявки)</string>
     <string name="name_of_executor">ФИО исполнителя</string>
     <string name="request_status">Статус заявки</string>
-    <string name="request_registration">Заявку зарегестрировал</string>
+    <string name="accepted_the_request">Заявку принял</string>
+    <string name="request_registration">Заявку зарегистрировал</string>
     <string name="type_of_request">Тип заявки</string>
     <string name="text_of_request">Текст заявки</string>
+
 </resources>

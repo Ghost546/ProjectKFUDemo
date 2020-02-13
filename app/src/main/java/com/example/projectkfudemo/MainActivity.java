@@ -11,6 +11,7 @@ import android.widget.Toast;
 import com.example.projectkfudemo.ui.currenttask.CurrentTaskFragment;
 import com.example.projectkfudemo.ui.menu.MenuFragment;
 import com.example.projectkfudemo.ui.mytask.MyTaskFragment;
+import com.example.projectkfudemo.ui.requestgeneralview.RequestGeneralViewFragment;
 import com.example.projectkfudemo.ui.search.SearchFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -31,7 +32,6 @@ public class MainActivity extends AppCompatActivity {
 
     public static final String EXTRA_AССESS = "com.example.";
     Fragment selectedFragment;
-    Fragment lastFragment;
 //    private FirebaseAuth mFirebaseAuth;
 //    private FirebaseUser mFirebaseUser;
 //    FirebaseUser user;
@@ -85,7 +85,6 @@ public class MainActivity extends AppCompatActivity {
         if (savedInstanceState == null) {
             // при первом запуске программы
             selectedFragment = CurrentTaskFragment.newInstance();
-            lastFragment = CurrentTaskFragment.newInstance();
             FragmentTransaction fragmentTransaction = getSupportFragmentManager()
                     .beginTransaction();
            // добавляем в контейнер при помощи метода add()
@@ -94,6 +93,13 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    public void startFragmentGeneralView(Fragment fragment) {
+        FragmentTransaction fragmentTransaction;
+        Fragment selectedFragment = RequestGeneralViewFragment.newInstance();
+        fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.fragment_container, selectedFragment);
+        fragmentTransaction.commit();
+    }
 
 //            mFirebaseAuth = FirebaseAuth.getInstance();
 //            mFirebaseUser = mFirebaseAuth.getCurrentUser();

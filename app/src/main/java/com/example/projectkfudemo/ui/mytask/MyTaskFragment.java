@@ -53,7 +53,7 @@ public class MyTaskFragment extends Fragment {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
                 // получаем выбранный пункт
                 Request selectedRequest = (Request) parent.getItemAtPosition(position);
-                Toast.makeText(getApplicationContext(), "Был выбран пункт " + selectedRequest.getId(),
+                Toast.makeText(getApplicationContext(), "Был выбран пункт " + selectedRequest.getRequestId(),
                         Toast.LENGTH_SHORT).show();
             }
         };
