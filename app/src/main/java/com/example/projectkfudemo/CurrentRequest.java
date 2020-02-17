@@ -9,7 +9,11 @@ import com.example.projectkfudemo.ui.requestgeneralview.RequestGeneralViewFragme
 import org.joda.time.LocalDate;
 
 public class CurrentRequest {
-    Request request = new Request();
+    Request request;
+    public CurrentRequest(Request request) {
+        this.request = request;
+    }
+
 
     public int getRequestId() {
         return request.getRequestId();
@@ -31,12 +35,12 @@ public class CurrentRequest {
         return request.getPeriodOfExecutionInDateFormat();
     }
 
-    public String getAcceptedTheApplication() {
-        return request.getAcceptedTheApplication();
+    public String getAcceptedTheRequest() {
+        return request.getAcceptedTheRequest();
     }
 
-    public void setAcceptedTheApplication(String acceptedTheApplication) {
-        request.setAcceptedTheApplication(acceptedTheApplication);
+    public void setAcceptedTheRequest(String acceptedTheRequest) {
+        request.setAcceptedTheRequest(acceptedTheRequest);
     }
 
     public String getDeclarer() {
@@ -55,12 +59,12 @@ public class CurrentRequest {
         request.setSubdivision(subdivision);
     }
 
-    public String getDataOfDeclarer() {
-        return request.getDataOfDeclarer();
+    public String getDataAboutDeclarer() {
+        return request.getDataAboutDeclarer();
     }
 
-    public void setDataOfDeclarer(String dataOfDeclarer) {
-        request.setDataOfDeclarer(dataOfDeclarer);
+    public void setDataAboutDeclarer(String dataAboutDeclarer) {
+        request.setDataAboutDeclarer(dataAboutDeclarer);
     }
 
     public String getTextOfRequest() {
@@ -86,13 +90,5 @@ public class CurrentRequest {
     public void setStatusOfRequest(String statusOfRequest) {
         request.setStatusOfRequest(statusOfRequest);
     }
-
-    //запуск фрагмента общего вида
-
-
-    //дальше написать настройку фрагмента общего вида
-
-
-
 
 }

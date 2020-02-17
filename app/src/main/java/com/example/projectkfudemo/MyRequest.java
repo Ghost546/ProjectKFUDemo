@@ -3,7 +3,10 @@ package com.example.projectkfudemo;
 import org.joda.time.LocalDate;
 
 public class MyRequest {
-    Request request = new Request();
+    Request request;
+    public MyRequest(Request request) {
+        this.request = request;
+    }
 
     public int getRequestId() {
         return request.getRequestId();
@@ -25,12 +28,12 @@ public class MyRequest {
         return request.getPeriodOfExecutionInDateFormat();
     }
 
-    public String getAcceptedTheApplication() {
-        return request.getAcceptedTheApplication();
+    public String getAcceptedTheRequest() {
+        return request.getAcceptedTheRequest();
     }
 
-    public void setAcceptedTheApplication(String acceptedTheApplication) {
-        request.setAcceptedTheApplication(acceptedTheApplication);
+    public void setAcceptedTheRequest(String acceptedTheRequest) {
+        request.setAcceptedTheRequest(acceptedTheRequest);
     }
 
     public String getDeclarer() {
@@ -49,12 +52,12 @@ public class MyRequest {
         request.setSubdivision(subdivision);
     }
 
-    public String getDataOfDeclarer() {
-        return request.getDataOfDeclarer();
+    public String getDataAboutDeclarer() {
+        return request.getDataAboutDeclarer();
     }
 
-    public void setDataOfDeclarer(String dataOfDeclarer) {
-        request.setDataOfDeclarer(dataOfDeclarer);
+    public void setDataAboutDeclarer(String dataAboutDeclarer) {
+        request.setDataAboutDeclarer(dataAboutDeclarer);
     }
 
     public String getTextOfRequest() {
@@ -81,6 +84,5 @@ public class MyRequest {
         request.setStatusOfRequest(statusOfRequest);
     }
 
-    //дальше написать настройку фрагмента общего вида
 
 }

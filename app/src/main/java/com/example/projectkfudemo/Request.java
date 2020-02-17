@@ -8,7 +8,11 @@ import java.util.Collection;
 import java.util.Collections;
 
 public class Request {
-    private int requestId; //номер заявки
+    private boolean MyRequest = false;
+
+    private boolean CurrentRequest = false;
+
+    private int requestId = 0; //номер заявки
 
     private String requestRegistrationDate; //дата регистрации (предварительно)
 
@@ -16,17 +20,17 @@ public class Request {
 
     private String statusOfRequest;
 
-    private String acceptedTheApplication;
+    private String acceptedTheRequest; //принял заявку
 
     private String declarer;
 
     private String subdivision; //подразделение
 
-    private String dataOfDeclarer; //данные о заявителе
+    private String dataAboutDeclarer; //данные о заявителе
 
     private String textOfRequest;
 
-    private String responsibleForTheExecutionOfTheApplication;
+    private String responsibleForTheExecutionOfTheRequest;
 
     private String actionsOverRequest; //действия по заявке
 
@@ -65,12 +69,12 @@ public class Request {
         return thisDate;
     }
 
-    public String getAcceptedTheApplication() {
-        return acceptedTheApplication;
+    public String getAcceptedTheRequest() {
+        return acceptedTheRequest;
     }
 
-    public void setAcceptedTheApplication(String acceptedTheApplication) {
-        this.acceptedTheApplication = acceptedTheApplication;
+    public void setAcceptedTheRequest(String acceptedTheRequest) {
+        this.acceptedTheRequest = acceptedTheRequest;
     }
 
     public String getDeclarer() {
@@ -89,12 +93,12 @@ public class Request {
         this.subdivision = subdivision;
     }
 
-    public String getDataOfDeclarer() {
-        return dataOfDeclarer;
+    public String getDataAboutDeclarer() {
+        return dataAboutDeclarer;
     }
 
-    public void setDataOfDeclarer(String dataOfDeclarer) {
-        this.dataOfDeclarer = dataOfDeclarer;
+    public void setDataAboutDeclarer(String dataAboutDeclarer) {
+        this.dataAboutDeclarer = dataAboutDeclarer;
     }
 
     public String getTextOfRequest() {
@@ -121,5 +125,19 @@ public class Request {
         this.statusOfRequest = statusOfRequest;
     }
 
+    public void setThatIsCurrentRequest() {
+        this.MyRequest = true;
+    }
 
+    public void setThatIsMyRequest() {
+        this.CurrentRequest = true;
+    }
+
+    public boolean getThatIsMyRequest() {
+        return MyRequest;
+    }
+
+    public boolean getThatIsCurrentRequest() {
+        return CurrentRequest;
+    }
 }

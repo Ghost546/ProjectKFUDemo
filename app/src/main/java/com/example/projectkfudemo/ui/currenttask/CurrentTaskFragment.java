@@ -15,6 +15,7 @@ import com.example.projectkfudemo.CurrentRequestStateAdapter;
 import com.example.projectkfudemo.MainActivity;
 import com.example.projectkfudemo.R;
 import com.example.projectkfudemo.Request;
+import com.example.projectkfudemo.ui.requestgeneralview.RequestGeneralViewFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -62,14 +63,12 @@ public class CurrentTaskFragment extends Fragment {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
                 // получаем выбранный пункт
                 Request selectedRequest = (Request) parent.getItemAtPosition(position);
-                //настраиваем будущий фрагмент
+                //
+                selectedRequest.setThatIsCurrentRequest();
+                //настраиваем и отправляем будущий фрагмент
                 MainActivity mainActivity = (MainActivity)getActivity();
-                        mainActivity.startFragmentGeneralView(CurrentTaskFragment.newInstance(selectedRequest));
-                        //((MainActivity)getActivity())
-
-
                 //запускаем фрагмент
-
+                mainActivity.startFragmentGeneralView(selectedRequest); //((MainActivity)getActivity())
             }
         };
         requestList.setOnItemClickListener(itemListener);
@@ -77,6 +76,5 @@ public class CurrentTaskFragment extends Fragment {
         return root;
 
     }
-
 
 }

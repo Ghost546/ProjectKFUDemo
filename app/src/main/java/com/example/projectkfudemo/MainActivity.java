@@ -93,9 +93,9 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void startFragmentGeneralView(Fragment fragment) {
+    public void startFragmentGeneralView(Request request) {
         FragmentTransaction fragmentTransaction;
-        Fragment selectedFragment = RequestGeneralViewFragment.newInstance();
+        Fragment selectedFragment = RequestGeneralViewFragment.newInstance(request);
         fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.fragment_container, selectedFragment);
         fragmentTransaction.commit();
