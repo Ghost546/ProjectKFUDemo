@@ -59,7 +59,7 @@ public class RequestGeneralViewFragment extends Fragment {
 
     private void VisibleSetting(CurrentRequest request) {                                           //настраивает фрагмент для отображения в виде текущей заявки
         if(request.getRequestId()!=0) {
-
+            //check
         }
     }
 
