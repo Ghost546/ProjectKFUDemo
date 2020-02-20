@@ -59,7 +59,7 @@ public class RequestGeneralViewFragment extends Fragment {
 
     private void VisibleSetting(CurrentRequest request) {                                           //настраивает фрагмент для отображения в виде текущей заявки
         if(request.getRequestId()!=0) {
-            //check
+
         }
     }
 
@@ -80,6 +80,22 @@ public class RequestGeneralViewFragment extends Fragment {
         requestRegistrationDate=root.findViewById(R.id.request_registration_date);
         periodOfExecutionBlock=root.findViewById(R.id.period_of_execution_block);
         periodOfExecution=root.findViewById(R.id.period_of_execution);
+        statusOfRequestBlock=root.findViewById(R.id.status_of_request_block);
+        statusOfRequest=root.findViewById(R.id.status_of_request);
+        acceptedTheRequestBlock=root.findViewById(R.id.accepted_the_request_block);
+        acceptedTheRequest=root.findViewById(R.id.accepted_the_request);
+        declarerBlock=root.findViewById(R.id.declarer_block);
+        declarer=root.findViewById(R.id.declarer);
+        subdivisionBlock=root.findViewById(R.id.subdivision_block);
+        subdivision=root.findViewById(R.id.subdivision);
+        dataAboutDeclarerBlock=root.findViewById(R.id.data_about_declarer_block);
+        dataAboutDeclarer=root.findViewById(R.id.data_about_declarer);
+        textOfRequestBlock=root.findViewById(R.id.text_of_request_block);
+        textOfRequest=root.findViewById(R.id.text_of_request);
+        responsibleForTheExecutionOfTheRequestBlock=root.findViewById(R.id.responsible_for_the_execution_of_the_request_block);
+        responsibleForTheExecutionOfTheRequest=root.findViewById(R.id.responsible_for_the_execution_of_the_request);
+        actionsOverRequestBlock=root.findViewById(R.id.actions_over_request_block);
+        actionsOverRequest=root.findViewById(R.id.actions_over_request);
     }
 
     @Override
