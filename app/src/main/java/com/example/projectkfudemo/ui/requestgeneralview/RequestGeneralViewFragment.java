@@ -17,32 +17,35 @@ import com.example.projectkfudemo.Request;
 
 public class RequestGeneralViewFragment extends Fragment {
 
-    TextView requestIdBlock;
-    TextView requestId;
-    TextView requestRegistrationDateBlock;
-    TextView requestRegistrationDate;
-    TextView periodOfExecutionBlock;
-    TextView periodOfExecution;
-    TextView statusOfRequestBlock;
-    TextView statusOfRequest;
-    TextView acceptedTheRequestBlock;
-    TextView acceptedTheRequest;
-    TextView declarerBlock;
-    TextView declarer;
-    TextView subdivisionBlock;
-    TextView subdivision;
-    TextView dataAboutDeclarerBlock;
-    TextView dataAboutDeclarer;
-    TextView textOfRequestBlock;
-    TextView textOfRequest;
-    TextView responsibleForTheExecutionOfTheRequestBlock;
-    TextView responsibleForTheExecutionOfTheRequest;
-    TextView actionsOverRequestBlock;
-    TextView actionsOverRequest;
+    private TextView requestIdBlock;
+    private TextView requestId;
+    private TextView requestRegistrationDateBlock;
+    private TextView requestRegistrationDate;
+    private TextView periodOfExecutionBlock;
+    private TextView periodOfExecution;
+    private TextView statusOfRequestBlock;
+    private TextView statusOfRequest;
+    private TextView acceptedTheRequestBlock;
+    private TextView acceptedTheRequest;
+    private TextView declarerBlock;
+    private TextView declarer;
+    private TextView subdivisionBlock;
+    private TextView subdivision;
+    private TextView dataAboutDeclarerBlock;
+    private TextView dataAboutDeclarer;
+    private TextView textOfRequestBlock;
+    private TextView textOfRequest;
+    private TextView responsibleForTheExecutionOfTheRequestBlock;
+    private TextView responsibleForTheExecutionOfTheRequest;
+    private TextView actionsOverRequestBlock;
+    private TextView actionsOverRequest;
+
 
     public static RequestGeneralViewFragment newInstance(Request request) {
         RequestGeneralViewFragment fragment = new RequestGeneralViewFragment();
-
+        request.setThatIsCurrentRequest();
+        RequestGeneralViewFragment requestGeneralViewFragment = new RequestGeneralViewFragment();
+        requestGeneralViewFragment.SendRequestSetting(request);
         return fragment;
     }
 
@@ -59,18 +62,67 @@ public class RequestGeneralViewFragment extends Fragment {
 
     private void VisibleSetting(CurrentRequest request) {                                           //настраивает фрагмент для отображения в виде текущей заявки
         if(request.getRequestId()!=0) {
-
+            requestIdBlock.setVisibility(View.VISIBLE);
+        }
+        if(!request.getAcceptedTheRequest().equals("")) {
+            requestRegistrationDateBlock.setVisibility(View.VISIBLE);
+        }
+        if(!request.getRequestRegistrationDate().equals("")) {
+            requestRegistrationDateBlock.setVisibility(View.VISIBLE);
+        }
+        if(request.getPeriodOfExecutionInDateFormat()!=null) {
+            periodOfExecutionBlock.setVisibility(View.VISIBLE);
+        }
+        if(!request.getDeclarer().equals("")) {
+            declarerBlock.setVisibility(View.VISIBLE);
+        }
+        if(!request.getSubdivision().equals("")) {
+            subdivisionBlock.setVisibility(View.VISIBLE);
+        }
+        if(!request.getDataAboutDeclarer().equals("")) {
+            dataAboutDeclarerBlock.setVisibility(View.VISIBLE);
+        }
+        if(!request.getTextOfRequest().equals("")) {
+            textOfRequestBlock.setVisibility(View.VISIBLE);
+        }
+        if(!request.getResponsibleForTheExecutionOfTheRequest().equals("")) {
+            responsibleForTheExecutionOfTheRequestBlock.setVisibility(View.VISIBLE);
         }
     }
 
     private void VisibleSetting(MyRequest request) {                                                //настраивает фрагмент для отображения в виде текущей заявки
-
+        if(request.getRequestId()!=0) {
+            requestIdBlock.setVisibility(View.VISIBLE);
+        }
+        if(!request.getRequestRegistrationDate().equals("")) {
+            requestRegistrationDateBlock.setVisibility(View.VISIBLE);
+        }
+        if(request.getPeriodOfExecutionInDateFormat()!=null) {
+            periodOfExecutionBlock.setVisibility(View.VISIBLE);
+        }
+        if(!request.getDeclarer().equals("")) {
+            declarerBlock.setVisibility(View.VISIBLE);
+        }
+        if(!request.getSubdivision().equals("")) {
+            subdivisionBlock.setVisibility(View.VISIBLE);
+        }
+        if(!request.getDataAboutDeclarer().equals("")) {
+            dataAboutDeclarerBlock.setVisibility(View.VISIBLE);
+        }
+        if(!request.getTextOfRequest().equals("")) {
+            textOfRequestBlock.setVisibility(View.VISIBLE);
+        }
+        if(!request.getResponsibleForTheExecutionOfTheRequest().equals("")) {
+            responsibleForTheExecutionOfTheRequestBlock.setVisibility(View.VISIBLE);
+        }
+        if(!request.getActionsOverRequest().equals("")) {
+            actionsOverRequestBlock.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
     public void onStart() {
         super.onStart();
-
     }
 
     private void setIds(View root) {
@@ -101,7 +153,7 @@ public class RequestGeneralViewFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_general_view_request, container, false);
-
+        setIds(root);
 
         return root;
     }

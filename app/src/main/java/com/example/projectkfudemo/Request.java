@@ -12,27 +12,17 @@ public class Request {
 
     private boolean CurrentRequest = false;
 
-    private int requestId = 0; //номер заявки
-
-    private String requestRegistrationDate; //дата регистрации (предварительно)
-
-    private String periodOfExecution; //срок выполнения(предварительно)
-
-    private String statusOfRequest;
-
-    private String acceptedTheRequest; //принял заявку
-
-    private String declarer;
-
-    private String subdivision; //подразделение
-
-    private String dataAboutDeclarer; //данные о заявителе
-
-    private String textOfRequest;
-
-    private String responsibleForTheExecutionOfTheRequest;
-
-    private String actionsOverRequest; //действия по заявке
+    private int requestId = 0;//номер заявки
+    private String requestRegistrationDate ="";//дата регистрации (предварительно)
+    private String periodOfExecution ="";//срок выполнения(предварительно)
+    private String statusOfRequest ="";
+    private String acceptedTheRequest =""; //принял заявку
+    private String declarer ="";
+    private String subdivision ="";//подразделение
+    private String dataAboutDeclarer ="";//данные о заявителе
+    private String textOfRequest ="";
+    private String responsibleForTheExecutionOfTheRequest ="";
+    private String actionsOverRequest ="";//действия по заявке
 
     public int getRequestId() {
         return requestId;
@@ -139,5 +129,13 @@ public class Request {
 
     public boolean getThatIsCurrentRequest() {
         return CurrentRequest;
+    }
+
+    public String getResponsibleForTheExecutionOfTheRequest() {
+        return responsibleForTheExecutionOfTheRequest;
+    }
+
+    public void setResponsibleForTheExecutionOfTheRequest(String responsibleForTheExecutionOfTheRequest) {
+        this.responsibleForTheExecutionOfTheRequest = responsibleForTheExecutionOfTheRequest;
     }
 }

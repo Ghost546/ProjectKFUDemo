@@ -84,5 +84,14 @@ public class MyRequest {
         request.setStatusOfRequest(statusOfRequest);
     }
 
+    public String getResponsibleForTheExecutionOfTheRequest() {
+        return getResponsibleForTheExecutionOfTheRequest();
+    }
+
+    public void setResponsibleForTheExecutionOfTheRequest(String responsibleForTheExecutionOfTheRequest) {
+        request.setResponsibleForTheExecutionOfTheRequest(responsibleForTheExecutionOfTheRequest);
+    }
+
+
 
 }
