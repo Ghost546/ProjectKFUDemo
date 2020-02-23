@@ -43,7 +43,6 @@ public class RequestGeneralViewFragment extends Fragment {
 
     public static RequestGeneralViewFragment newInstance(Request request) {
         RequestGeneralViewFragment fragment = new RequestGeneralViewFragment();
-        request.setThatIsCurrentRequest();
         RequestGeneralViewFragment requestGeneralViewFragment = new RequestGeneralViewFragment();
         requestGeneralViewFragment.SendRequestSetting(request);
         return fragment;

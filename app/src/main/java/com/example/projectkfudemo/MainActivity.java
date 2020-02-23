@@ -16,6 +16,7 @@ import com.example.projectkfudemo.ui.search.SearchFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.annotations.NotNull;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -92,8 +93,8 @@ public class MainActivity extends AppCompatActivity {
             fragmentTransaction.commit();
         }
     }
-
-    public void startFragmentGeneralView(Request request) {
+    @NotNull
+    public void startFragmentGeneralView(@NotNull Request request) {
         FragmentTransaction fragmentTransaction;
         Fragment selectedFragment = RequestGeneralViewFragment.newInstance(request);
         fragmentTransaction = getSupportFragmentManager().beginTransaction();
