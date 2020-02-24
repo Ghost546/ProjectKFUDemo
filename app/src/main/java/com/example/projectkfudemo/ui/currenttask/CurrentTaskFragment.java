@@ -52,24 +52,28 @@ public class CurrentTaskFragment extends Fragment {
 
         // начальная инициализация списка
         // создаем адаптер
-        CurrentRequestStateAdapter stateAdapter = new CurrentRequestStateAdapter(inflater.getContext(), R.layout.task, states); // getActivity?
+        CurrentRequestStateAdapter requestAdapter = new CurrentRequestStateAdapter(inflater.getContext(), R.layout.task, states); // getActivity?
 
         // получаем элемент ListView
         requestList = root.findViewById(R.id.currentTasksList);
         // устанавливаем адаптер
-        requestList.setAdapter(stateAdapter);
+        requestList.setAdapter(requestAdapter);
         // слушатель выбора в списке
         AdapterView.OnItemClickListener itemListener = new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
                 // получаем выбранный пункт
                 Request selectedRequest = (Request) parent.getItemAtPosition(position);
+                Request request = new Request();
+                request.setRequestId(124);
+
                 //
                 selectedRequest.setThatIsCurrentRequest();
                 //настраиваем и отправляем будущий фрагмент
                 MainActivity mainActivity = (MainActivity)getActivity();
                 //запускаем фрагмент
-                mainActivity.startFragmentGeneralView(selectedRequest); //((MainActivity)getActivity())
+                mainActivity.startFragmentGeneralView(request);
+                //((MainActivity)getActivity())
             }
         };
         requestList.setOnItemClickListener(itemListener);
@@ -77,5 +81,4 @@ public class CurrentTaskFragment extends Fragment {
         return root;
 
     }
-
 }

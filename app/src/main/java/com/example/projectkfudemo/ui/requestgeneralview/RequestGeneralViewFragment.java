@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -17,34 +18,34 @@ import com.example.projectkfudemo.Request;
 
 public class RequestGeneralViewFragment extends Fragment {
 
-    private TextView requestIdBlock;
+    private LinearLayout requestIdBlock;
     private TextView requestId;
-    private TextView requestRegistrationDateBlock;
+    private LinearLayout requestRegistrationDateBlock;
     private TextView requestRegistrationDate;
-    private TextView periodOfExecutionBlock;
+    private LinearLayout periodOfExecutionBlock;
     private TextView periodOfExecution;
-    private TextView statusOfRequestBlock;
+    private LinearLayout statusOfRequestBlock;
     private TextView statusOfRequest;
-    private TextView acceptedTheRequestBlock;
+    private LinearLayout acceptedTheRequestBlock;
     private TextView acceptedTheRequest;
-    private TextView declarerBlock;
+    private LinearLayout declarerBlock;
     private TextView declarer;
-    private TextView subdivisionBlock;
+    private LinearLayout subdivisionBlock;
     private TextView subdivision;
-    private TextView dataAboutDeclarerBlock;
+    private LinearLayout dataAboutDeclarerBlock;
     private TextView dataAboutDeclarer;
-    private TextView textOfRequestBlock;
+    private LinearLayout textOfRequestBlock;
     private TextView textOfRequest;
-    private TextView responsibleForTheExecutionOfTheRequestBlock;
+    private LinearLayout responsibleForTheExecutionOfTheRequestBlock;
     private TextView responsibleForTheExecutionOfTheRequest;
-    private TextView actionsOverRequestBlock;
+    private LinearLayout actionsOverRequestBlock;
     private TextView actionsOverRequest;
 
 
     public static RequestGeneralViewFragment newInstance(Request request) {
         RequestGeneralViewFragment fragment = new RequestGeneralViewFragment();
-        RequestGeneralViewFragment requestGeneralViewFragment = new RequestGeneralViewFragment();
-        requestGeneralViewFragment.SendRequestSetting(request);
+        RequestGeneralViewFragment requestGeneralViewStaticFragment = new RequestGeneralViewFragment();
+        requestGeneralViewStaticFragment.SendRequestSetting(request);
         return fragment;
     }
 
@@ -122,6 +123,7 @@ public class RequestGeneralViewFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
+
     }
 
     private void setIds(View root) {
