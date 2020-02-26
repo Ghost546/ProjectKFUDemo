@@ -16,7 +16,7 @@ public class MyRequest {
         request.setRequestId(requestId);
     }
 
-    public String getRequestRegistrationDate() {
+    public LocalDate getRequestRegistrationDate() {
         return request.getRequestRegistrationDate();
     }
 

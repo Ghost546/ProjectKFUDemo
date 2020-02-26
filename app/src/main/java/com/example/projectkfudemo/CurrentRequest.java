@@ -23,7 +23,7 @@ public class CurrentRequest {
         request.setRequestId(requestId);
     }
 
-    public String getRequestRegistrationDate() {
+    public LocalDate getRequestRegistrationDate() {
         return request.getRequestRegistrationDate();
     }
 

@@ -41,7 +41,7 @@ public class CurrentRequestStateAdapter extends ArrayAdapter<Request> {
         idView.setText(Integer.toString(request.getRequestId()));
         textView.setText(request.getTextOfRequest());
         statusView.setText(request.getStatusOfRequest());
-        dateView.setText(request.getPeriodOfExecution());
+        dateView.setText(String.valueOf(request.getPeriodOfExecution()));
 
         return view;
     }

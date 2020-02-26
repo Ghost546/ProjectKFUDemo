@@ -46,7 +46,7 @@ public class CurrentTaskFragment extends Fragment {
         request1.setRequestId(12345);
         request1.setTextOfRequest("It is text. Nut");
         request1.setStatusOfRequest("I'm ready");
-        request1.setPeriodOfExecution("12.12.2012");
+        request1.setPeriodOfExecution("2012-12-12");
 
         states.add(request1); //добавляем элемент в массив
 
@@ -64,15 +64,17 @@ public class CurrentTaskFragment extends Fragment {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
                 // получаем выбранный пункт
                 Request selectedRequest = (Request) parent.getItemAtPosition(position);
-                Request request = new Request();
-                request.setRequestId(124);
 
                 //
                 selectedRequest.setThatIsCurrentRequest();
                 //настраиваем и отправляем будущий фрагмент
                 MainActivity mainActivity = (MainActivity)getActivity();
                 //запускаем фрагмент
-                mainActivity.startFragmentGeneralView(request);
+                if (selectedRequest != null) {
+                    mainActivity.startFragmentGeneralView(selectedRequest);
+                } else {
+                    System.out.println("selectedRequest is null");
+                }
                 //((MainActivity)getActivity())
             }
         };

@@ -41,11 +41,11 @@ public class RequestGeneralViewFragment extends Fragment {
     private LinearLayout actionsOverRequestBlock;
     private TextView actionsOverRequest;
 
+    private Request request;
 
     public static RequestGeneralViewFragment newInstance(Request request) {
         RequestGeneralViewFragment fragment = new RequestGeneralViewFragment();
-        RequestGeneralViewFragment requestGeneralViewStaticFragment = new RequestGeneralViewFragment();
-        requestGeneralViewStaticFragment.SendRequestSetting(request);
+        fragment.request = request;
         return fragment;
     }
 
@@ -67,7 +67,7 @@ public class RequestGeneralViewFragment extends Fragment {
         if(!request.getAcceptedTheRequest().equals("")) {
             requestRegistrationDateBlock.setVisibility(View.VISIBLE);
         }
-        if(!request.getRequestRegistrationDate().equals("")) {
+        if(request.getRequestRegistrationDate()!=null) {
             requestRegistrationDateBlock.setVisibility(View.VISIBLE);
         }
         if(request.getPeriodOfExecutionInDateFormat()!=null) {
@@ -155,7 +155,7 @@ public class RequestGeneralViewFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_general_view_request, container, false);
         setIds(root);
-
+        SendRequestSetting(request);
         return root;
     }
 }

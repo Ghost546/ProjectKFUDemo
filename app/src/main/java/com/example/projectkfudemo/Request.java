@@ -13,8 +13,8 @@ public class Request {
     private boolean CurrentRequest = false;
 
     private int requestId = 0;//номер заявки
-    private String requestRegistrationDate ="";//дата регистрации (предварительно)
-    private String periodOfExecution ="";//срок выполнения(предварительно)
+    private LocalDate requestRegistrationDate = new LocalDate();//дата регистрации (предварительно)
+    private LocalDate periodOfExecution = new LocalDate();//срок выполнения(предварительно)
     private String statusOfRequest ="";
     private String acceptedTheRequest =""; //принял заявку
     private String declarer ="";
@@ -32,12 +32,12 @@ public class Request {
         this.requestId = requestId;
     }
 
-    public String getRequestRegistrationDate() {
+    public LocalDate getRequestRegistrationDate() {
         return requestRegistrationDate;
     }
 
     public void setRequestRegistrationDate(String requestRegistrationDate) {
-        this.requestRegistrationDate = requestRegistrationDate;
+        this.requestRegistrationDate = LocalDate.parse(requestRegistrationDate);
     }
 
     public LocalDate getDateOfRegistrationInDateFormat() {                                          //used joda-time
@@ -45,13 +45,13 @@ public class Request {
         return thisDate;
     }
 
-    public String getPeriodOfExecution() {
+    public LocalDate getPeriodOfExecution() {
         return periodOfExecution;
     }
 
 
     public void setPeriodOfExecution(String periodOfExecution) {
-        this.periodOfExecution = periodOfExecution;
+        this.periodOfExecution = LocalDate.parse(periodOfExecution);
     }
 
     public LocalDate getPeriodOfExecutionInDateFormat() {                                           //used joda-time
@@ -116,11 +116,11 @@ public class Request {
     }
 
     public void setThatIsCurrentRequest() {
-        this.MyRequest = true;
+        this.CurrentRequest = true;
     }
 
     public void setThatIsMyRequest() {
-        this.CurrentRequest = true;
+        this.MyRequest = true;
     }
 
     public boolean getThatIsMyRequest() {
