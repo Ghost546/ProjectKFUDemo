@@ -63,60 +63,78 @@ public class RequestGeneralViewFragment extends Fragment {
     private void VisibleSetting(CurrentRequest request) {                                           //настраивает фрагмент для отображения в виде текущей заявки
         if(request.getRequestId()!=0) {
             requestIdBlock.setVisibility(View.VISIBLE);
+            requestId.setText(Integer.toString(request.getRequestId()));
         }
         if(!request.getAcceptedTheRequest().equals("")) {
-            requestRegistrationDateBlock.setVisibility(View.VISIBLE);
+            acceptedTheRequestBlock.setVisibility(View.VISIBLE);
+            acceptedTheRequest.setText(request.getAcceptedTheRequest());
         }
         if(request.getRequestRegistrationDate()!=null) {
             requestRegistrationDateBlock.setVisibility(View.VISIBLE);
+            requestRegistrationDate.setText(String.valueOf(request.getRequestRegistrationDate()));
         }
         if(request.getPeriodOfExecutionInDateFormat()!=null) {
             periodOfExecutionBlock.setVisibility(View.VISIBLE);
+            periodOfExecution.setText(String.valueOf(request.getPeriodOfExecutionInDateFormat()));
         }
         if(!request.getDeclarer().equals("")) {
             declarerBlock.setVisibility(View.VISIBLE);
+            declarer.setText(request.getDeclarer());
         }
         if(!request.getSubdivision().equals("")) {
             subdivisionBlock.setVisibility(View.VISIBLE);
+            subdivision.setText(request.getSubdivision());
         }
         if(!request.getDataAboutDeclarer().equals("")) {
             dataAboutDeclarerBlock.setVisibility(View.VISIBLE);
+            dataAboutDeclarer.setText(request.getDataAboutDeclarer());
         }
         if(!request.getTextOfRequest().equals("")) {
             textOfRequestBlock.setVisibility(View.VISIBLE);
+            textOfRequest.setText(request.getTextOfRequest());
         }
         if(!request.getResponsibleForTheExecutionOfTheRequest().equals("")) {
             responsibleForTheExecutionOfTheRequestBlock.setVisibility(View.VISIBLE);
+            responsibleForTheExecutionOfTheRequest.setText(request.getResponsibleForTheExecutionOfTheRequest());
         }
     }
 
     private void VisibleSetting(MyRequest request) {                                                //настраивает фрагмент для отображения в виде текущей заявки
         if(request.getRequestId()!=0) {
             requestIdBlock.setVisibility(View.VISIBLE);
+            requestId.setText(Integer.toString(request.getRequestId()));
         }
         if(!request.getRequestRegistrationDate().equals("")) {
             requestRegistrationDateBlock.setVisibility(View.VISIBLE);
+            requestRegistrationDate.setText(String.valueOf(request.getRequestRegistrationDate()));
         }
         if(request.getPeriodOfExecutionInDateFormat()!=null) {
             periodOfExecutionBlock.setVisibility(View.VISIBLE);
+            periodOfExecution.setText(String.valueOf(request.getPeriodOfExecutionInDateFormat()));
         }
         if(!request.getDeclarer().equals("")) {
             declarerBlock.setVisibility(View.VISIBLE);
+            declarer.setText(request.getDeclarer());
         }
         if(!request.getSubdivision().equals("")) {
             subdivisionBlock.setVisibility(View.VISIBLE);
+            subdivision.setText(request.getSubdivision());
         }
         if(!request.getDataAboutDeclarer().equals("")) {
             dataAboutDeclarerBlock.setVisibility(View.VISIBLE);
+            dataAboutDeclarer.setText(request.getDataAboutDeclarer());
         }
         if(!request.getTextOfRequest().equals("")) {
             textOfRequestBlock.setVisibility(View.VISIBLE);
+            textOfRequest.setText(request.getTextOfRequest());
         }
         if(!request.getResponsibleForTheExecutionOfTheRequest().equals("")) {
             responsibleForTheExecutionOfTheRequestBlock.setVisibility(View.VISIBLE);
+            responsibleForTheExecutionOfTheRequest.setText(request.getResponsibleForTheExecutionOfTheRequest());
         }
         if(!request.getActionsOverRequest().equals("")) {
             actionsOverRequestBlock.setVisibility(View.VISIBLE);
+            actionsOverRequest.setText(request.getActionsOverRequest());
         }
     }
 

@@ -92,7 +92,7 @@ public class CurrentRequest {
     }
 
     public String getResponsibleForTheExecutionOfTheRequest() {
-        return getResponsibleForTheExecutionOfTheRequest();
+        return request.getResponsibleForTheExecutionOfTheRequest();
     }
 
     public void setResponsibleForTheExecutionOfTheRequest(String responsibleForTheExecutionOfTheRequest) {
