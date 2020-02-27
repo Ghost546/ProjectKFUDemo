@@ -46,26 +46,26 @@ public class MainActivity extends AppCompatActivity {
 
             switch (item.getItemId()) {
                 case R.id.navigation_current_task:
-                    selectedFragment = CurrentTaskFragment.newInstance();
                     fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                    selectedFragment = CurrentTaskFragment.newInstance();
                     fragmentTransaction.replace(R.id.fragment_container, selectedFragment);
                     fragmentTransaction.commit();
                     return true;
                 case R.id.navigation_my_task:
-                    selectedFragment = MyTaskFragment.newInstance();
                     fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                    selectedFragment = MyTaskFragment.newInstance();
                     fragmentTransaction.replace(R.id.fragment_container, selectedFragment);
                     fragmentTransaction.commit();
                     return true;
                 case R.id.navigation_search:
-                    selectedFragment = SearchFragment.newInstance();
                     fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                    selectedFragment = SearchFragment.newInstance();
                     fragmentTransaction.replace(R.id.fragment_container, selectedFragment);
                     fragmentTransaction.commit();
                     return true;
                 case R.id.navigation_menu:
-                    selectedFragment = MenuFragment.newInstance();
                     fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                    selectedFragment = MenuFragment.newInstance();
                     fragmentTransaction.replace(R.id.fragment_container, selectedFragment);
                     fragmentTransaction.commit();
                     return true;
@@ -96,8 +96,9 @@ public class MainActivity extends AppCompatActivity {
     @NotNull
     public void startFragmentGeneralView(@NotNull Request request) {
         FragmentTransaction fragmentTransaction;
-        Fragment selectedFragment = RequestGeneralViewFragment.newInstance(request);
         fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.addToBackStack(null);
+        Fragment selectedFragment = RequestGeneralViewFragment.newInstance(request);
         fragmentTransaction.replace(R.id.fragment_container, selectedFragment);
         fragmentTransaction.commit();
     }

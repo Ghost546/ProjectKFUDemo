@@ -1,5 +1,9 @@
 package com.example.projectkfudemo;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import org.joda.time.LocalDate;
@@ -12,6 +16,8 @@ public class Request {
 
     private boolean CurrentRequest = false;
 
+    @SerializedName("request")
+    @Expose
     private int requestId = 0;//номер заявки
     private LocalDate requestRegistrationDate = new LocalDate();//дата регистрации (предварительно)
     private LocalDate periodOfExecution = new LocalDate();//срок выполнения(предварительно)
@@ -138,4 +144,5 @@ public class Request {
     public void setResponsibleForTheExecutionOfTheRequest(String responsibleForTheExecutionOfTheRequest) {
         this.responsibleForTheExecutionOfTheRequest = responsibleForTheExecutionOfTheRequest;
     }
+
 }

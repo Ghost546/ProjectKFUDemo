@@ -36,7 +36,7 @@
     <string name="address">Местонахождение(адрес)</string>
     <string name="number_of_cabinet">Номер комнаты (кабинета)</string>
     <string name="application_executors_department">Отдел(исполнителей заявки)</string>
-    <string name="name_of_executor">ФИО исполнителя</string>
+    <string name="full_name_of_executor">ФИО исполнителя</string>
     <string name="request_registration">Заявку зарегистрировал</string>
     <string name="type_of_request">Тип заявки</string>
     <string name="actions_over_request">Действия по заявке</string>

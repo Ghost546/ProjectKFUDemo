@@ -15,6 +15,7 @@ import com.example.projectkfudemo.CurrentRequest;
 import com.example.projectkfudemo.MyRequest;
 import com.example.projectkfudemo.R;
 import com.example.projectkfudemo.Request;
+import com.google.gson.Gson;
 
 public class RequestGeneralViewFragment extends Fragment {
 
@@ -45,6 +46,10 @@ public class RequestGeneralViewFragment extends Fragment {
 
     public static RequestGeneralViewFragment newInstance(Request request) {
         RequestGeneralViewFragment fragment = new RequestGeneralViewFragment();
+//        Bundle args = new Bundle();
+//        Gson gson = new Gson();
+//        args.putString("req",gson.toJson(request));
+//        getArguments().putString("list",gson.toJson(states));
         fragment.request = request;
         return fragment;
     }

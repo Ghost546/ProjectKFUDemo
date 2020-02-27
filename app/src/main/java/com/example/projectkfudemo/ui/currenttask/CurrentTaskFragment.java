@@ -17,6 +17,7 @@ import com.example.projectkfudemo.R;
 import com.example.projectkfudemo.Request;
 import com.example.projectkfudemo.ui.requestgeneralview.RequestGeneralViewFragment;
 import com.google.firebase.database.annotations.NotNull;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,6 +42,15 @@ public class CurrentTaskFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 //        currentTaskViewModel = ViewModelProviders.of(this).get(CurrentTaskViewModel.class);
         View root = inflater.inflate(R.layout.fragment_current_task_list, container, false);
+
+//        if(getArguments() != null) {
+//            if(getArguments().containsKey("list")){
+//                getArguments().getString("list");
+//            }else{
+//                //server
+//            }
+//        }
+
 
         Request request1 = new Request();
         request1.setRequestId(12345);
@@ -69,6 +79,8 @@ public class CurrentTaskFragment extends Fragment {
                 MainActivity mainActivity = (MainActivity)getActivity();
                 //запускаем фрагмент
                 if (selectedRequest != null) {
+//                    Gson gson = new Gson();
+//                    getArguments().putString("list",gson.toJson(states));
                     mainActivity.startFragmentGeneralView(selectedRequest);
                 } else {
                     System.out.println("selectedRequest is null");
@@ -77,6 +89,8 @@ public class CurrentTaskFragment extends Fragment {
             }
         };
         requestList.setOnItemClickListener(itemListener);
+
+
 
         return root;
 
