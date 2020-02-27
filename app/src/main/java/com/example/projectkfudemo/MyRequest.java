@@ -85,7 +85,7 @@ public class MyRequest {
     }
 
     public String getResponsibleForTheExecutionOfTheRequest() {
-        return getResponsibleForTheExecutionOfTheRequest();
+        return request.getResponsibleForTheExecutionOfTheRequest();
     }
 
     public void setResponsibleForTheExecutionOfTheRequest(String responsibleForTheExecutionOfTheRequest) {

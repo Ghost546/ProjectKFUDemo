@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.example.projectkfudemo.CurrentRequestStateAdapter;
+import com.example.projectkfudemo.MainActivity;
 import com.example.projectkfudemo.R;
 import com.example.projectkfudemo.Request;
 
@@ -35,9 +36,16 @@ public class MyTaskFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        myTaskViewModel = ViewModelProviders.of(this).get(MyTaskViewModel.class);
+//        myTaskViewModel = ViewModelProviders.of(this).get(MyTaskViewModel.class);
         View rootView = inflater.inflate(R.layout.fragment_my_task_list, container, false);
 
+        Request request1 = new Request();
+        request1.setRequestId(54321);
+        request1.setTextOfRequest("It is text. Nut");
+        request1.setStatusOfRequest("I'm your request");
+        request1.setPeriodOfExecution("2001-01-01");
+
+        states.add(request1); //добавляем элемент в массив
 
         // начальная инициализация списка
         // создаем адаптер
@@ -53,8 +61,15 @@ public class MyTaskFragment extends Fragment {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
                 // получаем выбранный пункт
                 Request selectedRequest = (Request) parent.getItemAtPosition(position);
-                Toast.makeText(getApplicationContext(), "Был выбран пункт " + selectedRequest.getRequestId(),
-                        Toast.LENGTH_SHORT).show();
+                selectedRequest.setThatIsMyRequest();
+                //настраиваем и отправляем будущий фрагмент
+                MainActivity mainActivity = (MainActivity)getActivity();
+                //запускаем фрагмент
+                if (selectedRequest != null) {
+                    mainActivity.startFragmentGeneralView(selectedRequest);
+                } else {
+                    System.out.println("selectedRequest is null");
+                }
             }
         };
         requestList.setOnItemClickListener(itemListener);

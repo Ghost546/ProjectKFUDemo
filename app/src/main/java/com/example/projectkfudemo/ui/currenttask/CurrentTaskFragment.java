@@ -39,13 +39,13 @@ public class CurrentTaskFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        currentTaskViewModel = ViewModelProviders.of(this).get(CurrentTaskViewModel.class);
+//        currentTaskViewModel = ViewModelProviders.of(this).get(CurrentTaskViewModel.class);
         View root = inflater.inflate(R.layout.fragment_current_task_list, container, false);
 
         Request request1 = new Request();
         request1.setRequestId(12345);
         request1.setTextOfRequest("It is text. Nut");
-        request1.setStatusOfRequest("I'm ready");
+        request1.setStatusOfRequest("I'm current request");
         request1.setPeriodOfExecution("2012-12-12");
 
         states.add(request1); //добавляем элемент в массив
@@ -64,8 +64,6 @@ public class CurrentTaskFragment extends Fragment {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
                 // получаем выбранный пункт
                 Request selectedRequest = (Request) parent.getItemAtPosition(position);
-
-                //
                 selectedRequest.setThatIsCurrentRequest();
                 //настраиваем и отправляем будущий фрагмент
                 MainActivity mainActivity = (MainActivity)getActivity();
