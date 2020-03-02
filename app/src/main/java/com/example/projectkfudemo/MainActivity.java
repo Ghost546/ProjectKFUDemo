@@ -93,6 +93,8 @@ public class MainActivity extends AppCompatActivity {
             fragmentTransaction.commit();
         }
     }
+
+
     @NotNull
     public void startFragmentGeneralView(@NotNull Request request) {
         FragmentTransaction fragmentTransaction;

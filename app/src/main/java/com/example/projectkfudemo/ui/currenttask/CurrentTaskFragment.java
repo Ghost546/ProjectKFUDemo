@@ -11,10 +11,14 @@ import android.widget.Toast;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.example.projectkfudemo.CurrentRequest;
 import com.example.projectkfudemo.CurrentRequestStateAdapter;
 import com.example.projectkfudemo.MainActivity;
+import com.example.projectkfudemo.NetworkService;
 import com.example.projectkfudemo.R;
 import com.example.projectkfudemo.Request;
+import com.example.projectkfudemo.ResponseRequest;
+import com.example.projectkfudemo.getCurrentRequests;
 import com.example.projectkfudemo.ui.requestgeneralview.RequestGeneralViewFragment;
 import com.google.firebase.database.annotations.NotNull;
 import com.google.gson.Gson;
@@ -22,14 +26,28 @@ import com.google.gson.Gson;
 import java.util.ArrayList;
 import java.util.List;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
 
+class Test {
+    int i = 0;
+
+    int getI() {
+        return this.i;
+    }
+
+    void setI(int i) {
+        this.i = i;
+    }
+}
 public class CurrentTaskFragment extends Fragment {
 
 
     private List<Request> states = new ArrayList<>();
 
-    CurrentTaskViewModel currentTaskViewModel;
 
     ListView requestList;
 
@@ -51,6 +69,38 @@ public class CurrentTaskFragment extends Fragment {
 //            }
 //        }
 
+        int n = 1; //временно
+
+
+
+        NetworkService.getInstance().getJSONApi().equals(new Callback<ArrayList<Request>>() {
+            @Override
+            public void onResponse(Call<ArrayList<Request>> call, Response<ArrayList<Request>> response) {
+                if(response.isSuccessful()) {
+                    states = response.body().getRequests;
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ArrayList<Request>> call, Throwable t) {
+                System.out.print("Error occurred while getting request!");
+                t.printStackTrace();
+            }
+        });
+
+        NetworkService.getInstance().getJSONApi().getRequests().enqueue(new Callback<ResponseRequest>() {
+            @Override
+            public void onResponse(Call<ResponseRequest> call, Response<ResponseRequest> response) {
+
+                var requests = call.ResponseRequest.requests
+            }
+
+            @Override
+            public void onFailure(Call<ResponseRequest> call, Throwable t) {
+                System.out.print("Error occurred while getting request!");
+                t.printStackTrace();
+            }
+        });
 
         Request request1 = new Request();
         request1.setRequestId(12345);

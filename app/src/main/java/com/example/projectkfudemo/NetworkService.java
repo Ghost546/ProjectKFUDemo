@@ -1,5 +1,7 @@
 package com.example.projectkfudemo;
 
+import com.example.projectkfudemo.ui.JSONPlaceHolderApiRequest;
+
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -9,7 +11,11 @@ public class NetworkService {
     private Retrofit mRetrofit;
 
     private NetworkService() {
-        mRetrofit = new Retrofit.Builder().baseUrl(BASE_URL).addConverterFactory(GsonConverterFactory.create()).build();
+        mRetrofit = new Retrofit
+                .Builder()
+                .baseUrl(BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
     }
 
     public static NetworkService getInstance() {
@@ -17,6 +23,10 @@ public class NetworkService {
             mInstance = new NetworkService();
         }
         return mInstance;
+    }
+
+    public JSONPlaceHolderApiRequest getJSONApi() {
+        return mRetrofit.create(JSONPlaceHolderApiRequest.class);
     }
 
 }

@@ -8,10 +8,16 @@ import com.google.gson.annotations.SerializedName;
 
 import org.joda.time.LocalDate;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 
 public class Request {
+
+
+    private List<Request> requests;
+
     private boolean MyRequest = false;
 
     private boolean CurrentRequest = false;
@@ -143,6 +149,14 @@ public class Request {
 
     public void setResponsibleForTheExecutionOfTheRequest(String responsibleForTheExecutionOfTheRequest) {
         this.responsibleForTheExecutionOfTheRequest = responsibleForTheExecutionOfTheRequest;
+    }
+
+    public List<Request> getRequests() {
+        return requests;
+    }
+
+    public void setRequests(List<Request> requests) {
+        this.requests = requests;
     }
 
 }

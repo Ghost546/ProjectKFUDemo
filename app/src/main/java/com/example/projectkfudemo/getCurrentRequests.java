@@ -8,12 +8,21 @@ import com.example.projectkfudemo.ui.requestgeneralview.RequestGeneralViewFragme
 
 import org.joda.time.LocalDate;
 
-public class CurrentRequest {
+import java.util.ArrayList;
+import java.util.List;
+
+
+class CurrentRequest {
+    List<Request> requests = new ArrayList<>();;
     Request request;
+
+    public List<Request> getArray() {
+        return requests;
+    }
+
     public CurrentRequest(Request request) {
         this.request = request;
     }
-
 
     public int getRequestId() {
         return request.getRequestId();
