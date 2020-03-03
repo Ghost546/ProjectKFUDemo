@@ -7,7 +7,6 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
-
 import com.example.projectkfudemo.ui.currenttask.CurrentTaskFragment;
 import com.example.projectkfudemo.ui.menu.MenuFragment;
 import com.example.projectkfudemo.ui.mytask.MyTaskFragment;

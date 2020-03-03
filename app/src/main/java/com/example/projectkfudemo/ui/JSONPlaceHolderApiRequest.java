@@ -1,8 +1,6 @@
 package com.example.projectkfudemo.ui;
 
-import com.example.projectkfudemo.CurrentRequest;
 import com.example.projectkfudemo.Request;
-import com.example.projectkfudemo.getCurrentRequests;
 
 import java.util.ArrayList;
 
@@ -11,7 +9,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Path;
 
 public interface JSONPlaceHolderApiRequest {
-    @GET("/posts/{id}")
+    @GET("/service_desk_mobile.get_request_list?p_user_id=230229&p2=1")
     public Call<ArrayList<Request>> getRequestWithId(@Path("id") int id);
 
 

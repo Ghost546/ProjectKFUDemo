@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-class CurrentRequest {
+public class CurrentRequest {
     List<Request> requests = new ArrayList<>();;
     Request request;
 

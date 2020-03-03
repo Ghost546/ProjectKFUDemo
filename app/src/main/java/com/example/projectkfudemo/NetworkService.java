@@ -7,7 +7,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class NetworkService {
     private static NetworkService mInstance;
-    private static final String BASE_URL = ""; //основной адрес
+    private static final String BASE_URL = "https://portal-dis.kpfu.ru/e-ksu"; //основной адрес
     private Retrofit mRetrofit;
 
     private NetworkService() {
