@@ -2,8 +2,13 @@ package com.example.projectkfudemo;
 
 import org.joda.time.LocalDate;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MyRequest {
+    List<Request> requests = new ArrayList<>();;
     Request request;
+
     public MyRequest(Request request) {
         this.request = request;
     }

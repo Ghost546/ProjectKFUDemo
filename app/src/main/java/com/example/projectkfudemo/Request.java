@@ -1,60 +1,47 @@
 package com.example.projectkfudemo;
 
-import android.os.Parcel;
-import android.os.Parcelable;
-
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import org.joda.time.LocalDate;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
-
 public class Request {
-
-    @SerializedName("request")
-    @Expose
-    private List<Request> requests;
-
     private boolean MyRequest = false;
 
     private boolean CurrentRequest = false;
 
-    @SerializedName("_id")
+    @SerializedName("id")
     @Expose
     private int requestId = 0;//номер заявки
-    @SerializedName("_id")
+    @SerializedName("request_date")
     @Expose
     private LocalDate requestRegistrationDate = new LocalDate();//дата регистрации (предварительно)
-    @SerializedName("_id")
-    @Expose
+    //        @SerializedName("_id")
+    //        @Expose
     private LocalDate periodOfExecution = new LocalDate();//срок выполнения(предварительно)
-    @SerializedName("_id")
-    @Expose
+    //        @SerializedName("_id")
+    //        @Expose
     private String statusOfRequest ="";
-    @SerializedName("_id")
-    @Expose
+    //        @SerializedName("_id")
+    //        @Expose
     private String acceptedTheRequest =""; //принял заявку
-    @SerializedName("_id")
+    @SerializedName("declarant_fullname")
     @Expose
     private String declarer ="";
-    @SerializedName("_id")
-    @Expose
+    //        @SerializedName("_id")
+    //        @Expose
     private String subdivision ="";//подразделение
-    @SerializedName("_id")
-    @Expose
+    //        @SerializedName("_id")
+    //        @Expose
     private String dataAboutDeclarer ="";//данные о заявителе
-    @SerializedName("_id")
-    @Expose
+    //        @SerializedName("_id")
+    //        @Expose
     private String textOfRequest ="";
-    @SerializedName("_id")
-    @Expose
+    //        @SerializedName("_id")
+    //        @Expose
     private String responsibleForTheExecutionOfTheRequest ="";
-    @SerializedName("_id")
-    @Expose
+    //        @SerializedName("_id")
+    //        @Expose
     private String actionsOverRequest ="";//действия по заявке
 
     public int getRequestId() {
@@ -171,13 +158,9 @@ public class Request {
     public void setResponsibleForTheExecutionOfTheRequest(String responsibleForTheExecutionOfTheRequest) {
         this.responsibleForTheExecutionOfTheRequest = responsibleForTheExecutionOfTheRequest;
     }
-
-    public List<Request> getRequests() {
-        return requests;
+    public Request getRequest() {
+        Request request = new Request();
+        return request;
     }
-
-    public void setRequests(List<Request> requests) {
-        this.requests = requests;
-    }
-
 }
+

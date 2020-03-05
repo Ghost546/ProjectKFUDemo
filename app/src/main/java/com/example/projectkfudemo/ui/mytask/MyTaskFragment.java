@@ -43,28 +43,28 @@ public class MyTaskFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 //        myTaskViewModel = ViewModelProviders.of(this).get(MyTaskViewModel.class);
         View rootView = inflater.inflate(R.layout.fragment_my_task_list, container, false);
-        NetworkService.getInstance().getJSONApi().equals(new Callback<ArrayList<Request>>() {
-            @Override
-            public void onResponse(Call<ArrayList<Request>> call, Response<ArrayList<Request>> response) {
-                if(response.isSuccessful()) {
-                    states = response.body();
-                }
-            }
+//        NetworkService.getInstance().getJSONApi().equals(new Callback<ArrayList<Request>>() {
+//            @Override
+//            public void onResponse(Call<ArrayList<Request>> call, Response<ArrayList<Request>> response) {
+//                if(response.isSuccessful()) {
+//                    states = response.body();
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<ArrayList<Request>> call, Throwable t) {
+//                System.out.print("Error occurred while getting request!");
+//                t.printStackTrace();
+//            }
+//        });
 
-            @Override
-            public void onFailure(Call<ArrayList<Request>> call, Throwable t) {
-                System.out.print("Error occurred while getting request!");
-                t.printStackTrace();
-            }
-        });
+        Request request1 = new Request();
+        request1.setRequestId(54321);
+        request1.setTextOfRequest("It is text. Nut");
+        request1.setStatusOfRequest("I'm your request");
+        request1.setPeriodOfExecution("2001-01-01");
 
-//        Request request1 = new Request();
-//        request1.setRequestId(54321);
-//        request1.setTextOfRequest("It is text. Nut");
-//        request1.setStatusOfRequest("I'm your request");
-//        request1.setPeriodOfExecution("2001-01-01");
-
-//        states.add(request1); //добавляем элемент в массив
+        states.add(request1); //добавляем элемент в массив
 
         // начальная инициализация списка
         // создаем адаптер
