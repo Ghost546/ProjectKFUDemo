@@ -45,6 +45,8 @@ public class CurrentTaskFragment extends Fragment {
 
     private List<Request> states = new ArrayList<>();
 
+    CurrentRequestStateAdapter  requestAdapter;
+
     ListView requestList;
 
     public static CurrentTaskFragment newInstance() {
@@ -101,6 +103,8 @@ public class CurrentTaskFragment extends Fragment {
 
 //        Disposable getRequests;
 
+
+
         int user_id = 230229;
         int p2= 1;
         NetworkService.getInstance().getJSONRequestApi().getRequestWithLoginPassword(/*user_id, p2*/)
@@ -115,17 +119,18 @@ public class CurrentTaskFragment extends Fragment {
                         @Override
                         public void onNext(RequestList requestList) {
                             states = requestList.getRequests();
+                            requestAdapter = new CurrentRequestStateAdapter(inflater.getContext(), R.layout.task, states);
                         }
 
-                                    @Override
-                                    public void onError(Throwable e) {
+                        @Override
+                        public void onError(Throwable e) {
 
-                                    }
+                        }
 
-                                    @Override
-                                    public void onComplete() {
+                        @Override
+                        public void onComplete() {
 
-                    }
+                        }
                 });
 
 //        if (getRequests!=null)
@@ -145,17 +150,41 @@ public class CurrentTaskFragment extends Fragment {
 //                t.printStackTrace();
 //            }
 //        });
-
-
-        // начальная инициализация списка
-        // создаем адаптер
-        CurrentRequestStateAdapter requestAdapter = new CurrentRequestStateAdapter(inflater.getContext(), R.layout.task, states); // getActivity?
-
-        // получаем элемент ListView
+//
+//
+//         начальная инициализация списка
+//         создаем адаптер
+//          getActivity?
+//
+//         получаем элемент ListView
         requestList = root.findViewById(R.id.currentTasksList);
         // устанавливаем адаптер
         requestList.setAdapter(requestAdapter);
         // слушатель выбора в списке
+//        AdapterView.OnItemClickListener itemListener = new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
+//                // получаем выбранный пункт
+//                Request selectedRequest = (Request) parent.getItemAtPosition(position);
+//                selectedRequest.setThatIsCurrentRequest();
+//                //настраиваем и отправляем будущий фрагмент
+//                MainActivity mainActivity = (MainActivity) getActivity();
+//                //запускаем фрагмент
+//                if (selectedRequest != null) {
+////                    Gson gson = new Gson();
+////                    getArguments().putString("list",gson.toJson(states));
+//                    mainActivity.startFragmentGeneralView(selectedRequest);
+//                } else {
+//                    System.out.println("selectedRequest is null");
+//                }
+//                //((MainActivity)getActivity())
+//            }
+//        };
+
+        requestList.setOnItemClickListener(itemListener);
+        return root;
+    }
+    private AdapterView.OnItemClickListener setAdapter(ListView requestList) {
         AdapterView.OnItemClickListener itemListener = new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
@@ -175,10 +204,8 @@ public class CurrentTaskFragment extends Fragment {
                 //((MainActivity)getActivity())
             }
         };
-        requestList.setOnItemClickListener(itemListener);
-
-
-        return root;
-
+        return itemListener;
     }
+
+
 }
