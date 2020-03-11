@@ -15,9 +15,11 @@ public class Request {
     private int requestId = 0;//номер заявки
     @SerializedName("request_date")
     @Expose
+    private String requestRegistrationDateString = new String();//дата регистрации (предварительно)
     private LocalDate requestRegistrationDate = new LocalDate();//дата регистрации (предварительно)
     //        @SerializedName("_id")
     //        @Expose
+    private String periodOfExecutionString = new String();//срок выполнения(предварительно)
     private LocalDate periodOfExecution = new LocalDate();//срок выполнения(предварительно)
     //        @SerializedName("_id")
     //        @Expose
@@ -53,20 +55,21 @@ public class Request {
     }
 
     public LocalDate getRequestRegistrationDate() {
-        return requestRegistrationDate;
+        requestRegistrationDate=LocalDate.parse(requestRegistrationDateString);
+        return requestRegistrationDate;//requestRegistrationDate;
     }
 
-    public void setRequestRegistrationDate(String requestRegistrationDate) {
-        this.requestRegistrationDate = LocalDate.parse(requestRegistrationDate);
+    public void setRequestRegistrationDate(String requestRegistrationDateString) {
+        this.requestRegistrationDate = LocalDate.parse(requestRegistrationDateString);
     }
 
     public LocalDate getDateOfRegistrationInDateFormat() {                                          //used joda-time
-        LocalDate thisDate = new LocalDate(requestRegistrationDate);
+        LocalDate thisDate = new LocalDate(requestRegistrationDateString);
         return thisDate;
     }
 
     public LocalDate getPeriodOfExecution() {
-        return periodOfExecution;
+        return new LocalDate();//periodOfExecution;
     }
 
 

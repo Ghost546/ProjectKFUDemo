@@ -115,20 +115,20 @@ public class LoginActivity extends AppCompatActivity {
         }
         //нужно отправить запрос на сервер
         //получить idшник и работать с ним
-        NetworkService.getInstance().getJSONUserApi().getUser().equals(new Callback<ArrayList<User>>() {
-            @Override
-            public void onResponse(Call<ArrayList<User>> call, Response<ArrayList<User>> response) {
-                if (response.isSuccessful()) {
-
-                }
-            }
-
-            @Override
-            public void onFailure(Call<ArrayList<User>> call, Throwable t) {
-                System.out.print("Error occurred while getting request!");
-                t.printStackTrace();
-            }
-        });
+//        NetworkService.getInstance().getJSONUserApi().getUser().equals(new Callback<ArrayList<User>>() {
+//            @Override
+//            public void onResponse(Call<ArrayList<User>> call, Response<ArrayList<User>> response) {
+//                if (response.isSuccessful()) {
+//
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<ArrayList<User>> call, Throwable t) {
+//                System.out.print("Error occurred while getting request!");
+//                t.printStackTrace();
+//            }
+//        });
 
     }
 

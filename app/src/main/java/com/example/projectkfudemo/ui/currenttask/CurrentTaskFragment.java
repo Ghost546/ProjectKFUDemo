@@ -107,23 +107,23 @@ public class CurrentTaskFragment extends Fragment {
                 .subscribeOn(Schedulers.io()) //Schedulers.io()
                 .observeOn(AndroidSchedulers.mainThread()) //AndroidSchedulers.mainThread()
                 .subscribe(new Observer<RequestList>() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
+                        @Override
+                        public void onSubscribe(Disposable d) {
 
-                    }
+                        }
 
-                    @Override
-                    public void onNext(RequestList requestList) {
-                        states = requestList.getRequests();
-                    }
+                        @Override
+                        public void onNext(RequestList requestList) {
+                            states = requestList.getRequests();
+                        }
 
-                    @Override
-                    public void onError(Throwable e) {
+                                    @Override
+                                    public void onError(Throwable e) {
 
-                    }
+                                    }
 
-                    @Override
-                    public void onComplete() {
+                                    @Override
+                                    public void onComplete() {
 
                     }
                 });

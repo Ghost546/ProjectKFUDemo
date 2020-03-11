@@ -14,9 +14,9 @@ import retrofit2.http.GET;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
-public interface JSONPlaceHolderApiRequest {
+public interface JSONApiRequest {
 //    @GET("/service_desk_mobile.get_request_list?p_user_id=230229&p2=1")
-    @GET(".kpfu.ru/e-ksu/service_desk_mobile.get_request_list?p_user_id=230229&p2=1")
+    @GET("e-ksu/service_desk_mobile.get_request_list?p_user_id=230229&p2=1")
     public Observable<RequestList> getRequestWithLoginPassword(/*@Query("p_user_id") int user_id, @Query("p2") int p2*/);
 
 
