@@ -43,7 +43,8 @@ import static com.example.projectkfudemo.MainActivity.EXTRA_AССESS;
 
 public class LoginActivity extends AppCompatActivity {
 
-
+    private EditText login;
+    private EditText password;
     private BaseActivity baseActivity = new BaseActivity();
 
     public void showProgressDialog() {
@@ -71,7 +72,9 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        signInButton = findViewById(id.email_sign_in_button);
+        signInButton = findViewById(R.id.email_sign_in_button);
+        login = findViewById(id.field_login);
+        password = findViewById(id.field_password);
     }
 
     private void updateUI(FirebaseUser user) {
@@ -95,6 +98,19 @@ public class LoginActivity extends AppCompatActivity {
 
 
     private void mSignOnClick() {
+        int varLogin;
+        String varPassword;
+
+        if (login.getText().toString().equals("")) {
+            //код если поле пусто
+        } else {
+            // если есть текст, то здесь другой код
+        }
+        if (password.getText().toString().equals("")) {
+            //код если поле пусто
+        } else {
+            //код если текст есть
+        }
         NetworkService.getInstance().getJSONUserApi().getUser().equals(new Callback<ArrayList<User>>() {
             @Override
             public void onResponse(Call<ArrayList<User>> call, Response<ArrayList<User>> response) {

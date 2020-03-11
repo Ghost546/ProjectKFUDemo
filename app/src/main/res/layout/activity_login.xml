@@ -44,11 +44,11 @@
             android:paddingRight="16dp">
 
             <EditText
-                android:id="@+id/field_email"
+                android:id="@+id/field_login"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:hint="hint_email"
+                android:hint="hint_login"
                 android:inputType="textEmailAddress" />
 
             <EditText
