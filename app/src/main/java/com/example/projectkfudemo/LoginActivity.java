@@ -98,19 +98,23 @@ public class LoginActivity extends AppCompatActivity {
 
 
     private void mSignOnClick() {
-        int varLogin;
+        String varLogin;
         String varPassword;
 
         if (login.getText().toString().equals("")) {
             //код если поле пусто
         } else {
-            // если есть текст, то здесь другой код
+            //код если текст есть
+            varLogin = login.getText().toString();
         }
         if (password.getText().toString().equals("")) {
             //код если поле пусто
         } else {
             //код если текст есть
+            varPassword = password.getText().toString();
         }
+        //нужно отправить запрос на сервер
+        //получить idшник и работать с ним
         NetworkService.getInstance().getJSONUserApi().getUser().equals(new Callback<ArrayList<User>>() {
             @Override
             public void onResponse(Call<ArrayList<User>> call, Response<ArrayList<User>> response) {
@@ -125,6 +129,7 @@ public class LoginActivity extends AppCompatActivity {
                 t.printStackTrace();
             }
         });
+
     }
 
 
