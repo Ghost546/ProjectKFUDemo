@@ -1,5 +1,6 @@
 package com.example.projectkfudemo;
 
+import com.example.projectkfudemo.ui.JSONLoginApi;
 import com.example.projectkfudemo.ui.JSONPlaceHolderApiRequest;
 
 import retrofit2.Retrofit;
@@ -7,7 +8,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class NetworkService {
     private static NetworkService mInstance;
-    private static final String BASE_URL = "https://portal-dis.kpfu.ru/e-ksu"; //основной адрес
+    private static final String BASE_URL = "https://portal-dis"; //основной адрес
     private Retrofit mRetrofit;
 
     private NetworkService() {
@@ -25,8 +26,12 @@ public class NetworkService {
         return mInstance;
     }
 
-    public JSONPlaceHolderApiRequest getJSONApi() {
+    public JSONPlaceHolderApiRequest getJSONRequestApi() {
         return mRetrofit.create(JSONPlaceHolderApiRequest.class);
+    }
+
+    public JSONLoginApi getJSONUserApi() {
+        return  mRetrofit.create(JSONLoginApi.class);
     }
 
 }

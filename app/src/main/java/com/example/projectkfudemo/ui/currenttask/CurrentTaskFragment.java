@@ -103,21 +103,18 @@ public class CurrentTaskFragment extends Fragment {
 
         int user_id = 230229;
         int p2= 1;
-        NetworkService.getInstance().getJSONApi().getRequestWithLoginPassword(user_id, p2)
+        NetworkService.getInstance().getJSONRequestApi().getRequestWithLoginPassword(/*user_id, p2*/)
                 .subscribeOn(Schedulers.io()) //Schedulers.io()
                 .observeOn(AndroidSchedulers.mainThread()) //AndroidSchedulers.mainThread()
-                .subscribe(new Observer<Request>() {
+                .subscribe(new Observer<RequestList>() {
                     @Override
                     public void onSubscribe(Disposable d) {
 
                     }
 
                     @Override
-                    public void onNext(Request request) {
-                        for(int i =0; i<2; i++) {
-                            states.add(i, request.getRequest());
-                        }
-
+                    public void onNext(RequestList requestList) {
+                        states = requestList.getRequests();
                     }
 
                     @Override
@@ -134,29 +131,21 @@ public class CurrentTaskFragment extends Fragment {
 //        if (getRequests!=null)
 //            getRequests.dispose();
 //
-//        NetworkService.getInstance().getJSONApi().equals(new Callback<ArrayList<RequestObj>>() {
+//        NetworkService.getInstance().getJSONApi().getRequestWithLoginPassword().equals(new Callback<ArrayList<RequestList>>() {
 //            @Override
-//            public void onResponse(Call<ArrayList<RequestObj>> call, Response<ArrayList<Request.RequestObj>> response) {
+//            public void onResponse(Call<ArrayList<RequestList>> call, Response<ArrayList<RequestList>> response) {
 //                if (response.isSuccessful()) {
-//
+//                    states = (List<Request>) requestList;
 //                }
 //            }
 //
 //            @Override
-//            public void onFailure(Call<ArrayList<Request.RequestObj>> call, Throwable t) {
+//            public void onFailure(Call<ArrayList<RequestList>> call, Throwable t) {
 //                System.out.print("Error occurred while getting request!");
 //                t.printStackTrace();
 //            }
 //        });
 
-
-        Request request1 = new Request();
-        request1.setRequestId(12345);
-        request1.setTextOfRequest("It is text. Nut");
-        request1.setStatusOfRequest("I'm current request");
-        request1.setPeriodOfExecution("2012-12-12");
-
-        states.add(request1); //добавляем элемент в массив
 
         // начальная инициализация списка
         // создаем адаптер

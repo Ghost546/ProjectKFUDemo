@@ -28,6 +28,14 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 import static com.example.projectkfudemo.R.*;
 
 
@@ -46,55 +54,24 @@ public class LoginActivity extends AppCompatActivity {
         baseActivity.hideProgressDialog();
     }
 
-    private FirebaseAuth mAuth;
-    private FirebaseAuth.AuthStateListener mAuthListener;
-    private EditText mEmailSetText;
-    private EditText mPasswordSetText;
-    private Button mSignIn;
-    public FirebaseUser user;
+    public Button signInButton;
 
-    private static final String USER_KEY = "user key";
-    public final String Auth_TAG = "Log by FireBase: ";
-
-//    @Override
-//    public void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_login);
-//
-//        mSignIn = findViewById(id.email_sign_in_button);
-//        mEmailSetText = findViewById(id.field_email);
-//        mPasswordSetText = findViewById(id.field_password);
-//
-//
-//        mAuth = FirebaseAuth.getInstance();
-//
-//        mAuthListener = new FirebaseAuth.AuthStateListener() {
-//            @Override
-//            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-//                user = firebaseAuth.getCurrentUser();
-//                if(user != null) {
-//                    Log.d(Auth_TAG, "onAuthStateChanged:signed_in:" + user.getUid());
-//                }
-//                else {
-//                    Log.d(Auth_TAG, "onAuthStateChanged:signed_out");
-//                }
-//                updateUI(user);
-//            }
-//        };
-//    }
 
     @Override
     public void onStart() {
            super.onStart();
-        mAuth.addAuthStateListener(mAuthListener);
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        if(mAuthListener != null) {
-            mAuth.removeAuthStateListener(mAuthListener);
-        }
+
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        signInButton = findViewById(id.email_sign_in_button);
     }
 
     private void updateUI(FirebaseUser user) {
@@ -117,65 +94,23 @@ public class LoginActivity extends AppCompatActivity {
     }
 
 
-    private boolean valdateForm() {                                                                 //прописано
-        boolean valid = true;
-
-        String email = mEmailSetText.getText().toString();
-        if(TextUtils.isEmpty(email)) {
-            mEmailSetText.setError("Required.");
-            valid = false;
-        }
-        else {
-            mEmailSetText.setError(null);
-        }
-
-        String password = mPasswordSetText.getText().toString();
-        if(TextUtils.isEmpty(password)) {
-            valid = false;
-        }
-        else {
-            mPasswordSetText.setError(null);
-        }
-
-        return valid;
-    }
-
     private void mSignOnClick() {
-        String email = mEmailSetText.getText().toString();
-        String password = mPasswordSetText.getText().toString();
-
-        Log.d(Auth_TAG, "signIn: " + email);
-        if(!valdateForm()) {                                                                        //прописан
-            return;
-        }
-
-        showProgressDialog();                                                                       //прописан
-
-        mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+        NetworkService.getInstance().getJSONUserApi().getUser().equals(new Callback<ArrayList<User>>() {
             @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                Log.d(Auth_TAG, "signInWithEmail:onComplete: " + task.isSuccessful());
+            public void onResponse(Call<ArrayList<User>> call, Response<ArrayList<User>> response) {
+                if (response.isSuccessful()) {
 
-                if (!task.isSuccessful()) {
-                    Log.w(Auth_TAG, "signInWithEmail:failed", task.getException());
-                    Toast.makeText(LoginActivity.this, "Authentication failed", Toast.LENGTH_SHORT).show();
                 }
+            }
 
-                /*if(!task.isSuccessful()) {
-                    mStatusTextView.setText("Authentication failed");
-                }*/
-                hideProgressDialog();
+            @Override
+            public void onFailure(Call<ArrayList<User>> call, Throwable t) {
+                System.out.print("Error occurred while getting request!");
+                t.printStackTrace();
             }
         });
-
-        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-        //intent.putExtra(USER_KEY, );
-
     }
 
-    public void createAcount() {
-
-    }
 
     public void onClick(View v) {
         switch (v.getId()) {
