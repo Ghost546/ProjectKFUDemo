@@ -62,7 +62,7 @@ public class MyTaskFragment extends Fragment {
         request1.setRequestId(54321);
         request1.setTextOfRequest("It is text. Nut");
         request1.setStatusOfRequest("I'm your request");
-        request1.setPeriodOfExecutionFromString("2001-01-01");
+        request1.setPeriodOfExecutionFromString("12.03.20");
 
         states.add(request1); //добавляем элемент в массив
 

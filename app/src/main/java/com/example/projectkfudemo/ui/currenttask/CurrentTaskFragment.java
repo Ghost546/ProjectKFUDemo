@@ -47,7 +47,7 @@ public class CurrentTaskFragment extends Fragment {
 
     volatile CurrentRequestStateAdapter  requestAdapter = null;
 
-    ListView requestList = null;
+    ListView requestListView = null;
 
     public static CurrentTaskFragment newInstance() {
         CurrentTaskFragment fragment = new CurrentTaskFragment();
@@ -67,43 +67,6 @@ public class CurrentTaskFragment extends Fragment {
 //            }
 //        }
 
-        int n = 1; //временно
-
-//        Observable.fromCallable(new Callable<String>() {
-//            @Override
-//            public String call() throws Exception {
-//
-//
-//
-//                return "hello world";
-//            }
-//        }).observeOn()
-//                .subscribeOn().
-//                subscribe(new Observer<String>() {
-//                    @Override
-//                    public void onSubscribe(Disposable d) {
-//
-//                    }
-//
-//                    @Override
-//                    public void onNext(String s) {
-//                        s == "hello world"
-//                    }
-//
-//                    @Override
-//                    public void onError(Throwable e) {
-//
-//                    }
-//
-//                    @Override
-//                    public void onComplete() {
-//
-//                    }
-//                })
-
-//        Disposable getRequests;
-
-
 
         int user_id = 230229;
         int p2= 1;
@@ -120,6 +83,7 @@ public class CurrentTaskFragment extends Fragment {
                         public void onNext(RequestList requestList) {
                             states = requestList.getRequests();
                             requestAdapter = new CurrentRequestStateAdapter(inflater.getContext(), R.layout.task, states);
+                            requestListView.setAdapter(requestAdapter);
                         }
 
                         @Override
@@ -157,12 +121,11 @@ public class CurrentTaskFragment extends Fragment {
 //          getActivity?
 //
 //         получаем элемент ListView
-        requestList = root.findViewById(R.id.currentTasksList);
+        requestListView = root.findViewById(R.id.currentTasksList);
         // устанавливаем адаптер
-        while (requestAdapter == null) {
-            //по идее ожидание дропа данных с другого потока
-        }
-        requestList.setAdapter(requestAdapter);
+//        while (requestAdapter == null) {
+//            //по идее ожидание дропа данных с другого потока
+//        }
 
         // слушатель выбора в списке
         AdapterView.OnItemClickListener itemListener = new AdapterView.OnItemClickListener() {
@@ -185,7 +148,7 @@ public class CurrentTaskFragment extends Fragment {
             }
         };
 
-        requestList.setOnItemClickListener(itemListener);
+        requestListView.setOnItemClickListener(itemListener);
         return root;
     }
 //    private AdapterView.OnItemClickListener setMyAdapter(ListView requestList) {
