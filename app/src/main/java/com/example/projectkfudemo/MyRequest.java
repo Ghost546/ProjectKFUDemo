@@ -25,12 +25,12 @@ public class MyRequest {
         return request.getRequestRegistrationDate();
     }
 
-    public void setRequestRegistrationDate(String requestRegistrationDate) {
-        request.setRequestRegistrationDate(requestRegistrationDate);
+    public void setPeriodOfExecutionFromString(String requestRegistrationDateString) {
+        request.setPeriodOfExecutionFromString(requestRegistrationDateString);
     }
 
-    public LocalDate getPeriodOfExecutionInDateFormat() {                                           //used joda-time
-        return request.getPeriodOfExecutionInDateFormat();
+    public LocalDate getPeriodOfExecution() {//used joda-time
+        return request.getPeriodOfExecution();
     }
 
     public String getAcceptedTheRequest() {

@@ -15,11 +15,11 @@ public class Request {
     private int requestId = 0;//номер заявки
     @SerializedName("request_date")
     @Expose
-    private String requestRegistrationDateString = new String();//дата регистрации (предварительно)
-    private LocalDate requestRegistrationDate = new LocalDate();//дата регистрации (предварительно)
+    private String requestRegistrationDateString = "";//дата регистрации (предварительно)
+    private LocalDate requestRegistrationDate;//дата регистрации (предварительно)
     //        @SerializedName("_id")
     //        @Expose
-    private String periodOfExecutionString = new String();//срок выполнения(предварительно)
+    private String periodOfExecutionString = "";//срок выполнения(предварительно)
     private LocalDate periodOfExecution = new LocalDate();//срок выполнения(предварительно)
     //        @SerializedName("_id")
     //        @Expose
@@ -56,30 +56,31 @@ public class Request {
 
     public LocalDate getRequestRegistrationDate() {
         requestRegistrationDate=LocalDate.parse(requestRegistrationDateString);
-        return requestRegistrationDate;//requestRegistrationDate;
+        return requestRegistrationDate;
     }
 
-    public void setRequestRegistrationDate(String requestRegistrationDateString) {
-        this.requestRegistrationDate = LocalDate.parse(requestRegistrationDateString);
+    //это нужно только для парса при создании объекта Request
+    public void requestRegistrationDateConvertStringToLocaleDate() {
+        requestRegistrationDate = LocalDate.parse(requestRegistrationDateString);
     }
 
-    public LocalDate getDateOfRegistrationInDateFormat() {                                          //used joda-time
-        LocalDate thisDate = new LocalDate(requestRegistrationDateString);
-        return thisDate;
+    //берет полученное значение String и парсит в LocalDate
+    public void setRequestRegistrationDateFromString(String requestRegistrationDateString) {
+        this.requestRegistrationDate=LocalDate.parse(requestRegistrationDateString);
     }
 
     public LocalDate getPeriodOfExecution() {
-        return new LocalDate();//periodOfExecution;
+        return periodOfExecution;
     }
 
-
-    public void setPeriodOfExecution(String periodOfExecution) {
+    //берет полученное значение String и парсит в LocalDate
+    public void setPeriodOfExecutionFromString(String periodOfExecution) {
         this.periodOfExecution = LocalDate.parse(periodOfExecution);
     }
 
-    public LocalDate getPeriodOfExecutionInDateFormat() {                                           //used joda-time
-        LocalDate thisDate = new LocalDate(periodOfExecution);
-        return thisDate;
+    //это нужно только для парса при создании объекта Request
+    public void periodOfExecutionConvertStringToLocaleDate() {
+        this.periodOfExecution = LocalDate.parse(periodOfExecutionString);
     }
 
     public String getAcceptedTheRequest() {
@@ -164,6 +165,10 @@ public class Request {
     public Request getRequest() {
         Request request = new Request();
         return request;
+    }
+    public Request() {
+        requestRegistrationDateConvertStringToLocaleDate();
+        periodOfExecutionConvertStringToLocaleDate();
     }
 }
 

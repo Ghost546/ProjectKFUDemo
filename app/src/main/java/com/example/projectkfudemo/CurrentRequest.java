@@ -36,12 +36,12 @@ public class CurrentRequest {
         return request.getRequestRegistrationDate();
     }
 
-    public void setRequestRegistrationDate(String requestRegistrationDate) {
-        request.setRequestRegistrationDate(requestRegistrationDate);
+    public void setRequestRegistrationDateFromString(String requestRegistrationDate) {
+        request.setRequestRegistrationDateFromString(requestRegistrationDate);
     }
 
-    public LocalDate getPeriodOfExecutionInDateFormat() {                                           //used joda-time
-        return request.getPeriodOfExecutionInDateFormat();
+    public LocalDate getPeriodOfExecution() {                                           //used joda-time
+        return request.getPeriodOfExecution();
     }
 
     public String getAcceptedTheRequest() {

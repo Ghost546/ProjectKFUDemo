@@ -78,9 +78,9 @@ public class RequestGeneralViewFragment extends Fragment {
             requestRegistrationDateBlock.setVisibility(View.VISIBLE);
             requestRegistrationDate.setText(String.valueOf(request.getRequestRegistrationDate()));
         }
-        if(request.getPeriodOfExecutionInDateFormat()!=null) {
+        if(request.getPeriodOfExecution()!=null) {
             periodOfExecutionBlock.setVisibility(View.VISIBLE);
-            periodOfExecution.setText(String.valueOf(request.getPeriodOfExecutionInDateFormat()));
+            periodOfExecution.setText(String.valueOf(request.getPeriodOfExecution()));
         }
         if(!request.getDeclarer().equals("")) {
             declarerBlock.setVisibility(View.VISIBLE);
@@ -113,9 +113,9 @@ public class RequestGeneralViewFragment extends Fragment {
             requestRegistrationDateBlock.setVisibility(View.VISIBLE);
             requestRegistrationDate.setText(String.valueOf(request.getRequestRegistrationDate()));
         }
-        if(request.getPeriodOfExecutionInDateFormat()!=null) {
+        if(request.getPeriodOfExecution()!=null) {
             periodOfExecutionBlock.setVisibility(View.VISIBLE);
-            periodOfExecution.setText(String.valueOf(request.getPeriodOfExecutionInDateFormat()));
+            periodOfExecution.setText(String.valueOf(request.getPeriodOfExecution()));
         }
         if(!request.getDeclarer().equals("")) {
             declarerBlock.setVisibility(View.VISIBLE);
