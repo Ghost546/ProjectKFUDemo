@@ -109,7 +109,7 @@ public class RequestGeneralViewFragment extends Fragment {
             requestIdBlock.setVisibility(View.VISIBLE);
             requestId.setText(Integer.toString(request.getRequestId()));
         }
-        if(!request.getRequestRegistrationDate().equals("")) {
+        if(request.getRequestRegistrationDate()!=null) {
             requestRegistrationDateBlock.setVisibility(View.VISIBLE);
             requestRegistrationDate.setText(String.valueOf(request.getRequestRegistrationDate()));
         }
