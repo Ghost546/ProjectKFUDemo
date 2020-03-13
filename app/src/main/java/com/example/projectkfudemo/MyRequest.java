@@ -1,5 +1,9 @@
 package com.example.projectkfudemo;
 
+import com.example.projectkfudemo.forjson.Log;
+import com.example.projectkfudemo.forjson.LogsList;
+import com.google.android.gms.config.proto.Logs;
+
 import org.joda.time.LocalDate;
 
 import java.util.ArrayList;
@@ -57,12 +61,12 @@ public class MyRequest {
         request.setSubdivision(subdivision);
     }
 
-    public String getDataAboutDeclarer() {
-        return request.getDataAboutDeclarer();
+    public String getContactFullName() {
+        return request.getContactFullName();
     }
 
-    public void setDataAboutDeclarer(String dataAboutDeclarer) {
-        request.setDataAboutDeclarer(dataAboutDeclarer);
+    public void setContactFullName(String contactFullName) {
+        request.setContactFullName(contactFullName);
     }
 
     public String getTextOfRequest() {
@@ -73,11 +77,11 @@ public class MyRequest {
         request.setTextOfRequest(textOfRequest);
     }
 
-    public String getActionsOverRequest() {
+    public List<Log> getActionsOverRequest() {
         return request.getActionsOverRequest();
     }
 
-    public void setActionsOverRequest(String actionsOverRequest) {
+    public void setActionsOverRequest(List<Log> actionsOverRequest) {
         request.setActionsOverRequest(actionsOverRequest);
     }
 

@@ -127,6 +127,7 @@ public class CurrentTaskFragment extends Fragment {
 //            //по идее ожидание дропа данных с другого потока
 //        }
 
+
         // слушатель выбора в списке
         AdapterView.OnItemClickListener itemListener = new AdapterView.OnItemClickListener() {
             @Override

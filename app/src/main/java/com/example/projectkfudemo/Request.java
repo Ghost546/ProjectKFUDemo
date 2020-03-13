@@ -1,10 +1,21 @@
 package com.example.projectkfudemo;
 
+import com.example.projectkfudemo.forjson.Building;
+import com.example.projectkfudemo.forjson.Comments;
+import com.example.projectkfudemo.forjson.Log;
+import com.example.projectkfudemo.forjson.LogsList;
+import com.example.projectkfudemo.forjson.Offices;
+import com.example.projectkfudemo.forjson.Status;
+import com.example.projectkfudemo.forjson.Type;
+import com.example.projectkfudemo.forjson.Works;
+import com.google.android.gms.config.proto.Logs;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import org.joda.time.LocalDate;
 import org.joda.time.format.DateTimeFormat;
+
+import java.util.List;
 
 public class Request {
     private boolean MyRequest = false;
@@ -14,45 +25,87 @@ public class Request {
     @SerializedName("id")
     @Expose
     private int requestId = 0;//id заявки
+
     @SerializedName("code")
     @Expose
     private int code = 0;
+
     @SerializedName("date_of_registration")
     @Expose
     private String requestRegistrationDateString = "";//дата регистрации (предварительно)
+
     private LocalDate requestRegistrationDate;//дата регистрации (предварительно)
-    //        @SerializedName("_id")
-    //        @Expose
+
+    @SerializedName("date_of_realization")
+    @Expose
     private String periodOfExecutionString = "";//срок выполнения(предварительно)
+
     private LocalDate periodOfExecution = new LocalDate();//срок выполнения(предварительно)
+
     //        @SerializedName("_id")
     //        @Expose
     private String statusOfRequest ="";
+
     //        @SerializedName("_id")
     //        @Expose
     private String acceptedTheRequest =""; //принял заявку
+
     @SerializedName("declarant_fullname")
     @Expose
     private String declarer ="";
-    //        @SerializedName("_id")
-    //        @Expose
+
+    @SerializedName("declarant_post")
+    @Expose
     private String subdivision ="";//подразделение
+
+    @SerializedName("declarant_phone")
+    @Expose
+    private String declarantPhone;
 
     @SerializedName("room_number")
     @Expose
     private int cabinet;
-    //        @SerializedName("_id")
-    //        @Expose
-    private String dataAboutDeclarer ="";//данные о заявителе
+
+    @SerializedName("contact_fullname")
+    @Expose
+    private String contactFullName;//данные о заявителе
+
     //        @SerializedName("_id")
     //        @Expose
     private String textOfRequest ="";
+
     //        @SerializedName("_id")
     //        @Expose
     private String responsibleForTheExecutionOfTheRequest ="";
-    //        @SerializedName("_id")
-    //        @Expose
-    private String actionsOverRequest ="";//действия по заявке
+
+    @SerializedName("logs")
+    @Expose
+    private List<Log> actionsOverRequest;//действия по заявке
+
+    @SerializedName("building")
+    @Expose
+    private Building building;
+
+    @SerializedName("works")
+    @Expose
+    private List<Works> worksList;
+
+    @SerializedName("comments")
+    @Expose
+    private List<Comments> commentsList;
+
+    @SerializedName("status")
+    @Expose
+    private Status status;
+
+    @SerializedName("type")
+    @Expose
+    private Type type;
+
+    @SerializedName("offices")
+    @Expose
+    private List<Offices> officesList;
+
 
 
     public int getRequestId() {
@@ -116,12 +169,12 @@ public class Request {
         this.subdivision = subdivision;
     }
 
-    public String getDataAboutDeclarer() {
-        return dataAboutDeclarer;
+    public String getContactFullName() {
+        return contactFullName;
     }
 
-    public void setDataAboutDeclarer(String dataAboutDeclarer) {
-        this.dataAboutDeclarer = dataAboutDeclarer;
+    public void setContactFullName(String contactFullName) {
+        this.contactFullName = contactFullName;
     }
 
     public String getTextOfRequest() {
@@ -132,11 +185,11 @@ public class Request {
         this.textOfRequest = textOfRequest;
     }
 
-    public String getActionsOverRequest() {
+    public List<Log> getActionsOverRequest() {
         return actionsOverRequest;
     }
 
-    public void setActionsOverRequest(String actionsOverRequest) {
+    public void setActionsOverRequest(List<Log> actionsOverRequest) {
         this.actionsOverRequest = actionsOverRequest;
     }
 

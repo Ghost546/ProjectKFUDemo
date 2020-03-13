@@ -90,9 +90,9 @@ public class RequestGeneralViewFragment extends Fragment {
             subdivisionBlock.setVisibility(View.VISIBLE);
             subdivision.setText(request.getSubdivision());
         }
-        if(!request.getDataAboutDeclarer().equals("")) {
+        if(!request.getContactFullName().equals("")) {
             dataAboutDeclarerBlock.setVisibility(View.VISIBLE);
-            dataAboutDeclarer.setText(request.getDataAboutDeclarer());
+            dataAboutDeclarer.setText(request.getContactFullName());
         }
         if(!request.getTextOfRequest().equals("")) {
             textOfRequestBlock.setVisibility(View.VISIBLE);
@@ -125,9 +125,9 @@ public class RequestGeneralViewFragment extends Fragment {
             subdivisionBlock.setVisibility(View.VISIBLE);
             subdivision.setText(request.getSubdivision());
         }
-        if(!request.getDataAboutDeclarer().equals("")) {
+        if(!request.getContactFullName().equals("")) {
             dataAboutDeclarerBlock.setVisibility(View.VISIBLE);
-            dataAboutDeclarer.setText(request.getDataAboutDeclarer());
+            dataAboutDeclarer.setText(request.getContactFullName());
         }
         if(!request.getTextOfRequest().equals("")) {
             textOfRequestBlock.setVisibility(View.VISIBLE);
@@ -137,9 +137,9 @@ public class RequestGeneralViewFragment extends Fragment {
             responsibleForTheExecutionOfTheRequestBlock.setVisibility(View.VISIBLE);
             responsibleForTheExecutionOfTheRequest.setText(request.getResponsibleForTheExecutionOfTheRequest());
         }
-        if(!request.getActionsOverRequest().equals("")) {
+        if(request.getActionsOverRequest()!=null) {
             actionsOverRequestBlock.setVisibility(View.VISIBLE);
-            actionsOverRequest.setText(request.getActionsOverRequest());
+            actionsOverRequest.setText("Пока нет корректного вывода");
         }
     }
 

@@ -1,13 +1,9 @@
 package com.example.projectkfudemo;
 
-
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
-
-import com.example.projectkfudemo.ui.requestgeneralview.RequestGeneralViewFragment;
+import com.example.projectkfudemo.forjson.Log;
+import com.example.projectkfudemo.forjson.LogsList;
 
 import org.joda.time.LocalDate;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -68,12 +64,12 @@ public class CurrentRequest {
         request.setSubdivision(subdivision);
     }
 
-    public String getDataAboutDeclarer() {
-        return request.getDataAboutDeclarer();
+    public String getContactFullName() {
+        return request.getContactFullName();
     }
 
-    public void setDataAboutDeclarer(String dataAboutDeclarer) {
-        request.setDataAboutDeclarer(dataAboutDeclarer);
+    public void setContactFullName(String contactFullName) {
+        request.setContactFullName(contactFullName);
     }
 
     public String getTextOfRequest() {
@@ -84,11 +80,11 @@ public class CurrentRequest {
         request.setTextOfRequest(textOfRequest);
     }
 
-    public String getActionsOverRequest() {
+    public List<Log> getActionsOverRequest() {
         return request.getActionsOverRequest();
     }
 
-    public void setActionsOverRequest(String actionsOverRequest) {
+    public void setActionsOverRequest(List<Log> actionsOverRequest) {
         request.setActionsOverRequest(actionsOverRequest);
     }
 
