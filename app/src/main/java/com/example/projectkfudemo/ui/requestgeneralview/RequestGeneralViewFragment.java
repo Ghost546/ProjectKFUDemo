@@ -19,8 +19,8 @@ import com.google.gson.Gson;
 
 public class RequestGeneralViewFragment extends Fragment {
 
-    private LinearLayout requestIdBlock;
-    private TextView requestId;
+    private LinearLayout requestCodeBlock;
+    private TextView requestCode;
     private LinearLayout requestRegistrationDateBlock;
     private TextView requestRegistrationDate;
     private LinearLayout periodOfExecutionBlock;
@@ -66,9 +66,9 @@ public class RequestGeneralViewFragment extends Fragment {
     }
 
     private void VisibleSetting(CurrentRequest request) {                                           //настраивает фрагмент для отображения в виде текущей заявки
-        if(request.getRequestId()!=0) {
-            requestIdBlock.setVisibility(View.VISIBLE);
-            requestId.setText(Integer.toString(request.getRequestId()));
+        if(request.getCode()!=0) {
+            requestCodeBlock.setVisibility(View.VISIBLE);
+            requestCode.setText(Integer.toString(request.getCode()));
         }
         if(!request.getAcceptedTheRequest().equals("")) {
             acceptedTheRequestBlock.setVisibility(View.VISIBLE);
@@ -86,17 +86,21 @@ public class RequestGeneralViewFragment extends Fragment {
             declarerBlock.setVisibility(View.VISIBLE);
             declarer.setText(request.getDeclarer());
         }
-        if(!request.getSubdivision().equals("")) {
+        if(request.getSubdivisionList() != null) {
+            String text = null;
             subdivisionBlock.setVisibility(View.VISIBLE);
-            subdivision.setText(request.getSubdivision());
+            for(int i = 0; i<request.getSubdivisionList().size(); i++) {
+                text = request.getSubdivisionList().get(i).getName() + "\n";
+            }
+            subdivision.setText(text);
         }
         if(!request.getContactFullName().equals("")) {
             dataAboutDeclarerBlock.setVisibility(View.VISIBLE);
             dataAboutDeclarer.setText(request.getContactFullName());
         }
-        if(!request.getTextOfRequest().equals("")) {
+        if(request.getWorksList() != null) {
             textOfRequestBlock.setVisibility(View.VISIBLE);
-            textOfRequest.setText(request.getTextOfRequest());
+            textOfRequest.setText(request.getWorksList().get(0).getDescription());
         }
         if(!request.getResponsibleForTheExecutionOfTheRequest().equals("")) {
             responsibleForTheExecutionOfTheRequestBlock.setVisibility(View.VISIBLE);
@@ -105,9 +109,9 @@ public class RequestGeneralViewFragment extends Fragment {
     }
 
     private void VisibleSetting(MyRequest request) {                                                //настраивает фрагмент для отображения в виде текущей заявки
-        if(request.getRequestId()!=0) {
-            requestIdBlock.setVisibility(View.VISIBLE);
-            requestId.setText(Integer.toString(request.getRequestId()));
+        if(request.getCode()!=0) {
+            requestCodeBlock.setVisibility(View.VISIBLE);
+            requestCode.setText(Integer.toString(request.getCode()));
         }
         if(request.getRequestRegistrationDate()!=null) {
             requestRegistrationDateBlock.setVisibility(View.VISIBLE);
@@ -121,17 +125,21 @@ public class RequestGeneralViewFragment extends Fragment {
             declarerBlock.setVisibility(View.VISIBLE);
             declarer.setText(request.getDeclarer());
         }
-        if(!request.getSubdivision().equals("")) {
+        if(request.getSubdivisionList() != null) {
+            String text = null;
             subdivisionBlock.setVisibility(View.VISIBLE);
-            subdivision.setText(request.getSubdivision());
+            for(int i = 0; i<request.getSubdivisionList().size(); i++) {
+                text = request.getSubdivisionList().get(i).getName() + "\n";
+            }
+            subdivision.setText(text);
         }
         if(!request.getContactFullName().equals("")) {
             dataAboutDeclarerBlock.setVisibility(View.VISIBLE);
             dataAboutDeclarer.setText(request.getContactFullName());
         }
-        if(!request.getTextOfRequest().equals("")) {
+        if(request.getWorksList() != null) {
             textOfRequestBlock.setVisibility(View.VISIBLE);
-            textOfRequest.setText(request.getTextOfRequest());
+            textOfRequest.setText(request.getWorksList().get(0).getDescription());
         }
         if(!request.getResponsibleForTheExecutionOfTheRequest().equals("")) {
             responsibleForTheExecutionOfTheRequestBlock.setVisibility(View.VISIBLE);
@@ -150,8 +158,8 @@ public class RequestGeneralViewFragment extends Fragment {
     }
 
     private void setIds(View root) {
-        requestIdBlock=root.findViewById(R.id.request_id_block);
-        requestId=root.findViewById(R.id.request_id);
+        requestCodeBlock=root.findViewById(R.id.request_code_block);
+        requestCode=root.findViewById(R.id.request_code);
         requestRegistrationDateBlock=root.findViewById(R.id.request_registration_date_block);
         requestRegistrationDate=root.findViewById(R.id.request_registration_date);
         periodOfExecutionBlock=root.findViewById(R.id.period_of_execution_block);

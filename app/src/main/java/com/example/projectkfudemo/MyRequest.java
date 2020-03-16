@@ -1,8 +1,10 @@
 package com.example.projectkfudemo;
 
+import com.example.projectkfudemo.forjson.Building;
 import com.example.projectkfudemo.forjson.Log;
-import com.example.projectkfudemo.forjson.LogsList;
-import com.google.android.gms.config.proto.Logs;
+import com.example.projectkfudemo.forjson.Offices;
+import com.example.projectkfudemo.forjson.Status;
+import com.example.projectkfudemo.forjson.Works;
 
 import org.joda.time.LocalDate;
 
@@ -23,6 +25,14 @@ public class MyRequest {
 
     public void setRequestId(int requestId){
         request.setRequestId(requestId);
+    }
+
+    public int getCode() {
+        return request.getCode();
+    }
+
+    public void setCode(int code) {
+        request.setCode(code);
     }
 
     public LocalDate getRequestRegistrationDate() {
@@ -53,12 +63,12 @@ public class MyRequest {
         request.setDeclarer(declarer);
     }
 
-    public String getSubdivision() {
-        return request.getSubdivision();
+    public List<Offices> getSubdivisionList() {
+        return request.getSubdivisionList();
     }
 
-    public void setSubdivision(String subdivision) {
-        request.setSubdivision(subdivision);
+    public void setSubdivisionList(List<Offices> subdivisionList) {
+        request.setSubdivisionList(subdivisionList);
     }
 
     public String getContactFullName() {
@@ -69,13 +79,13 @@ public class MyRequest {
         request.setContactFullName(contactFullName);
     }
 
-    public String getTextOfRequest() {
-        return request.getTextOfRequest();
-    }
-
-    public void setTextOfRequest(String textOfRequest) {
-        request.setTextOfRequest(textOfRequest);
-    }
+//    public String getTextOfRequest() {
+//        return request.getTextOfRequest();
+//    }
+//
+//    public void setTextOfRequest(String textOfRequest) {
+//        request.setTextOfRequest(textOfRequest);
+//    }
 
     public List<Log> getActionsOverRequest() {
         return request.getActionsOverRequest();
@@ -101,6 +111,28 @@ public class MyRequest {
         request.setResponsibleForTheExecutionOfTheRequest(responsibleForTheExecutionOfTheRequest);
     }
 
+    public Building getBuilding() {
+        return request.getBuilding();
+    }
 
+    public void setBuilding(Building building) {
+        request.setBuilding(building);
+    }
+
+    public List<Works> getWorksList() {
+        return request.getWorksList();
+    }
+
+    public void setWorksList(List<Works> worksList) {
+        request.setWorksList(worksList);
+    }
+
+    public Status getStatus() {
+        return request.getStatus();
+    }
+
+    public void setStatus(Status status) {
+        request.setStatus(status);
+    }
 
 }

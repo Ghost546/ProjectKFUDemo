@@ -3,15 +3,15 @@ package com.example.projectkfudemo;
 import com.example.projectkfudemo.forjson.Building;
 import com.example.projectkfudemo.forjson.Comments;
 import com.example.projectkfudemo.forjson.Log;
-import com.example.projectkfudemo.forjson.LogsList;
 import com.example.projectkfudemo.forjson.Offices;
 import com.example.projectkfudemo.forjson.Status;
 import com.example.projectkfudemo.forjson.Type;
+import com.example.projectkfudemo.forjson.Workers;
 import com.example.projectkfudemo.forjson.Works;
-import com.google.android.gms.config.proto.Logs;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+//что с этой библиотекой не так аоаоаоаоаооа
 import org.joda.time.LocalDate;
 import org.joda.time.format.DateTimeFormat;
 
@@ -32,15 +32,16 @@ public class Request {
 
     @SerializedName("date_of_registration")
     @Expose
-    private String requestRegistrationDateString = "";//дата регистрации (предварительно)
+    private String requestRegistrationDateString="";//дата регистрации (предварительно)
 
+    //позже разобраться установкой даты
     private LocalDate requestRegistrationDate;//дата регистрации (предварительно)
 
     @SerializedName("date_of_realization")
     @Expose
     private String periodOfExecutionString = "";//срок выполнения(предварительно)
 
-    private LocalDate periodOfExecution = new LocalDate();//срок выполнения(предварительно)
+    private LocalDate periodOfExecution;//срок выполнения(предварительно)
 
     //        @SerializedName("_id")
     //        @Expose
@@ -54,21 +55,21 @@ public class Request {
     @Expose
     private String declarer ="";
 
-    @SerializedName("declarant_post")
-    @Expose
-    private String subdivision ="";//подразделение
+//    @SerializedName("declarant_post")
+//    @Expose
+//    private String subdivision ="";//подразделение
 
     @SerializedName("declarant_phone")
     @Expose
-    private String declarantPhone;
+    private String declarantPhone = "";
 
     @SerializedName("room_number")
     @Expose
-    private int cabinet;
+    private int cabine = 0;
 
     @SerializedName("contact_fullname")
     @Expose
-    private String contactFullName;//данные о заявителе
+    private String contactFullName ="";//данные о заявителе
 
     //        @SerializedName("_id")
     //        @Expose
@@ -86,6 +87,8 @@ public class Request {
     @Expose
     private Building building;
 
+    //отсюда можно взять текст описания заявки и другую информацию менее значительную на данном этапе разработки
+    //16.03.2020, процесс настройки вывода общей информации по заявкам
     @SerializedName("works")
     @Expose
     private List<Works> worksList;
@@ -102,10 +105,15 @@ public class Request {
     @Expose
     private Type type;
 
+
     @SerializedName("offices")
     @Expose
-    private List<Offices> officesList;
+    private List<Offices> subdivisionList;
 
+
+    @SerializedName("workers")
+    @Expose
+    private List<Workers> workersList;
 
 
     public int getRequestId() {
@@ -114,6 +122,14 @@ public class Request {
 
     public void setRequestId(int requestId) {
         this.requestId = requestId;
+    }
+
+    public int getCode() {
+        return code;
+    }
+
+    public void setCode(int code) {
+        this.code = code;
     }
 
     public LocalDate getRequestRegistrationDate() {
@@ -136,7 +152,6 @@ public class Request {
 
     //берет полученное значение String и парсит в LocalDate
     public void setPeriodOfExecutionFromString(String periodOfExecutionString) {
-
         this.periodOfExecution = DateTimeFormat.forPattern("dd.MM.yy").parseLocalDate(periodOfExecutionString);
     }
 
@@ -161,12 +176,12 @@ public class Request {
         this.declarer = declarer;
     }
 
-    public String getSubdivision() {
-        return subdivision;
+    public List<Offices> getSubdivisionList() {
+        return subdivisionList;
     }
 
-    public void setSubdivision(String subdivision) {
-        this.subdivision = subdivision;
+    public void setSubdivisionList(List<Offices> subdivisionList) {
+        this.subdivisionList = subdivisionList;
     }
 
     public String getContactFullName() {
@@ -177,13 +192,13 @@ public class Request {
         this.contactFullName = contactFullName;
     }
 
-    public String getTextOfRequest() {
-        return textOfRequest;
-    }
-
-    public void setTextOfRequest(String textOfRequest) {
-        this.textOfRequest = textOfRequest;
-    }
+//    public String getTextOfRequest() {
+//        return textOfRequest;
+//    }
+//
+//    public void setTextOfRequest(String textOfRequest) {
+//        this.textOfRequest = textOfRequest;
+//    }
 
     public List<Log> getActionsOverRequest() {
         return actionsOverRequest;
@@ -199,6 +214,54 @@ public class Request {
 
     public void setStatusOfRequest(String statusOfRequest) {
         this.statusOfRequest = statusOfRequest;
+    }
+
+    public Building getBuilding() {
+        return building;
+    }
+
+    public void setBuilding(Building building) {
+        this.building = building;
+    }
+
+    public List<Works> getWorksList() {
+        return worksList;
+    }
+
+    public void setWorksList(List<Works> worksList) {
+        this.worksList = worksList;
+    }
+
+    public List<Comments> getCommentsList() {
+        return commentsList;
+    }
+
+    public void setCommentsList(List<Comments> commentsList) {
+        this.commentsList = commentsList;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+
+    public Type getType() {
+        return type;
+    }
+
+    public void setType(Type type) {
+        this.type = type;
+    }
+
+    public List<Workers> getWorkersList() {
+        return workersList;
+    }
+
+    public void setWorkersList(List<Workers> workersList) {
+        this.workersList = workersList;
     }
 
     public void setThatIsCurrentRequest() {
@@ -224,10 +287,12 @@ public class Request {
     public void setResponsibleForTheExecutionOfTheRequest(String responsibleForTheExecutionOfTheRequest) {
         this.responsibleForTheExecutionOfTheRequest = responsibleForTheExecutionOfTheRequest;
     }
+
     public Request getRequest() {
         Request request = new Request();
         return request;
     }
+
     public Request() {
         if(!requestRegistrationDateString.equals("")) {
             requestRegistrationDateConvertStringToLocaleDate();

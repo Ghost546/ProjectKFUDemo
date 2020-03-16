@@ -29,4 +29,44 @@ public class Comments {
     @SerializedName("works")
     @Expose
     private List<WorksInComment> worksInCommentsList;
+
+    public int getWorkerId() {
+        return workerId;
+    }
+
+    public void setWorkerId(int workerId) {
+        this.workerId = workerId;
+    }
+
+    public LocalDate getBeginDate() {
+        return beginDate;
+    }
+
+    public void setBeginDate(LocalDate beginDate) {
+        this.beginDate = beginDate;
+    }
+
+    public LocalDate getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(LocalDate endDate) {
+        this.endDate = endDate;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
+
+    public List<WorksInComment> getWorksInCommentsList() {
+        return worksInCommentsList;
+    }
+
+    public void setWorksInCommentsList(List<WorksInComment> worksInCommentsList) {
+        this.worksInCommentsList = worksInCommentsList;
+    }
 }

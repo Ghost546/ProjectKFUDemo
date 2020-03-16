@@ -16,6 +16,7 @@ import com.example.projectkfudemo.MainActivity;
 import com.example.projectkfudemo.NetworkService;
 import com.example.projectkfudemo.R;
 import com.example.projectkfudemo.Request;
+import com.example.projectkfudemo.forjson.Works;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,8 +60,10 @@ public class MyTaskFragment extends Fragment {
 //        });
 
         Request request1 = new Request();
-        request1.setRequestId(54321);
-        request1.setTextOfRequest("It is text. Nut");
+        request1.setCode(4321);
+        request1.setWorksList(new ArrayList<Works>());
+        request1.getWorksList().add(new Works());
+        request1.getWorksList().get(0).setDescription("Nut");//64-66 добавление массива с объектом имеющую строку "Nut"
         request1.setStatusOfRequest("I'm your request");
         request1.setPeriodOfExecutionFromString("12.03.20");
 

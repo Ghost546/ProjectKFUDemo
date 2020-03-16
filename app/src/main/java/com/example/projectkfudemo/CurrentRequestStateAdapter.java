@@ -25,15 +25,15 @@ public class CurrentRequestStateAdapter extends ArrayAdapter<Request> {
 
         View view=inflater.inflate(this.layout, parent, false);
 
-        TextView idView = view.findViewById(R.id.request_id);
+        TextView idView = view.findViewById(R.id.request_code);
         TextView textView = view.findViewById(R.id.text_of_request);
         TextView statusView = view.findViewById(R.id.status);
         TextView dateView = view.findViewById(R.id.date);
 
         Request request = requests.get(position);
 
-        idView.setText(Integer.toString(request.getRequestId()));
-        textView.setText(request.getTextOfRequest());
+        idView.setText(Integer.toString(request.getCode()));
+        textView.setText(request.getWorksList().get(0).getDescription());
         statusView.setText(request.getStatusOfRequest());
         dateView.setText(String.valueOf(request.getPeriodOfExecution()));
 
