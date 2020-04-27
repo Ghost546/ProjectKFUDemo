@@ -1,5 +1,6 @@
 package com.example.projectkfudemo;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -36,7 +37,8 @@ public class MainActivity extends AppCompatActivity {
 //    private FirebaseUser mFirebaseUser;
 //    FirebaseUser user;
 
-
+    String vLogin = null;
+    String vPassword = null;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
         @Override
@@ -74,13 +76,21 @@ public class MainActivity extends AppCompatActivity {
     };
 
     protected void onCreate(Bundle savedInstanceState) {
+
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        if (vLogin == null & vPassword == null) {
+            Intent intent = new Intent(this, LoginActivity.class);
+            startActivity(intent);
+        }
         BottomNavigationView navView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-
+        Intent intent = getIntent();
+        String vLogin = intent.getStringExtra("login");
+        String vPassword = intent.getStringExtra("password");
 
         if (savedInstanceState == null) {
             // при первом запуске программы

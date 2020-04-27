@@ -45,9 +45,9 @@ public class CurrentTaskFragment extends Fragment {
 
     private List<Request> states = new ArrayList<>();
 
-    volatile CurrentRequestStateAdapter  requestAdapter = null;
+    private volatile CurrentRequestStateAdapter requestAdapter = null;
 
-    ListView requestListView = null;
+    private ListView requestListView = null;
 
     public static CurrentTaskFragment newInstance() {
         CurrentTaskFragment fragment = new CurrentTaskFragment();
@@ -70,7 +70,7 @@ public class CurrentTaskFragment extends Fragment {
 
         int user_id = 230229;
         int p2= 1;
-        NetworkService.getInstance().getJSONRequestApi().getRequestWithLoginPassword(/*user_id, p2*/)
+        NetworkService.getInstance().getJSONRequestApi().getRequestWithLoginPassword()
                 .subscribeOn(Schedulers.io()) //Schedulers.io()
                 .observeOn(AndroidSchedulers.mainThread()) //AndroidSchedulers.mainThread()
                 .subscribe(new Observer<RequestList>() {
