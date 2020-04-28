@@ -19,6 +19,7 @@ import com.example.projectkfudemo.NetworkService;
 import com.example.projectkfudemo.R;
 import com.example.projectkfudemo.Request;
 import com.example.projectkfudemo.RequestList;
+import com.example.projectkfudemo.User;
 import com.example.projectkfudemo.ui.requestgeneralview.RequestGeneralViewFragment;
 import com.google.firebase.database.annotations.NotNull;
 import com.google.gson.Gson;
@@ -49,6 +50,8 @@ public class CurrentTaskFragment extends Fragment {
 
     private ListView requestListView = null;
 
+
+
     public static CurrentTaskFragment newInstance() {
         CurrentTaskFragment fragment = new CurrentTaskFragment();
         return fragment;
@@ -67,10 +70,11 @@ public class CurrentTaskFragment extends Fragment {
 //            }
 //        }
 
+        User user = savedInstanceState.getParcelable("user");
 
-        int user_id = 230229;
-        int p2= 1;
-        NetworkService.getInstance().getJSONRequestApi().getRequestWithLoginPassword()
+        int user_id = user.getUserId();
+        String p2= user.getP2();
+        NetworkService.getInstance().getJSONRequestApi().getRequestWithLoginPassword(user_id, p2)
                 .subscribeOn(Schedulers.io()) //Schedulers.io()
                 .observeOn(AndroidSchedulers.mainThread()) //AndroidSchedulers.mainThread()
                 .subscribe(new Observer<RequestList>() {

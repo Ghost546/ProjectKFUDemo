@@ -1,7 +1,9 @@
 package com.example.projectkfudemo;
 
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -37,8 +39,7 @@ public class MainActivity extends AppCompatActivity {
 //    private FirebaseUser mFirebaseUser;
 //    FirebaseUser user;
 
-    String vLogin = null;
-    String vPassword = null;
+    User userMain = null;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
         @Override
@@ -76,21 +77,22 @@ public class MainActivity extends AppCompatActivity {
     };
 
     protected void onCreate(Bundle savedInstanceState) {
-
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        if (vLogin == null & vPassword == null) {
+        userMain = getIntent().getParcelableExtra("user");
+        if (userMain == null) {
             Intent intent = new Intent(this, LoginActivity.class);
             startActivity(intent);
         }
+
         BottomNavigationView navView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-        Intent intent = getIntent();
-        String vLogin = intent.getStringExtra("login");
-        String vPassword = intent.getStringExtra("password");
+
+
+        savedInstanceState.putParcelable("user", (Parcelable)userMain);
+
 
         if (savedInstanceState == null) {
             // при первом запуске программы

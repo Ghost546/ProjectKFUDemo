@@ -5,12 +5,15 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
 import com.google.firebase.auth.FirebaseUser;
 
+
+import java.io.Serializable;
 
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -30,8 +33,8 @@ public class LoginActivity extends AppCompatActivity {
     private BaseActivity baseActivity = new BaseActivity();
     private String vLogin;
     private int vPassword;
-    private String varLogin = "vdvoenosov";
-    private int varPassword = 1;
+    private String varLogin;
+    private String varPassword;
     private volatile User userMain;
 
 
@@ -64,8 +67,8 @@ public class LoginActivity extends AppCompatActivity {
         signInButton = findViewById(R.id.email_sign_in_button);
         login = findViewById(id.field_login);
         password = findViewById(id.field_password);
-
-        NetworkService.getInstance().getJSONUserApi().getUser("vdvoenos", 1)
+        System.out.println("че происходит");
+        NetworkService.getInstance().getJSONUserApi().getUser("vdvoenos", 1) //
                 .subscribeOn(Schedulers.io()) //Schedulers.io()
                 .observeOn(AndroidSchedulers.mainThread()) //AndroidSchedulers.mainThread()
                 .subscribe(new Observer<User>() {
@@ -77,13 +80,17 @@ public class LoginActivity extends AppCompatActivity {
                     @Override
                     public void onNext(User user) {
                         userMain = user;
-
-                        System.out.println("Здесь твои переменные: " + user.getName() + ", " + user.getPassword());
+                        System.out.println();
+                        System.out.println("Здесь твои переменные: " + userMain.getFirstname() + ", " + userMain.getP2());
+                        if(userMain != null) {
+                            LogIn(userMain);
+                        }
                     }
 
                     @Override
                     public void onError(Throwable e) {
-
+                        System.out.println("Ошибка: " );
+                        e.printStackTrace();
                     }
 
                     @Override
@@ -123,20 +130,36 @@ public class LoginActivity extends AppCompatActivity {
             } else {
                 //код если текст есть
                 varLogin = login.getText().toString();
-                //varPassword = password.getText().toString();
-                NetworkService.getInstance().getJSONUserApi().getUser(varLogin, 1).equals(new Callback<User>() {
-                    @Override
-                    public void onResponse(Call<User> call, Response<User> response) {
-                        vLogin = varLogin;
-                        vPassword = varPassword;
-                    }
-
-                    @Override
-                    public void onFailure(Call<User> call, Throwable t) {
-                        System.out.print("Error occurred while getting request!");
-                        t.printStackTrace();
-                    }
-                });
+                varPassword = password.getText().toString();
+//                NetworkService.getInstance().getJSONUserApi().getUser(varLogin, varPassword)
+//                        .subscribeOn(Schedulers.io()) //Schedulers.io()
+//                        .observeOn(AndroidSchedulers.mainThread()) //AndroidSchedulers.mainThread()
+//                        .subscribe(new Observer<User>() {
+//                            @Override
+//                            public void onSubscribe(Disposable d) {
+//
+//                            }
+//
+//                            @Override
+//                            public void onNext(User user) {
+//                                userMain = user;
+//                                System.out.println();
+//                                System.out.println("Здесь твои переменные: " + user.getUserId() + ", " + user.getP2());
+//                                if(userMain != null) {
+//                                    LogIn(userMain);
+//                                }
+//                            }
+//
+//                            @Override
+//                            public void onError(Throwable e) {
+//
+//                            }
+//
+//                            @Override
+//                            public void onComplete() {
+//
+//                            }
+//                        });
 
             }
         }
@@ -144,15 +167,12 @@ public class LoginActivity extends AppCompatActivity {
         //нужно отправить запрос на сервер
         //получить idшник и работать с ним
 
-        if(vLogin != null && vPassword != 0) {
-            LogIn(vLogin, vPassword);
-        }
+
     }
 
-    public void LogIn(String vLogin, int vPassword) {
+    public void LogIn(User user) {
         Intent intent = new Intent(this, MainActivity.class);
-        intent.putExtra("login", vLogin);
-        intent.putExtra("password", vPassword);
+        intent.putExtra("user", (Serializable) user);
         startActivity(intent);
     }
 

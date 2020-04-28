@@ -1,58 +1,118 @@
 package com.example.projectkfudemo;
 
+import com.example.projectkfudemo.forjson.EmployeeInfo;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class User {
-    @SerializedName("id")
+    @SerializedName("successful")
     @Expose
-    private int id;
+    private boolean successful;
+    @SerializedName("user_id")
+    @Expose
+    private int userId;
+    @SerializedName("employee")
+    @Expose
+    private boolean employee;
+    @SerializedName("employee_info")
+    @Expose
+    private EmployeeInfo employeeInfo;
+    @SerializedName("student")
+    @Expose
+    private boolean student;
+    @SerializedName("person")
+    @Expose
+    private boolean person;
+    @SerializedName("firstname")
+    @Expose
+    private String firstname;
+    @SerializedName("lastname")
+    @Expose
+    private String lastname;
+    @SerializedName("middlename")
+    @Expose
+    private String middlename;
     @SerializedName("p2")
     @Expose
-    private String password;
-    private String name;
-    private String secondname;
-    private int funtion;
-    private int phoneNumber;
+    private String p2;
 
-    public int getId() {
-        return id;
+    public boolean isSuccessful() {
+        return successful;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setSuccessful(boolean successful) {
+        this.successful = successful;
     }
 
-    public String getName() {
-        return name;
+    public int getUserId() {
+        return userId;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
-    public String getSecondname() {
-        return secondname;
+    public boolean isEmployee() {
+        return employee;
     }
 
-    public void setSecondname(String secondname) {
-        this.secondname = secondname;
+    public void setEmployee(boolean employee) {
+        this.employee = employee;
     }
 
-    public int getFuntion() {
-        return funtion;
+    public EmployeeInfo getEmployeeInfo() {
+        return employeeInfo;
     }
 
-    public void setFuntion(int funtion) {
-        this.funtion = funtion;
-    }
-    public String getPassword() {
-        return password;
+    public void setEmployeeInfo(EmployeeInfo employeeInfo) {
+        this.employeeInfo = employeeInfo;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public boolean isStudent() {
+        return student;
     }
 
+    public void setStudent(boolean student) {
+        this.student = student;
+    }
 
+    public boolean isPerson() {
+        return person;
+    }
+
+    public void setPerson(boolean person) {
+        this.person = person;
+    }
+
+    public String getFirstname() {
+        return firstname;
+    }
+
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
+    }
+
+    public String getLastname() {
+        return lastname;
+    }
+
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
+    }
+
+    public String getMiddlename() {
+        return middlename;
+    }
+
+    public void setMiddlename(String middlename) {
+        this.middlename = middlename;
+    }
+
+    public String getP2() {
+        return p2;
+    }
+
+    public void setP2(String p2) {
+        this.p2 = p2;
+    }
 }
