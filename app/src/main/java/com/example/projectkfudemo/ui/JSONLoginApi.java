@@ -16,5 +16,5 @@ public interface JSONLoginApi {
 //    public Call<User> getUser(/*@Query("p_user_id") int id, @Query("p2") String password*/);
     @FormUrlEncoded
     @POST("e-ksu/portal_pg_mobile.authentication?")
-    Observable<User> getUser(@Field("p_login") String login, @Field("p_pass") int pass);
+    Observable<User> getUser(@Field("p_login") String login, @Field("p_pass") String pass);
 }

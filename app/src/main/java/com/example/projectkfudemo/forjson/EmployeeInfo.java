@@ -3,7 +3,9 @@ package com.example.projectkfudemo.forjson;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class EmployeeInfo {
+import java.io.Serializable;
+
+public class EmployeeInfo implements Serializable {
     @SerializedName("employee_id")
     @Expose
     private int employeeId;

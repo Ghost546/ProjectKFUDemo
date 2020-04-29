@@ -1,10 +1,18 @@
 package com.example.projectkfudemo;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+import android.util.Log;
+
 import com.example.projectkfudemo.forjson.EmployeeInfo;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class User {
+import java.io.Serializable;
+
+public class User implements Serializable {
+    final static String LOG_TAG = "myLogs";
+
     @SerializedName("successful")
     @Expose
     private boolean successful;

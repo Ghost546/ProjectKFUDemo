@@ -28,6 +28,7 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
 //    private FirebaseAuth mFirebaseAuth;
 //    private FirebaseUser mFirebaseUser;
 //    FirebaseUser user;
-
+    Bundle args;
     User userMain = null;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -49,25 +50,25 @@ public class MainActivity extends AppCompatActivity {
             switch (item.getItemId()) {
                 case R.id.navigation_current_task:
                     fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                    selectedFragment = CurrentTaskFragment.newInstance();
+                    selectedFragment = CurrentTaskFragment.newInstance(args);
                     fragmentTransaction.replace(R.id.fragment_container, selectedFragment);
                     fragmentTransaction.commit();
                     return true;
                 case R.id.navigation_my_task:
                     fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                    selectedFragment = MyTaskFragment.newInstance();
+                    selectedFragment = MyTaskFragment.newInstance(args);
                     fragmentTransaction.replace(R.id.fragment_container, selectedFragment);
                     fragmentTransaction.commit();
                     return true;
                 case R.id.navigation_search:
                     fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                    selectedFragment = SearchFragment.newInstance();
+                    selectedFragment = SearchFragment.newInstance(args);
                     fragmentTransaction.replace(R.id.fragment_container, selectedFragment);
                     fragmentTransaction.commit();
                     return true;
                 case R.id.navigation_menu:
                     fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                    selectedFragment = MenuFragment.newInstance();
+                    selectedFragment = MenuFragment.newInstance(args);
                     fragmentTransaction.replace(R.id.fragment_container, selectedFragment);
                     fragmentTransaction.commit();
                     return true;
@@ -79,7 +80,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        userMain = getIntent().getParcelableExtra("user");
+        args = getIntent().getExtras();
+        userMain = (User) args.getSerializable("user");
+
         if (userMain == null) {
             Intent intent = new Intent(this, LoginActivity.class);
             startActivity(intent);
@@ -91,12 +94,10 @@ public class MainActivity extends AppCompatActivity {
         navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
 
-        savedInstanceState.putParcelable("user", (Parcelable)userMain);
-
 
         if (savedInstanceState == null) {
             // при первом запуске программы
-            selectedFragment = CurrentTaskFragment.newInstance();
+            selectedFragment = CurrentTaskFragment.newInstance(args);
             FragmentTransaction fragmentTransaction = getSupportFragmentManager()
                     .beginTransaction();
            // добавляем в контейнер при помощи метода add()

@@ -16,6 +16,7 @@ import com.example.projectkfudemo.MainActivity;
 import com.example.projectkfudemo.NetworkService;
 import com.example.projectkfudemo.R;
 import com.example.projectkfudemo.Request;
+import com.example.projectkfudemo.User;
 import com.example.projectkfudemo.forjson.Works;
 
 import java.util.ArrayList;
@@ -29,14 +30,17 @@ import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
 
 public class MyTaskFragment extends Fragment {
 
+    static Bundle args;
+
     private List<Request> states = new ArrayList();
 
     MyTaskViewModel myTaskViewModel;
 
     ListView requestList;
 
-    public static MyTaskFragment newInstance() {
+    public static MyTaskFragment newInstance(Bundle arg) {
         MyTaskFragment fragment = new MyTaskFragment();
+        args = arg;
         return fragment;
     }
 
@@ -44,6 +48,7 @@ public class MyTaskFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 //        myTaskViewModel = ViewModelProviders.of(this).get(MyTaskViewModel.class);
         View rootView = inflater.inflate(R.layout.fragment_my_task_list, container, false);
+        User user = (User) args.getSerializable("user");
 //        NetworkService.getInstance().getJSONApi().equals(new Callback<ArrayList<Request>>() {
 //            @Override
 //            public void onResponse(Call<ArrayList<Request>> call, Response<ArrayList<Request>> response) {

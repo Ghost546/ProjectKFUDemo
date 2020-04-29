@@ -43,17 +43,16 @@ import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
 
 
 public class CurrentTaskFragment extends Fragment {
-
+    static private Bundle args;
     private List<Request> states = new ArrayList<>();
 
     private volatile CurrentRequestStateAdapter requestAdapter = null;
 
     private ListView requestListView = null;
 
-
-
-    public static CurrentTaskFragment newInstance() {
+    public static CurrentTaskFragment newInstance(Bundle arg) {
         CurrentTaskFragment fragment = new CurrentTaskFragment();
+        args = arg;
         return fragment;
     }
 
@@ -70,7 +69,7 @@ public class CurrentTaskFragment extends Fragment {
 //            }
 //        }
 
-        User user = savedInstanceState.getParcelable("user");
+        User user = (User) args.getSerializable("user");
 
         int user_id = user.getUserId();
         String p2= user.getP2();

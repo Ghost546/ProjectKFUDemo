@@ -67,37 +67,37 @@ public class LoginActivity extends AppCompatActivity {
         signInButton = findViewById(R.id.email_sign_in_button);
         login = findViewById(id.field_login);
         password = findViewById(id.field_password);
-        System.out.println("че происходит");
-        NetworkService.getInstance().getJSONUserApi().getUser("vdvoenos", 1) //
-                .subscribeOn(Schedulers.io()) //Schedulers.io()
-                .observeOn(AndroidSchedulers.mainThread()) //AndroidSchedulers.mainThread()
-                .subscribe(new Observer<User>() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
-
-                    }
-
-                    @Override
-                    public void onNext(User user) {
-                        userMain = user;
-                        System.out.println();
-                        System.out.println("Здесь твои переменные: " + userMain.getFirstname() + ", " + userMain.getP2());
-                        if(userMain != null) {
-                            LogIn(userMain);
-                        }
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        System.out.println("Ошибка: " );
-                        e.printStackTrace();
-                    }
-
-                    @Override
-                    public void onComplete() {
-
-                    }
-                });
+//        System.out.println("че происходит");
+//        NetworkService.getInstance().getJSONUserApi().getUser("vdvoenos", 1) //
+//                .subscribeOn(Schedulers.io()) //Schedulers.io()
+//                .observeOn(AndroidSchedulers.mainThread()) //AndroidSchedulers.mainThread()
+//                .subscribe(new Observer<User>() {
+//                    @Override
+//                    public void onSubscribe(Disposable d) {
+//
+//                    }
+//
+//                    @Override
+//                    public void onNext(User user) {
+//                        userMain = user;
+//                        System.out.println();
+//                        System.out.println("Здесь твои переменные: " + userMain.getFirstname() + ", " + userMain.getP2());
+//                        if(userMain != null) {
+//                            LogIn(userMain);
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onError(Throwable e) {
+//                        System.out.println("Ошибка: " );
+//                        e.printStackTrace();
+//                    }
+//
+//                    @Override
+//                    public void onComplete() {
+//
+//                    }
+//                });
     }
 
 //    private void updateUI(FirebaseUser user) {
@@ -131,35 +131,35 @@ public class LoginActivity extends AppCompatActivity {
                 //код если текст есть
                 varLogin = login.getText().toString();
                 varPassword = password.getText().toString();
-//                NetworkService.getInstance().getJSONUserApi().getUser(varLogin, varPassword)
-//                        .subscribeOn(Schedulers.io()) //Schedulers.io()
-//                        .observeOn(AndroidSchedulers.mainThread()) //AndroidSchedulers.mainThread()
-//                        .subscribe(new Observer<User>() {
-//                            @Override
-//                            public void onSubscribe(Disposable d) {
-//
-//                            }
-//
-//                            @Override
-//                            public void onNext(User user) {
-//                                userMain = user;
-//                                System.out.println();
-//                                System.out.println("Здесь твои переменные: " + user.getUserId() + ", " + user.getP2());
-//                                if(userMain != null) {
-//                                    LogIn(userMain);
-//                                }
-//                            }
-//
-//                            @Override
-//                            public void onError(Throwable e) {
-//
-//                            }
-//
-//                            @Override
-//                            public void onComplete() {
-//
-//                            }
-//                        });
+                NetworkService.getInstance().getJSONUserApi().getUser(varLogin, varPassword)
+                        .subscribeOn(Schedulers.io()) //Schedulers.io()
+                        .observeOn(AndroidSchedulers.mainThread()) //AndroidSchedulers.mainThread()
+                        .subscribe(new Observer<User>() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+
+                            }
+
+                            @Override
+                            public void onNext(User user) {
+                                userMain = user;
+                                System.out.println();
+                                System.out.println("Здесь твои переменные: " + user.getUserId() + ", " + user.getP2());
+                                if(userMain != null) {
+                                    LogIn(userMain);
+                                }
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+
+                            }
+
+                            @Override
+                            public void onComplete() {
+
+                            }
+                        });
 
             }
         }
@@ -172,7 +172,7 @@ public class LoginActivity extends AppCompatActivity {
 
     public void LogIn(User user) {
         Intent intent = new Intent(this, MainActivity.class);
-        intent.putExtra("user", (Serializable) user);
+        intent.putExtra("user", user);
         startActivity(intent);
     }
 
