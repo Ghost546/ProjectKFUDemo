@@ -11,17 +11,24 @@ import android.widget.Toast;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.example.projectkfudemo.CurrentRequest;
 import com.example.projectkfudemo.CurrentRequestStateAdapter;
 import com.example.projectkfudemo.MainActivity;
 import com.example.projectkfudemo.NetworkService;
 import com.example.projectkfudemo.R;
 import com.example.projectkfudemo.Request;
+import com.example.projectkfudemo.RequestList;
 import com.example.projectkfudemo.User;
 import com.example.projectkfudemo.forjson.Works;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -34,9 +41,11 @@ public class MyTaskFragment extends Fragment {
 
     private List<Request> states = new ArrayList();
 
+    private volatile CurrentRequestStateAdapter requestAdapter = null;
+
     MyTaskViewModel myTaskViewModel;
 
-    ListView requestList;
+    private ListView requestListView = null;
 
     public static MyTaskFragment newInstance(Bundle arg) {
         MyTaskFragment fragment = new MyTaskFragment();
@@ -49,6 +58,8 @@ public class MyTaskFragment extends Fragment {
 //        myTaskViewModel = ViewModelProviders.of(this).get(MyTaskViewModel.class);
         View rootView = inflater.inflate(R.layout.fragment_my_task_list, container, false);
         User user = (User) args.getSerializable("user");
+        int user_id = user.getUserId();
+        String p2= user.getP2();
 //        NetworkService.getInstance().getJSONApi().equals(new Callback<ArrayList<Request>>() {
 //            @Override
 //            public void onResponse(Call<ArrayList<Request>> call, Response<ArrayList<Request>> response) {
@@ -64,24 +75,37 @@ public class MyTaskFragment extends Fragment {
 //            }
 //        });
 
-        Request request1 = new Request();
-        request1.setCode(4321);
-        request1.setWorksList(new ArrayList<Works>());
-        request1.getWorksList().add(new Works());
-        request1.getWorksList().get(0).setDescription("Nut");//64-66 добавление массива с объектом имеющую строку "Nut"
-        request1.setStatusOfRequest("I'm your request");
-        request1.setPeriodOfExecutionFromString("12.03.20");
+        NetworkService.getInstance().getJSONUserRequestApi().getRequestWithLoginPassword(user_id, p2)
+                .subscribeOn(Schedulers.io()) //Schedulers.io()
+                .observeOn(AndroidSchedulers.mainThread()) //AndroidSchedulers.mainThread()
+                .subscribe(new Observer<RequestList>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
 
-        states.add(request1); //добавляем элемент в массив
+                    }
 
-        // начальная инициализация списка
-        // создаем адаптер
-        CurrentRequestStateAdapter stateAdapter = new CurrentRequestStateAdapter(inflater.getContext(), R.layout.task, states); // getActivity?
+                    @Override
+                    public void onNext(RequestList requestList) {
+                        states = requestList.getRequests();
+
+                        requestAdapter = new CurrentRequestStateAdapter(inflater.getContext(), R.layout.task, states);
+                        requestListView.setAdapter(requestAdapter);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
 
         // получаем элемент ListView
-        requestList = rootView.findViewById(R.id.myTasksList);
-        // устанавливаем адаптер
-        requestList.setAdapter(stateAdapter);
+        requestListView = rootView.findViewById(R.id.myTasksList);
+
         // слушатель выбора в списке
         AdapterView.OnItemClickListener itemListener = new AdapterView.OnItemClickListener() {
             @Override
@@ -99,7 +123,7 @@ public class MyTaskFragment extends Fragment {
                 }
             }
         };
-        requestList.setOnItemClickListener(itemListener);
+        requestListView.setOnItemClickListener(itemListener);
 
         return rootView;
     }

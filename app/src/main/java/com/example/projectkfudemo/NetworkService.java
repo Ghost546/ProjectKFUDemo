@@ -1,6 +1,7 @@
 package com.example.projectkfudemo;
 
 import com.example.projectkfudemo.ui.JSONApiRequest;
+import com.example.projectkfudemo.ui.JSONApiUserRequest;
 import com.example.projectkfudemo.ui.JSONLoginApi;
 
 import io.reactivex.schedulers.Schedulers;
@@ -27,6 +28,10 @@ public class NetworkService {
             mInstance = new NetworkService();
         }
         return mInstance;
+    }
+
+    public JSONApiUserRequest getJSONUserRequestApi() {
+        return mRetrofit.create(JSONApiUserRequest.class);
     }
 
     public JSONApiRequest getJSONRequestApi() {

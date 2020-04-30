@@ -43,21 +43,25 @@ public class Request {
 
     private LocalDate periodOfExecution;//срок выполнения(предварительно)
 
-    //        @SerializedName("_id")
-    //        @Expose
+    //@SerializedName("_id")
+    //@Expose
     private String statusOfRequest ="";
 
-    //        @SerializedName("_id")
-    //        @Expose
+    //@SerializedName("_id")
+    //@Expose
     private String acceptedTheRequest =""; //принял заявку
+
+    @SerializedName("declarant_id")
+    @Expose
+    private int declarantId;
 
     @SerializedName("declarant_fullname")
     @Expose
     private String declarer ="";
 
-//    @SerializedName("declarant_post")
-//    @Expose
-//    private String subdivision ="";//подразделение
+    @SerializedName("declarant_post")
+    @Expose
+    private String declarantPost ="";//подразделение
 
     @SerializedName("declarant_phone")
     @Expose
@@ -71,9 +75,9 @@ public class Request {
     @Expose
     private String contactFullName ="";//данные о заявителе
 
-    //        @SerializedName("_id")
-    //        @Expose
-    private String textOfRequest ="";
+//    @SerializedName("_id")
+//    @Expose
+//    private String textOfRequest ="";
 
     //        @SerializedName("_id")
     //        @Expose
@@ -192,9 +196,9 @@ public class Request {
         this.contactFullName = contactFullName;
     }
 
-//    public String getTextOfRequest() {
-//        return textOfRequest;
-//    }
+    public String getTextOfRequest() {
+        return worksList.get(0).getDescription();
+    }
 //
 //    public void setTextOfRequest(String textOfRequest) {
 //        this.textOfRequest = textOfRequest;

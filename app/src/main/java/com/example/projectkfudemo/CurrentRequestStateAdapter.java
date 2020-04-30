@@ -7,6 +7,8 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 import org.joda.time.LocalDate;
+
+import java.util.Iterator;
 import java.util.List;
 
 public class CurrentRequestStateAdapter extends ArrayAdapter<Request> {
@@ -40,4 +42,5 @@ public class CurrentRequestStateAdapter extends ArrayAdapter<Request> {
 
         return view;
     }
+
 }
