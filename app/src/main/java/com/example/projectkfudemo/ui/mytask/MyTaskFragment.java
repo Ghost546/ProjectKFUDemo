@@ -60,20 +60,7 @@ public class MyTaskFragment extends Fragment {
         User user = (User) args.getSerializable("user");
         int user_id = user.getUserId();
         String p2= user.getP2();
-//        NetworkService.getInstance().getJSONApi().equals(new Callback<ArrayList<Request>>() {
-//            @Override
-//            public void onResponse(Call<ArrayList<Request>> call, Response<ArrayList<Request>> response) {
-//                if(response.isSuccessful()) {
-//                    states = response.body();
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Call<ArrayList<Request>> call, Throwable t) {
-//                System.out.print("Error occurred while getting request!");
-//                t.printStackTrace();
-//            }
-//        });
+
 
         NetworkService.getInstance().getJSONUserRequestApi().getRequestWithLoginPassword(user_id, p2)
                 .subscribeOn(Schedulers.io()) //Schedulers.io()
@@ -87,7 +74,6 @@ public class MyTaskFragment extends Fragment {
                     @Override
                     public void onNext(RequestList requestList) {
                         states = requestList.getRequests();
-
                         requestAdapter = new CurrentRequestStateAdapter(inflater.getContext(), R.layout.task, states);
                         requestListView.setAdapter(requestAdapter);
                     }

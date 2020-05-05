@@ -41,5 +41,6 @@
     <string name="type_of_request">Тип заявки</string>
     <string name="actions_over_request">Действия по заявке</string>
     <string name="evaluation_on_the_implementation_of_the_application">Оценки по выполнению заявки</string>
+    <string name="change_log">Журнал изменений</string>
 
 </resources>

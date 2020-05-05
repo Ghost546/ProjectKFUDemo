@@ -2,7 +2,10 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:paddingLeft="40dp"
+    android:paddingTop="40dp"
+    android:paddingRight="40dp">
 
     <LinearLayout
         android:id="@+id/request_code_block"
@@ -14,6 +17,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+
             android:text="@string/request_id"/>
         <TextView
             android:layout_width="wrap_content"
@@ -23,6 +27,7 @@
             android:id="@+id/request_code"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="#000000"
             android:text=""/>
     </LinearLayout>
 
@@ -45,6 +50,7 @@
             android:id="@+id/accepted_the_request"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="#000000"
             android:text=""/>
     </LinearLayout>
 
@@ -67,6 +73,7 @@
             android:id="@+id/request_registration_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="#000000"
             android:text=""/>
     </LinearLayout>
 
@@ -89,6 +96,7 @@
             android:id="@+id/period_of_execution"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="#000000"
             android:text=""/>
     </LinearLayout>
 
@@ -111,6 +119,7 @@
             android:id="@+id/status_of_request"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="#000000"
             android:text=""/>
     </LinearLayout>
 
@@ -139,6 +148,7 @@
             android:id="@+id/declarer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="#000000"
             android:text=""/>
     </LinearLayout>
 
@@ -166,6 +176,7 @@
             android:id="@+id/subdivision"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="#000000"
             android:text=""/>
     </LinearLayout>
 
@@ -193,6 +204,7 @@
             android:id="@+id/data_about_declarer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="#000000"
             android:text=""/>
     </LinearLayout>
 
@@ -220,6 +232,7 @@
             android:id="@+id/text_of_request"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="#000000"
             android:text=""/>
     </LinearLayout>
 
@@ -240,6 +253,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+
                 android:text=": "/>
         </LinearLayout>
 
@@ -247,6 +261,7 @@
             android:id="@+id/responsible_for_the_execution_of_the_request"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="#000000"
             android:text=""/>
     </LinearLayout>
 
@@ -274,7 +289,15 @@
             android:id="@+id/actions_over_request"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="#000000"
             android:text=""/>
     </LinearLayout>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:text="@string/change_log"
+        android:background="@android:color/white"
+        android:textColor="@android:color/black" />
 
 </LinearLayout>
