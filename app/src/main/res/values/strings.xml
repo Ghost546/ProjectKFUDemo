@@ -42,5 +42,6 @@
     <string name="actions_over_request">Действия по заявке</string>
     <string name="evaluation_on_the_implementation_of_the_application">Оценки по выполнению заявки</string>
     <string name="change_log">Журнал изменений</string>
+    <string name="log_out">Выход из аккаунта</string>
 
 </resources>

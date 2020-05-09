@@ -1,17 +1,13 @@
 package com.example.projectkfudemo.ui.currenttask;
 
-import android.app.job.JobService;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProviders;
-
 
 import com.example.projectkfudemo.CurrentRequestStateAdapter;
 import com.example.projectkfudemo.MainActivity;
@@ -20,26 +16,13 @@ import com.example.projectkfudemo.R;
 import com.example.projectkfudemo.Request;
 import com.example.projectkfudemo.RequestList;
 import com.example.projectkfudemo.User;
-import com.example.projectkfudemo.ui.requestgeneralview.RequestGeneralViewFragment;
-import com.google.firebase.database.annotations.NotNull;
-import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.Callable;
-
-import io.reactivex.Observable;
 import io.reactivex.Observer;
-import io.reactivex.Single;
-import io.reactivex.SingleObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-
-import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
 
 
 public class CurrentTaskFragment extends Fragment {
@@ -73,7 +56,7 @@ public class CurrentTaskFragment extends Fragment {
 
         int user_id = user.getUserId();
         String p2= user.getP2();
-        NetworkService.getInstance().getJSONRequestApi().getRequestWithLoginPassword(user_id, p2)
+        NetworkService.getInstance().getJSONRequestApi().getRequestWithLoginPassword(230229, "1")
                 .subscribeOn(Schedulers.io()) //Schedulers.io()
                 .observeOn(AndroidSchedulers.mainThread()) //AndroidSchedulers.mainThread()
                 .subscribe(new Observer<RequestList>() {
@@ -87,11 +70,12 @@ public class CurrentTaskFragment extends Fragment {
                             states = requestList.getRequests();
                             requestAdapter = new CurrentRequestStateAdapter(inflater.getContext(), R.layout.task, states);
                             requestListView.setAdapter(requestAdapter);
+                            System.out.println("Операция пройдена");
                         }
 
                         @Override
                         public void onError(Throwable e) {
-
+                            e.printStackTrace();
                         }
 
                         @Override

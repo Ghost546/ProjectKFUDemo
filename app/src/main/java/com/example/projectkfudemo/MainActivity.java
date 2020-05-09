@@ -1,14 +1,8 @@
 package com.example.projectkfudemo;
 
-import android.app.PendingIntent;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ListView;
-import android.widget.Toast;
 
 import com.example.projectkfudemo.ui.currenttask.CurrentTaskFragment;
 import com.example.projectkfudemo.ui.menu.MenuFragment;
@@ -16,21 +10,11 @@ import com.example.projectkfudemo.ui.mytask.MyTaskFragment;
 import com.example.projectkfudemo.ui.requestgeneralview.RequestGeneralViewFragment;
 import com.example.projectkfudemo.ui.search.SearchFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.annotations.NotNull;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
-
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -82,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         args = getIntent().getExtras();
         userMain = (User) args.getSerializable("user");
-
+        System.out.println("Здесь твои переменные: " + userMain.getUserId() + ", " + userMain.getP2());
         if (userMain == null) {
             Intent intent = new Intent(this, LoginActivity.class);
             startActivity(intent);
@@ -92,15 +76,13 @@ public class MainActivity extends AppCompatActivity {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-
-
-
+        System.out.println("Здесь твои переменные: " + userMain.getUserId() + ", " + userMain.getP2());
         if (savedInstanceState == null) {
             // при первом запуске программы
             selectedFragment = CurrentTaskFragment.newInstance(args);
             FragmentTransaction fragmentTransaction = getSupportFragmentManager()
                     .beginTransaction();
-           // добавляем в контейнер при помощи метода add()
+            // добавляем в контейнер при помощи метода add()
             fragmentTransaction.add(R.id.fragment_container, selectedFragment);
             fragmentTransaction.commit();
         }

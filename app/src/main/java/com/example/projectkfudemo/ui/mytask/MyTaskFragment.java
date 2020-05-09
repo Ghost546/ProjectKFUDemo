@@ -58,11 +58,9 @@ public class MyTaskFragment extends Fragment {
 //        myTaskViewModel = ViewModelProviders.of(this).get(MyTaskViewModel.class);
         View rootView = inflater.inflate(R.layout.fragment_my_task_list, container, false);
         User user = (User) args.getSerializable("user");
-        int user_id = user.getUserId();
-        String p2= user.getP2();
+        System.out.println("Здесь твои переменные: " + user.getUserId() + ", " + user.getP2());
 
-
-        NetworkService.getInstance().getJSONUserRequestApi().getRequestWithLoginPassword(user_id, p2)
+        NetworkService.getInstance().getJSONUserRequestApi().getRequestWithLoginPassword(user.getUserId(), user.getP2(), 6)
                 .subscribeOn(Schedulers.io()) //Schedulers.io()
                 .observeOn(AndroidSchedulers.mainThread()) //AndroidSchedulers.mainThread()
                 .subscribe(new Observer<RequestList>() {
@@ -76,11 +74,12 @@ public class MyTaskFragment extends Fragment {
                         states = requestList.getRequests();
                         requestAdapter = new CurrentRequestStateAdapter(inflater.getContext(), R.layout.task, states);
                         requestListView.setAdapter(requestAdapter);
+                        System.out.println("Операция пройдена");
                     }
 
                     @Override
                     public void onError(Throwable e) {
-
+                        e.printStackTrace();
                     }
 
                     @Override
