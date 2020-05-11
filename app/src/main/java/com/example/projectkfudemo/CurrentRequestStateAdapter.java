@@ -36,8 +36,8 @@ public class CurrentRequestStateAdapter extends ArrayAdapter<Request> {
         Request request = requests.get(position);
 
         idView.setText(Integer.toString(request.getCode()));
-        textView.setText(request.getWorksList().get(0).getDescription());
-        statusView.setText(request.getStatusOfRequest());
+        textView.setText(request.getDescriptionOnPrint());
+        statusView.setText("Статус: " + request.getStatusOfRequest());
         dateView.setText(String.valueOf(request.getPeriodOfExecution()));
 
         return view;

@@ -56,7 +56,7 @@ public class CurrentTaskFragment extends Fragment {
 
         int user_id = user.getUserId();
         String p2= user.getP2();
-        NetworkService.getInstance().getJSONRequestApi().getRequestWithLoginPassword(230229, "1")
+        NetworkService.getInstance().getJSONRequestApi().getRequestWithLoginPassword(user.getUserId(), user.getP2())
                 .subscribeOn(Schedulers.io()) //Schedulers.io()
                 .observeOn(AndroidSchedulers.mainThread()) //AndroidSchedulers.mainThread()
                 .subscribe(new Observer<RequestList>() {

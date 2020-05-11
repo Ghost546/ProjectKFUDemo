@@ -69,7 +69,7 @@ public class Request {
 
     @SerializedName("room_number")
     @Expose
-    private int cabine = 0;
+    private String cabine = "0";
 
     @SerializedName("contact_fullname")
     @Expose
@@ -213,7 +213,8 @@ public class Request {
     }
 
     public String getStatusOfRequest() {
-        return statusOfRequest;
+        String status = actionsOverRequest.get(actionsOverRequest.size()-1).getStatusName();
+        return status;
     }
 
     public void setStatusOfRequest(String statusOfRequest) {
@@ -290,6 +291,24 @@ public class Request {
 
     public void setResponsibleForTheExecutionOfTheRequest(String responsibleForTheExecutionOfTheRequest) {
         this.responsibleForTheExecutionOfTheRequest = responsibleForTheExecutionOfTheRequest;
+    }
+
+    public String getDescriptionOnUse() {
+        return getWorksList().get(0).getDescription();
+    }
+
+    public String getDescriptionOnPrint() {
+        char[] charArr = new char[93];
+        if (getDescriptionOnUse().length() < 89) {
+            getDescriptionOnUse().getChars(0, getDescriptionOnUse().length() - 1, charArr, 0);
+        } else {
+            getDescriptionOnUse().getChars(0, 89, charArr, 0);
+            for(int i = charArr.length-1; i >= charArr.length-3; i--) {
+                charArr[i] = '.';
+            }
+        }
+
+        return String.valueOf(charArr);
     }
 
     public Request getRequest() {
