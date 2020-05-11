@@ -103,10 +103,6 @@ public class CurrentRequest {
         return request.getStatusOfRequest();
     }
 
-    public void setStatusOfRequest(String statusOfRequest) {
-        request.setStatusOfRequest(statusOfRequest);
-    }
-
     public String getResponsibleForTheExecutionOfTheRequest() {
         return request.getResponsibleForTheExecutionOfTheRequest();
     }

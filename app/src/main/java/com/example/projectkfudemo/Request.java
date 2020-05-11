@@ -24,7 +24,7 @@ public class Request {
 
     @SerializedName("id")
     @Expose
-    private int requestId = 0;//id заявки
+    private int requestId;//id заявки
 
     @SerializedName("code")
     @Expose
@@ -39,13 +39,9 @@ public class Request {
 
     @SerializedName("date_of_realization")
     @Expose
-    private String periodOfExecutionString = "";//срок выполнения(предварительно)
+    private String periodOfExecutionString;//срок выполнения(предварительно)
 
     private LocalDate periodOfExecution;//срок выполнения(предварительно)
-
-    //@SerializedName("_id")
-    //@Expose
-    private String statusOfRequest ="";
 
     //@SerializedName("_id")
     //@Expose
@@ -137,6 +133,9 @@ public class Request {
     }
 
     public LocalDate getRequestRegistrationDate() {
+        if(!requestRegistrationDateString.equals("")) {
+            requestRegistrationDateConvertStringToLocaleDate();
+        }
         return requestRegistrationDate;
     }
 
@@ -151,6 +150,9 @@ public class Request {
     }
 
     public LocalDate getPeriodOfExecution() {
+        if(!periodOfExecutionString.equals("")) {
+            periodOfExecutionConvertStringToLocaleDate();
+        }
         return periodOfExecution;
     }
 
@@ -215,10 +217,6 @@ public class Request {
     public String getStatusOfRequest() {
         String status = actionsOverRequest.get(actionsOverRequest.size()-1).getStatusName();
         return status;
-    }
-
-    public void setStatusOfRequest(String statusOfRequest) {
-        this.statusOfRequest = statusOfRequest;
     }
 
     public Building getBuilding() {
@@ -316,13 +314,5 @@ public class Request {
         return request;
     }
 
-    public Request() {
-        if(!requestRegistrationDateString.equals("")) {
-            requestRegistrationDateConvertStringToLocaleDate();
-        }
-        if(!periodOfExecutionString.equals("")) {
-            periodOfExecutionConvertStringToLocaleDate();
-        }
-    }
 }
 
