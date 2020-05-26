@@ -11,7 +11,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.projectkfudemo.CurrentRequestStateAdapter;
 import com.example.projectkfudemo.MainActivity;
-import com.example.projectkfudemo.NetworkService;
+import com.example.projectkfudemo.NetworkServiceRequests;
 import com.example.projectkfudemo.R;
 import com.example.projectkfudemo.Request;
 import com.example.projectkfudemo.RequestList;
@@ -56,7 +56,7 @@ public class CurrentTaskFragment extends Fragment {
 
         int user_id = user.getUserId();
         String p2= user.getP2();
-        NetworkService.getInstance().getJSONRequestApi().getRequestWithLoginPassword(user.getUserId(), user.getP2())
+        NetworkServiceRequests.getInstance().getJSONRequestApi().getRequestWithLoginPassword(user.getUserId(), user.getP2())
                 .subscribeOn(Schedulers.io()) //Schedulers.io()
                 .observeOn(AndroidSchedulers.mainThread()) //AndroidSchedulers.mainThread()
                 .subscribe(new Observer<RequestList>() {

@@ -9,12 +9,12 @@ import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class NetworkService {
-    private static NetworkService mInstance;
+public class NetworkServiceRequests {
+    private static NetworkServiceRequests mInstance;
     private static final String BASE_URL = "https://portal-dis.kpfu.ru/"; //основной адрес
     private Retrofit mRetrofit;
 
-    private NetworkService() {
+    private NetworkServiceRequests() {
         mRetrofit = new Retrofit
                 .Builder()
                 .baseUrl(BASE_URL)
@@ -23,9 +23,11 @@ public class NetworkService {
                 .build();
     }
 
-    public static NetworkService getInstance() {
+
+
+    public static NetworkServiceRequests getInstance() {
         if (mInstance == null) {
-            mInstance = new NetworkService();
+            mInstance = new NetworkServiceRequests();
         }
         return mInstance;
     }

@@ -131,7 +131,7 @@ public class LoginActivity extends AppCompatActivity {
                 //код если текст есть
                 varLogin = login.getText().toString();
                 varPassword = password.getText().toString();
-                NetworkService.getInstance().getJSONUserApi().getUser(varLogin, varPassword)
+                NetworkServiceRequests.getInstance().getJSONUserApi().getUser(varLogin, varPassword)
                         .subscribeOn(Schedulers.io()) //Schedulers.io()
                         .observeOn(AndroidSchedulers.mainThread()) //AndroidSchedulers.mainThread()
                         .subscribe(new Observer<User>() {
@@ -183,6 +183,8 @@ public class LoginActivity extends AppCompatActivity {
                 break;
         }
     }
+
+
 
 }
 

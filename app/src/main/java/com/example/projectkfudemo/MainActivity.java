@@ -99,6 +99,12 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction.commit();
     }
 
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        super.onSaveInstanceState(savedInstanceState);
+        
+    }
+
 //            mFirebaseAuth = FirebaseAuth.getInstance();
 //            mFirebaseUser = mFirebaseAuth.getCurrentUser();
 //            if (mFirebaseUser == null) {

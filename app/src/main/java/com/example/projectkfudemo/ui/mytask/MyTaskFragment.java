@@ -14,7 +14,7 @@ import androidx.lifecycle.ViewModelProviders;
 import com.example.projectkfudemo.CurrentRequest;
 import com.example.projectkfudemo.CurrentRequestStateAdapter;
 import com.example.projectkfudemo.MainActivity;
-import com.example.projectkfudemo.NetworkService;
+import com.example.projectkfudemo.NetworkServiceRequests;
 import com.example.projectkfudemo.R;
 import com.example.projectkfudemo.Request;
 import com.example.projectkfudemo.RequestList;
@@ -60,7 +60,7 @@ public class MyTaskFragment extends Fragment {
         User user = (User) args.getSerializable("user");
         System.out.println("Здесь твои переменные: " + user.getUserId() + ", " + user.getP2());
 
-        NetworkService.getInstance().getJSONUserRequestApi().getRequestWithLoginPassword(user.getUserId(), user.getP2(), 6)
+        NetworkServiceRequests.getInstance().getJSONUserRequestApi().getRequestWithLoginPassword(user.getUserId(), user.getP2(), 6)
                 .subscribeOn(Schedulers.io()) //Schedulers.io()
                 .observeOn(AndroidSchedulers.mainThread()) //AndroidSchedulers.mainThread()
                 .subscribe(new Observer<RequestList>() {
