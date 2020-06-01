@@ -19,12 +19,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
-        <TextView
-            android:id="@+id/show_user"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="User indefined" />
-
 
     </LinearLayout>
 
@@ -48,7 +42,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:hint="hint_login"
+                android:hint="Логин"
                 android:inputType="textEmailAddress" />
 
             <EditText
@@ -56,7 +50,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:hint="hint_password"
+                android:hint="Пароль"
                 android:inputType="textPassword" />
         </LinearLayout>
 
@@ -75,7 +69,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:onClick="onClick"
-                android:text="sign_in" />
+                android:text="@string/log_in" />
 
         </LinearLayout>
 

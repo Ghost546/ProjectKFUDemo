@@ -18,10 +18,10 @@
         tools:layout="@layout/fragment_my_task_list" />
 
     <fragment
-        android:id="@+id/navigation_search"
-        android:name="com.example.projectkfudemo.ui.search.SearchFragment"
-        android:label="@string/title_search"
-        tools:layout="@layout/fragment_search" />
+        android:id="@+id/navigation_map"
+        android:name="com.example.projectkfudemo.ui.search.MapFragment"
+        android:label="@string/title_map"
+        tools:layout="@layout/fragment_map" />
 
     <fragment
         android:id="@+id/navigation_menu"

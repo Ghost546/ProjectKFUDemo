@@ -8,7 +8,7 @@ import com.example.projectkfudemo.ui.currenttask.CurrentTaskFragment;
 import com.example.projectkfudemo.ui.menu.MenuFragment;
 import com.example.projectkfudemo.ui.mytask.MyTaskFragment;
 import com.example.projectkfudemo.ui.requestgeneralview.RequestGeneralViewFragment;
-import com.example.projectkfudemo.ui.search.SearchFragment;
+import com.example.projectkfudemo.ui.search.MapFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.database.annotations.NotNull;
 
@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
                     return true;
                 case R.id.navigation_search:
                     fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                    selectedFragment = SearchFragment.newInstance(args);
+                    selectedFragment = MapFragment.newInstance(args);
                     fragmentTransaction.replace(R.id.fragment_container, selectedFragment);
                     fragmentTransaction.commit();
                     return true;
@@ -67,6 +67,7 @@ public class MainActivity extends AppCompatActivity {
         args = getIntent().getExtras();
         userMain = (User) args.getSerializable("user");
         System.out.println("Здесь твои переменные: " + userMain.getUserId() + ", " + userMain.getP2());
+
         if (userMain == null) {
             Intent intent = new Intent(this, LoginActivity.class);
             startActivity(intent);
@@ -77,6 +78,7 @@ public class MainActivity extends AppCompatActivity {
         // menu should be considered as top level destinations.
         navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         System.out.println("Здесь твои переменные: " + userMain.getUserId() + ", " + userMain.getP2());
+
         if (savedInstanceState == null) {
             // при первом запуске программы
             selectedFragment = CurrentTaskFragment.newInstance(args);
