@@ -3,7 +3,9 @@ package com.example.projectkfudemo;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.view.View;
@@ -36,7 +38,12 @@ public class LoginActivity extends AppCompatActivity {
     private String varLogin;
     private String varPassword;
     private volatile User userMain;
+    SharedPreferences mUser;
 
+    public static final String APP_PREFERENCES = "User";
+
+    public static final String APP_PREFERENCES_LOGIN = "Login";
+    public static final String APP_PREFERENCES_PASSWORD = "Password";
 
     public void showProgressDialog() {
         baseActivity.showProgressDialog();
@@ -67,37 +74,7 @@ public class LoginActivity extends AppCompatActivity {
         signInButton = findViewById(R.id.email_sign_in_button);
         login = findViewById(id.field_login);
         password = findViewById(id.field_password);
-//        System.out.println("че происходит");
-//        NetworkService.getInstance().getJSONUserApi().getUser("vdvoenos", 1) //
-//                .subscribeOn(Schedulers.io()) //Schedulers.io()
-//                .observeOn(AndroidSchedulers.mainThread()) //AndroidSchedulers.mainThread()
-//                .subscribe(new Observer<User>() {
-//                    @Override
-//                    public void onSubscribe(Disposable d) {
-//
-//                    }
-//
-//                    @Override
-//                    public void onNext(User user) {
-//                        userMain = user;
-//                        System.out.println();
-//                        System.out.println("Здесь твои переменные: " + userMain.getFirstname() + ", " + userMain.getP2());
-//                        if(userMain != null) {
-//                            LogIn(userMain);
-//                        }
-//                    }
-//
-//                    @Override
-//                    public void onError(Throwable e) {
-//                        System.out.println("Ошибка: " );
-//                        e.printStackTrace();
-//                    }
-//
-//                    @Override
-//                    public void onComplete() {
-//
-//                    }
-//                });
+        mUser = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
     }
 
 //    private void updateUI(FirebaseUser user) {
@@ -147,6 +124,10 @@ public class LoginActivity extends AppCompatActivity {
                                 System.out.println("Здесь твои переменные: " + user.getUserId() + ", " + user.getP2());
                                 if(userMain != null) {
                                     LogIn(userMain);
+                                    SharedPreferences.Editor editor = mUser.edit();
+                                    editor.putString(APP_PREFERENCES_LOGIN, varLogin);
+                                    editor.putString(APP_PREFERENCES_PASSWORD, varPassword);
+                                    editor.apply();
                                 }
                             }
 
@@ -183,8 +164,5 @@ public class LoginActivity extends AppCompatActivity {
                 break;
         }
     }
-
-
-
 }
 
