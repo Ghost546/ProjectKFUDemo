@@ -70,11 +70,45 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mUser = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
+        if(mUser.contains(APP_PREFERENCES_LOGIN) & mUser.contains(APP_PREFERENCES_PASSWORD)) {
+            if(mUser.getString(APP_PREFERENCES_LOGIN, "")!=null | mUser.getString(APP_PREFERENCES_PASSWORD, "")!=null) {
+                NetworkServiceRequests.getInstance().getJSONUserApi().getUser(mUser.getString(APP_PREFERENCES_LOGIN, ""), mUser.getString(APP_PREFERENCES_PASSWORD, ""))
+                        .subscribeOn(Schedulers.io()) //Schedulers.io()
+                        .observeOn(AndroidSchedulers.mainThread()) //AndroidSchedulers.mainThread()
+                        .subscribe(new Observer<User>() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+
+                            }
+
+                            @Override
+                            public void onNext(User user) {
+                                userMain = user;
+                                System.out.println();
+                                System.out.println("Здесь твои переменные: " + user.getUserId() + ", " + user.getP2());
+                                if(userMain != null) {
+                                    LogIn(userMain);
+                                }
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+
+                            }
+
+                            @Override
+                            public void onComplete() {
+
+                            }
+                        });
+            }
+        }
         setContentView(R.layout.activity_login);
         signInButton = findViewById(R.id.email_sign_in_button);
         login = findViewById(id.field_login);
         password = findViewById(id.field_password);
-        mUser = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
+
     }
 
 //    private void updateUI(FirebaseUser user) {
@@ -141,7 +175,6 @@ public class LoginActivity extends AppCompatActivity {
 
                             }
                         });
-
             }
         }
 

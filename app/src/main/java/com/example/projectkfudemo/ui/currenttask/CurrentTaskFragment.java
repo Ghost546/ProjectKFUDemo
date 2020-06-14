@@ -11,18 +11,20 @@ import android.widget.Spinner;
 
 import androidx.fragment.app.Fragment;
 
-import com.example.projectkfudemo.CurrentRequestStateAdapter;
 import com.example.projectkfudemo.MainActivity;
 import com.example.projectkfudemo.NetworkServiceRequests;
 import com.example.projectkfudemo.R;
 import com.example.projectkfudemo.Request;
 import com.example.projectkfudemo.RequestList;
+import com.example.projectkfudemo.RequestStateAdapter;
 import com.example.projectkfudemo.User;
+import com.example.projectkfudemo.ui.JSONApiRequest;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
@@ -34,7 +36,7 @@ public class CurrentTaskFragment extends Fragment {
     private List<Request> states = new ArrayList<>();
 
 
-    private volatile CurrentRequestStateAdapter requestAdapter = null;
+    private volatile RequestStateAdapter requestAdapter = null;
 
     private ListView requestListView = null;
 
@@ -58,7 +60,7 @@ public class CurrentTaskFragment extends Fragment {
                     @Override
                     public void onNext(RequestList requestList) {
                         states = requestList.getRequests();
-                        requestAdapter = new CurrentRequestStateAdapter(inflater.getContext(), R.layout.task, states);
+                        requestAdapter = new RequestStateAdapter(inflater.getContext(), R.layout.task, states);
                         requestListView.setAdapter(requestAdapter);
                         System.out.println("Операция пройдена");
                     }
@@ -82,8 +84,10 @@ public class CurrentTaskFragment extends Fragment {
 //        currentTaskViewModel = ViewModelProviders.of(this).get(CurrentTaskViewModel.class);
         View rootView = inflater.inflate(R.layout.fragment_current_task_list, container, false);
 
+
+
         User user = (User) args.getSerializable("user");
-        Spinner categorySpinner = (Spinner) rootView.findViewById(R.id.status);
+        Spinner categorySpinner = rootView.findViewById(R.id.status);
 
         ArrayAdapter<?> adapter = ArrayAdapter.createFromResource(inflater.getContext(), R.array.statuses, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);

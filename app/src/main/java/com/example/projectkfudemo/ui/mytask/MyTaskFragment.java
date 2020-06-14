@@ -14,12 +14,12 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.example.projectkfudemo.CurrentRequest;
-import com.example.projectkfudemo.CurrentRequestStateAdapter;
 import com.example.projectkfudemo.MainActivity;
 import com.example.projectkfudemo.NetworkServiceRequests;
 import com.example.projectkfudemo.R;
 import com.example.projectkfudemo.Request;
 import com.example.projectkfudemo.RequestList;
+import com.example.projectkfudemo.RequestStateAdapter;
 import com.example.projectkfudemo.User;
 import com.example.projectkfudemo.forjson.Works;
 
@@ -44,7 +44,7 @@ public class MyTaskFragment extends Fragment {
 
     private List<Request> states = new ArrayList();
 
-    private volatile CurrentRequestStateAdapter requestAdapter = null;
+    private volatile RequestStateAdapter requestAdapter = null;
 
     MyTaskViewModel myTaskViewModel;
 
@@ -72,7 +72,7 @@ public class MyTaskFragment extends Fragment {
                     @Override
                     public void onNext(RequestList requestList) {
                         states = requestList.getRequests();
-                        requestAdapter = new CurrentRequestStateAdapter(inflater.getContext(), R.layout.task, states);
+                        requestAdapter = new RequestStateAdapter(inflater.getContext(), R.layout.task, states);
                         requestListView.setAdapter(requestAdapter);
                         System.out.println("Операция пройдена");
                     }

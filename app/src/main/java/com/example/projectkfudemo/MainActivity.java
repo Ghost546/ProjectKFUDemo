@@ -1,6 +1,7 @@
 package com.example.projectkfudemo;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
 
@@ -18,6 +19,11 @@ import androidx.fragment.app.FragmentTransaction;
 
 public class MainActivity extends AppCompatActivity {
 
+    public static final String APP_PREFERENCES = "User";
+
+    public static final String APP_PREFERENCES_LOGIN = "Login";
+    public static final String APP_PREFERENCES_PASSWORD = "Password";
+
     public static final String EXTRA_AССESS = "com.example.";
     Fragment selectedFragment;
 //    private FirebaseAuth mFirebaseAuth;
@@ -25,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
 //    FirebaseUser user;
     Bundle args;
     User userMain = null;
+    SharedPreferences userPreferences;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
         @Override
@@ -68,10 +75,7 @@ public class MainActivity extends AppCompatActivity {
         userMain = (User) args.getSerializable("user");
         System.out.println("Здесь твои переменные: " + userMain.getUserId() + ", " + userMain.getP2());
 
-        if (userMain == null) {
-            Intent intent = new Intent(this, LoginActivity.class);
-            startActivity(intent);
-        }
+
 
         BottomNavigationView navView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each
