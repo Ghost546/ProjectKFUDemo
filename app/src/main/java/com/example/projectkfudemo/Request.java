@@ -18,6 +18,7 @@ import org.joda.time.format.DateTimeFormat;
 import java.util.List;
 
 public class Request {
+    //
     private boolean MyRequest = false;
 
     private boolean CurrentRequest = false;

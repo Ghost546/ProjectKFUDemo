@@ -92,6 +92,7 @@ public class MainActivity extends AppCompatActivity {
             fragmentTransaction.add(R.id.fragment_container, selectedFragment);
             fragmentTransaction.commit();
         }
+
     }
 
 

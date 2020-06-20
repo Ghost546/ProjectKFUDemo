@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">ProjectKFUDemo</string>
+    <string name="app_name">ServiceDesk</string>
     <string name="title_current_task">Current Task</string>
     <string name="title_my_task">My Task</string>
     <string name="title_activity_login">Sign in</string>

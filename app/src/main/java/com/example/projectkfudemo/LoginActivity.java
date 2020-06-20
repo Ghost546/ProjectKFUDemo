@@ -156,7 +156,8 @@ public class LoginActivity extends AppCompatActivity {
                                 userMain = user;
                                 System.out.println();
                                 System.out.println("Здесь твои переменные: " + user.getUserId() + ", " + user.getP2());
-                                if(userMain != null) {
+
+                                if(userMain != null & userMain.isSuccessful()) {
                                     LogIn(userMain);
                                     SharedPreferences.Editor editor = mUser.edit();
                                     editor.putString(APP_PREFERENCES_LOGIN, varLogin);
@@ -180,8 +181,6 @@ public class LoginActivity extends AppCompatActivity {
 
         //нужно отправить запрос на сервер
         //получить idшник и работать с ним
-
-
     }
 
     public void LogIn(User user) {
