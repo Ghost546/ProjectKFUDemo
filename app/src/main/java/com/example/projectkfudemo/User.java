@@ -13,12 +13,16 @@ import java.io.Serializable;
 public class User implements Serializable {
     final static String LOG_TAG = "myLogs";
 
+    User() {
+
+    }
+
     @SerializedName("successful")
     @Expose
     private boolean successful;
     @SerializedName("user_id")
     @Expose
-    private int userId;
+    private int userId = 0;
     @SerializedName("employee")
     @Expose
     private boolean employee;

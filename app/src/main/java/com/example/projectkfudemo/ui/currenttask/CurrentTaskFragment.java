@@ -19,6 +19,7 @@ import com.example.projectkfudemo.RequestList;
 import com.example.projectkfudemo.RequestStateAdapter;
 import com.example.projectkfudemo.User;
 import com.example.projectkfudemo.ui.JSONApiRequest;
+import com.google.firebase.crashlytics.FirebaseCrashlytics;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,6 +61,11 @@ public class CurrentTaskFragment extends Fragment {
                     @Override
                     public void onNext(RequestList requestList) {
                         states = requestList.getRequests();
+                        if(states.size() == 0) {
+                            FirebaseCrashlytics.getInstance().log("Пришел пустой массив на вывод! В текущих заявках. Class CurrentTaskFragment метод getRequestListView");
+//                            throw new RuntimeException("Test Crash");
+                        }
+                        System.out.println(states.size());
                         requestAdapter = new RequestStateAdapter(inflater.getContext(), R.layout.task, states);
                         requestListView.setAdapter(requestAdapter);
                         System.out.println("Операция пройдена");
@@ -67,7 +73,7 @@ public class CurrentTaskFragment extends Fragment {
 
                     @Override
                     public void onError(Throwable e) {
-                        e.printStackTrace();
+                        FirebaseCrashlytics.getInstance().recordException(e);
                     }
 
                     @Override
@@ -75,6 +81,7 @@ public class CurrentTaskFragment extends Fragment {
 
                     }
                 });
+
         return requestListView;
     }
 
@@ -87,6 +94,27 @@ public class CurrentTaskFragment extends Fragment {
 
 
         User user = (User) args.getSerializable("user");
+        if(user.getUserId() == 0) {
+            FirebaseCrashlytics.getInstance().log("userId = 0 в полученных данных о пользователе");
+            throw new RuntimeException("Test Crash");
+        } else {
+            FirebaseCrashlytics.getInstance().log(String.valueOf(user.getUserId()));
+        }
+        if(user.getP2() == null) {
+            FirebaseCrashlytics.getInstance().log("p2 прилетел null");
+            throw new RuntimeException("Test Crash");
+        } else {
+            FirebaseCrashlytics.getInstance().log(String.valueOf(user.getP2()));
+        }
+        if(user.getP2().equals("")) {
+            FirebaseCrashlytics.getInstance().log("p2 прилетел без данных");
+            throw new RuntimeException("Test Crash");
+        } else {
+            FirebaseCrashlytics.getInstance().log(String.valueOf(user.getP2()));
+        }
+
+
+
         Spinner categorySpinner = rootView.findViewById(R.id.status);
 
         ArrayAdapter<?> adapter = ArrayAdapter.createFromResource(inflater.getContext(), R.array.statuses, android.R.layout.simple_spinner_item);
@@ -99,6 +127,7 @@ public class CurrentTaskFragment extends Fragment {
                                        View itemSelected, int selectedItemPosition, long selectedId) {
 
                 requestListView = getRequestListView(inflater, selectedItemPosition-1);
+
                 requestListView = rootView.findViewById(R.id.currentTasksList);
             }
             public void onNothingSelected(AdapterView<?> parent) {

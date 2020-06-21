@@ -22,6 +22,7 @@ import com.example.projectkfudemo.RequestList;
 import com.example.projectkfudemo.RequestStateAdapter;
 import com.example.projectkfudemo.User;
 import com.example.projectkfudemo.forjson.Works;
+import com.google.firebase.crashlytics.FirebaseCrashlytics;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -72,6 +73,7 @@ public class MyTaskFragment extends Fragment {
                     @Override
                     public void onNext(RequestList requestList) {
                         states = requestList.getRequests();
+                        FirebaseCrashlytics.getInstance().log("Пришел пустой массив на вывод! В текущих заявках. Class MyTaskFragment метод getRequestListView");
                         requestAdapter = new RequestStateAdapter(inflater.getContext(), R.layout.task, states);
                         requestListView.setAdapter(requestAdapter);
                         System.out.println("Операция пройдена");
@@ -79,7 +81,7 @@ public class MyTaskFragment extends Fragment {
 
                     @Override
                     public void onError(Throwable e) {
-                        e.printStackTrace();
+                        FirebaseCrashlytics.getInstance().recordException(e);
                     }
 
                     @Override
