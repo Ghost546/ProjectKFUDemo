@@ -66,7 +66,7 @@ public class Request {
 
     @SerializedName("room_number")
     @Expose
-    private String cabine = "0";
+    private String cabinet = "";
 
     @SerializedName("contact_fullname")
     @Expose
@@ -189,6 +189,30 @@ public class Request {
 
     public void setSubdivisionList(List<Offices> subdivisionList) {
         this.subdivisionList = subdivisionList;
+    }
+
+    public String getDeclarantPost() {
+        return declarantPost;
+    }
+
+    public void setDeclarantPost(String declarantPost) {
+        this.declarantPost = declarantPost;
+    }
+
+    public String getDeclarantPhone() {
+        return declarantPhone;
+    }
+
+    public void setDeclarantPhone(String declarantPhone) {
+        this.declarantPhone = declarantPhone;
+    }
+
+    public String getCabinet() {
+        return cabinet;
+    }
+
+    public void setCabinet(String cabinet) {
+        this.cabinet = cabinet;
     }
 
     public String getContactFullName() {

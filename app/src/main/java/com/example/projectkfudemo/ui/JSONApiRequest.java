@@ -15,10 +15,8 @@ import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface JSONApiRequest {
-//    @GET("/service_desk_mobile.get_request_list?p_user_id=230229&p2=1")
     @GET("e-ksu/service_desk_mobile.get_request_list?")
     public Observable<RequestList> getRequestWithLoginPassword(@Query("p_user_id") int user_id, @Query("p2") String p1, @Query("p_status_id") int status);
+//    @GET("/service_desk_mobile.get_request_list?p_user_id=230229&p2=1")
 
-//    @GET("/posts/{id}")
-//    public Call<ResponseRequest> getRequests(@Path("id") int id);
 }

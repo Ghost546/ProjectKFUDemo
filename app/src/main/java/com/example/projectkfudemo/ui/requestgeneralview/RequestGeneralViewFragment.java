@@ -85,19 +85,27 @@ public class RequestGeneralViewFragment extends Fragment {
         }
         if(!request.getDeclarer().equals("")) {
             declarerBlock.setVisibility(View.VISIBLE);
-            declarer.setText(request.getDeclarer());
+            String text = "";
+            text += request.getDeclarer() + "\n";
+            text += "(" + request.getDeclarantPost()+ ")";
+            declarer.setText(text);
         }
         if(request.getSubdivisionList() != null) {
-            String text = null;
+            String text = "";
             subdivisionBlock.setVisibility(View.VISIBLE);
             for(int i = 0; i<request.getSubdivisionList().size(); i++) {
-                text = request.getSubdivisionList().get(i).getName() + "\n";
+                text += request.getSubdivisionList().get(i).getName() + "\n";
             }
             subdivision.setText(text);
         }
-        if(!request.getContactFullName().equals("")) {
+        if(!request.getContactFullName().equals("")) {                                              //условие не доработано, оставлено условно, пока ни на что не влияет
             dataAboutDeclarerBlock.setVisibility(View.VISIBLE);
-            dataAboutDeclarer.setText(request.getContactFullName());
+            String text = "";
+            text += "Адрес: "+request.getBuilding().getName() + " (" + request.getBuilding().getAddress() + ")" + "\n";
+            text += "Кабинет: " +request.getCabinet()+"\n";
+            text += "Контакт: " + request.getContactFullName() + "\n";
+            text += "Телефон: " + request.getDeclarantPhone();
+            dataAboutDeclarer.setText(text);
         }
         if(request.getWorksList() != null) {
             textOfRequestBlock.setVisibility(View.VISIBLE);
@@ -124,19 +132,27 @@ public class RequestGeneralViewFragment extends Fragment {
         }
         if(!request.getDeclarer().equals("")) {
             declarerBlock.setVisibility(View.VISIBLE);
-            declarer.setText(request.getDeclarer());
+            String text = "";
+            text += request.getDeclarer() + "\n";
+            text += "(" + request.getDeclarantPost() + ")";
+            declarer.setText(text);
         }
         if(request.getSubdivisionList() != null) {
-            String text = null;
+            String text = "";
             subdivisionBlock.setVisibility(View.VISIBLE);
             for(int i = 0; i<request.getSubdivisionList().size(); i++) {
-                text = request.getSubdivisionList().get(i).getName() + "\n";
+                text += request.getSubdivisionList().get(i).getName() + "\n";
             }
             subdivision.setText(text);
         }
         if(!request.getContactFullName().equals("")) {
             dataAboutDeclarerBlock.setVisibility(View.VISIBLE);
-            dataAboutDeclarer.setText(request.getContactFullName());
+            String text = "";
+            text += "Адрес: "+request.getBuilding().getName() + " (" + request.getBuilding().getAddress() + ")" + "\n";
+            text += "Кабинет: " +request.getCabinet()+"\n";
+            text += "Контакт: " + request.getContactFullName() + "\n";
+            text += "Телефон: " + request.getDeclarantPhone();
+            dataAboutDeclarer.setText(text);
         }
         if(request.getWorksList() != null) {
             textOfRequestBlock.setVisibility(View.VISIBLE);
@@ -151,6 +167,7 @@ public class RequestGeneralViewFragment extends Fragment {
             String text = "";
             for(int i = 0; i < request.getActionsOverRequest().size(); i++) {
                 text += request.getActionsOverRequest().get(i).getComment() + "\n";
+                text += "\n";
             }
             actionsOverRequest.setText(text);
         }

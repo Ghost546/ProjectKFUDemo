@@ -72,7 +72,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         mUser = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
         if(mUser.contains(APP_PREFERENCES_LOGIN) & mUser.contains(APP_PREFERENCES_PASSWORD)) {
-            if(mUser.getString(APP_PREFERENCES_LOGIN, "")!=null | mUser.getString(APP_PREFERENCES_PASSWORD, "")!=null) {
+            if(!mUser.getString(APP_PREFERENCES_LOGIN, "").equals("") && !mUser.getString(APP_PREFERENCES_PASSWORD, "").equals("")) {
                 NetworkServiceRequests.getInstance().getJSONUserApi().getUser(mUser.getString(APP_PREFERENCES_LOGIN, ""), mUser.getString(APP_PREFERENCES_PASSWORD, ""))
                         .subscribeOn(Schedulers.io()) //Schedulers.io()
                         .observeOn(AndroidSchedulers.mainThread()) //AndroidSchedulers.mainThread()

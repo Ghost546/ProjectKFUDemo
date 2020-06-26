@@ -23,8 +23,6 @@ public class NetworkServiceRequests {
                 .build();
     }
 
-
-
     public static NetworkServiceRequests getInstance() {
         if (mInstance == null) {
             mInstance = new NetworkServiceRequests();

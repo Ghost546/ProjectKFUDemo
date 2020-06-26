@@ -35,8 +35,7 @@ import io.reactivex.schedulers.Schedulers;
 public class CurrentTaskFragment extends Fragment {
     static private Bundle args;
     private List<Request> states = new ArrayList<>();
-
-
+    
     private volatile RequestStateAdapter requestAdapter = null;
 
     private ListView requestListView = null;
@@ -49,7 +48,7 @@ public class CurrentTaskFragment extends Fragment {
 
     public ListView getRequestListView(LayoutInflater inflater, int position) {
         User user = (User) args.getSerializable("user");
-        NetworkServiceRequests.getInstance().getJSONUserRequestApi().getRequestWithLoginPassword(user.getUserId(), user.getP2(), position)
+        NetworkServiceRequests.getInstance().getJSONRequestApi().getRequestWithLoginPassword(user.getUserId(), user.getP2(), position)
                 .subscribeOn(Schedulers.io()) //Schedulers.io()
                 .observeOn(AndroidSchedulers.mainThread()) //AndroidSchedulers.mainThread()
                 .subscribe(new Observer<RequestList>() {

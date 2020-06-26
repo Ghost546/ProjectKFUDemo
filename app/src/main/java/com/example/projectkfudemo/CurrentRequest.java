@@ -9,6 +9,7 @@ import com.example.projectkfudemo.forjson.Works;
 import org.joda.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.SplittableRandom;
 
 
 public class CurrentRequest {
@@ -73,6 +74,30 @@ public class CurrentRequest {
 
     public void setSubdivisionList(List<Offices> subdivisionList) {
         request.setSubdivisionList(subdivisionList);
+    }
+
+    public String getDeclarantPost() {
+        return request.getDeclarantPost();
+    }
+
+    public void setDeclarantPost(String declarantPost) {
+        request.setDeclarantPost(declarantPost);
+    }
+
+    public String getDeclarantPhone() {
+        return request.getDeclarantPhone();
+    }
+
+    public void setDeclarantPhone(String declarantPhone) {
+        request.setDeclarantPhone(declarantPhone);
+    }
+
+    public String getCabinet() {
+        return request.getCabinet();
+    }
+
+    public void setCabinet(String cabinet) {
+        request.setCabinet(cabinet);
     }
 
     public String getContactFullName() {
