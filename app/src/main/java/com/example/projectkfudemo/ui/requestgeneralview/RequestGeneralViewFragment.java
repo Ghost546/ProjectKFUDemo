@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -13,12 +14,13 @@ import androidx.annotation.VisibleForTesting;
 import androidx.fragment.app.Fragment;
 
 import com.example.projectkfudemo.CurrentRequest;
+import com.example.projectkfudemo.MainActivity;
 import com.example.projectkfudemo.MyRequest;
 import com.example.projectkfudemo.R;
 import com.example.projectkfudemo.Request;
 import com.google.gson.Gson;
 
-public class RequestGeneralViewFragment extends Fragment {
+public class RequestGeneralViewFragment extends Fragment implements View.OnClickListener {
 
     private LinearLayout requestCodeBlock;
     private TextView requestCode;
@@ -42,6 +44,8 @@ public class RequestGeneralViewFragment extends Fragment {
     private TextView responsibleForTheExecutionOfTheRequest;
     private LinearLayout actionsOverRequestBlock;
     private TextView actionsOverRequest;
+
+    private Button changeLogsButton;
 
     private Request request;
 
@@ -165,9 +169,13 @@ public class RequestGeneralViewFragment extends Fragment {
         if(request.getActionsOverRequest()!=null) {
             actionsOverRequestBlock.setVisibility(View.VISIBLE);
             String text = "";
-            for(int i = 0; i < request.getActionsOverRequest().size(); i++) {
-                text += request.getActionsOverRequest().get(i).getComment() + "\n";
+            for(int i = 0; i < request.getCommentsList().size(); i++) {
+                text += request.getCommentsList().get(i).getComment() + "\n";
                 text += "\n";
+                for(int j = 0; j < request.getCommentsList().get(i).getWorksInCommentsList().size(); j++) {
+                    text += request.getCommentsList().get(i).getWorksInCommentsList().get(j).getName();
+                    text += "\n";
+                }
             }
             actionsOverRequest.setText(text);
         }
@@ -202,15 +210,30 @@ public class RequestGeneralViewFragment extends Fragment {
         responsibleForTheExecutionOfTheRequest=root.findViewById(R.id.responsible_for_the_execution_of_the_request);
         actionsOverRequestBlock=root.findViewById(R.id.actions_over_request_block);
         actionsOverRequest=root.findViewById(R.id.actions_over_request);
+
+        changeLogsButton = (Button) root.findViewById(R.id.change_logs_button);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_general_view_request, container, false);
         setIds(root);
+        changeLogsButton.setOnClickListener(this);
         SendRequestSetting(request);
         return root;
     }
 
+    private void changeLogsButtonClick() {
+        MainActivity mainActivity = (MainActivity) getActivity();
+        mainActivity.startFragmentChangeLogsView(request);
+    }
+
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.change_logs_button:
+                changeLogsButtonClick();
+                break;
+        }
+    }
 
 }

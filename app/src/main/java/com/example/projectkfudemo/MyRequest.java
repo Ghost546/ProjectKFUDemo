@@ -1,6 +1,7 @@
 package com.example.projectkfudemo;
 
 import com.example.projectkfudemo.forjson.Building;
+import com.example.projectkfudemo.forjson.Comments;
 import com.example.projectkfudemo.forjson.Log;
 import com.example.projectkfudemo.forjson.Offices;
 import com.example.projectkfudemo.forjson.Status;
@@ -147,6 +148,14 @@ public class MyRequest {
 
     public void setWorksList(List<Works> worksList) {
         request.setWorksList(worksList);
+    }
+
+    public List<Comments> getCommentsList() {
+        return request.getCommentsList();
+    }
+
+    public void setCommentsList(List<Comments> commentsList) {
+        request.setCommentsList(commentsList);
     }
 
     public Status getStatus() {

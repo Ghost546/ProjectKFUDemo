@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
 
+import com.example.projectkfudemo.ui.changelogs.ChangeLogsFragment;
 import com.example.projectkfudemo.ui.currenttask.CurrentTaskFragment;
 import com.example.projectkfudemo.ui.menu.MenuFragment;
 import com.example.projectkfudemo.ui.mytask.MyTaskFragment;
@@ -95,6 +96,11 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        finishAffinity();
+    }
 
     @NotNull
     public void startFragmentGeneralView(@NotNull Request request) {
@@ -102,6 +108,16 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.addToBackStack(null);
         Fragment selectedFragment = RequestGeneralViewFragment.newInstance(request);
+        fragmentTransaction.replace(R.id.fragment_container, selectedFragment);
+        fragmentTransaction.commit();
+    }
+
+    @NotNull
+    public void startFragmentChangeLogsView(Request request) {
+        FragmentTransaction fragmentTransaction;
+        fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.addToBackStack(null);
+        Fragment selectedFragment = ChangeLogsFragment.newInstance(request);
         fragmentTransaction.replace(R.id.fragment_container, selectedFragment);
         fragmentTransaction.commit();
     }
