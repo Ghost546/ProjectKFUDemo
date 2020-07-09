@@ -11,6 +11,7 @@ import android.os.Parcelable;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 
 import com.google.firebase.auth.FirebaseUser;
 
@@ -39,6 +40,8 @@ public class LoginActivity extends AppCompatActivity {
     private String varPassword;
     private volatile User userMain;
     SharedPreferences mUser;
+
+    private ImageView saver;
 
     public static final String APP_PREFERENCES = "User";
 
@@ -70,6 +73,8 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_login);
+        saver = findViewById(R.id.saver);
         mUser = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
         if(mUser.contains(APP_PREFERENCES_LOGIN) & mUser.contains(APP_PREFERENCES_PASSWORD)) {
             if(!mUser.getString(APP_PREFERENCES_LOGIN, "").equals("") && !mUser.getString(APP_PREFERENCES_PASSWORD, "").equals("")) {
@@ -103,8 +108,9 @@ public class LoginActivity extends AppCompatActivity {
                             }
                         });
             }
+        } else {
+            saver.setVisibility(View.GONE);
         }
-        setContentView(R.layout.activity_login);
         signInButton = findViewById(R.id.email_sign_in_button);
         login = findViewById(id.field_login);
         password = findViewById(id.field_password);

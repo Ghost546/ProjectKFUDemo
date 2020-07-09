@@ -42,6 +42,10 @@ public class Comments {
         return beginDate;
     }
 
+    public String getBeginDateString() {
+        return beginDateString;
+    }
+
     public void setBeginDate(LocalDate beginDate) {
         this.beginDate = beginDate;
     }

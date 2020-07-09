@@ -129,6 +129,7 @@ public class Request {
         return code;
     }
 
+
     public void setCode(int code) {
         this.code = code;
     }
@@ -161,6 +162,7 @@ public class Request {
     public void setPeriodOfExecutionFromString(String periodOfExecutionString) {
         this.periodOfExecution = DateTimeFormat.forPattern("dd.MM.yy").parseLocalDate(periodOfExecutionString);
     }
+
 
     //это нужно только для парса при создании объекта Request
     public void periodOfExecutionConvertStringToLocaleDate() {

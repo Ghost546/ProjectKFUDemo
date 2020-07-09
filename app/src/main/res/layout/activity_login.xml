@@ -7,6 +7,15 @@
     android:orientation="vertical"
     android:weightSum="4">
 
+    <ImageView
+        android:id="@+id/saver"
+        android:padding="50dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="visible"
+        android:background="#FFFFFF"
+        android:src="@drawable/ic_kfu_logo_gerb_1_"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
