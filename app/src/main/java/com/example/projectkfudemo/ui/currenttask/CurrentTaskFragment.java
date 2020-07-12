@@ -116,7 +116,8 @@ public class CurrentTaskFragment extends Fragment {
 
         Spinner categorySpinner = rootView.findViewById(R.id.status);
 
-        ArrayAdapter<?> adapter = ArrayAdapter.createFromResource(inflater.getContext(), R.array.statuses, android.R.layout.simple_spinner_item);
+
+        ArrayAdapter<?> adapter = ArrayAdapter.createFromResource(inflater.getContext(), R.array.statuses_current_tasks, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         // Вызываем адаптер

@@ -46,7 +46,7 @@
     <string name="log_out">Выйти</string>
     <string name="coming_soon">В скором времени…</string>
 
-    <string-array name="statuses">
+    <string-array name="statuses_my_tasks">
         <item>Все заявки</item>
         <item>Все не закрытые заявки</item>
         <item>Новые</item>
@@ -56,6 +56,16 @@
         <item>Приостановленные</item>
         <item>Закрытые</item>
     </string-array>
+
+    <string-array name="statuses_current_tasks">
+        <item>Все не закрытые заявки</item>
+        <item>Новые</item>
+        <item>Выполненные</item>
+        <item>Выполняемые</item>
+        <item>Отмененные</item>
+        <item>Приостановленные</item>
+    </string-array>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
