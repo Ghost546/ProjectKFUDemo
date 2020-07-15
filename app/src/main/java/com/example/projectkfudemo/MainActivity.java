@@ -120,6 +120,7 @@ public class MainActivity extends AppCompatActivity {
         Fragment selectedFragment = ChangeLogsFragment.newInstance(request);
         fragmentTransaction.replace(R.id.fragment_container, selectedFragment);
         fragmentTransaction.commit();
+
     }
 
     @Override

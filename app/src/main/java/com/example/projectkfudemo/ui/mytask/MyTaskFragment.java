@@ -102,7 +102,7 @@ public class MyTaskFragment extends Fragment {
         System.out.println("Здесь твои переменные: " + user.getUserId() + ", " + user.getP2());
         Spinner categorySpinner = (Spinner) rootView.findViewById(R.id.status);
 
-        ArrayAdapter<?> adapter = ArrayAdapter.createFromResource(inflater.getContext(), R.array.statuses_current_tasks, android.R.layout.simple_spinner_item);
+        ArrayAdapter<?> adapter = ArrayAdapter.createFromResource(inflater.getContext(), R.array.statuses_my_tasks, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         // Вызываем адаптер

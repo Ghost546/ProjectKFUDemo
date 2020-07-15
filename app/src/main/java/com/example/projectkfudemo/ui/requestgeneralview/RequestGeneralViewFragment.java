@@ -4,7 +4,10 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -18,6 +21,7 @@ import com.example.projectkfudemo.MainActivity;
 import com.example.projectkfudemo.MyRequest;
 import com.example.projectkfudemo.R;
 import com.example.projectkfudemo.Request;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.gson.Gson;
 
 public class RequestGeneralViewFragment extends Fragment implements View.OnClickListener {
@@ -47,15 +51,34 @@ public class RequestGeneralViewFragment extends Fragment implements View.OnClick
 
     private Button changeLogsButton;
 
+    FloatingActionButton fab1;                                                                      //рег карточка заявки
+    FloatingActionButton fab2;                                                                      //комментарий исполнителя
+
+    int k = 0;
+
+    public void addK(int k) {
+        this.k += k;
+    }
+
+    public void setK(int k) {
+        this.k = k;
+    }
+
+    public int getK() {
+        return k;
+    }
+
     private Request request;
 
     public static RequestGeneralViewFragment newInstance(Request request) {
         RequestGeneralViewFragment fragment = new RequestGeneralViewFragment();
+        fragment.setK(0);
 //        Bundle args = new Bundle();
 //        Gson gson = new Gson();
 //        args.putString("req",gson.toJson(request));
 //        getArguments().putString("list",gson.toJson(states));
         fragment.request = request;
+
         return fragment;
     }
 
@@ -187,6 +210,7 @@ public class RequestGeneralViewFragment extends Fragment implements View.OnClick
 
     }
 
+
     private void setIds(View root) {
         requestCodeBlock=root.findViewById(R.id.request_code_block);
         requestCode=root.findViewById(R.id.request_code);
@@ -211,7 +235,23 @@ public class RequestGeneralViewFragment extends Fragment implements View.OnClick
         actionsOverRequestBlock=root.findViewById(R.id.actions_over_request_block);
         actionsOverRequest=root.findViewById(R.id.actions_over_request);
 
+        fab1 = root.findViewById(R.id.fab_1);
+        fab2 = root.findViewById(R.id.fab_2);
+
+
         changeLogsButton = (Button) root.findViewById(R.id.change_logs_button);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        setK(0);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        setK(0);
     }
 
     @Override
@@ -220,7 +260,66 @@ public class RequestGeneralViewFragment extends Fragment implements View.OnClick
         setIds(root);
         changeLogsButton.setOnClickListener(this);
         SendRequestSetting(request);
+
+        FloatingActionButton fabGeneral = (FloatingActionButton) root.findViewById(R.id.fab_general);
+        Animation show_fab_1 = AnimationUtils.loadAnimation(getActivity().getApplication(), R.anim.fab1_show);
+        Animation hide_fab_1 = AnimationUtils.loadAnimation(getActivity().getApplication(), R.anim.fab1_hide);
+
+        Animation show_fab_2 = AnimationUtils.loadAnimation(getActivity().getApplication(), R.anim.fab2_show);
+        Animation hide_fab_2 = AnimationUtils.loadAnimation(getActivity().getApplication(), R.anim.fab2_hide);
+        FrameLayout.LayoutParams layoutParams1 = (FrameLayout.LayoutParams) fab1.getLayoutParams();
+        FrameLayout.LayoutParams layoutParams2 = (FrameLayout.LayoutParams) fab2.getLayoutParams();
+        fabGeneral.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(getK()%2 == 0) {
+                    layoutParams1.rightMargin += (int) (fab1.getWidth() * 0.25);
+                    layoutParams1.bottomMargin += (int) (fab1.getHeight() * 1.7);
+                    fab1.setLayoutParams(layoutParams1);
+                    fab1.startAnimation(show_fab_1);
+                    fab1.setClickable(true);
+
+                    layoutParams2.rightMargin += (int) (fab1.getWidth() * 0.25);
+                    layoutParams2.bottomMargin += (int) (fab1.getHeight() * 2.9);
+                    fab2.setLayoutParams(layoutParams2);
+                    fab2.startAnimation(show_fab_2);
+                    fab2.setClickable(true);
+                } else {
+                    layoutParams1.rightMargin -= (int) (fab1.getWidth() * 0.25);
+                    layoutParams1.bottomMargin -= (int) (fab1.getHeight() * 1.7);
+                    fab1.setLayoutParams(layoutParams1);
+                    fab1.startAnimation(hide_fab_1);
+                    fab1.setClickable(false);
+
+                    layoutParams2.rightMargin -= (int) (fab2.getWidth() * 0.25);
+                    layoutParams2.bottomMargin -= (int) (fab2.getHeight() * 2.9);
+                    fab2.setLayoutParams(layoutParams2);
+                    fab2.startAnimation(hide_fab_2);
+                    fab2.setClickable(false);
+                }
+                addK(1);
+                if(getK()==10) {
+                    setK(0);
+                }
+            }
+        });
+        fab1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                changeLogsButtonClick();
+            }
+        });
+        fab2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
         return root;
+    }
+
+    public void fabGeneralClick() {
+
     }
 
     private void changeLogsButtonClick() {
@@ -231,8 +330,9 @@ public class RequestGeneralViewFragment extends Fragment implements View.OnClick
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.change_logs_button:
-                changeLogsButtonClick();
+
                 break;
+
         }
     }
 

@@ -10,8 +10,9 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/activity_horizontal_margin"
-        android:src="@android:drawable/ic_menu_compass"
+        android:src="@drawable/description_24px_1_"
         android:visibility="invisible"
+        android:onClick="onClick"
         app:backgroundTint="#005D9F"
         app:fabSize="mini" />
 
@@ -21,8 +22,9 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/activity_horizontal_margin"
-        android:src="@android:drawable/ic_menu_myplaces"
+        android:src="@drawable/add_comment_24px"
         android:visibility="invisible"
+        android:onClick="onClick"
         app:backgroundTint="#005D9F"
         app:fabSize="mini" />
 

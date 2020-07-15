@@ -19,7 +19,7 @@
             android:id="@+id/status"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:entries="@array/statuses" />
+            android:entries="@array/statuses_current_tasks" />
 
         <ListView android:id="@+id/currentTasksList"
             android:layout_height="match_parent"
