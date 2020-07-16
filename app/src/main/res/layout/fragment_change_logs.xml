@@ -9,11 +9,30 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <TextView
-            android:id="@+id/change_logs_text"
-            android:layout_width="wrap_content"
+        <RelativeLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text=""/>
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/responsible_for_the_execution_of_the_application_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:text="responsible for the execution of the application"/>
+            
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/responsible_for_the_execution_of_the_application_recycler"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/responsible_for_the_execution_of_the_application_text"/>
+            
+
+            
+        </RelativeLayout>
+        
+
+        
+
     </ScrollView>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

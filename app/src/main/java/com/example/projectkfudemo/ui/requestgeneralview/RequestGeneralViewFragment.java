@@ -239,7 +239,7 @@ public class RequestGeneralViewFragment extends Fragment implements View.OnClick
         fab2 = root.findViewById(R.id.fab_2);
 
 
-        changeLogsButton = (Button) root.findViewById(R.id.change_logs_button);
+
     }
 
     @Override
@@ -258,7 +258,7 @@ public class RequestGeneralViewFragment extends Fragment implements View.OnClick
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_general_view_request, container, false);
         setIds(root);
-        changeLogsButton.setOnClickListener(this);
+
         SendRequestSetting(request);
 
         FloatingActionButton fabGeneral = (FloatingActionButton) root.findViewById(R.id.fab_general);
@@ -329,9 +329,6 @@ public class RequestGeneralViewFragment extends Fragment implements View.OnClick
 
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.change_logs_button:
-
-                break;
 
         }
     }

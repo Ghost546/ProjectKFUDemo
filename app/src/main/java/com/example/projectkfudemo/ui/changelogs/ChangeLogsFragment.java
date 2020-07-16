@@ -1,12 +1,18 @@
 package com.example.projectkfudemo.ui.changelogs;
 
+import android.graphics.Typeface;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.example.projectkfudemo.R;
@@ -22,7 +28,7 @@ public class ChangeLogsFragment extends Fragment {
 //    private static Bundle arg;
 
     private Request request;
-    private TextView changeLogsText;
+    private TableLayout changeLogsTable;
 
     public ChangeLogsFragment() {
         // Required empty public constructor
@@ -35,7 +41,7 @@ public class ChangeLogsFragment extends Fragment {
     }
 
     private void setIds(View root) {
-        changeLogsText = root.findViewById(R.id.change_logs_text);
+        changeLogsTable = root.findViewById(R.id.change_logs_table);
     }
 
     private void setView(Request request) {
@@ -44,14 +50,19 @@ public class ChangeLogsFragment extends Fragment {
             text += request.getActionsOverRequest().get(i).getComment() + "\n";
             text += "\n";
         }
-        changeLogsText.setText(text);
+
+    }
+
+    public void setTable() {
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_change_logs, container, false);
         setIds(root);
-        setView(request);
+        setTable();
+
         return root;
     }
 
