@@ -26,7 +26,33 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/responsible_for_the_execution_of_the_application_text"/>
             
+            <TextView
+                android:id="@+id/performers_heading"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Performers(Исполнители)"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@id/responsible_for_the_execution_of_the_application_recycler"/>
 
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/performers_list"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/performers_heading"/>
+
+            <TextView
+                android:id="@+id/application_life_cycle_heading"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@id/performers_list"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="application life cycle(Жизненный цикл заявки)"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/application_life_cycle_list"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/application_life_cycle_heading"/>
             
         </RelativeLayout>
         

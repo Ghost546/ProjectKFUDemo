@@ -318,10 +318,6 @@ public class RequestGeneralViewFragment extends Fragment implements View.OnClick
         return root;
     }
 
-    public void fabGeneralClick() {
-
-    }
-
     private void changeLogsButtonClick() {
         MainActivity mainActivity = (MainActivity) getActivity();
         mainActivity.startFragmentChangeLogsView(request);

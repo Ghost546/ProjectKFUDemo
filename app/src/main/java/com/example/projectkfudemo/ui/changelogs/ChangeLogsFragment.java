@@ -4,6 +4,7 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.TypedValue;
 import android.view.Gravity;
@@ -28,7 +29,9 @@ public class ChangeLogsFragment extends Fragment {
 //    private static Bundle arg;
 
     private Request request;
-    private TableLayout changeLogsTable;
+    private RecyclerView applicationLifeCycleList;
+    private RecyclerView performersList;
+    private RecyclerView responsibleForTheExecutionOfTheApplicationRecycler;
 
     public ChangeLogsFragment() {
         // Required empty public constructor
@@ -41,7 +44,9 @@ public class ChangeLogsFragment extends Fragment {
     }
 
     private void setIds(View root) {
-        changeLogsTable = root.findViewById(R.id.change_logs_table);
+        applicationLifeCycleList = root.findViewById(R.id.application_life_cycle_list);
+        performersList = root.findViewById(R.id.performers_list);
+        responsibleForTheExecutionOfTheApplicationRecycler = root.findViewById(R.id.responsible_for_the_execution_of_the_application_recycler);
     }
 
     private void setView(Request request) {

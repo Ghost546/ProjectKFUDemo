@@ -4,6 +4,10 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class Works {
+    @SerializedName("date_of")
+    @Expose
+    private String date;
+
     @SerializedName("service_name")
     @Expose
     private String serviceName;
@@ -15,6 +19,14 @@ public class Works {
     @SerializedName("description")
     @Expose
     private String description; //описание заявки
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
 
     public String getServiceName() {
         return serviceName;
