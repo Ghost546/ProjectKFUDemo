@@ -74,11 +74,11 @@ public class LoginActivity extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        saver = findViewById(R.id.saver);
-        mUser = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
-        if(mUser.contains(APP_PREFERENCES_LOGIN) & mUser.contains(APP_PREFERENCES_PASSWORD)) {
-            if(!mUser.getString(APP_PREFERENCES_LOGIN, "").equals("") && !mUser.getString(APP_PREFERENCES_PASSWORD, "").equals("")) {
-                NetworkServiceRequests.getInstance().getJSONUserApi().getUser(mUser.getString(APP_PREFERENCES_LOGIN, ""), mUser.getString(APP_PREFERENCES_PASSWORD, ""))
+        saver = findViewById(R.id.saver);                                                           //заглушка экрана на время проверки авторизации
+        mUser = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);                        //содержит данные об авторизованном пользователе
+        if(mUser.contains(APP_PREFERENCES_LOGIN) & mUser.contains(APP_PREFERENCES_PASSWORD)) {      //проверяет авторизован ли пользователь
+            if(!mUser.getString(APP_PREFERENCES_LOGIN, "").equals("") && !mUser.getString(APP_PREFERENCES_PASSWORD, "").equals("")) {   //проверка не пыстые ли поля
+                NetworkServiceRequests.getInstance().getJSONUserApi().getUser(mUser.getString(APP_PREFERENCES_LOGIN, ""), mUser.getString(APP_PREFERENCES_PASSWORD, "")) //отправляет запрос на авторизацию в случае если пользователь авторизован
                         .subscribeOn(Schedulers.io()) //Schedulers.io()
                         .observeOn(AndroidSchedulers.mainThread()) //AndroidSchedulers.mainThread()
                         .subscribe(new Observer<User>() {
@@ -92,8 +92,8 @@ public class LoginActivity extends AppCompatActivity {
                                 userMain = user;
                                 System.out.println();
                                 System.out.println("Здесь твои переменные: " + user.getUserId() + ", " + user.getP2());
-                                if(userMain != null) {
-                                    LogIn(userMain);
+                                if(userMain != null) {  //проверяет получен ли пользователь
+                                    LogIn(userMain);    //вход в приложение
                                 }
                             }
 
@@ -109,7 +109,7 @@ public class LoginActivity extends AppCompatActivity {
                         });
             }
         } else {
-            saver.setVisibility(View.GONE);
+            saver.setVisibility(View.GONE);                                                         //заглушка спадает в случае неудачной проверки
         }
         signInButton = findViewById(R.id.email_sign_in_button);
         login = findViewById(id.field_login);
@@ -142,13 +142,13 @@ public class LoginActivity extends AppCompatActivity {
             //код если поле пусто
         } else {
             //код если текст есть
-            if (password.getText().toString().equals("")) {
+            if (password.getText().toString().equals("")) {                                         //проверки полей на наличие текста
                 //код если поле пусто
             } else {
                 //код если текст есть
                 varLogin = login.getText().toString();
-                varPassword = password.getText().toString();
-                NetworkServiceRequests.getInstance().getJSONUserApi().getUser(varLogin, varPassword)
+                varPassword = password.getText().toString();                                        //занес в переменные для удобства
+                NetworkServiceRequests.getInstance().getJSONUserApi().getUser(varLogin, varPassword)//отправка запроса по введенным данным
                         .subscribeOn(Schedulers.io()) //Schedulers.io()
                         .observeOn(AndroidSchedulers.mainThread()) //AndroidSchedulers.mainThread()
                         .subscribe(new Observer<User>() {
@@ -163,12 +163,12 @@ public class LoginActivity extends AppCompatActivity {
                                 System.out.println();
                                 System.out.println("Здесь твои переменные: " + user.getUserId() + ", " + user.getP2());
 
-                                if(userMain != null & userMain.isSuccessful()) {
-                                    LogIn(userMain);
+                                if(userMain != null & userMain.isSuccessful()) {                    //при успешной авторизации данные заносятся в SharedPreferences
                                     SharedPreferences.Editor editor = mUser.edit();
                                     editor.putString(APP_PREFERENCES_LOGIN, varLogin);
                                     editor.putString(APP_PREFERENCES_PASSWORD, varPassword);
                                     editor.apply();
+                                    LogIn(userMain);
                                 }
                             }
 
@@ -189,7 +189,7 @@ public class LoginActivity extends AppCompatActivity {
         //получить idшник и работать с ним
     }
 
-    public void LogIn(User user) {
+    public void LogIn(User user) {//запуск главной активности
         Intent intent = new Intent(this, MainActivity.class);
         intent.putExtra("user", user);
         startActivity(intent);

@@ -1,4 +1,4 @@
-package com.example.projectkfudemo.ui.changelogs;
+package com.example.projectkfudemo.ui.changelogs.cardlists;
 
 import android.content.Context;
 import android.view.LayoutInflater;
