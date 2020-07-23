@@ -33,11 +33,17 @@ public class PerformersAdapter extends ArrayAdapter<Workers> {
             convertView = inflater.inflate(this.layout, parent, false);
         }
 
-        TextView textView = convertView.findViewById(R.id.text_of_request);
+        TextView textView = convertView.findViewById(R.id.text);
+        TextView textSpace = convertView.findViewById(R.id.text_space);
 
         Workers worker = workersList.get(position);
 
-//        textView.setText(request.getDescriptionOnPrint());
+        if (worker.getFullname()!=null) {
+            textView.setText(worker.getFullname());
+            textView.setVisibility(View.VISIBLE);
+            textSpace.setVisibility(View.VISIBLE);
+        }
+
 
 
         return convertView;

@@ -48,6 +48,14 @@ public class Log {
         this.statusId = statusId;
     }
 
+    public String getChangeDateString() {
+        return changeDateString;
+    }
+
+    public void setChangeDateString(String changeDateString) {
+        this.changeDateString = changeDateString;
+    }
+
     public LocalDate getChangeDate() {
         return changeDate;
     }

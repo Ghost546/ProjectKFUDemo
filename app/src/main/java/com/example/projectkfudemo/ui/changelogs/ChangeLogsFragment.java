@@ -20,6 +20,8 @@ import android.widget.TextView;
 import com.example.projectkfudemo.R;
 import com.example.projectkfudemo.Request;
 import com.example.projectkfudemo.Utility;
+import com.example.projectkfudemo.ui.changelogs.cardlists.ApplicationAdapter;
+import com.example.projectkfudemo.ui.changelogs.cardlists.PerformersAdapter;
 import com.example.projectkfudemo.ui.changelogs.cardlists.ResponsibleAdapter;
 
 /**
@@ -73,8 +75,14 @@ public class ChangeLogsFragment extends Fragment {
         setIds(root);
 
         ResponsibleAdapter responsibleAdapter = new ResponsibleAdapter(inflater.getContext(), R.layout.logs_list_item, request.getWorksList());
+        PerformersAdapter performersAdapter = new PerformersAdapter(inflater.getContext(), R.layout.performers_list_item, request.getWorkersList());
+        ApplicationAdapter applicationAdapter = new ApplicationAdapter(inflater.getContext(), R.layout.application_list_item, request.getActionsOverRequest());
         responsibleForTheExecutionOfTheApplicationList.setAdapter(responsibleAdapter);
+        performersList.setAdapter(performersAdapter);
+        applicationLifeCycleList.setAdapter(applicationAdapter);
         Utility.setListViewHeightBasedOnChildren(responsibleForTheExecutionOfTheApplicationList);
+        Utility.setListViewHeightBasedOnChildren(performersList);
+        Utility.setListViewHeightBasedOnChildren(applicationLifeCycleList);
         setTable();
 
         return root;

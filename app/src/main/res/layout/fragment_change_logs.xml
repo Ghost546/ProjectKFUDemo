@@ -17,6 +17,7 @@
                 android:id="@+id/responsible_for_the_execution_of_the_application_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="responsible for the execution of the application"
                 android:layout_centerHorizontal="true"/>
 
             <ListView
