@@ -112,7 +112,7 @@ public class CurrentTaskFragment extends Fragment {
             FirebaseCrashlytics.getInstance().log(String.valueOf(user.getP2()));
         }
 
-
+        requestListView = rootView.findViewById(R.id.currentTasksList);
 
         Spinner categorySpinner = rootView.findViewById(R.id.status);
 
@@ -127,15 +127,13 @@ public class CurrentTaskFragment extends Fragment {
                                        View itemSelected, int selectedItemPosition, long selectedId) {
 
                 requestListView = getRequestListView(inflater, selectedItemPosition-1);
-
-                requestListView = rootView.findViewById(R.id.currentTasksList);
             }
             public void onNothingSelected(AdapterView<?> parent) {
             }
         });
 
         //получаем элемент ListView
-        requestListView = rootView.findViewById(R.id.currentTasksList);
+
         // устанавливаем адаптер
 
 

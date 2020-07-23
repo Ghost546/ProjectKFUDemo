@@ -4,51 +4,56 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.projectkfudemo.R;
+import com.example.projectkfudemo.Request;
 import com.example.projectkfudemo.forjson.Works;
 
 import java.util.List;
 
-public class ResponsibleAdapter extends RecyclerView.Adapter<ResponsibleAdapter.ViewHolder> {
-
+public class ResponsibleAdapter extends ArrayAdapter<Works> {
     private LayoutInflater inflater;
-    private List<Works> works;
+    private int layout;
+    private List<Works> worksList;
 
-    ResponsibleAdapter(Context context, List<Works> phones) {
-        this.works = phones;
+
+    public ResponsibleAdapter(Context context, int resource, List<Works> works) {
+        super(context, resource, works);
+        this.worksList = works;
+        this.layout = resource;
         this.inflater = LayoutInflater.from(context);
     }
-    @Override
-    public ResponsibleAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        View view = inflater.inflate(R.layout.logs_list_item, parent, false);
-        return new ViewHolder(view);
-    }
+    public View getView(int position, View convertView, ViewGroup parent) {
 
-    @Override
-    public void onBindViewHolder(ResponsibleAdapter.ViewHolder holder, int position) {
-        Works work = works.get(position);
-        holder.numberView.setText(String.valueOf(works.get(position)));
-        holder.dateOfView.setText(work.getDate());
-
-    }
-
-    @Override
-    public int getItemCount() {
-        return works.size();
-    }
-
-    public class ViewHolder extends RecyclerView.ViewHolder {
-        final TextView numberView, dateOfView, serviceNameView;
-        ViewHolder(View view){
-            super(view);
-            numberView = (TextView) view.findViewById(R.id.number);
-            dateOfView = (TextView) view.findViewById(R.id.date_of);
-            serviceNameView = (TextView) view.findViewById(R.id.service_name);
+        if(convertView==null){
+            convertView = inflater.inflate(this.layout, parent, false);
         }
+
+        TextView numberView = (TextView) convertView.findViewById(R.id.number);
+        TextView dateOfView = (TextView) convertView.findViewById(R.id.date_of);
+        TextView serviceNameView = (TextView) convertView.findViewById(R.id.service_name);
+        TextView typeNameView = (TextView) convertView.findViewById(R.id.type_name);
+        TextView descriptionView = (TextView) convertView.findViewById(R.id.description);
+
+        Works works = worksList.get(position);
+
+//        numberView.setText(String.valueOf(worksList.get(position)));
+        dateOfView.setText(works.getDate());
+        serviceNameView.setText(works.getServiceName());
+        typeNameView.setText(works.getTypeName());
+        descriptionView.setText(works.getDescription());
+
+        return convertView;
     }
 }
+
+
+
+
+
+//

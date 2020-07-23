@@ -12,12 +12,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.example.projectkfudemo.R;
 import com.example.projectkfudemo.Request;
+import com.example.projectkfudemo.Utility;
+import com.example.projectkfudemo.ui.changelogs.cardlists.ResponsibleAdapter;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -29,13 +32,10 @@ public class ChangeLogsFragment extends Fragment {
 //    private static Bundle arg;
 
     private Request request;
-    private RecyclerView applicationLifeCycleList;
-    private RecyclerView performersList;
-    private RecyclerView responsibleForTheExecutionOfTheApplicationRecycler;
+    private ListView responsibleForTheExecutionOfTheApplicationList;
+    private ListView applicationLifeCycleList;
+    private ListView performersList;
 
-    public ChangeLogsFragment() {
-        // Required empty public constructor
-    }
 
     public static ChangeLogsFragment newInstance(Request request) {
         ChangeLogsFragment fragment = new ChangeLogsFragment();
@@ -44,9 +44,9 @@ public class ChangeLogsFragment extends Fragment {
     }
 
     private void setIds(View root) {
-        applicationLifeCycleList = root.findViewById(R.id.application_life_cycle_list);
+        responsibleForTheExecutionOfTheApplicationList = root.findViewById(R.id.responsible_for_the_execution_of_the_application_list);
         performersList = root.findViewById(R.id.performers_list);
-        responsibleForTheExecutionOfTheApplicationRecycler = root.findViewById(R.id.responsible_for_the_execution_of_the_application_recycler);
+        applicationLifeCycleList = root.findViewById(R.id.application_life_cycle_list);
     }
 
     private void setView(Request request) {
@@ -65,7 +65,16 @@ public class ChangeLogsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_change_logs, container, false);
+        if(request == null) {
+            System.out.println("Заявки нет");
+        } else {
+            System.out.println("Заявка есть, размер worksList: " + request.getWorksList().size());
+        }
         setIds(root);
+
+        ResponsibleAdapter responsibleAdapter = new ResponsibleAdapter(inflater.getContext(), R.layout.logs_list_item, request.getWorksList());
+        responsibleForTheExecutionOfTheApplicationList.setAdapter(responsibleAdapter);
+        Utility.setListViewHeightBasedOnChildren(responsibleForTheExecutionOfTheApplicationList);
         setTable();
 
         return root;
