@@ -22,6 +22,10 @@
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
 
+    <string name="comments">Комментарий: </string>
+    <string name="change_user_name">Пользователь: </string>
+    <string name="status">Статус: </string>
+    <string name="change_date">Дата изменения: </string>
     <string name="request_id">Номер заявки</string>
     <string name="request_registration_date">Дата регистрации заявки</string>
     <string name="request_finish_date">Дата окончания заявки</string>
@@ -45,6 +49,12 @@
     <string name="log_in">Войти</string>
     <string name="log_out">Выйти</string>
     <string name="coming_soon">В скором времени…</string>
+
+    <string-array name="change_logs_string_list">
+        <item>Ответственные по исполнению заявки</item>
+        <item>Исполнители</item>
+        <item>Жизненный цикл заявки</item>
+    </string-array>
 
     <string-array name="statuses_my_tasks">
         <item>Все заявки</item>

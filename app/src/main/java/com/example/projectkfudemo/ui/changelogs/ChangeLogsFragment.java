@@ -1,25 +1,19 @@
 package com.example.projectkfudemo.ui.changelogs;
 
-import android.graphics.Typeface;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.TypedValue;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.TableLayout;
-import android.widget.TableRow;
-import android.widget.TextView;
+import android.widget.Spinner;
 
 import com.example.projectkfudemo.R;
 import com.example.projectkfudemo.Request;
-import com.example.projectkfudemo.Utility;
 import com.example.projectkfudemo.ui.changelogs.cardlists.ApplicationAdapter;
 import com.example.projectkfudemo.ui.changelogs.cardlists.PerformersAdapter;
 import com.example.projectkfudemo.ui.changelogs.cardlists.ResponsibleAdapter;
@@ -34,9 +28,8 @@ public class ChangeLogsFragment extends Fragment {
 //    private static Bundle arg;
 
     private Request request;
-    private ListView responsibleForTheExecutionOfTheApplicationList;
-    private ListView applicationLifeCycleList;
-    private ListView performersList;
+    private ListView listView;
+    private Spinner spinner;
 
 
     public static ChangeLogsFragment newInstance(Request request) {
@@ -46,9 +39,8 @@ public class ChangeLogsFragment extends Fragment {
     }
 
     private void setIds(View root) {
-        responsibleForTheExecutionOfTheApplicationList = root.findViewById(R.id.responsible_for_the_execution_of_the_application_list);
-        performersList = root.findViewById(R.id.performers_list);
-        applicationLifeCycleList = root.findViewById(R.id.application_life_cycle_list);
+        spinner = root.findViewById(R.id.change_logs_spinner);
+        listView = root.findViewById(R.id.change_logs_list_view);
     }
 
     private void setView(Request request) {
@@ -64,6 +56,21 @@ public class ChangeLogsFragment extends Fragment {
 
     }
 
+    private void setList(LayoutInflater inflater, int position) {
+        if(position == 0) {
+            ResponsibleAdapter responsibleAdapter = new ResponsibleAdapter(inflater.getContext(), R.layout.responsible_list_item, request.getWorksList());
+            listView.setAdapter(responsibleAdapter);
+        }
+        if(position == 1) {
+            PerformersAdapter performersAdapter = new PerformersAdapter(inflater.getContext(), R.layout.performers_list_item, request.getWorkersList());
+            listView.setAdapter(performersAdapter);
+        }
+        if(position == 2) {
+            ApplicationAdapter applicationAdapter = new ApplicationAdapter(inflater.getContext(), R.layout.application_list_item, request.getActionsOverRequest());
+            listView.setAdapter(applicationAdapter);
+        }
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_change_logs, container, false);
@@ -74,15 +81,18 @@ public class ChangeLogsFragment extends Fragment {
         }
         setIds(root);
 
-        ResponsibleAdapter responsibleAdapter = new ResponsibleAdapter(inflater.getContext(), R.layout.logs_list_item, request.getWorksList());
-        PerformersAdapter performersAdapter = new PerformersAdapter(inflater.getContext(), R.layout.performers_list_item, request.getWorkersList());
-        ApplicationAdapter applicationAdapter = new ApplicationAdapter(inflater.getContext(), R.layout.application_list_item, request.getActionsOverRequest());
-        responsibleForTheExecutionOfTheApplicationList.setAdapter(responsibleAdapter);
-        performersList.setAdapter(performersAdapter);
-        applicationLifeCycleList.setAdapter(applicationAdapter);
-        Utility.setListViewHeightBasedOnChildren(responsibleForTheExecutionOfTheApplicationList);
-        Utility.setListViewHeightBasedOnChildren(performersList);
-        Utility.setListViewHeightBasedOnChildren(applicationLifeCycleList);
+        ArrayAdapter<?> adapter = ArrayAdapter.createFromResource(inflater.getContext(), R.array.change_logs_string_list, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        spinner.setAdapter(adapter);
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            public void onItemSelected(AdapterView<?> parent, View itemSelected, int selectedItemPosition, long selectedId) {
+                setList(inflater, selectedItemPosition);
+            }
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+
         setTable();
 
         return root;

@@ -1,5 +1,6 @@
 package com.example.projectkfudemo.ui.changelogs.cardlists;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,6 +29,7 @@ public class ResponsibleAdapter extends ArrayAdapter<Works> {
         this.inflater = LayoutInflater.from(context);
     }
 
+    @SuppressLint("SetTextI18n")
     public View getView(int position, View convertView, ViewGroup parent) {
 
         if(convertView==null){
@@ -36,8 +38,8 @@ public class ResponsibleAdapter extends ArrayAdapter<Works> {
 
         TextView numberView = (TextView) convertView.findViewById(R.id.number);
         TextView numberSpace = (TextView) convertView.findViewById(R.id.number_space);
-        TextView dateOfView = (TextView) convertView.findViewById(R.id.date_of);
-        TextView dateOfSpace = (TextView) convertView.findViewById(R.id.date_of_space);
+//        TextView dateOfView = (TextView) convertView.findViewById(R.id.date_of);
+//        TextView dateOfSpace = (TextView) convertView.findViewById(R.id.date_of_space);
         TextView serviceNameView = (TextView) convertView.findViewById(R.id.service_name);
         TextView serviceNameSpace = (TextView) convertView.findViewById(R.id.service_name_space);
         TextView typeNameView = (TextView) convertView.findViewById(R.id.type_name);
@@ -46,27 +48,22 @@ public class ResponsibleAdapter extends ArrayAdapter<Works> {
 
         Works works = worksList.get(position);
 
-        numberView.setText(String.valueOf(position));
+        numberView.setText("№ " + String.valueOf(position));
         numberView.setVisibility(View.VISIBLE);
         numberSpace.setVisibility(View.VISIBLE);
 
-        if(works.getDate()!=null) {
-            dateOfView.setText(works.getDate());
-            dateOfView.setVisibility(View.VISIBLE);
-            dateOfSpace.setVisibility(View.VISIBLE);
-        }
         if(works.getServiceName()!= null) {
-            serviceNameView.setText(works.getServiceName());
+            serviceNameView.setText("Отдел или служба: " + works.getServiceName());
             serviceNameView.setVisibility(View.VISIBLE);
             serviceNameSpace.setVisibility(View.VISIBLE);
         }
         if(works.getTypeName()!=null) {
-            typeNameView.setText(works.getTypeName());
+            typeNameView.setText("Тип работ: " + works.getTypeName());
             typeNameView.setVisibility(View.VISIBLE);
             typeNameSpace.setVisibility(View.VISIBLE);
         }
         if(works.getDescription()!=null) {
-            descriptionView.setText(works.getDescription());
+            descriptionView.setText("Текст заявки: " + works.getDescription());
             descriptionView.setVisibility(View.VISIBLE);
         }
 

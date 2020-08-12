@@ -6,55 +6,21 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <ScrollView
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent">
-        <LinearLayout
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <Spinner
+            android:id="@+id/change_logs_spinner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
-            <TextView
-                android:id="@+id/responsible_for_the_execution_of_the_application_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="responsible for the execution of the application"
-                android:layout_centerHorizontal="true"/>
+            android:padding="6dp"
+            android:entries="@array/change_logs_string_list"/>
+        <ListView
+            android:id="@+id/change_logs_list_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
 
-            <ListView
-                android:id="@+id/responsible_for_the_execution_of_the_application_list"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-            
-            <TextView
-                android:id="@+id/performers_heading"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Performers(Исполнители)"
-                android:layout_centerHorizontal="true"/>
-
-            <ListView
-                android:id="@+id/performers_list"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-
-            <TextView
-                android:id="@+id/application_life_cycle_heading"
-                android:layout_centerHorizontal="true"
-                android:layout_below="@id/performers_list"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="application life cycle(Жизненный цикл заявки)"/>
-
-            <ListView
-                android:id="@+id/application_life_cycle_list"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-            
         </LinearLayout>
-        
-
-
-
-    </ScrollView>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
