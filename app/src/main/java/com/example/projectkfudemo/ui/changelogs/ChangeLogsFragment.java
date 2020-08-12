@@ -14,9 +14,13 @@ import android.widget.Spinner;
 
 import com.example.projectkfudemo.R;
 import com.example.projectkfudemo.Request;
+import com.example.projectkfudemo.forjson.Workers;
 import com.example.projectkfudemo.ui.changelogs.cardlists.ApplicationAdapter;
 import com.example.projectkfudemo.ui.changelogs.cardlists.PerformersAdapter;
 import com.example.projectkfudemo.ui.changelogs.cardlists.ResponsibleAdapter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -55,6 +59,8 @@ public class ChangeLogsFragment extends Fragment {
     public void setTable() {
 
     }
+
+
 
     private void setList(LayoutInflater inflater, int position) {
         if(position == 0) {

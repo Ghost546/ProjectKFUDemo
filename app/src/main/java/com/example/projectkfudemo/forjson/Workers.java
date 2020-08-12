@@ -12,6 +12,10 @@ public class Workers {
     @Expose
     private String fullname;
 
+    @SerializedName("tech_group")
+    @Expose
+    private TechGroup techGroup;
+
     public int getId() {
         return id;
     }
@@ -26,5 +30,13 @@ public class Workers {
 
     public void setFullname(String fullname) {
         this.fullname = fullname;
+    }
+
+    public TechGroup getTechGroup() {
+        return techGroup;
+    }
+
+    public void setTechGroup(TechGroup techGroup) {
+        this.techGroup = techGroup;
     }
 }

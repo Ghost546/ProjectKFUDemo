@@ -27,6 +27,12 @@ public class PerformersAdapter extends ArrayAdapter<Workers> {
         this.inflater = LayoutInflater.from(context);
     }
 
+    public String addingString(String startString, String addString) {
+        String finalString;
+        finalString = startString + "\n" + addString;
+        return finalString;
+    }
+
     public View getView(int position, View convertView, ViewGroup parent) {
 
         if(convertView==null){
@@ -34,17 +40,32 @@ public class PerformersAdapter extends ArrayAdapter<Workers> {
         }
 
         TextView textView = convertView.findViewById(R.id.text);
-        TextView textSpace = convertView.findViewById(R.id.text_space);
+        TextView textTopSpace = convertView.findViewById(R.id.text_top_space);
+        TextView textBottomSpace = convertView.findViewById(R.id.text_bottom_space);
+        TextView textGroupName = convertView.findViewById(R.id.group_name);
 
         Workers worker = workersList.get(position);
 
-        if (worker.getFullname()!=null) {
-            textView.setText(worker.getFullname());
+
+
+        if (worker.getFullname()!=null & !worker.getTechGroup().getGroupName().equals("")) {
+            String outputText;
+            outputText = worker.getFullname() + "\n";
+            for(int i = 0; i<workersList.size(); i++) {
+                if(!workersList.get(i).getFullname().equals(workersList.get(position).getFullname())) {
+                    if(workersList.get(i).getTechGroup().getGroupName().equals(workersList.get(position).getTechGroup().getGroupName())) {
+                        outputText = addingString(outputText, workersList.get(i).getFullname());
+                        workersList.get(i).getTechGroup().setGroupName("");
+                    }
+                }
+            }
+            textView.setText(outputText);
+            textGroupName.setText(worker.getTechGroup().getGroupName());
             textView.setVisibility(View.VISIBLE);
-            textSpace.setVisibility(View.VISIBLE);
+            textGroupName.setVisibility(View.VISIBLE);
+            textBottomSpace.setVisibility(View.VISIBLE);
+            textTopSpace.setVisibility(View.VISIBLE);
         }
-
-
 
         return convertView;
     }

@@ -22,6 +22,10 @@
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
 
+    <string name="description">Текст заявки: </string>
+    <string name="type_name">Тип работ: </string>
+    <string name="service_name">Отдел или служба: </string>
+    <string name="number_responsible_item">№ </string>
     <string name="comments">Комментарий: </string>
     <string name="change_user_name">Пользователь: </string>
     <string name="status">Статус: </string>

@@ -3,7 +3,7 @@ package com.example.projectkfudemo;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Search { //Вернцуться позже
+public class Search { //Вернуться позже
     List<Request> list = new ArrayList<>();
 
     String[][] stringsTwo;

@@ -46,7 +46,7 @@ public class ApplicationAdapter extends ArrayAdapter<Log> {
         TextView userViewHead = convertView.findViewById(R.id.change_user_name_head);
         TextView userSpace = convertView.findViewById(R.id.change_user_name_space);
         TextView commentsView = convertView.findViewById(R.id.comments);
-        TextView commentsViewHead = commentsView.findViewById(R.id.comments_head);
+        TextView commentsViewHead = convertView.findViewById(R.id.comments_head);
 
         Log log = logsList.get(position);
 
