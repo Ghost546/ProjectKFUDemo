@@ -46,19 +46,17 @@ public class PerformersAdapter extends ArrayAdapter<Workers> {
 
         Workers worker = workersList.get(position);
 
-
-
         if (worker.getFullname()!=null & !worker.getTechGroup().getGroupName().equals("")) {
             String outputText;
-            outputText = worker.getFullname() + "\n";
-            for(int i = 0; i<workersList.size(); i++) {
-                if(!workersList.get(i).getFullname().equals(workersList.get(position).getFullname())) {
-                    if(workersList.get(i).getTechGroup().getGroupName().equals(workersList.get(position).getTechGroup().getGroupName())) {
-                        outputText = addingString(outputText, workersList.get(i).getFullname());
-                        workersList.get(i).getTechGroup().setGroupName("");
-                    }
-                }
-            }
+            outputText = worker.getFullname();
+//            for(int i = 0; i<workersList.size(); i++) {
+//                if(!workersList.get(i).getFullname().equals(workersList.get(position).getFullname())) {
+//                    if(workersList.get(i).getTechGroup().getGroupName().equals(workersList.get(position).getTechGroup().getGroupName())) {
+//                        outputText = addingString(outputText, workersList.get(i).getFullname());
+//                        workersList.get(i).getTechGroup().setGroupName("");
+//                    }
+//                }
+//            }
             textView.setText(outputText);
             textGroupName.setText(worker.getTechGroup().getGroupName());
             textView.setVisibility(View.VISIBLE);
