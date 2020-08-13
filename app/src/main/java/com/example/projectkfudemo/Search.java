@@ -4,147 +4,150 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Search { //Вернуться позже
-    List<Request> list = new ArrayList<>();
+    List<Request> list;//список для поиска
 
-    String[][] stringsTwo;
+    List<String[]> listArrays = new ArrayList<>(); //преобразованный список в котором будет выполняться поиск
 
-    Search() {
-
+    Search(ArrayList<Request> list) {
+        this.list = list;//в конструкторе задаем список для дальнешего поиска
     }
-    int largeSize = 0;
+//    int largeSize = 0;
 
 
-    public void setList(ArrayList<Request> list) {
-        this.list = list;
+    public void setListToArray(List<Request> list) {
+        for(int i = 0; i < list.size(); i++) {
+            listArrays.add(objToString(list.get(i)));
+        }
     }
 
-    public String[] objToString(Request request) {
-        int i = 0;
+    public String[] objToString(Request request) {  //преобразование объекта в массив строк для алгоритма поиска
+        int count = 0; //создается счетчик для обозначения массива
         if(request.getCode() !=0) {
-            i++;
+            count++;
         }
         if(request.getRequestRegistrationDate() != null) {
-            i++;
+            count++;
         }
         if(request.getPeriodOfExecution() != null) {
-            i++;
+            count++;
         }
         if(!request.getDeclarer().equals("")) {
-            i++;
+            count++;
         }
         if(!request.getDeclarantPost().equals("")) {
-            i++;
+            count++;
         }
         if(!request.getDeclarantPhone().equals("")) {
-            i++;
+            count++;
         }
         if(!request.getCabinet().equals("")) {
-            i++;
+            count++;
         }
         if(!request.getContactFullName().equals("")) {
-            i++;
+            count++;
         }
 //        if(request.getActionsOverRequest() != null) {
 //            i++;
 //        }
         if(request.getBuilding() != null) {
-            i += 2;
+            count += 2;
         }
         if(request.getWorksList() != null) {
-            i++;
+            count++;
         }
         if(request.getCommentsList()!= null) {
-            i += (request.getCommentsList().size()*3);
+            count += (request.getCommentsList().size()*3);
             for(int j = 0; j < request.getCommentsList().size(); j++) {
                 if(request.getCommentsList().get(j) != null) {
-                    i+= request.getCommentsList().get(j).getWorksInCommentsList().size();
+                    count+= request.getCommentsList().get(j).getWorksInCommentsList().size();
                 }
             }
         }
         if(request.getType() != null) {
-            i++;
+            count++;
         }
         if(request.getSubdivisionList()!= null) {
-            i += request.getSubdivisionList().size();
+            count += request.getSubdivisionList().size();
         }
         if(request.getWorkersList() != null) {
-            i+= request.getWorkersList().size();
+            count+= request.getWorkersList().size();
         }
 
-        String [] strings = new String[i];
-        i = 0;
+        String [] strings = new String[count]; //создается массив по счетчику
+        count = 0; //счетчик обнуляется для заполнения массива
         
         if(request.getCode() !=0) {
-            strings[i] = String.valueOf(request.getCode());
-            i++;
+            strings[count] = String.valueOf(request.getCode());
+            count++;
         }
         if(request.getRequestRegistrationDate() != null) {
-            strings[i] = String.valueOf(request.getRequestRegistrationDate());
-            i++;
+            strings[count] = String.valueOf(request.getRequestRegistrationDate());
+            count++;
         }
         if(request.getPeriodOfExecution() != null) {
-            strings[i] = String.valueOf(request.getPeriodOfExecution());
-            i++;
+            strings[count] = String.valueOf(request.getPeriodOfExecution());
+            count++;
         }
         if(!request.getDeclarer().equals("")) {
-            strings[i] = request.getDeclarer();
-            i++;
+            strings[count] = request.getDeclarer();
+            count++;
         }
         if(!request.getDeclarantPost().equals("")) {
-            strings[i] = request.getDeclarantPost();
-            i++;
+            strings[count] = request.getDeclarantPost();
+            count++;
         }
         if(!request.getDeclarantPhone().equals("")) {
-            strings[i] = request.getDeclarantPhone();
-            i++;
+            strings[count] = request.getDeclarantPhone();
+            count++;
         }
         if(!request.getCabinet().equals("")) {
-            strings[i] = request.getCabinet();
-            i++;
+            strings[count] = request.getCabinet();
+            count++;
         }
         if(!request.getContactFullName().equals("")) {
-            strings[i] = request.getContactFullName();
-            i++;
+            strings[count] = request.getContactFullName();
+            count++;
         }
         if(request.getBuilding() != null) {
-            strings[i] = request.getBuilding().getAddress();
-            i++;
-            strings[i] = request.getBuilding().getName();
-            i++;
+            strings[count] = request.getBuilding().getAddress();
+            count++;
+            strings[count] = request.getBuilding().getName();
+            count++;
         }
         if(request.getWorksList() != null) {
-            strings[i] = request.getWorksList().get(0).getDescription();
-            i++;
+            strings[count] = request.getWorksList().get(0).getDescription();
+            count++;
         }
         if(request.getCommentsList() != null) {
             for(int j = 0; j < request.getCommentsList().size(); j++) {
                 if(request.getCommentsList().get(j) != null) {
-                    strings[i] = String.valueOf(request.getCommentsList().get(j).getBeginDate());
-                    i++;
+                    strings[count] = String.valueOf(request.getCommentsList().get(j).getBeginDate());
+                    count++;
                 }
             }
         }
         if(request.getType() != null) {
-            strings[i] = String.valueOf(request.getType().getName());
-            i++;
+            strings[count] = String.valueOf(request.getType().getName());
+            count++;
         }
         if(request.getSubdivisionList() != null) {
             for(int j = 0; j < request.getSubdivisionList().size(); j++) {
-                strings[i] = request.getSubdivisionList().get(j).getName();
-                i++;
+                strings[count] = request.getSubdivisionList().get(j).getName();
+                count++;
             }
         }
         if(request.getWorkersList() != null) {
             for(int j = 0; j < request.getWorkersList().size(); j++) {
-                strings[i] = request.getWorkersList().get(j).getFullname();
-                i++;
+                strings[count] = request.getWorkersList().get(j).getFullname();
+                count++;
             }
         }
 
-        return strings;
+        return strings;//позвращаем полученный массив
     }
 
-    public void listToArray() {
-        stringsTwo = new String[1][list.size()];
+    public void setArray() {
+
     }
+
 }

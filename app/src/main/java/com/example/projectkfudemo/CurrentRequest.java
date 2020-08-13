@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.SplittableRandom;
 
-
+//TODO: объеденить классы CurrentRequest, MyRequest и Request в отдельную папку
 public class CurrentRequest {
     List<Request> requests = new ArrayList<>();;
     Request request;

@@ -107,6 +107,7 @@ public class MyTaskFragment extends Fragment {
 
         // Вызываем адаптер
         categorySpinner.setAdapter(adapter);
+        categorySpinner.setSelection(4);
         categorySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             public void onItemSelected(AdapterView<?> parent,
                                        View itemSelected, int selectedItemPosition, long selectedId) {

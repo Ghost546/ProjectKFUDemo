@@ -55,6 +55,8 @@ public class MenuFragment extends Fragment implements View.OnClickListener {
         if(!getStringForURL().equals("")) {
             Picasso.get().load("https://shelly.kpfu.ru/e-ksu/docs/" + getStringForURL()).into(userPicture); //Итоговый код
         }
+        //TODO: придумать что-нибудь с кнопкой выхода и отображением изображения польователя,
+        // в идеале сделать динамическим по размеру изображения. Возможно переписать с Picasso на Glide
 
         return rootView;
     }

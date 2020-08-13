@@ -25,6 +25,21 @@ public class PerformersAdapter extends ArrayAdapter<Workers> {
         this.workersList = workersList;
         this.layout = resource;
         this.inflater = LayoutInflater.from(context);
+        for(int i = 0; i < workersList.size(); i++) {
+            for(int j = 0; j < workersList.size(); j++) {
+                String text;
+                text = workersList.get(i).getFullname();                                            //берем имя
+                if(!workersList.get(i).getFullname().equals(workersList.get(j).getFullname())) {    //ищем отличные от него имена
+                    if(workersList.get(i).getTechGroup().getGroupName().equals(workersList.get(j).getTechGroup().getGroupName())) { //ищем у имен
+                        text = addingString(text, workersList.get(j).getFullname());
+                        workersList.get(i).setFullname(text);
+                        workersList.remove(j);
+                        j--;
+                    }
+                }
+
+            }
+        }
     }
 
     public String addingString(String startString, String addString) {
@@ -49,14 +64,7 @@ public class PerformersAdapter extends ArrayAdapter<Workers> {
         if (worker.getFullname()!=null & !worker.getTechGroup().getGroupName().equals("")) {
             String outputText;
             outputText = worker.getFullname();
-//            for(int i = 0; i<workersList.size(); i++) {
-//                if(!workersList.get(i).getFullname().equals(workersList.get(position).getFullname())) {
-//                    if(workersList.get(i).getTechGroup().getGroupName().equals(workersList.get(position).getTechGroup().getGroupName())) {
-//                        outputText = addingString(outputText, workersList.get(i).getFullname());
-//                        workersList.get(i).getTechGroup().setGroupName("");
-//                    }
-//                }
-//            }
+
             textView.setText(outputText);
             textGroupName.setText(worker.getTechGroup().getGroupName());
             textView.setVisibility(View.VISIBLE);

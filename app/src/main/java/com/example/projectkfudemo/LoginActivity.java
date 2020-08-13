@@ -99,7 +99,9 @@ public class LoginActivity extends AppCompatActivity {
 
                             @Override
                             public void onError(Throwable e) {
-
+                                e.printStackTrace();
+                                saver.setVisibility(View.GONE);                                     //подразумевается спад заглушки при уже авторизованном пользователе но при этом ошибки повторного входа
+                                System.out.println("Произошла ошибка входа");//TODO: обязательно прописать подобное на экране
                             }
 
                             @Override
@@ -174,6 +176,7 @@ public class LoginActivity extends AppCompatActivity {
 
                             @Override
                             public void onError(Throwable e) {
+                                e.printStackTrace();
 
                             }
 

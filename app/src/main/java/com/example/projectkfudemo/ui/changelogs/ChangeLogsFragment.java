@@ -47,22 +47,19 @@ public class ChangeLogsFragment extends Fragment {
         listView = root.findViewById(R.id.change_logs_list_view);
     }
 
-    private void setView(Request request) {
-        String text = "";
-        for(int i = 0; i < request.getActionsOverRequest().size(); i++) {
-            text += request.getActionsOverRequest().get(i).getComment() + "\n";
-            text += "\n";
-        }
-
-    }
-
-    public void setTable() {
-
-    }
+//    private void setView(Request request) {
+//        String text = "";
+//        for(int i = 0; i < request.getActionsOverRequest().size(); i++) {
+//            text += request.getActionsOverRequest().get(i).getComment() + "\n";
+//            text += "\n";
+//        }
+//
+//    }
 
 
 
-    private void setList(LayoutInflater inflater, int position) {
+
+    private void setList(LayoutInflater inflater, int position) { //TODO: разбить код метода в отдельные блоки
         if(position == 0) {
             ResponsibleAdapter responsibleAdapter = new ResponsibleAdapter(inflater.getContext(), R.layout.responsible_list_item, request.getWorksList());
             listView.setAdapter(responsibleAdapter);
@@ -98,8 +95,6 @@ public class ChangeLogsFragment extends Fragment {
             public void onNothingSelected(AdapterView<?> parent) {
             }
         });
-
-        setTable();
 
         return root;
     }
