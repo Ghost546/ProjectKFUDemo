@@ -142,6 +142,11 @@ public class RequestGeneralViewFragment extends Fragment implements View.OnClick
             responsibleForTheExecutionOfTheRequestBlock.setVisibility(View.VISIBLE);
             responsibleForTheExecutionOfTheRequest.setText(request.getResponsibleForTheExecutionOfTheRequest());
         }
+        if(request.getStatus().getId() == 1) {
+            //здесь метод измененяющий кнопку "добавить комментарий" на "назначить на себя"
+        } else {
+            fab2.setVisibility(View.GONE);
+        }
     }
 
     private void VisibleSetting(MyRequest request) {                                                //настраивает фрагмент для отображения в виде текущей заявки
@@ -202,6 +207,7 @@ public class RequestGeneralViewFragment extends Fragment implements View.OnClick
             }
             actionsOverRequest.setText(text);
         }
+
     }
 
     @Override
@@ -279,8 +285,8 @@ public class RequestGeneralViewFragment extends Fragment implements View.OnClick
                     fab1.startAnimation(show_fab_1);
                     fab1.setClickable(true);
 
-                    layoutParams2.rightMargin += (int) (fab1.getWidth() * 0.25);
-                    layoutParams2.bottomMargin += (int) (fab1.getHeight() * 2.9);
+                    layoutParams2.rightMargin += (int) (fab2.getWidth() * 0.25);
+                    layoutParams2.bottomMargin += (int) (fab2.getHeight() * 2.9);
                     fab2.setLayoutParams(layoutParams2);
                     fab2.startAnimation(show_fab_2);
                     fab2.setClickable(true);

@@ -53,6 +53,7 @@
     <string name="log_in">Войти</string>
     <string name="log_out">Выйти</string>
     <string name="coming_soon">В скором времени…</string>
+    <string name="global_search_title">Search</string>
 
     <string-array name="change_logs_string_list">
         <item>Ответственные по исполнению заявки</item>

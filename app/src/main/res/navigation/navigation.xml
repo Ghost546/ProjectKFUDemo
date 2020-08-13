@@ -18,6 +18,12 @@
         tools:layout="@layout/fragment_my_task_list" />
 
     <fragment
+        android:id="@+id/navigation_global_search"
+        android:name="com.example.projectkfudemo.ui.globalsearch.GlobalSearchFragment"
+        android:label="@string/global_search_title"
+        tools:layout="@layout/fragment_global_search"/>
+
+    <fragment
         android:id="@+id/navigation_map"
         android:name="com.example.projectkfudemo.ui.search.MapFragment"
         android:label="@string/title_map"

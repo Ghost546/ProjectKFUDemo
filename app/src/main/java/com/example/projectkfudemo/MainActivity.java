@@ -1,12 +1,12 @@
 package com.example.projectkfudemo;
 
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
 
 import com.example.projectkfudemo.ui.changelogs.ChangeLogsFragment;
 import com.example.projectkfudemo.ui.currenttask.CurrentTaskFragment;
+import com.example.projectkfudemo.ui.globalsearch.GlobalSearchFragment;
 import com.example.projectkfudemo.ui.menu.MenuFragment;
 import com.example.projectkfudemo.ui.mytask.MyTaskFragment;
 import com.example.projectkfudemo.ui.requestgeneralview.RequestGeneralViewFragment;
@@ -52,7 +52,13 @@ public class MainActivity extends AppCompatActivity {
                     fragmentTransaction.replace(R.id.fragment_container, selectedFragment);
                     fragmentTransaction.commit();
                     return true;
-                case R.id.navigation_search:
+                case R.id.navigation_global_search:
+                    fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                    selectedFragment = GlobalSearchFragment.newInstance(args);
+                    fragmentTransaction.replace(R.id.fragment_container, selectedFragment);
+                    fragmentTransaction.commit();
+                    return true;
+                case R.id.navigation_map:
                     fragmentTransaction = getSupportFragmentManager().beginTransaction();
                     selectedFragment = MapFragment.newInstance(args);
                     fragmentTransaction.replace(R.id.fragment_container, selectedFragment);

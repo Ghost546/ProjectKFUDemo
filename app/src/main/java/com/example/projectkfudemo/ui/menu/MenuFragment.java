@@ -25,13 +25,13 @@ import static com.example.projectkfudemo.MainActivity.APP_PREFERENCES_PASSWORD;
 //https://shelly.kpfu.ru/e-ksu/docs/F383898805/19545.jpg
 public class MenuFragment extends Fragment implements View.OnClickListener {
 
-    static Bundle args;
-
     private Button mLogOutButton;
     private ImageView userPicture;
     private Bitmap imageInMemory;
     User user;
     SharedPreferences userPreferences;
+
+    static Bundle args;
 
     public static MenuFragment newInstance(Bundle arg) {
         MenuFragment fragment = new MenuFragment();
