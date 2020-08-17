@@ -11,9 +11,6 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.annotation.VisibleForTesting;
 import androidx.fragment.app.Fragment;
 
 import com.example.projectkfudemo.CurrentRequest;
@@ -22,7 +19,6 @@ import com.example.projectkfudemo.MyRequest;
 import com.example.projectkfudemo.R;
 import com.example.projectkfudemo.Request;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.gson.Gson;
 
 public class RequestGeneralViewFragment extends Fragment implements View.OnClickListener {
 
@@ -54,25 +50,35 @@ public class RequestGeneralViewFragment extends Fragment implements View.OnClick
     FloatingActionButton fab1;                                                                      //рег карточка заявки
     FloatingActionButton fab2;                                                                      //комментарий исполнителя
 
-    int k = 0;
+    public int getValueForFab1OnChooseFunction() {
+        return valueForFab1OnChooseFunction;
+    }
+
+    public void setValueForFab1OnChooseFunction(int valueForFab1OnChooseFunction) {
+        this.valueForFab1OnChooseFunction = valueForFab1OnChooseFunction;
+    }
+
+    int valueForFab1OnChooseFunction = 0;
+
+    int countForFab = 0;
 
     public void addK(int k) {
-        this.k += k;
+        this.countForFab += k;
     }
 
-    public void setK(int k) {
-        this.k = k;
+    public void setCountForFab(int countForFab) {
+        this.countForFab = countForFab;
     }
 
-    public int getK() {
-        return k;
+    public int getCountForFab() {
+        return countForFab;
     }
 
     private Request request;
 
     public static RequestGeneralViewFragment newInstance(Request request) {
         RequestGeneralViewFragment fragment = new RequestGeneralViewFragment();
-        fragment.setK(0);
+        fragment.setCountForFab(0);
 //        Bundle args = new Bundle();
 //        Gson gson = new Gson();
 //        args.putString("req",gson.toJson(request));
@@ -92,6 +98,8 @@ public class RequestGeneralViewFragment extends Fragment implements View.OnClick
             VisibleSetting(request1);
         }
     }
+
+    //написать функцию которая по типу заявки изменяет иконку на большом FAB
 
     private void VisibleSetting(CurrentRequest request) {                                           //настраивает фрагмент для отображения в виде текущей заявки
         if(request.getCode()!=0) {
@@ -144,6 +152,7 @@ public class RequestGeneralViewFragment extends Fragment implements View.OnClick
         }
         if(request.getStatus().getId() == 1) {
             //здесь метод измененяющий кнопку "добавить комментарий" на "назначить на себя"
+            setValueForFab1OnChooseFunction(1);
         } else {
             fab2.setVisibility(View.GONE);
         }
@@ -210,12 +219,42 @@ public class RequestGeneralViewFragment extends Fragment implements View.OnClick
 
     }
 
+    private void setFabByType() {
+
+    }
+
     @Override
     public void onStart() {
         super.onStart();
 
     }
 
+    //id на тип заявки
+    //1 - устная заявка
+    //2 - письменная заявка
+    //3 - телефорнная заявка
+    //4 - email заявка
+    //5 - web заявка
+    private void setByRequestType(FloatingActionButton fab) {
+        int idType = request.getType().getId();
+        switch (idType) {
+//            case 1:
+//                fab.setImageDrawable();
+//                break;
+//            case 2:
+//                fab.setImageDrawable();
+//                break;
+//            case 3:
+//                fab.setImageDrawable();
+//                break;
+//            case 4:
+//                fab.setImageDrawable();
+//                break;
+//            case 5:
+//                fab.setImageDrawable();
+//                break;
+        }
+    }
 
     private void setIds(View root) {
         requestCodeBlock=root.findViewById(R.id.request_code_block);
@@ -244,20 +283,18 @@ public class RequestGeneralViewFragment extends Fragment implements View.OnClick
         fab1 = root.findViewById(R.id.fab_1);
         fab2 = root.findViewById(R.id.fab_2);
 
-
-
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        setK(0);
+        setCountForFab(0);
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        setK(0);
+        setCountForFab(0);
     }
 
     @Override
@@ -268,6 +305,8 @@ public class RequestGeneralViewFragment extends Fragment implements View.OnClick
         SendRequestSetting(request);
 
         FloatingActionButton fabGeneral = (FloatingActionButton) root.findViewById(R.id.fab_general);
+        setByRequestType(fabGeneral);
+
         Animation show_fab_1 = AnimationUtils.loadAnimation(getActivity().getApplication(), R.anim.fab1_show);
         Animation hide_fab_1 = AnimationUtils.loadAnimation(getActivity().getApplication(), R.anim.fab1_hide);
 
@@ -278,7 +317,7 @@ public class RequestGeneralViewFragment extends Fragment implements View.OnClick
         fabGeneral.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(getK()%2 == 0) {
+                if(getCountForFab()%2 == 0) {
                     layoutParams1.rightMargin += (int) (fab1.getWidth() * 0.25);
                     layoutParams1.bottomMargin += (int) (fab1.getHeight() * 1.7);
                     fab1.setLayoutParams(layoutParams1);
@@ -304,8 +343,8 @@ public class RequestGeneralViewFragment extends Fragment implements View.OnClick
                     fab2.setClickable(false);
                 }
                 addK(1);
-                if(getK()==10) {
-                    setK(0);
+                if(getCountForFab()==10) {
+                    setCountForFab(0);
                 }
             }
         });
@@ -315,10 +354,17 @@ public class RequestGeneralViewFragment extends Fragment implements View.OnClick
                 changeLogsButtonClick();
             }
         });
+        //если значение valueForFab1OnChooseFunction 0 -> заявка открыта через MyTasks -> статус заявки не имеет значения* -> слушатель отправляет на метод "добавить комментарий" *с незначительными на данный момент исключениями
+        //если значение valueForFab1OnChooseFunction 1 -> заявка открыта через CurrentTasks -> статус заявки новая -> слушатель отправляет на метод "назначить на себя"
         fab2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(getValueForFab1OnChooseFunction() == 0) {
 
+                }
+                if(getValueForFab1OnChooseFunction() == 1) {
+
+                }
             }
         });
         return root;

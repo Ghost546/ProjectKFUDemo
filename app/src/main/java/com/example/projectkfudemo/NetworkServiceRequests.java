@@ -1,5 +1,6 @@
 package com.example.projectkfudemo;
 
+import com.example.projectkfudemo.ui.JSONApiGlobalSearch;
 import com.example.projectkfudemo.ui.JSONApiRequest;
 import com.example.projectkfudemo.ui.JSONApiUserRequest;
 import com.example.projectkfudemo.ui.JSONLoginApi;
@@ -28,6 +29,9 @@ public class NetworkServiceRequests {
             mInstance = new NetworkServiceRequests();
         }
         return mInstance;
+    }
+    public JSONApiGlobalSearch getJSONApiGlobalSearch() {
+        return mRetrofit.create(JSONApiGlobalSearch.class);
     }
 
     public JSONApiUserRequest getJSONUserRequestApi() {

@@ -20,6 +20,13 @@ public class Search { //Вернуться позже
         }
     }
 
+    public void startSearch() {
+        String checking;
+        for(int i = 0; i < listArrays.size(); i++) {//в цикле определяется в каких заявках(массивах String[]) существуют данные совпадающие с искомыми данными
+//            checking = listArrays.get(i).;
+        }
+    }
+
     public String[] objToString(Request request) {  //преобразование объекта в массив строк для алгоритма поиска
         int count = 0; //создается счетчик для обозначения массива
         if(request.getCode() !=0) {

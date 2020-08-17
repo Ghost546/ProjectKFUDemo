@@ -19,9 +19,15 @@ public class GlobalSearchFragment extends Fragment {
         return fragment;
     }
 
+    public void setIds() {
+
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_global_search, container, false);
+
+
 
         return rootView;
     }
