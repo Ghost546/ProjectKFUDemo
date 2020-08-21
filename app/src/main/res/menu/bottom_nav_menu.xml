@@ -18,12 +18,12 @@
 
     <item
         android:id="@+id/navigation_map"
-        android:icon="@drawable/search_24px"
+        android:icon="@drawable/place_24px"
         android:title="@string/title_map" />
 
     <item
         android:id="@+id/navigation_menu"
-        android:icon="@drawable/account_box_24px"
+        android:icon="@drawable/menu_24px"
         android:title="@string/title_menu" />
 
 </menu>

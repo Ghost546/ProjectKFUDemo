@@ -238,21 +238,21 @@ public class RequestGeneralViewFragment extends Fragment implements View.OnClick
     private void setByRequestType(FloatingActionButton fab) {
         int idType = request.getType().getId();
         switch (idType) {
-//            case 1:
-//                fab.setImageDrawable();
-//                break;
-//            case 2:
-//                fab.setImageDrawable();
-//                break;
-//            case 3:
-//                fab.setImageDrawable();
-//                break;
-//            case 4:
-//                fab.setImageDrawable();
-//                break;
-//            case 5:
-//                fab.setImageDrawable();
-//                break;
+            case 1:
+                fab.setImageResource(R.drawable.campaign_24px);
+                break;
+            case 2:
+                fab.setImageResource(R.drawable.edit_white_18dp);
+                break;
+            case 3:
+                fab.setImageResource(R.drawable.phone_24px);
+                break;
+            case 4:
+                fab.setImageResource(R.drawable.alternate_email_24px);
+                break;
+            case 5:
+                fab.setImageResource(R.drawable.language_24px);   //TODO: сделать значок более крупным
+                break;
         }
     }
 
