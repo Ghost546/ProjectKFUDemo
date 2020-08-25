@@ -1,5 +1,7 @@
 package com.example.projectkfudemo;
 
+import android.widget.ListView;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,6 +9,8 @@ public class Search { //Вернуться позже
     List<Request> list;//список для поиска
 
     List<String[]> listArrays = new ArrayList<>(); //преобразованный список в котором будет выполняться поиск
+
+    List<Request> resultList = new ArrayList<>(); //список с найденными заявками
 
     Search(ArrayList<Request> list) {
         this.list = list;//в конструкторе задаем список для дальнешего поиска
@@ -20,11 +24,30 @@ public class Search { //Вернуться позже
         }
     }
 
-    public void startSearch() {
+    private String getValueFromArray(String[] stringsArray, int valueForGetString) {
+        String stringFromArrayByValue;
+        stringFromArrayByValue = stringsArray[valueForGetString];
+        return stringFromArrayByValue;
+    }
+
+    public void startSearch(String stringFromSearching) {
         String checking;
         for(int i = 0; i < listArrays.size(); i++) {//в цикле определяется в каких заявках(массивах String[]) существуют данные совпадающие с искомыми данными
-//            checking = listArrays.get(i).;
+            for(int j = 0; j < listArrays.size(); j++){
+                checking = getValueFromArray(listArrays.get(i), j);
+                if(checking.contains(stringFromSearching)) {
+                    setResultList(list.get(i));
+                }
+            }
         }
+    }
+
+    private void setResultList(Request request) {
+        resultList.add(request);
+    }
+
+    private List<Request> getResultList() {
+        return resultList;
     }
 
     public String[] objToString(Request request) {  //преобразование объекта в массив строк для алгоритма поиска

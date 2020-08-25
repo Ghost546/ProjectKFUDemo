@@ -7,6 +7,7 @@ import android.view.MenuItem;
 import com.example.projectkfudemo.ui.changelogs.ChangeLogsFragment;
 import com.example.projectkfudemo.ui.currenttask.CurrentTaskFragment;
 import com.example.projectkfudemo.ui.globalsearch.GlobalSearchFragment;
+import com.example.projectkfudemo.ui.globalsearch.GlobalSearchResultFragment;
 import com.example.projectkfudemo.ui.menu.MenuFragment;
 import com.example.projectkfudemo.ui.mytask.MyTaskFragment;
 import com.example.projectkfudemo.ui.requestgeneralview.RequestGeneralViewFragment;
@@ -126,7 +127,16 @@ public class MainActivity extends AppCompatActivity {
         Fragment selectedFragment = ChangeLogsFragment.newInstance(request);
         fragmentTransaction.replace(R.id.fragment_container, selectedFragment);
         fragmentTransaction.commit();
+    }
 
+    @NotNull
+    public void startFragmentGlobalSearchResult(RequestList requestList) {
+        FragmentTransaction fragmentTransaction;
+        fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.addToBackStack(null);
+        Fragment selectedFragment = GlobalSearchResultFragment.newInstance(requestList);
+        fragmentTransaction.replace(R.id.fragment_container, selectedFragment);
+        fragmentTransaction.commit();
     }
 
     @Override
