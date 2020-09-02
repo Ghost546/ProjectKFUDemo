@@ -4,17 +4,28 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ListView;
 import android.widget.Spinner;
 
 import androidx.fragment.app.Fragment;
 
 import com.example.projectkfudemo.MainActivity;
+import com.example.projectkfudemo.NetworkServiceRequests;
 import com.example.projectkfudemo.R;
-import com.example.projectkfudemo.Request;
 import com.example.projectkfudemo.RequestList;
+import com.example.projectkfudemo.User;
+import com.example.projectkfudemo.forjson.SearchDeclarerList;
+import com.google.firebase.crashlytics.FirebaseCrashlytics;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 
 
 public class GlobalSearchFragment extends Fragment implements View.OnClickListener {
@@ -42,6 +53,9 @@ public class GlobalSearchFragment extends Fragment implements View.OnClickListen
     private Spinner spinnerStatusOfRequest;
     private Spinner spinnerRequestRegistration;
     private Spinner spinnerTypeOfRequest;
+
+    List<String> searchDeclarerStrings;
+    String[] workers;
 
     RequestList requestList = new RequestList();
 
@@ -79,15 +93,52 @@ public class GlobalSearchFragment extends Fragment implements View.OnClickListen
         mainActivity.startFragmentGlobalSearchResult(requestList);
     }
 
+    private void setArraysForSpinner(User user) {
+        NetworkServiceRequests.getInstance().getJSONDeclarerListApi().getSearchDeclarerList(user.getUserId())
+                .subscribeOn(Schedulers.io()) //Schedulers.io()
+                .observeOn(AndroidSchedulers.mainThread()) //AndroidSchedulers.mainThread()
+                .subscribe(new Observer<SearchDeclarerList>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(SearchDeclarerList searchDeclarerList) {
+                        searchDeclarerStrings = new ArrayList<>();
+                        searchDeclarerStrings = searchDeclarerList.getDeclarersList();
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        FirebaseCrashlytics.getInstance().recordException(e);
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_global_search, container, false);
+        String[] declarer = new String[1];
+        declarer[0] = "привет";
+        User user = (User) args.getSerializable("user");
+        ArrayAdapter<String> adapterRequestRegistration = new ArrayAdapter<>(inflater.getContext(), android.R.layout.simple_spinner_item, declarer);
+
+        adapterRequestRegistration.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        spinnerRequestRegistration.setAdapter(adapterRequestRegistration);
+
+        setArraysForSpinner(user);
 
         setId(rootView);
 
         return rootView;
     }
-
 
     public void onClick(View v) {
         switch (v.getId()) {
