@@ -55,7 +55,8 @@ public class GlobalSearchFragment extends Fragment implements View.OnClickListen
     private Spinner spinnerTypeOfRequest;
 
     List<String> searchDeclarerStrings;
-    String[] workers;
+    ArrayAdapter<String> adapterRequestRegistration;
+
 
     RequestList requestList = new RequestList();
 
@@ -93,7 +94,7 @@ public class GlobalSearchFragment extends Fragment implements View.OnClickListen
         mainActivity.startFragmentGlobalSearchResult(requestList);
     }
 
-    private void setArraysForSpinner(User user) {
+    private void setArraysForSpinner(LayoutInflater inflater, User user) {
         NetworkServiceRequests.getInstance().getJSONDeclarerListApi().getSearchDeclarerList(user.getUserId())
                 .subscribeOn(Schedulers.io()) //Schedulers.io()
                 .observeOn(AndroidSchedulers.mainThread()) //AndroidSchedulers.mainThread()
@@ -106,7 +107,14 @@ public class GlobalSearchFragment extends Fragment implements View.OnClickListen
                     @Override
                     public void onNext(SearchDeclarerList searchDeclarerList) {
                         searchDeclarerStrings = new ArrayList<>();
-                        searchDeclarerStrings = searchDeclarerList.getDeclarersList();
+                        if(searchDeclarerList.getDeclarersList().size()>0) {
+                            searchDeclarerStrings = searchDeclarerList.getDeclarersList();
+                        } else {
+                            //сообщение что массив пустой
+                        }
+                        adapterRequestRegistration = new ArrayAdapter<>(inflater.getContext(), android.R.layout.simple_spinner_item, searchDeclarerStrings);
+                        adapterRequestRegistration.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        spinnerRequestRegistration.setAdapter(adapterRequestRegistration);
                     }
 
                     @Override
@@ -124,18 +132,11 @@ public class GlobalSearchFragment extends Fragment implements View.OnClickListen
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_global_search, container, false);
-        String[] declarer = new String[1];
-        declarer[0] = "привет";
         User user = (User) args.getSerializable("user");
-        ArrayAdapter<String> adapterRequestRegistration = new ArrayAdapter<>(inflater.getContext(), android.R.layout.simple_spinner_item, declarer);
-
-        adapterRequestRegistration.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-        spinnerRequestRegistration.setAdapter(adapterRequestRegistration);
-
-        setArraysForSpinner(user);
-
         setId(rootView);
+        setArraysForSpinner(inflater, user);
+
+
 
         return rootView;
     }
