@@ -1,7 +1,5 @@
 package com.example.projectkfudemo;
 
-import android.widget.ListView;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,13 +10,19 @@ public class Search { //Вернуться позже
 
     List<Request> resultList = new ArrayList<>(); //список с найденными заявками
 
-    Search(ArrayList<Request> list) {
-        this.list = list;//в конструкторе задаем список для дальнешего поиска
+    public Search(String stringFromSearch, List<Request> list) {
+        this.list = list;   //в конструкторе задаем список для дальнешего поиска
+        allActions(stringFromSearch);
     }
 //    int largeSize = 0;
 
+    private void allActions(String stringFromSearch) {
+        setListToArray();
+        startSearch(stringFromSearch);
 
-    public void setListToArray(List<Request> list) {
+    }
+
+    private void setListToArray() {
         for(int i = 0; i < list.size(); i++) {
             listArrays.add(objToString(list.get(i)));
         }
@@ -30,27 +34,38 @@ public class Search { //Вернуться позже
         return stringFromArrayByValue;
     }
 
-    public void startSearch(String stringFromSearching) {
+    private int getStringsArraySize(String[] stringsArray) {
+        int arraySize = stringsArray.length;
+        return arraySize;
+    }
+
+    private void startSearch(String stringFromSearching) {
         String checking;
-        for(int i = 0; i < listArrays.size(); i++) {//в цикле определяется в каких заявках(массивах String[]) существуют данные совпадающие с искомыми данными
-            for(int j = 0; j < listArrays.size(); j++){
-                checking = getValueFromArray(listArrays.get(i), j);
-                if(checking.contains(stringFromSearching)) {
-                    setResultList(list.get(i));
+        for(int i = 0; i < listArrays.size(); i++) {    //в цикле определяется в каких заявках(массивах String[]) существуют данные совпадающие с искомыми данными
+            for(int j = 0; j < getStringsArraySize(listArrays.get(i)); j++){
+                checking = getValueFromArray(listArrays.get(i), j);     //получает значение из индекса listArrays(лист заявок) i и String[](преобразованные данные заявки) j
+                if(stringFromSearching!=null) {
+                    if(checking != null) {
+                        if(checking.contains(stringFromSearching)) {    //проверяет на совпадение содержимое из массива с поисковым запросом
+                            setResultList(list.get(i)); //в случае совпадения выписывает заявки в другой лист для отображения результата поиска
+                        }//!getResultList().get(i-1).equals(listArrays.get(i))
+                    }
                 }
+
             }
         }
+        System.out.println("Найдено " + resultList.size() + " заявок");
     }
 
     private void setResultList(Request request) {
         resultList.add(request);
     }
 
-    private List<Request> getResultList() {
+    public List<Request> getResultList() {
         return resultList;
     }
 
-    public String[] objToString(Request request) {  //преобразование объекта в массив строк для алгоритма поиска
+    private String[] objToString(Request request) {  //преобразование объекта в массив строк для алгоритма поиска
         int count = 0; //создается счетчик для обозначения массива
         if(request.getCode() !=0) {
             count++;
@@ -175,9 +190,4 @@ public class Search { //Вернуться позже
 
         return strings;//позвращаем полученный массив
     }
-
-    public void setArray() {
-
-    }
-
 }

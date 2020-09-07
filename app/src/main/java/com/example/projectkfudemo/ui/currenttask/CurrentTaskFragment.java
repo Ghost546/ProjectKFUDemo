@@ -1,11 +1,14 @@
 package com.example.projectkfudemo.ui.currenttask;
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
 
@@ -17,6 +20,7 @@ import com.example.projectkfudemo.R;
 import com.example.projectkfudemo.Request;
 import com.example.projectkfudemo.RequestList;
 import com.example.projectkfudemo.RequestStateAdapter;
+import com.example.projectkfudemo.Search;
 import com.example.projectkfudemo.User;
 import com.example.projectkfudemo.ui.JSONApiRequest;
 import com.google.firebase.crashlytics.FirebaseCrashlytics;
@@ -35,6 +39,8 @@ import io.reactivex.schedulers.Schedulers;
 public class CurrentTaskFragment extends Fragment {
     static private Bundle args;
     private List<Request> states = new ArrayList<>();
+
+    private EditText searchEditText;
     
     private volatile RequestStateAdapter requestAdapter = null;
 
@@ -60,7 +66,7 @@ public class CurrentTaskFragment extends Fragment {
                     @Override
                     public void onNext(RequestList requestList) {
                         states = requestList.getRequests();
-                        if(states.size() == 0) {
+                        if (states.size() == 0) {
                             FirebaseCrashlytics.getInstance().log("Пришел пустой массив на вывод! В текущих заявках. Class CurrentTaskFragment метод getRequestListView");
 //                            throw new RuntimeException("Test Crash");
                         }
@@ -120,6 +126,28 @@ public class CurrentTaskFragment extends Fragment {
         ArrayAdapter<?> adapter = ArrayAdapter.createFromResource(inflater.getContext(), R.array.statuses_current_tasks, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
+        searchEditText = rootView.findViewById(R.id.search_edit_text);
+        searchEditText.addTextChangedListener(new TextWatcher() {
+
+            public void afterTextChanged(Editable s) {}
+
+            public void beforeTextChanged(CharSequence s, int start,
+                                          int count, int after) {
+            }
+
+            public void onTextChanged(CharSequence s, int start,
+                                      int before, int count) {
+                if(!String.valueOf(s).equals("")) {
+                    Search search = new Search(String.valueOf(s), states);
+                    requestAdapter = new RequestStateAdapter(inflater.getContext(), R.layout.task, search.getResultList());
+                    requestListView.setAdapter(requestAdapter);
+                } else {
+                    requestAdapter = new RequestStateAdapter(inflater.getContext(), R.layout.task, states);
+                    requestListView.setAdapter(requestAdapter);
+                }
+            }
+        });
+
         // Вызываем адаптер
         categorySpinner.setAdapter(adapter);
         categorySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -131,6 +159,8 @@ public class CurrentTaskFragment extends Fragment {
             public void onNothingSelected(AdapterView<?> parent) {
             }
         });
+
+
 
         //получаем элемент ListView
 
