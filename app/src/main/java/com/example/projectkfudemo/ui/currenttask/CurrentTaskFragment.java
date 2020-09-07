@@ -126,7 +126,7 @@ public class CurrentTaskFragment extends Fragment {
             public void onItemSelected(AdapterView<?> parent,
                                        View itemSelected, int selectedItemPosition, long selectedId) {
 
-                requestListView = getRequestListView(inflater, selectedItemPosition-1);
+                requestListView = getRequestListView(inflater, selectedItemPosition);
             }
             public void onNothingSelected(AdapterView<?> parent) {
             }

@@ -158,11 +158,8 @@ public class RequestGeneralViewFragment extends Fragment implements View.OnClick
     }
 
     public void visibleSetting(CurrentRequest request) {                                           //настраивает фрагмент для отображения в виде текущей заявки
-        if(request.getStatus().getId() == 1) {
-            //здесь метод измененяющий кнопку "добавить комментарий" на "назначить на себя"
-        } else {
-            fab2.setVisibility(View.GONE);
-        }
+        setFabByStatus(request.getStatus().getId());
+
     }
     public void visibleSetting() {
         fabGeneral.setVisibility(View.GONE);
@@ -172,6 +169,19 @@ public class RequestGeneralViewFragment extends Fragment implements View.OnClick
 
     private void visibleSetting(MyRequest request) {                                                //настраивает фрагмент для отображения в виде текущей заявки
         //оствил метод на будущее, может быть пригодится
+    }
+
+    public void setFabByStatus(int status) {
+        if(status == 1) {
+            fab2.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                }
+            });
+        } else {
+            fab2.setVisibility(View.GONE);
+        }
     }
 
     @Override
@@ -202,7 +212,7 @@ public class RequestGeneralViewFragment extends Fragment implements View.OnClick
                 fab.setImageResource(R.drawable.alternate_email_24px);
                 break;
             case 5:
-                fab.setImageResource(R.drawable.language_24px);   //TODO: сделать значок более крупным
+                fab.setImageResource(R.drawable.language_24px);
                 break;
         }
     }
@@ -252,7 +262,7 @@ public class RequestGeneralViewFragment extends Fragment implements View.OnClick
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_general_view_request, container, false);
         setIds(root);
-
+        setByRequestType(fabGeneral);
         sendRequestSetting(request);
 
 
@@ -303,12 +313,7 @@ public class RequestGeneralViewFragment extends Fragment implements View.OnClick
                 changeLogsButtonClick();
             }
         });
-        fab2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-            }
-        });
         return root;
     }
 
