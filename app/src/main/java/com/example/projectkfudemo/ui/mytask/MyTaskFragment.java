@@ -1,11 +1,14 @@
 package com.example.projectkfudemo.ui.mytask;
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -20,6 +23,7 @@ import com.example.projectkfudemo.R;
 import com.example.projectkfudemo.Request;
 import com.example.projectkfudemo.RequestList;
 import com.example.projectkfudemo.RequestStateAdapter;
+import com.example.projectkfudemo.Search;
 import com.example.projectkfudemo.User;
 import com.example.projectkfudemo.forjson.Works;
 import com.google.firebase.crashlytics.FirebaseCrashlytics;
@@ -44,6 +48,8 @@ public class MyTaskFragment extends Fragment {
     static Bundle args;
 
     private List<Request> states = new ArrayList();
+
+    private EditText searchEditText;
 
     private volatile RequestStateAdapter requestAdapter = null;
 
@@ -94,6 +100,8 @@ public class MyTaskFragment extends Fragment {
 
 
 
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 //        myTaskViewModel = ViewModelProviders.of(this).get(MyTaskViewModel.class);
@@ -104,6 +112,27 @@ public class MyTaskFragment extends Fragment {
 
         ArrayAdapter<?> adapter = ArrayAdapter.createFromResource(inflater.getContext(), R.array.statuses_my_tasks, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        searchEditText = rootView.findViewById(R.id.search_my_task_edit_text);
+        searchEditText.addTextChangedListener(new TextWatcher() {
+
+            public void afterTextChanged(Editable s) {}
+
+            public void beforeTextChanged(CharSequence s, int start,
+                                          int count, int after) {
+            }
+
+            public void onTextChanged(CharSequence s, int start,
+                                      int before, int count) {
+                if(!String.valueOf(s).equals("")) {
+                    Search search = new Search(String.valueOf(s), states);
+                    requestAdapter = new RequestStateAdapter(inflater.getContext(), R.layout.task, search.getResultList());
+                } else {
+                    requestAdapter = new RequestStateAdapter(inflater.getContext(), R.layout.task, states);
+                }
+                requestListView.setAdapter(requestAdapter);
+            }
+        });
 
         // Вызываем адаптер
         categorySpinner.setAdapter(adapter);
@@ -142,5 +171,12 @@ public class MyTaskFragment extends Fragment {
         requestListView.setOnItemClickListener(itemListener);
 
         return rootView;
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        MainActivity onlyForFinish = new MainActivity();
+        onlyForFinish.finishApp();
     }
 }

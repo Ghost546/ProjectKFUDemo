@@ -22,14 +22,11 @@ import com.example.projectkfudemo.RequestList;
 import com.example.projectkfudemo.RequestStateAdapter;
 import com.example.projectkfudemo.Search;
 import com.example.projectkfudemo.User;
-import com.example.projectkfudemo.ui.JSONApiRequest;
 import com.google.firebase.crashlytics.FirebaseCrashlytics;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.BindView;
-import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
@@ -126,7 +123,7 @@ public class CurrentTaskFragment extends Fragment {
         ArrayAdapter<?> adapter = ArrayAdapter.createFromResource(inflater.getContext(), R.array.statuses_current_tasks, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-        searchEditText = rootView.findViewById(R.id.search_edit_text);
+        searchEditText = rootView.findViewById(R.id.search_current_task_edit_text);
         searchEditText.addTextChangedListener(new TextWatcher() {
 
             public void afterTextChanged(Editable s) {}
@@ -140,11 +137,10 @@ public class CurrentTaskFragment extends Fragment {
                 if(!String.valueOf(s).equals("")) {
                     Search search = new Search(String.valueOf(s), states);
                     requestAdapter = new RequestStateAdapter(inflater.getContext(), R.layout.task, search.getResultList());
-                    requestListView.setAdapter(requestAdapter);
                 } else {
                     requestAdapter = new RequestStateAdapter(inflater.getContext(), R.layout.task, states);
-                    requestListView.setAdapter(requestAdapter);
                 }
+                requestListView.setAdapter(requestAdapter);
             }
         });
 

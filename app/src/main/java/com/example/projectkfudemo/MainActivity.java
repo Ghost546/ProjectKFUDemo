@@ -26,7 +26,6 @@ public class MainActivity extends AppCompatActivity {
     public static final String APP_PREFERENCES_LOGIN = "Login";
     public static final String APP_PREFERENCES_PASSWORD = "Password";
 
-    public static final String EXTRA_AССESS = "com.example.";
     Fragment selectedFragment;
 //    private FirebaseAuth mFirebaseAuth;
 //    private FirebaseUser mFirebaseUser;
@@ -43,30 +42,35 @@ public class MainActivity extends AppCompatActivity {
             switch (item.getItemId()) {
                 case R.id.navigation_current_task:
                     fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                    fragmentTransaction.addToBackStack(null);
                     selectedFragment = CurrentTaskFragment.newInstance(args);
                     fragmentTransaction.replace(R.id.fragment_container, selectedFragment);
                     fragmentTransaction.commit();
                     return true;
                 case R.id.navigation_my_task:
                     fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                    fragmentTransaction.addToBackStack(null);
                     selectedFragment = MyTaskFragment.newInstance(args);
                     fragmentTransaction.replace(R.id.fragment_container, selectedFragment);
                     fragmentTransaction.commit();
                     return true;
                 case R.id.navigation_global_search:
                     fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                    fragmentTransaction.addToBackStack(null);
                     selectedFragment = GlobalSearchFragment.newInstance(args);
                     fragmentTransaction.replace(R.id.fragment_container, selectedFragment);
                     fragmentTransaction.commit();
                     return true;
                 case R.id.navigation_map:
                     fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                    fragmentTransaction.addToBackStack(null);
                     selectedFragment = MapFragment.newInstance(args);
                     fragmentTransaction.replace(R.id.fragment_container, selectedFragment);
                     fragmentTransaction.commit();
                     return true;
                 case R.id.navigation_menu:
                     fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                    fragmentTransaction.addToBackStack(null);
                     selectedFragment = MenuFragment.newInstance(args);
                     fragmentTransaction.replace(R.id.fragment_container, selectedFragment);
                     fragmentTransaction.commit();
@@ -106,6 +110,10 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        finishAffinity();
+    }
+
+    public void finishApp() {
         finishAffinity();
     }
 

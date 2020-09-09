@@ -41,17 +41,25 @@ public class Search { //Вернуться позже
 
     private void startSearch(String stringFromSearching) {
         String checking;
+        int countResultList = 0;
         for(int i = 0; i < listArrays.size(); i++) {    //в цикле определяется в каких заявках(массивах String[]) существуют данные совпадающие с искомыми данными
             for(int j = 0; j < getStringsArraySize(listArrays.get(i)); j++){
                 checking = getValueFromArray(listArrays.get(i), j);     //получает значение из индекса listArrays(лист заявок) i и String[](преобразованные данные заявки) j
-                if(stringFromSearching!=null) {
+                if(stringFromSearching!=null) {     //пропускает сравнение случайно-пустых значений
                     if(checking != null) {
-                        if(checking.contains(stringFromSearching)) {    //проверяет на совпадение содержимое из массива с поисковым запросом
-                            setResultList(list.get(i)); //в случае совпадения выписывает заявки в другой лист для отображения результата поиска
-                        }//!getResultList().get(i-1).equals(listArrays.get(i))
+                        if(checking.contains(stringFromSearching)) {    //проверяет на совпадения содержимое из массива с поисковым запросом
+                            //ввод формимруемого массива и исключение повторений в этом же массиве
+                            if(countResultList == 0) {  //даёт ввод на первый цикл заполнения
+                                setResultList(list.get(i));
+                                countResultList++;  //счетчик формируемого массива для вывода
+                            }
+                            if(countResultList != 0 & !getResultList().get(countResultList-1).equals(list.get(i))){ //проверяет текущую заявку по основному массиву заявок с заявками формируемого массива
+                                setResultList(list.get(i)); //в случае совпадения выписывает заявки в другой лист для отображения результата поиска
+                                countResultList++;
+                            }
+                        }
                     }
                 }
-
             }
         }
         System.out.println("Найдено " + resultList.size() + " заявок");
