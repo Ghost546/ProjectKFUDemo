@@ -11,7 +11,7 @@
             android:id="@+id/search_my_task_edit_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Поиск...(В процессе...)"/>
+            android:hint="Поиск..."/>
         <Spinner
             android:id="@+id/status"
             android:layout_width="match_parent"

@@ -56,8 +56,7 @@ public class MyTaskFragment extends Fragment {
     MyTaskViewModel myTaskViewModel;
 
     private ListView requestListView = null;
-
-
+    MainActivity mainActivity;
 
     public static MyTaskFragment newInstance(Bundle arg) {
         MyTaskFragment fragment = new MyTaskFragment();
@@ -101,12 +100,15 @@ public class MyTaskFragment extends Fragment {
 
 
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 //        myTaskViewModel = ViewModelProviders.of(this).get(MyTaskViewModel.class);
+
         View rootView = inflater.inflate(R.layout.fragment_my_task_list, container, false);
+        mainActivity = (MainActivity) getActivity();
+
         User user = (User) args.getSerializable("user");
+
         System.out.println("Здесь твои переменные: " + user.getUserId() + ", " + user.getP2());
         Spinner categorySpinner = (Spinner) rootView.findViewById(R.id.status);
 
@@ -124,6 +126,7 @@ public class MyTaskFragment extends Fragment {
 
             public void onTextChanged(CharSequence s, int start,
                                       int before, int count) {
+
                 if(!String.valueOf(s).equals("")) {
                     Search search = new Search(String.valueOf(s), states);
                     requestAdapter = new RequestStateAdapter(inflater.getContext(), R.layout.task, search.getResultList());
@@ -159,7 +162,6 @@ public class MyTaskFragment extends Fragment {
                 Request selectedRequest = (Request) parent.getItemAtPosition(position);
                 selectedRequest.setThatIsMyRequest();
                 //настраиваем и отправляем будущий фрагмент
-                MainActivity mainActivity = (MainActivity)getActivity();
                 //запускаем фрагмент
                 if (selectedRequest != null) {
                     mainActivity.startFragmentGeneralView(selectedRequest);
@@ -174,9 +176,11 @@ public class MyTaskFragment extends Fragment {
     }
 
     @Override
-    public void onDestroy() {
-        super.onDestroy();
-        MainActivity onlyForFinish = new MainActivity();
-        onlyForFinish.finishApp();
+    public void onResume() {
+        super.onResume();
+        if (mainActivity != null) {
+            mainActivity.switchSelectedItemMyTask();
+        }
     }
+
 }

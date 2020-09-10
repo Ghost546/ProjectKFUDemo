@@ -47,8 +47,10 @@ public class MenuFragment extends Fragment implements View.OnClickListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_menu, container, false);
         userPreferences = getActivity().getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
+
         user = (User) args.getSerializable("user");
         userPicture = rootView.findViewById(R.id.fragment_menu_user_icon);
+
         mLogOutButton = rootView.findViewById(R.id.fragment_menu_log_out_button);
         mLogOutButton.setOnClickListener(this);
 

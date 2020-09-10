@@ -12,12 +12,14 @@ import com.example.projectkfudemo.ui.menu.MenuFragment;
 import com.example.projectkfudemo.ui.mytask.MyTaskFragment;
 import com.example.projectkfudemo.ui.requestgeneralview.RequestGeneralViewFragment;
 import com.example.projectkfudemo.ui.search.MapFragment;
+import com.google.android.gms.common.api.internal.LifecycleActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.database.annotations.NotNull;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.LifecycleObserver;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -26,6 +28,8 @@ public class MainActivity extends AppCompatActivity {
     public static final String APP_PREFERENCES_LOGIN = "Login";
     public static final String APP_PREFERENCES_PASSWORD = "Password";
 
+
+
     Fragment selectedFragment;
 //    private FirebaseAuth mFirebaseAuth;
 //    private FirebaseUser mFirebaseUser;
@@ -33,6 +37,32 @@ public class MainActivity extends AppCompatActivity {
     Bundle args;
     User userMain = null;
     SharedPreferences userPreferences;
+    BottomNavigationView navView;
+
+
+    public void switchSelectedItemCurrentTask() {
+        navView.setSelectedItemId(R.id.navigation_current_task);
+    }
+
+
+    public void switchSelectedItemMyTask() {
+        navView.setSelectedItemId(R.id.navigation_my_task);
+    }
+
+
+    public void switchSelectedItemSearch() {
+        navView.setSelectedItemId(R.id.navigation_global_search);
+    }
+
+
+    public void switchSelectedItemMap() {
+        navView.setSelectedItemId(R.id.navigation_map);
+    }
+
+
+    public void switchSelectedItemMenu() {
+        navView.setSelectedItemId(R.id.navigation_menu);
+    }
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
         @Override
@@ -83,16 +113,18 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        navView = findViewById(R.id.nav_view);
         args = getIntent().getExtras();
         userMain = (User) args.getSerializable("user");
         System.out.println("Здесь твои переменные: " + userMain.getUserId() + ", " + userMain.getP2());
 
 
 
-        BottomNavigationView navView = findViewById(R.id.nav_view);
+
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+
         System.out.println("Здесь твои переменные: " + userMain.getUserId() + ", " + userMain.getP2());
 
         if (savedInstanceState == null) {
@@ -105,15 +137,13 @@ public class MainActivity extends AppCompatActivity {
             fragmentTransaction.commit();
         }
 
+        switchSelectedItemCurrentTask();
+
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        finishAffinity();
-    }
-
-    public void finishApp() {
         finishAffinity();
     }
 

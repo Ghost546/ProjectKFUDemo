@@ -13,6 +13,8 @@ import android.widget.ListView;
 import android.widget.Spinner;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.LifecycleObserver;
+import androidx.lifecycle.LifecycleRegistryOwner;
 
 import com.example.projectkfudemo.MainActivity;
 import com.example.projectkfudemo.NetworkServiceRequests;
@@ -42,6 +44,8 @@ public class CurrentTaskFragment extends Fragment {
     private volatile RequestStateAdapter requestAdapter = null;
 
     private ListView requestListView = null;
+
+    MainActivity mainActivity;
 
     public static CurrentTaskFragment newInstance(Bundle arg) {
         CurrentTaskFragment fragment = new CurrentTaskFragment();
@@ -88,12 +92,16 @@ public class CurrentTaskFragment extends Fragment {
     }
 
 
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 //        currentTaskViewModel = ViewModelProviders.of(this).get(CurrentTaskViewModel.class);
         View rootView = inflater.inflate(R.layout.fragment_current_task_list, container, false);
-
-
+        mainActivity = (MainActivity) getActivity();
+        if(mainActivity!=null) {
+//            mainActivity.switchSelectedItemCurrentTask();
+        }
 
         User user = (User) args.getSerializable("user");
         if(user.getUserId() == 0) {
@@ -123,6 +131,18 @@ public class CurrentTaskFragment extends Fragment {
         ArrayAdapter<?> adapter = ArrayAdapter.createFromResource(inflater.getContext(), R.array.statuses_current_tasks, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
+        // Вызываем адаптер
+        categorySpinner.setAdapter(adapter);
+        categorySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            public void onItemSelected(AdapterView<?> parent,
+                                       View itemSelected, int selectedItemPosition, long selectedId) {
+
+                requestListView = getRequestListView(inflater, selectedItemPosition);
+            }
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+
         searchEditText = rootView.findViewById(R.id.search_current_task_edit_text);
         searchEditText.addTextChangedListener(new TextWatcher() {
 
@@ -144,17 +164,7 @@ public class CurrentTaskFragment extends Fragment {
             }
         });
 
-        // Вызываем адаптер
-        categorySpinner.setAdapter(adapter);
-        categorySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            public void onItemSelected(AdapterView<?> parent,
-                                       View itemSelected, int selectedItemPosition, long selectedId) {
 
-                requestListView = getRequestListView(inflater, selectedItemPosition);
-            }
-            public void onNothingSelected(AdapterView<?> parent) {
-            }
-        });
 
 
 
@@ -171,7 +181,6 @@ public class CurrentTaskFragment extends Fragment {
                 Request selectedRequest = (Request) parent.getItemAtPosition(position);
                 selectedRequest.setThatIsCurrentRequest();
                 //настраиваем и отправляем будущий фрагмент
-                MainActivity mainActivity = (MainActivity) getActivity();
                 //запускаем фрагмент
                 if (selectedRequest != null) {
 //                    Gson gson = new Gson();
@@ -188,6 +197,10 @@ public class CurrentTaskFragment extends Fragment {
         return rootView;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
 
+    }
 
 }
