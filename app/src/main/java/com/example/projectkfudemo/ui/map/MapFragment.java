@@ -1,4 +1,4 @@
-package com.example.projectkfudemo.ui.search;
+package com.example.projectkfudemo.ui.map;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -7,11 +7,13 @@ import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
 
+import com.example.projectkfudemo.MainActivity;
 import com.example.projectkfudemo.R;
 import com.example.projectkfudemo.User;
 
 public class MapFragment extends Fragment {
     static Bundle args;
+    MainActivity mainActivity;
 
     public static MapFragment newInstance(Bundle arg) {
         MapFragment fragment = new MapFragment();
@@ -24,6 +26,15 @@ public class MapFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_map, container, false);
         User user = (User) args.getSerializable("user");
 
+        mainActivity = (MainActivity) getActivity();
+
         return rootView;
+    }
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (mainActivity != null) {
+            mainActivity.switchSelectedItemMap();
+        }
     }
 }

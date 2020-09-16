@@ -34,9 +34,13 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
-
 public class CurrentTaskFragment extends Fragment {
+
     static private Bundle args;
+    MainActivity mainActivity;
+    private boolean mAlreadyLoaded = false;
+    private boolean firstLoad = true;
+
     private List<Request> states = new ArrayList<>();
 
     private EditText searchEditText;
@@ -44,8 +48,6 @@ public class CurrentTaskFragment extends Fragment {
     private volatile RequestStateAdapter requestAdapter = null;
 
     private ListView requestListView = null;
-
-    MainActivity mainActivity;
 
     public static CurrentTaskFragment newInstance(Bundle arg) {
         CurrentTaskFragment fragment = new CurrentTaskFragment();
@@ -91,14 +93,22 @@ public class CurrentTaskFragment extends Fragment {
         return requestListView;
     }
 
+    private boolean getAlreadyLoaded() {
+        return mAlreadyLoaded;
+    }
 
-
+    private void setAlreadyLoaded(boolean mAlreadyLoaded) {
+        this.mAlreadyLoaded = mAlreadyLoaded;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 //        currentTaskViewModel = ViewModelProviders.of(this).get(CurrentTaskViewModel.class);
         View rootView = inflater.inflate(R.layout.fragment_current_task_list, container, false);
         mainActivity = (MainActivity) getActivity();
+
+        System.out.println();
+
         if(mainActivity!=null) {
 //            mainActivity.switchSelectedItemCurrentTask();
         }
@@ -136,9 +146,15 @@ public class CurrentTaskFragment extends Fragment {
         categorySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             public void onItemSelected(AdapterView<?> parent,
                                        View itemSelected, int selectedItemPosition, long selectedId) {
+                if(getAlreadyLoaded()) setAlreadyLoaded(false);
+                else requestListView = getRequestListView(inflater, selectedItemPosition);
 
-                requestListView = getRequestListView(inflater, selectedItemPosition);
+                if(firstLoad) {
+                    requestListView = getRequestListView(inflater, selectedItemPosition);
+                    firstLoad = false;
+                }
             }
+
             public void onNothingSelected(AdapterView<?> parent) {
             }
         });
@@ -164,14 +180,9 @@ public class CurrentTaskFragment extends Fragment {
             }
         });
 
-
-
-
-
         //получаем элемент ListView
 
         // устанавливаем адаптер
-
 
         // слушатель выбора в списке
         AdapterView.OnItemClickListener itemListener = new AdapterView.OnItemClickListener() {
@@ -194,13 +205,20 @@ public class CurrentTaskFragment extends Fragment {
         };
 
         requestListView.setOnItemClickListener(itemListener);
+
+        if (savedInstanceState == null && !getAlreadyLoaded()) {
+            setAlreadyLoaded(true);
+        }
+
         return rootView;
     }
 
     @Override
     public void onResume() {
         super.onResume();
-
+        if (mainActivity != null) {
+            mainActivity.switchSelectedItemCurrentTask();
+        }
     }
 
 }

@@ -11,15 +11,13 @@ import com.example.projectkfudemo.ui.globalsearch.GlobalSearchResultFragment;
 import com.example.projectkfudemo.ui.menu.MenuFragment;
 import com.example.projectkfudemo.ui.mytask.MyTaskFragment;
 import com.example.projectkfudemo.ui.requestgeneralview.RequestGeneralViewFragment;
-import com.example.projectkfudemo.ui.search.MapFragment;
-import com.google.android.gms.common.api.internal.LifecycleActivity;
+import com.example.projectkfudemo.ui.map.MapFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.database.annotations.NotNull;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.lifecycle.LifecycleObserver;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -41,27 +39,37 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void switchSelectedItemCurrentTask() {
-        navView.setSelectedItemId(R.id.navigation_current_task);
+        if(navView.getSelectedItemId()!=R.id.navigation_current_task) {
+            navView.setSelectedItemId(R.id.navigation_current_task);
+        }
     }
 
 
     public void switchSelectedItemMyTask() {
-        navView.setSelectedItemId(R.id.navigation_my_task);
+        if(navView.getSelectedItemId()!=R.id.navigation_my_task) {
+            navView.setSelectedItemId(R.id.navigation_my_task);
+        }
     }
 
 
     public void switchSelectedItemSearch() {
-        navView.setSelectedItemId(R.id.navigation_global_search);
+        if(navView.getSelectedItemId()!=R.id.navigation_global_search) {
+            navView.setSelectedItemId(R.id.navigation_global_search);
+        }
     }
 
 
     public void switchSelectedItemMap() {
-        navView.setSelectedItemId(R.id.navigation_map);
+        if(navView.getSelectedItemId()!=R.id.navigation_map) {
+            navView.setSelectedItemId(R.id.navigation_map);
+        }
     }
 
 
     public void switchSelectedItemMenu() {
-        navView.setSelectedItemId(R.id.navigation_menu);
+        if(navView.getSelectedItemId()!=R.id.navigation_menu) {
+            navView.setSelectedItemId(R.id.navigation_menu);
+        }
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener = new BottomNavigationView.OnNavigationItemSelectedListener() {

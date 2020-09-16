@@ -50,25 +50,25 @@ public class RequestGeneralViewFragment extends Fragment implements View.OnClick
     FloatingActionButton fab1;                                                                      //рег карточка заявки
     FloatingActionButton fab2;                                                                      //комментарий исполнителя
 
-    int k = 0;
+    int count = 0;
 
-    public void addK(int k) {
-        this.k += k;
+    public void addCount(int k) {
+        this.count += k;
     }
 
-    public void setK(int k) {
-        this.k = k;
+    public void setCount(int k) {
+        this.count = k;
     }
 
-    public int getK() {
-        return k;
+    public int getKCount() {
+        return count;
     }
 
     private Request request;
 
     public static RequestGeneralViewFragment newInstance(Request request) {
         RequestGeneralViewFragment fragment = new RequestGeneralViewFragment();
-        fragment.setK(0);
+        fragment.setCount(0);
 //        Bundle args = new Bundle();
 //        Gson gson = new Gson();
 //        args.putString("req",gson.toJson(request));
@@ -168,15 +168,22 @@ public class RequestGeneralViewFragment extends Fragment implements View.OnClick
     }
 
     private void visibleSetting(MyRequest request) {                                                //настраивает фрагмент для отображения в виде текущей заявки
-        //оствил метод на будущее, может быть пригодится
+        fab2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //здесь будет переход на экран "добавить комментарий"
+            }
+        });
     }
+
+
 
     public void setFabByStatus(int status) {
         if(status == 1) {
             fab2.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
+                    //здесь будет запрос "назначить заявку на себя
                 }
             });
         } else {
@@ -249,13 +256,13 @@ public class RequestGeneralViewFragment extends Fragment implements View.OnClick
     @Override
     public void onResume() {
         super.onResume();
-        setK(0);
+        setCount(0);
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        setK(0);
+        setCount(0);
     }
 
     @Override
@@ -276,7 +283,7 @@ public class RequestGeneralViewFragment extends Fragment implements View.OnClick
         fabGeneral.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(getK()%2 == 0) {
+                if(getKCount()%2 == 0) {
                     layoutParams1.rightMargin += (int) (fab1.getWidth() * 0.25);
                     layoutParams1.bottomMargin += (int) (fab1.getHeight() * 1.7);
                     fab1.setLayoutParams(layoutParams1);
@@ -301,9 +308,9 @@ public class RequestGeneralViewFragment extends Fragment implements View.OnClick
                     fab2.startAnimation(hide_fab_2);
                     fab2.setClickable(false);
                 }
-                addK(1);
-                if(getK()==10) {
-                    setK(0);
+                addCount(1);
+                if(getKCount()==10) {
+                    setCount(0);
                 }
             }
         });

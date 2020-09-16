@@ -25,7 +25,7 @@
 
     <fragment
         android:id="@+id/navigation_map"
-        android:name="com.example.projectkfudemo.ui.search.MapFragment"
+        android:name="com.example.projectkfudemo.ui.map.MapFragment"
         android:label="@string/title_map"
         tools:layout="@layout/fragment_map" />
 

@@ -46,6 +46,9 @@ import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
 public class MyTaskFragment extends Fragment {
 
     static Bundle args;
+    MainActivity mainActivity;
+    private boolean mAlreadyLoaded = false;
+    private boolean firstLoad = true;
 
     private List<Request> states = new ArrayList();
 
@@ -56,7 +59,6 @@ public class MyTaskFragment extends Fragment {
     MyTaskViewModel myTaskViewModel;
 
     private ListView requestListView = null;
-    MainActivity mainActivity;
 
     public static MyTaskFragment newInstance(Bundle arg) {
         MyTaskFragment fragment = new MyTaskFragment();
@@ -97,8 +99,13 @@ public class MyTaskFragment extends Fragment {
         return requestListView;
     }
 
+    private boolean getAlreadyLoaded() {
+        return mAlreadyLoaded;
+    }
 
-
+    private void setAlreadyLoaded(boolean mAlreadyLoaded) {
+        this.mAlreadyLoaded = mAlreadyLoaded;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -144,8 +151,13 @@ public class MyTaskFragment extends Fragment {
             public void onItemSelected(AdapterView<?> parent,
                                        View itemSelected, int selectedItemPosition, long selectedId) {
 
-                requestListView = getRequestListView(inflater, selectedItemPosition-1);
-                requestListView = rootView.findViewById(R.id.myTasksList);
+                if(getAlreadyLoaded()) setAlreadyLoaded(false);
+                else requestListView = getRequestListView(inflater, selectedItemPosition);
+
+                if(firstLoad) {
+                    requestListView = getRequestListView(inflater, selectedItemPosition);
+                    firstLoad = false;
+                }
             }
             public void onNothingSelected(AdapterView<?> parent) {
             }
@@ -171,6 +183,10 @@ public class MyTaskFragment extends Fragment {
             }
         };
         requestListView.setOnItemClickListener(itemListener);
+
+        if (savedInstanceState == null && !getAlreadyLoaded()) {
+            setAlreadyLoaded(true);
+        }
 
         return rootView;
     }

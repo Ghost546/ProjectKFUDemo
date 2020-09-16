@@ -30,6 +30,7 @@ import io.reactivex.schedulers.Schedulers;
 
 public class GlobalSearchFragment extends Fragment implements View.OnClickListener {
     static Bundle args;
+    MainActivity mainActivity;
 
     private Button searchButton;
     private EditText editRequestNumber;
@@ -136,9 +137,17 @@ public class GlobalSearchFragment extends Fragment implements View.OnClickListen
         setId(rootView);
         setArraysForSpinner(inflater, user);
 
-
+        mainActivity = (MainActivity) getActivity();
 
         return rootView;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (mainActivity != null) {
+            mainActivity.switchSelectedItemSearch();
+        }
     }
 
     public void onClick(View v) {
