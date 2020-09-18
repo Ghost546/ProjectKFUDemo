@@ -26,6 +26,7 @@ import com.example.projectkfudemo.Search;
 import com.example.projectkfudemo.User;
 import com.google.firebase.crashlytics.FirebaseCrashlytics;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,12 +35,15 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
-public class CurrentTaskFragment extends Fragment {
+public class CurrentTaskFragment extends Fragment implements Serializable {
 
     static private Bundle args;
+    private Bundle saveRequests;
     MainActivity mainActivity;
     private boolean mAlreadyLoaded = false;
     private boolean firstLoad = true;
+
+    private final String REQUEST_LIST_SAVING_KEY = "requestListSavingKey";
 
     private List<Request> states = new ArrayList<>();
 
@@ -93,6 +97,12 @@ public class CurrentTaskFragment extends Fragment {
         return requestListView;
     }
 
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        outState.putSerializable(REQUEST_LIST_SAVING_KEY, (Serializable) states);
+        super.onSaveInstanceState(outState);
+    }
+
     private boolean getAlreadyLoaded() {
         return mAlreadyLoaded;
     }
@@ -102,9 +112,17 @@ public class CurrentTaskFragment extends Fragment {
     }
 
     @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 //        currentTaskViewModel = ViewModelProviders.of(this).get(CurrentTaskViewModel.class);
         View rootView = inflater.inflate(R.layout.fragment_current_task_list, container, false);
+
+
+
         mainActivity = (MainActivity) getActivity();
 
         System.out.println();
@@ -146,8 +164,18 @@ public class CurrentTaskFragment extends Fragment {
         categorySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             public void onItemSelected(AdapterView<?> parent,
                                        View itemSelected, int selectedItemPosition, long selectedId) {
-                if(getAlreadyLoaded()) setAlreadyLoaded(false);
-                else requestListView = getRequestListView(inflater, selectedItemPosition);
+//                if (savedInstanceState != null) {
+//                    states = (List<Request>) savedInstanceState.getSerializable(REQUEST_LIST_SAVING_KEY);
+//                    requestAdapter = new RequestStateAdapter(inflater.getContext(), R.layout.task, states);
+//                    requestListView.setAdapter(requestAdapter);
+//                } else {
+                    if(getAlreadyLoaded()) {
+                        setAlreadyLoaded(false);
+                    }
+                    else {
+                        requestListView = getRequestListView(inflater, selectedItemPosition);
+                    }
+//                }
 
                 if(firstLoad) {
                     requestListView = getRequestListView(inflater, selectedItemPosition);
@@ -161,7 +189,6 @@ public class CurrentTaskFragment extends Fragment {
 
         searchEditText = rootView.findViewById(R.id.search_current_task_edit_text);
         searchEditText.addTextChangedListener(new TextWatcher() {
-
             public void afterTextChanged(Editable s) {}
 
             public void beforeTextChanged(CharSequence s, int start,
@@ -220,5 +247,4 @@ public class CurrentTaskFragment extends Fragment {
             mainActivity.switchSelectedItemCurrentTask();
         }
     }
-
 }

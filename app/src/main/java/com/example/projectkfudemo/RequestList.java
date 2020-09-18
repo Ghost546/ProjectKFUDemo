@@ -3,6 +3,8 @@ package com.example.projectkfudemo;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import androidx.lifecycle.LiveData;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 

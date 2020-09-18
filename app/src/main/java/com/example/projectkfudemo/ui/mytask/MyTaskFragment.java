@@ -151,8 +151,12 @@ public class MyTaskFragment extends Fragment {
             public void onItemSelected(AdapterView<?> parent,
                                        View itemSelected, int selectedItemPosition, long selectedId) {
 
-                if(getAlreadyLoaded()) setAlreadyLoaded(false);
-                else requestListView = getRequestListView(inflater, selectedItemPosition);
+                if(getAlreadyLoaded()) {
+                    setAlreadyLoaded(false);
+                }
+                else {
+                    requestListView = getRequestListView(inflater, selectedItemPosition);
+                }
 
                 if(firstLoad) {
                     requestListView = getRequestListView(inflater, selectedItemPosition);

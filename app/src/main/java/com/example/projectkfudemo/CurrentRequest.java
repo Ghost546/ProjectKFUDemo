@@ -14,12 +14,7 @@ import java.util.SplittableRandom;
 
 //TODO: объеденить классы CurrentRequest, MyRequest и Request в отдельную папку
 public class CurrentRequest {
-    List<Request> requests = new ArrayList<>();;
     Request request;
-
-    public List<Request> getArray() {
-        return requests;
-    }
 
     public CurrentRequest(Request request) {
         this.request = request;
