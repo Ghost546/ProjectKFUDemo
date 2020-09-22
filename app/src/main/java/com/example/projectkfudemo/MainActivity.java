@@ -2,8 +2,12 @@ package com.example.projectkfudemo;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
 
+import com.example.projectkfudemo.forjson.SearchDeclarerList;
+import com.example.projectkfudemo.forjson.SearchWorkersList;
 import com.example.projectkfudemo.ui.changelogs.ChangeLogsFragment;
 import com.example.projectkfudemo.ui.currenttask.CurrentTaskFragment;
 import com.example.projectkfudemo.ui.globalsearch.GlobalSearchFragment;
@@ -13,11 +17,20 @@ import com.example.projectkfudemo.ui.mytask.MyTaskFragment;
 import com.example.projectkfudemo.ui.requestgeneralview.RequestGeneralViewFragment;
 import com.example.projectkfudemo.ui.map.MapFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.crashlytics.FirebaseCrashlytics;
 import com.google.firebase.database.annotations.NotNull;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -26,7 +39,10 @@ public class MainActivity extends AppCompatActivity {
     public static final String APP_PREFERENCES_LOGIN = "Login";
     public static final String APP_PREFERENCES_PASSWORD = "Password";
 
-
+    //массив для фио исполнителя
+    List<String> searchWorkersStrings;
+    //массив для Заявку зарегистрировал
+    List<String> searchDeclarerStrings;
 
     Fragment selectedFragment;
 //    private FirebaseAuth mFirebaseAuth;
@@ -118,6 +134,82 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
+    public void setWorkerArraysForSpinner(LayoutInflater inflater, User user) {
+        NetworkServiceRequests.getInstance().getJSONWorkersListApi().getSearchWorkersList(user.getUserId())
+                .subscribeOn(Schedulers.io()) //Schedulers.io()
+                .observeOn(AndroidSchedulers.mainThread()) //AndroidSchedulers.mainThread()
+                .subscribe(new Observer<SearchWorkersList>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(SearchWorkersList searchWorkersList) {
+                        searchWorkersStrings = new ArrayList<>();
+                        if(searchWorkersList.getWorkersList().size()>0) {
+                            searchWorkersStrings = searchWorkersList.getWorkersList();
+                        } else {
+                            searchWorkersStrings.add("Cписок пуст");
+                        }
+//                        adapterRequestRegistration = new ArrayAdapter<>(inflater.getContext(), android.R.layout.simple_spinner_item, searchDeclarerStrings);
+//                        adapterRequestRegistration.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//                        spinnerRequestRegistration.setAdapter(adapterRequestRegistration);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        FirebaseCrashlytics.getInstance().recordException(e);
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+    }
+
+    public void setDeclarerArraysForSpinner(LayoutInflater inflater, User user) {
+        NetworkServiceRequests.getInstance().getJSONDeclarerListApi().getSearchDeclarerList(user.getUserId())
+                .subscribeOn(Schedulers.io()) //Schedulers.io()
+                .observeOn(AndroidSchedulers.mainThread()) //AndroidSchedulers.mainThread()
+                .subscribe(new Observer<SearchDeclarerList>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(SearchDeclarerList searchDeclarerList) {
+                        searchDeclarerStrings = new ArrayList<>();
+                        if(searchDeclarerList.getDeclarersList().size()>0) {
+                            searchDeclarerStrings = searchDeclarerList.getDeclarersList();
+                        } else {
+                            //сообщение что массив пустой
+                        }
+//
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        FirebaseCrashlytics.getInstance().recordException(e);
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+    }
+
+    public List<String> getSearchWorkersStrings() {
+        return searchWorkersStrings;
+    }
+
+    public List<String> getSearchDeclarerStrings() {
+        return searchDeclarerStrings;
+    }
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -125,6 +217,7 @@ public class MainActivity extends AppCompatActivity {
         args = getIntent().getExtras();
         userMain = (User) args.getSerializable("user");
         System.out.println("Здесь твои переменные: " + userMain.getUserId() + ", " + userMain.getP2());
+
 
 
         // Passing each menu ID as a set of Ids because each

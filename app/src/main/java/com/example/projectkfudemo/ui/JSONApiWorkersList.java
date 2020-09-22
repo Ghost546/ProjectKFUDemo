@@ -12,6 +12,7 @@ import retrofit2.http.Query;
 
 
 public interface JSONApiWorkersList {
+    //ссылка для фио исполнителя
     @FormUrlEncoded
     @POST("e-ksu/service_desk_mobile.workers_list?")
     public Observable<SearchWorkersList> getSearchWorkersList(@Field("p_user_id") int user_id);

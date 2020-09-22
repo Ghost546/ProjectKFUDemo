@@ -55,5 +55,4 @@ public class NetworkServiceRequests {
     public JSONApiDeclarerList getJSONDeclarerListApi() {
         return mRetrofit.create(JSONApiDeclarerList.class);
     }
-
 }

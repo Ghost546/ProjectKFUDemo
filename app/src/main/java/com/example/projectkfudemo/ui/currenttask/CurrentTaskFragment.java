@@ -125,11 +125,6 @@ public class CurrentTaskFragment extends Fragment implements Serializable {
 
         mainActivity = (MainActivity) getActivity();
 
-        System.out.println();
-
-        if(mainActivity!=null) {
-//            mainActivity.switchSelectedItemCurrentTask();
-        }
 
         User user = (User) args.getSerializable("user");
         if(user.getUserId() == 0) {
@@ -164,18 +159,18 @@ public class CurrentTaskFragment extends Fragment implements Serializable {
         categorySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             public void onItemSelected(AdapterView<?> parent,
                                        View itemSelected, int selectedItemPosition, long selectedId) {
-//                if (savedInstanceState != null) {
-//                    states = (List<Request>) savedInstanceState.getSerializable(REQUEST_LIST_SAVING_KEY);
-//                    requestAdapter = new RequestStateAdapter(inflater.getContext(), R.layout.task, states);
-//                    requestListView.setAdapter(requestAdapter);
-//                } else {
+                if (savedInstanceState != null) {
+                    states = (List<Request>) savedInstanceState.getSerializable(REQUEST_LIST_SAVING_KEY);
+                    requestAdapter = new RequestStateAdapter(inflater.getContext(), R.layout.task, states);
+                    requestListView.setAdapter(requestAdapter);
+                } else {
                     if(getAlreadyLoaded()) {
                         setAlreadyLoaded(false);
                     }
                     else {
                         requestListView = getRequestListView(inflater, selectedItemPosition);
                     }
-//                }
+                }
 
                 if(firstLoad) {
                     requestListView = getRequestListView(inflater, selectedItemPosition);

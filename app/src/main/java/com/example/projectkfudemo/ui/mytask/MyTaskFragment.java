@@ -28,6 +28,7 @@ import com.example.projectkfudemo.User;
 import com.example.projectkfudemo.forjson.Works;
 import com.google.firebase.crashlytics.FirebaseCrashlytics;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -49,6 +50,8 @@ public class MyTaskFragment extends Fragment {
     MainActivity mainActivity;
     private boolean mAlreadyLoaded = false;
     private boolean firstLoad = true;
+
+    private final String REQUEST_LIST_SAVING_KEY = "requestListSavingKey";
 
     private List<Request> states = new ArrayList();
 
@@ -97,6 +100,12 @@ public class MyTaskFragment extends Fragment {
                     }
                 });
         return requestListView;
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        outState.putSerializable(REQUEST_LIST_SAVING_KEY, (Serializable) states);
+        super.onSaveInstanceState(outState);
     }
 
     private boolean getAlreadyLoaded() {
@@ -150,12 +159,17 @@ public class MyTaskFragment extends Fragment {
         categorySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             public void onItemSelected(AdapterView<?> parent,
                                        View itemSelected, int selectedItemPosition, long selectedId) {
-
-                if(getAlreadyLoaded()) {
-                    setAlreadyLoaded(false);
-                }
-                else {
-                    requestListView = getRequestListView(inflater, selectedItemPosition);
+                if (savedInstanceState != null) {
+                    states = (List<Request>) savedInstanceState.getSerializable(REQUEST_LIST_SAVING_KEY);
+                    requestAdapter = new RequestStateAdapter(inflater.getContext(), R.layout.task, states);
+                    requestListView.setAdapter(requestAdapter);
+                } else {
+                    if(getAlreadyLoaded()) {
+                        setAlreadyLoaded(false);
+                    }
+                    else {
+                        requestListView = getRequestListView(inflater, selectedItemPosition);
+                    }
                 }
 
                 if(firstLoad) {
