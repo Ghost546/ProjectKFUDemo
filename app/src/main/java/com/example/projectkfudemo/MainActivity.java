@@ -134,7 +134,7 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
-    public void setWorkerArraysForSpinner(LayoutInflater inflater, User user) {
+    public void setWorkerArraysForSpinner(User user) {
         NetworkServiceRequests.getInstance().getJSONWorkersListApi().getSearchWorkersList(user.getUserId())
                 .subscribeOn(Schedulers.io()) //Schedulers.io()
                 .observeOn(AndroidSchedulers.mainThread()) //AndroidSchedulers.mainThread()
@@ -169,7 +169,7 @@ public class MainActivity extends AppCompatActivity {
                 });
     }
 
-    public void setDeclarerArraysForSpinner(LayoutInflater inflater, User user) {
+    public void setDeclarerArraysForSpinner(User user) {
         NetworkServiceRequests.getInstance().getJSONDeclarerListApi().getSearchDeclarerList(user.getUserId())
                 .subscribeOn(Schedulers.io()) //Schedulers.io()
                 .observeOn(AndroidSchedulers.mainThread()) //AndroidSchedulers.mainThread()
@@ -217,7 +217,8 @@ public class MainActivity extends AppCompatActivity {
         args = getIntent().getExtras();
         userMain = (User) args.getSerializable("user");
         System.out.println("Здесь твои переменные: " + userMain.getUserId() + ", " + userMain.getP2());
-
+        setDeclarerArraysForSpinner(userMain);
+        setWorkerArraysForSpinner(userMain);
 
 
         // Passing each menu ID as a set of Ids because each

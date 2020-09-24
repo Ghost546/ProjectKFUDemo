@@ -10,13 +10,13 @@ import io.reactivex.Observable;
 public class SearchDeclarerList {
     @SerializedName("registrators")
     @Expose
-    private List<String> declarersList;
+    private List<SearchDeclarer> declarersList;
 
-    public List<String> getDeclarersList() {
+    public List<SearchDeclarer> getDeclarersList() {
         return declarersList;
     }
 
-    public void setDeclarersList(List<String> declarersList) {
+    public void setDeclarersList(List<SearchDeclarer> declarersList) {
         this.declarersList = declarersList;
     }
 }

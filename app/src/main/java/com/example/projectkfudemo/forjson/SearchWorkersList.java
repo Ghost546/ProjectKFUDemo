@@ -8,13 +8,13 @@ import java.util.List;
 public class SearchWorkersList {
     @SerializedName("workers")
     @Expose
-    private List<String> workersList;
+    private List<SearchWorkers> workersList;
 
-    public List<String> getWorkersList() {
+    public List<SearchWorkers> getWorkersList() {
         return workersList;
     }
 
-    public void setWorkersList(List<String> workersList) {
+    public void setWorkersList(List<SearchWorkers> workersList) {
         this.workersList = workersList;
     }
 }
