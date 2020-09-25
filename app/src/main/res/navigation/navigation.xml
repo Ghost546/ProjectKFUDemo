@@ -7,31 +7,31 @@
 
     <fragment
         android:id="@+id/navigation_current_task"
-        android:name="com.example.projectkfudemo.ui.currenttask.CurrentTaskFragment"
+        android:name="com.example.projectkfudemo.architecturalcomponents.ui.currenttask.CurrentTaskFragment"
         android:label="@string/title_current_task"
         tools:layout="@layout/fragment_current_task_list" />
 
     <fragment
         android:id="@+id/navigation_my_task"
-        android:name="com.example.projectkfudemo.ui.mytask.MyTaskFragment"
+        android:name="com.example.projectkfudemo.architecturalcomponents.ui.mytask.MyTaskFragment"
         android:label="@string/title_my_task"
         tools:layout="@layout/fragment_my_task_list" />
 
     <fragment
         android:id="@+id/navigation_global_search"
-        android:name="com.example.projectkfudemo.ui.globalsearch.GlobalSearchFragment"
+        android:name="com.example.projectkfudemo.architecturalcomponents.ui.globalsearch.GlobalSearchFragment"
         android:label="@string/global_search_title"
         tools:layout="@layout/fragment_global_search"/>
 
     <fragment
         android:id="@+id/navigation_map"
-        android:name="com.example.projectkfudemo.ui.map.MapFragment"
+        android:name="com.example.projectkfudemo.architecturalcomponents.ui.map.MapFragment"
         android:label="@string/title_map"
         tools:layout="@layout/fragment_map" />
 
     <fragment
         android:id="@+id/navigation_menu"
-        android:name="com.example.projectkfudemo.ui.menu.MenuFragment"
+        android:name="com.example.projectkfudemo.architecturalcomponents.ui.menu.MenuFragment"
         android:label="@string/title_menu"
         tools:layout="@layout/fragment_menu"/>
 </navigation>

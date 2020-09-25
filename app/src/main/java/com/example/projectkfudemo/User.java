@@ -9,7 +9,7 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
-
+//Если авторизация ебнется, могли переписать API на сервер
 public class User implements Serializable {
     final static String LOG_TAG = "myLogs";
 
