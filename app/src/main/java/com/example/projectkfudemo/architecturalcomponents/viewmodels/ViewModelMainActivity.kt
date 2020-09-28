@@ -4,12 +4,14 @@ import androidx.lifecycle.ViewModel
 import com.example.projectkfudemo.architecturalcomponents.models.SpinnerDataFromServer
 import com.example.projectkfudemo.User
 
-class ViewModelMainActivity(user: User): ViewModel() {
+class ViewModelMainActivity(_user: User): ViewModel() {
 
+    var user: User ?= null
 
     init {
-
+        user = _user
     }
+
 
     @Override
     override fun onCleared() {

@@ -34,10 +34,10 @@ public class ServerRequestsByRx implements LifecycleObserver {
     List<String> searchWorkersStrings;
     List<SearchWorkers> searchWorkers;
 
-    @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
-    public void send(User user) {
+//    @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
+    public void send() {
         setWorkerArraysForSpinner();
-        setWorkerArraysForSpinner();
+        setDeclarerArraysForSpinner();
     }
 
 

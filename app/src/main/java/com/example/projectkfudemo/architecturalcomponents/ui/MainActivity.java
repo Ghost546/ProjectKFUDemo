@@ -23,6 +23,7 @@ import com.google.firebase.database.annotations.NotNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.ViewModelProvider;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -125,11 +126,14 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        final ViewModelMainActivity viewModelMainActivity = new ViewModelProvider(this).get(ViewModelMainActivity.class);
         navView = findViewById(R.id.nav_view);
         args = getIntent().getExtras();
         userMain = (User) args.getSerializable("user");
+        viewModelMainActivity.setUser(userMain);
+        viewModelMainActivity.requestOnGetDataAboutSpinners();
         System.out.println("Здесь твои переменные: " + userMain.getUserId() + ", " + userMain.getP2());
-        ViewModelMainActivity viewModelMainActivity = new ViewModelMainActivity(userMain);
+
 
 
 
