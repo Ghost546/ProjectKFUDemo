@@ -2,6 +2,7 @@ package com.example.projectkfudemo.architecturalcomponents.models;
 
 import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleObserver;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.OnLifecycleEvent;
 
 import com.example.projectkfudemo.User;
@@ -20,9 +21,9 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
-public class ServerRequestsByRx implements LifecycleObserver {
-    User user;
-    ServerRequestsByRx(User user) {
+public class ServerRequestsByRx { //из этого класса отправляются прямые запросы на получение данных с сервера
+    User user;//главный параметр для отправки заявок
+    ServerRequestsByRx(User user) { //конструктор позволяющий создавать класс только при условии получении данных от пользователя
         this.user = user;
     }
 
@@ -34,8 +35,8 @@ public class ServerRequestsByRx implements LifecycleObserver {
     List<String> searchWorkersStrings;
     List<SearchWorkers> searchWorkers;
 
-//    @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
-    public void send() {
+
+    public void sendRequestForDataBySpinners() { // непосредственно отправляет запрос для получения данных для выпадающих списков
         setWorkerArraysForSpinner();
         setDeclarerArraysForSpinner();
     }

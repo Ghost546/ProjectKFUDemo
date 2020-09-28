@@ -6,11 +6,16 @@ class SpinnerDataFromServer {
     var serverRequestsByRx: ServerRequestsByRx ?= null
 
     fun setObject(user: User) {
-
         serverRequestsByRx = ServerRequestsByRx(user)
     }
 
-    fun setDeclarerArraysForSpinner() {
-        serverRequestsByRx?.send()
+    fun sendRequests() {
+        serverRequestsByRx?.sendRequestForDataBySpinners()
     }
+
+    fun setArraysForSpinner() {
+
+    }
+
+
 }

@@ -9,6 +9,7 @@ class LiveDataSearchDeclarers: LiveData<SearchDeclarerList>() {
     var searchDeclarers:List<SearchDeclarer>?=null
 
 
+
     @Override
     override fun onActive() {
         super.onActive()
