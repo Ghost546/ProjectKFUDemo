@@ -132,7 +132,7 @@ public class MainActivity extends AppCompatActivity {
         userMain = (User) args.getSerializable("user");
         viewModelMainActivity.setUser(userMain);
         viewModelMainActivity.setObjectForRequests();
-        viewModelMainActivity.requestOnGetDataAboutSpinners();
+        viewModelMainActivity.requestOnSetDataAboutSpinners();
         System.out.println("Здесь твои переменные: " + userMain.getUserId() + ", " + userMain.getP2());
 
 

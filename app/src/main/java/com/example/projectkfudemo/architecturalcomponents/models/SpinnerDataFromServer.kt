@@ -9,7 +9,7 @@ class SpinnerDataFromServer {
         serverRequestsByRx = ServerRequestsByRx(user)
     }
 
-    fun sendRequests() {
+    fun sendRequests() { //метод запрашивает метод на отправку запросов
         serverRequestsByRx?.sendRequestForDataBySpinners()
     }
 

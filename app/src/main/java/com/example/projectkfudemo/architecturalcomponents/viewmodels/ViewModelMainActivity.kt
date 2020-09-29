@@ -10,14 +10,12 @@ class ViewModelMainActivity(_user: User): ViewModel() {
 
     var user: User ?= null  //объект для хранения
     var spinnerDataFromServer: SpinnerDataFromServer ?= null //объект отправляющий запросы
-    var liveDataSearchDeclarers: LiveDataSearchDeclarers?=null //объект
-    var liveDataSearchWorkers: LiveDataSearchWorkers?=null
+    var liveDataSearchDeclarers: LiveDataSearchDeclarers = LiveDataSearchDeclarers() //объект
+    var liveDataSearchWorkers: LiveDataSearchWorkers = LiveDataSearchWorkers()
 
     init {
         user = _user
         spinnerDataFromServer = SpinnerDataFromServer()
-        liveDataSearchDeclarers = LiveDataSearchDeclarers()
-        liveDataSearchWorkers = LiveDataSearchWorkers()
     }
 
     @Override
@@ -29,7 +27,7 @@ class ViewModelMainActivity(_user: User): ViewModel() {
         user?.let { spinnerDataFromServer?.setObject(user!!) }
     }
 
-    fun requestOnGetDataAboutSpinners() {
+    fun requestOnSetDataAboutSpinners() {//методу достаточно знать что так идёт запрос на получение данных с сервера
         spinnerDataFromServer?.sendRequests()
     }
 
