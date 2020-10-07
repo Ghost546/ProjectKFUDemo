@@ -6,7 +6,6 @@ import android.view.MenuItem;
 
 import com.example.projectkfudemo.R;
 import com.example.projectkfudemo.User;
-import com.example.projectkfudemo.architecturalcomponents.viewmodels.ViewModelMainActivity;
 import com.example.projectkfudemo.architecturalcomponents.ui.changelogs.ChangeLogsFragment;
 import com.example.projectkfudemo.architecturalcomponents.ui.currenttask.CurrentTaskFragment;
 import com.example.projectkfudemo.architecturalcomponents.ui.globalsearch.GlobalSearchFragment;
@@ -15,6 +14,7 @@ import com.example.projectkfudemo.architecturalcomponents.ui.menu.MenuFragment;
 import com.example.projectkfudemo.architecturalcomponents.ui.mytask.MyTaskFragment;
 import com.example.projectkfudemo.architecturalcomponents.ui.requestgeneralview.RequestGeneralViewFragment;
 import com.example.projectkfudemo.architecturalcomponents.ui.map.MapFragment;
+import com.example.projectkfudemo.architecturalcomponents.viewmodels.ViewModelMainActivity;
 import com.example.projectkfudemo.requests.Request;
 import com.example.projectkfudemo.requests.RequestList;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
     User userMain = null;
     SharedPreferences userPreferences;
     BottomNavigationView navView;
-
+    final ViewModelMainActivity viewModelMainActivity = new ViewModelProvider(this).get(ViewModelMainActivity.class);
 
     public void switchSelectedItemCurrentTask() {
         if(navView.getSelectedItemId()!= R.id.navigation_current_task) {
@@ -126,13 +126,13 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        final ViewModelMainActivity viewModelMainActivity = new ViewModelProvider(this).get(ViewModelMainActivity.class);
         navView = findViewById(R.id.nav_view);
         args = getIntent().getExtras();
         userMain = (User) args.getSerializable("user");
         viewModelMainActivity.setUser(userMain);
         viewModelMainActivity.setObjectForRequests();
         viewModelMainActivity.requestOnSetDataAboutSpinners();
+
         System.out.println("Здесь твои переменные: " + userMain.getUserId() + ", " + userMain.getP2());
 
 
@@ -200,6 +200,9 @@ public class MainActivity extends AppCompatActivity {
         
     }
 
+    public ViewModelMainActivity getViewModelMainActivity() {
+        return viewModelMainActivity;
+    }
 
 }
 

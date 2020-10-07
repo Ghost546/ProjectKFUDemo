@@ -42,6 +42,7 @@ public class ServerRequestsByRx { //из этого класса отправл�
     }
 
 
+
     public void setWorkerArraysForSpinner() {
         NetworkServiceRequests.getInstance().getJSONWorkersListApi().getSearchWorkersList(user.getUserId())
                 .subscribeOn(Schedulers.io()) //Schedulers.io()
@@ -54,13 +55,13 @@ public class ServerRequestsByRx { //из этого класса отправл�
 
                     @Override
                     public void onNext(SearchWorkersList searchWorkersList) {
-                        searchWorkersStrings = new ArrayList<>();
-                        searchWorkers = new ArrayList<>();
                         if(searchWorkersList.getWorkersList().size()>0) {
+                            searchWorkers = new ArrayList<>();
                             searchWorkers = searchWorkersList.getWorkersList();
-                        } else {
-                            searchWorkersStrings.add("Cписок пуст");
                         }
+//                        else {
+//
+//                        }
 //                        adapterRequestRegistration = new ArrayAdapter<>(inflater.getContext(), android.R.layout.simple_spinner_item, searchDeclarerStrings);
 //                        adapterRequestRegistration.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 //                        spinnerRequestRegistration.setAdapter(adapterRequestRegistration);
@@ -90,13 +91,13 @@ public class ServerRequestsByRx { //из этого класса отправл�
 
                     @Override
                     public void onNext(SearchDeclarerList searchDeclarerList) {
-                        searchDeclarerStrings = new ArrayList<>();
-                        searchDeclarers = new ArrayList<>();
                         if(searchDeclarerList.getDeclarersList().size()>0) {
+                            searchDeclarers = new ArrayList<>();
                             searchDeclarers = searchDeclarerList.getDeclarersList();
-                        } else {
-
                         }
+//                        else {
+//
+//                        }
 //
                     }
 

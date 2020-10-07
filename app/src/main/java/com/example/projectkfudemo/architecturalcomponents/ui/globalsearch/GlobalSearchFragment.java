@@ -77,13 +77,13 @@ public class GlobalSearchFragment extends Fragment implements View.OnClickListen
     }
 
     public void setSpinners(LayoutInflater inflater) {
-        if(mainActivity.getSearchDeclarerStrings()!=null) {
-            adapterRequestRegistrationSpinner = new ArrayAdapter<>(inflater.getContext(), android.R.layout.simple_spinner_item, mainActivity.getSearchDeclarerStrings());
+        if(mainActivity.getViewModelMainActivity().getLiveDataSearchDeclarers().getSearchDeclarerStrings()!=null) {
+            adapterRequestRegistrationSpinner = new ArrayAdapter<>(inflater.getContext(), android.R.layout.simple_spinner_item, mainActivity.getViewModelMainActivity().getLiveDataSearchDeclarers().getSearchDeclarerStrings());
             adapterRequestRegistrationSpinner.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             spinnerRequestRegistration.setAdapter(adapterRequestRegistrationSpinner);
         }
-        if(mainActivity.getSearchDeclarerStrings()!=null) {
-            adapterFullNameOfExecutorSpinner = new ArrayAdapter<>(inflater.getContext(), android.R.layout.simple_spinner_item, mainActivity.getSearchWorkersStrings());
+        if(mainActivity.getViewModelMainActivity().getLiveDataSearchWorkers().getSearchWorkerStrings()!=null) {
+            adapterFullNameOfExecutorSpinner = new ArrayAdapter<>(inflater.getContext(), android.R.layout.simple_spinner_item, mainActivity.getViewModelMainActivity().getLiveDataSearchWorkers().getSearchWorkerStrings());
             adapterFullNameOfExecutorSpinner.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             spinnerFullNameOfExecutor.setAdapter(adapterFullNameOfExecutorSpinner);
         }
