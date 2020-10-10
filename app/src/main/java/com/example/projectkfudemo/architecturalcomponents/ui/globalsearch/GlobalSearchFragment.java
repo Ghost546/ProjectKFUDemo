@@ -77,13 +77,13 @@ public class GlobalSearchFragment extends Fragment implements View.OnClickListen
     }
 
     public void setSpinners(LayoutInflater inflater) {
-        if(mainActivity.getViewModelMainActivity().getLiveDataSearchDeclarers().getSearchDeclarerStrings()!=null) {
-            adapterRequestRegistrationSpinner = new ArrayAdapter<>(inflater.getContext(), android.R.layout.simple_spinner_item, mainActivity.getViewModelMainActivity().getLiveDataSearchDeclarers().getSearchDeclarerStrings());
+        if(mainActivity.getMyViewModelMainActivity().getLiveDataSearchDeclarers().getSearchDeclarerStrings()!=null) {
+            adapterRequestRegistrationSpinner = new ArrayAdapter<>(inflater.getContext(), android.R.layout.simple_spinner_item, mainActivity.getMyViewModelMainActivity().getLiveDataSearchDeclarers().getSearchDeclarerStrings());
             adapterRequestRegistrationSpinner.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             spinnerRequestRegistration.setAdapter(adapterRequestRegistrationSpinner);
         }
-        if(mainActivity.getViewModelMainActivity().getLiveDataSearchWorkers().getSearchWorkerStrings()!=null) {
-            adapterFullNameOfExecutorSpinner = new ArrayAdapter<>(inflater.getContext(), android.R.layout.simple_spinner_item, mainActivity.getViewModelMainActivity().getLiveDataSearchWorkers().getSearchWorkerStrings());
+        if(mainActivity.getMyViewModelMainActivity().getLiveDataSearchWorkers().getSearchWorkerStrings()!=null) {
+            adapterFullNameOfExecutorSpinner = new ArrayAdapter<>(inflater.getContext(), android.R.layout.simple_spinner_item, mainActivity.getMyViewModelMainActivity().getLiveDataSearchWorkers().getSearchWorkerStrings());
             adapterFullNameOfExecutorSpinner.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             spinnerFullNameOfExecutor.setAdapter(adapterFullNameOfExecutorSpinner);
         }
