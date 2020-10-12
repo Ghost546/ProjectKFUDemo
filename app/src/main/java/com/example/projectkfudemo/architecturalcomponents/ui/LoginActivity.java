@@ -12,9 +12,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 
-import com.example.projectkfudemo.BaseActivity;
 import com.example.projectkfudemo.R;
-import com.example.projectkfudemo.User;
+import com.example.projectkfudemo.parametrclasses.User;
 import com.example.projectkfudemo.architecturalcomponents.models.NetworkServiceRequests;
 
 
@@ -30,7 +29,6 @@ public class LoginActivity extends AppCompatActivity {
 
     private EditText login;
     private EditText password;
-    private BaseActivity baseActivity = new BaseActivity();
     private String vLogin;
     private int vPassword;
     private String varLogin;
@@ -45,16 +43,7 @@ public class LoginActivity extends AppCompatActivity {
     public static final String APP_PREFERENCES_LOGIN = "Login";
     public static final String APP_PREFERENCES_PASSWORD = "Password";
 
-    public void showProgressDialog() {
-        baseActivity.showProgressDialog();
-    }
-
-    public void hideProgressDialog() {
-        baseActivity.hideProgressDialog();
-    }
-
     public Button signInButton;
-
 
     @Override
     public void onStart() {

@@ -6,7 +6,7 @@ import android.util.Log;
 import android.view.MenuItem;
 
 import com.example.projectkfudemo.R;
-import com.example.projectkfudemo.User;
+import com.example.projectkfudemo.parametrclasses.User;
 import com.example.projectkfudemo.architecturalcomponents.ui.changelogs.ChangeLogsFragment;
 import com.example.projectkfudemo.architecturalcomponents.ui.currenttask.CurrentTaskFragment;
 import com.example.projectkfudemo.architecturalcomponents.ui.globalsearch.GlobalSearchFragment;
@@ -15,7 +15,7 @@ import com.example.projectkfudemo.architecturalcomponents.ui.menu.MenuFragment;
 import com.example.projectkfudemo.architecturalcomponents.ui.mytask.MyTaskFragment;
 import com.example.projectkfudemo.architecturalcomponents.ui.requestgeneralview.RequestGeneralViewFragment;
 import com.example.projectkfudemo.architecturalcomponents.ui.map.MapFragment;
-import com.example.projectkfudemo.architecturalcomponents.viewmodels.mainactivity.MyViewModelMainActivity;
+import com.example.projectkfudemo.architecturalcomponents.viewmodels.mainactivity.ViewModelMainActivity;
 import com.example.projectkfudemo.requests.Request;
 import com.example.projectkfudemo.requests.RequestList;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
     public static final String APP_PREFERENCES_LOGIN = "Login";
     public static final String APP_PREFERENCES_PASSWORD = "Password";
 
-    MyViewModelMainActivity myViewModelMainActivity;
+    ViewModelMainActivity viewModelMainActivity;
 
     Fragment selectedFragment;
 //    private FirebaseAuth mFirebaseAuth;
@@ -133,13 +133,13 @@ public class MainActivity extends AppCompatActivity {
         navView = findViewById(R.id.nav_view);
         args = getIntent().getExtras();
         userMain = (User) args.getSerializable("user");
-        myViewModelMainActivity = new ViewModelProvider(this).get(MyViewModelMainActivity.class);
-        myViewModelMainActivity.setUser(userMain);
+        viewModelMainActivity = new ViewModelProvider(this).get(ViewModelMainActivity.class);
+        viewModelMainActivity.setUser(userMain);
 
         Log.i(TAG, "!из " + TAG + " отправил userMain!");
 
-        myViewModelMainActivity.setObjectForRequests();
-        myViewModelMainActivity.requestOnSetDataAboutSpinners();
+        viewModelMainActivity.setObjectForRequests();
+        viewModelMainActivity.requestOnSetDataAboutSpinners();
 
         System.out.println("Здесь твои переменные: " + userMain.getUserId() + ", " + userMain.getP2());
 
@@ -205,8 +205,8 @@ public class MainActivity extends AppCompatActivity {
         
     }
 
-    public MyViewModelMainActivity getMyViewModelMainActivity() {
-        return myViewModelMainActivity;
+    public ViewModelMainActivity getViewModelMainActivity() {
+        return viewModelMainActivity;
     }
 
 }

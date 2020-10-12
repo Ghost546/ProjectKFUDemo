@@ -1,40 +1,39 @@
 package com.example.projectkfudemo.architecturalcomponents.models
 
 import android.util.Log
-import com.example.projectkfudemo.User
-import com.example.projectkfudemo.architecturalcomponents.viewmodels.mainactivity.MyViewModelMainActivityInterface
-import com.example.projectkfudemo.forjson.SearchDeclarer
-import com.example.projectkfudemo.forjson.SearchWorkers
+import com.example.projectkfudemo.parametrclasses.User
+import com.example.projectkfudemo.architecturalcomponents.viewmodels.mainactivity.ViewModelMainActivityInterface
+import com.example.projectkfudemo.parametrclasses.forjson.SearchDeclarer
+import com.example.projectkfudemo.parametrclasses.forjson.SearchWorkers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
-class SpinnerDataFromServer(_myViewModelMainActivityInterface: MyViewModelMainActivityInterface) {
-    private val TAG = this.javaClass.simpleName
+class SpinnerDataFromServer(_viewModelMainActivityInterface: ViewModelMainActivityInterface): ModelsByRequestToServer {
+    override val TAG = this.javaClass.simpleName
 
-    var myViewModelMainActivityInterface = _myViewModelMainActivityInterface
+    var viewModelMainActivityInterface = _viewModelMainActivityInterface
 
     init {
         Log.i(TAG, "!объект spinnerDataFromServer создался!")
     }
 
-    var serverRequestsByRx: ServerRequestsByRx ?= null
+    override var serverRequestsByRx: ServerRequestsByRx ?= null
 
     var searchDeclarers: List<SearchDeclarer> = listOf()
     var searchWorkers: List<SearchWorkers> = listOf()
 
-    fun setObject(user: User) {
-        serverRequestsByRx = ServerRequestsByRx(user)
-        Log.i(TAG, "!spinnerDataFromServer принял user!")
-        Log.i(TAG, "!в serverRequestsByRx отправил user!")
+    @Override
+    override fun setObject(user: User) {
+        super.setObject(user)
     }
 
-    fun sendRequests() { //метод запрашивает метод на отправку запросов
+    override fun sendRequest() { //метод запрашивает метод на отправку запросов
         serverRequestsByRx?.sendRequestForDataBySpinners()
         Log.i(TAG, "!отправил запрос на получение данных для Spinners")
     }
 
-    fun waitData() {
+    override fun waitData() {
         GlobalScope.launch {
             while (serverRequestsByRx?.searchDeclarers == null || serverRequestsByRx?.searchWorkers == null) {
                 Log.i(TAG, "!Массивы пусты(SpinnerDataFromServer)!")
@@ -50,7 +49,7 @@ class SpinnerDataFromServer(_myViewModelMainActivityInterface: MyViewModelMainAc
                     Log.i(TAG, "!searchWorkers пришёл(SpinnerDataFromServer)!")
                     searchWorkers = serverRequestsByRx?.searchWorkers!!
                 }
-                myViewModelMainActivityInterface.setListsData()
+                viewModelMainActivityInterface.setListsData()
             }
 
         }

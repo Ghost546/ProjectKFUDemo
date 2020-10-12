@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.projectkfudemo.architecturalcomponents.ui.MainActivity;
 import com.example.projectkfudemo.R;
-import com.example.projectkfudemo.User;
+import com.example.projectkfudemo.parametrclasses.User;
 
 public class MapFragment extends Fragment {
     static Bundle args;

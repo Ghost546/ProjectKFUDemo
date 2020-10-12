@@ -1,5 +1,5 @@
 package com.example.projectkfudemo.architecturalcomponents.viewmodels.mainactivity
 
-interface MyViewModelMainActivityInterface {
+interface ViewModelMainActivityInterface {
     fun setListsData()
 }

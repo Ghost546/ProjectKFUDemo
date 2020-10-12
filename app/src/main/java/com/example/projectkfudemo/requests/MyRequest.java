@@ -1,11 +1,11 @@
 package com.example.projectkfudemo.requests;
 
-import com.example.projectkfudemo.forjson.Building;
-import com.example.projectkfudemo.forjson.Comments;
-import com.example.projectkfudemo.forjson.Log;
-import com.example.projectkfudemo.forjson.Offices;
-import com.example.projectkfudemo.forjson.Status;
-import com.example.projectkfudemo.forjson.Works;
+import com.example.projectkfudemo.parametrclasses.forjson.Building;
+import com.example.projectkfudemo.parametrclasses.forjson.Comments;
+import com.example.projectkfudemo.parametrclasses.forjson.Log;
+import com.example.projectkfudemo.parametrclasses.forjson.Offices;
+import com.example.projectkfudemo.parametrclasses.forjson.Status;
+import com.example.projectkfudemo.parametrclasses.forjson.Works;
 
 import org.joda.time.LocalDate;
 

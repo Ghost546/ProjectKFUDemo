@@ -9,7 +9,7 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.example.projectkfudemo.R;
-import com.example.projectkfudemo.forjson.Works;
+import com.example.projectkfudemo.parametrclasses.forjson.Works;
 
 import java.util.List;
 

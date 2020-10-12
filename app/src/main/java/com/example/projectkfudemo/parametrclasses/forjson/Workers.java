@@ -1,4 +1,4 @@
-package com.example.projectkfudemo.forjson;
+package com.example.projectkfudemo.parametrclasses.forjson;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

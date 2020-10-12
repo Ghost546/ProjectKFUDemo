@@ -1,8 +1,8 @@
 package com.example.projectkfudemo.architecturalcomponents.livadatas
 
 import androidx.lifecycle.LiveData
-import com.example.projectkfudemo.forjson.SearchDeclarer
-import com.example.projectkfudemo.forjson.SearchDeclarerList
+import com.example.projectkfudemo.parametrclasses.forjson.SearchDeclarer
+import com.example.projectkfudemo.parametrclasses.forjson.SearchDeclarerList
 
 class LiveDataSearchDeclarers: LiveData<SearchDeclarerList>() {
     var searchDeclarerStrings:List<String>?=null

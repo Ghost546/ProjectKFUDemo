@@ -39,7 +39,7 @@ public class GlobalSearchResultFragment extends Fragment {
     }
 
     public void setListView(RequestList requestList, LayoutInflater inflater) {
-        if(list.size()>0) { //проверка на наличие заявок
+        if(requestList!=null) { //проверка на наличие заявок
             list = requestList.getRequests();   //выполняется отображение зявок
             requestAdapter = new RequestStateAdapter(inflater.getContext(), R.layout.task, list);
             listView.setAdapter(requestAdapter);

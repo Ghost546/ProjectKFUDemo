@@ -21,7 +21,7 @@ import com.example.projectkfudemo.requests.Request;
 import com.example.projectkfudemo.requests.RequestList;
 import com.example.projectkfudemo.architecturalcomponents.models.RequestStateAdapter;
 import com.example.projectkfudemo.architecturalcomponents.models.Search;
-import com.example.projectkfudemo.User;
+import com.example.projectkfudemo.parametrclasses.User;
 import com.google.firebase.crashlytics.FirebaseCrashlytics;
 
 import java.io.Serializable;

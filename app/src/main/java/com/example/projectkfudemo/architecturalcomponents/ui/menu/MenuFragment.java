@@ -16,7 +16,7 @@ import androidx.fragment.app.Fragment;
 import com.example.projectkfudemo.architecturalcomponents.ui.LoginActivity;
 import com.example.projectkfudemo.architecturalcomponents.ui.MainActivity;
 import com.example.projectkfudemo.R;
-import com.example.projectkfudemo.User;
+import com.example.projectkfudemo.parametrclasses.User;
 import com.squareup.picasso.Picasso;
 
 import static com.example.projectkfudemo.architecturalcomponents.ui.MainActivity.APP_PREFERENCES;

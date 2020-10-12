@@ -2,11 +2,14 @@ package com.example.projectkfudemo.architecturalcomponents.models;
 
 import android.util.Log;
 
-import com.example.projectkfudemo.User;
-import com.example.projectkfudemo.forjson.SearchDeclarer;
-import com.example.projectkfudemo.forjson.SearchDeclarerList;
-import com.example.projectkfudemo.forjson.SearchWorkers;
-import com.example.projectkfudemo.forjson.SearchWorkersList;
+import com.example.projectkfudemo.parametrclasses.GlobalSearchParams;
+import com.example.projectkfudemo.parametrclasses.User;
+import com.example.projectkfudemo.parametrclasses.forjson.SearchDeclarer;
+import com.example.projectkfudemo.parametrclasses.forjson.SearchDeclarerList;
+import com.example.projectkfudemo.parametrclasses.forjson.SearchWorkers;
+import com.example.projectkfudemo.parametrclasses.forjson.SearchWorkersList;
+import com.example.projectkfudemo.requests.Request;
+import com.example.projectkfudemo.requests.RequestList;
 import com.google.firebase.crashlytics.FirebaseCrashlytics;
 
 import java.util.List;
@@ -24,6 +27,16 @@ public class ServerRequestsByRx { //из этого класса отправл�
         this.user = user;
     }
 
+    String declarerFIO;
+    Integer cod;
+    String date1;
+    String date2;
+    Integer regType;
+    Integer statusId;
+    Integer regUserId;
+    Integer workerId;
+    RequestList requestListStates;
+
     //массив для Заявку зарегистрировал
     List<String> searchDeclarerStrings;
     List<SearchDeclarer> searchDeclarers;
@@ -32,13 +45,46 @@ public class ServerRequestsByRx { //из этого класса отправл�
     List<String> searchWorkersStrings;
     List<SearchWorkers> searchWorkers;
 
+    //Параметры для GlobalSearch
+    GlobalSearchParams globalSearchParams = new GlobalSearchParams();
 
-    public void sendRequestForDataBySpinners() { // непосредственно отправляет запрос для получения данных для выпадающих списков
+    public void setParamsForRequestOnGlobalSearchToVariables(String declarerFIO, Integer cod, String date1,
+                                                  String date2, Integer regType, Integer statusId,
+                                                  Integer regUserId, Integer workerId) {
+        this.declarerFIO = declarerFIO;
+        this.cod = cod;
+        this.date1 = date1;
+        this.date2 = date2;
+        this.regType = regType;
+        this.statusId = statusId;
+        this.regUserId = regUserId;
+        this.workerId = workerId;
+    }
+
+    public void setParamsGlobalSearchFromVariablesToParamsObject() {
+        globalSearchParams.setDeclarerFIO(declarerFIO);
+        globalSearchParams.setCod(cod);
+        globalSearchParams.setDate1(date1);
+        globalSearchParams.setDate2(date2);
+        globalSearchParams.setRegType(regType);
+        globalSearchParams.setStatusId(statusId);
+        globalSearchParams.setRegUserId(regUserId);
+        globalSearchParams.setWorkerId(workerId);
+    }
+
+    public RequestList getRequestListStates() {
+        return requestListStates;
+    }
+
+    // непосредственно отправляет запрос для получения данных для выпадающих списков
+    public void sendRequestForDataBySpinners() {
         setWorkerArraysForSpinnerRequest();
         setDeclarerArraysForSpinnerRequest();
     }
 
-
+    public void sendRequestsForRequestOnGlobalSearch() {
+        setRequestListByGlobalSearchRequest();
+    }
 
     public void setWorkerArraysForSpinnerRequest() {
         NetworkServiceRequests.getInstance().getJSONWorkersListApi().getSearchWorkersList(user.getUserId())
@@ -73,7 +119,8 @@ public class ServerRequestsByRx { //из этого класса отправл�
     }
 
     public void setDeclarerArraysForSpinnerRequest() {
-        NetworkServiceRequests.getInstance().getJSONDeclarerListApi().getSearchDeclarerList(user.getUserId())
+        NetworkServiceRequests.getInstance().getJSONDeclarerListApi()
+                .getSearchDeclarerList(user.getUserId())
                 .subscribeOn(Schedulers.io()) //Schedulers.io()
                 .observeOn(AndroidSchedulers.mainThread()) //AndroidSchedulers.mainThread()
                 .subscribe(new Observer<SearchDeclarerList>() {
@@ -105,7 +152,34 @@ public class ServerRequestsByRx { //из этого класса отправл�
                 });
     }
 
-    public void GlobalSearchRequest() {
+    public void setRequestListByGlobalSearchRequest() {
+        NetworkServiceRequests.getInstance().getJSONApiGlobalSearch().
+                getRequestListForSearch(user.getUserId(), user.getP2(), globalSearchParams.getDeclarerFIO(),
+                        globalSearchParams.getCod(), globalSearchParams.getDate1(), globalSearchParams.getDate2(),
+                        globalSearchParams.getRegType(), globalSearchParams.getStatusId(),
+                        globalSearchParams.getRegUserId(), globalSearchParams.getWorkerId(), null, null)
+                .subscribeOn(Schedulers.io()) //Schedulers.io()
+                .observeOn(AndroidSchedulers.mainThread()) //AndroidSchedulers.mainThread()
+                .subscribe(new Observer<RequestList>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
 
+                    }
+
+                    @Override
+                    public void onNext(RequestList requestList) {
+                        requestListStates = requestList;
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
     }
 }

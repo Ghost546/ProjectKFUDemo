@@ -1,11 +1,9 @@
-package com.example.projectkfudemo.forjson;
+package com.example.projectkfudemo.parametrclasses.forjson;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
-
-import io.reactivex.Observable;
 
 public class SearchDeclarerList {
     @SerializedName("registrators")

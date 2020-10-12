@@ -1,8 +1,8 @@
 package com.example.projectkfudemo.architecturalcomponents.livadatas
 
 import androidx.lifecycle.LiveData
-import com.example.projectkfudemo.forjson.SearchWorkers
-import com.example.projectkfudemo.forjson.SearchWorkersList
+import com.example.projectkfudemo.parametrclasses.forjson.SearchWorkers
+import com.example.projectkfudemo.parametrclasses.forjson.SearchWorkersList
 
 class LiveDataSearchWorkers: LiveData<SearchWorkersList>(){
     var searchWorkerStrings:List<String>?=null

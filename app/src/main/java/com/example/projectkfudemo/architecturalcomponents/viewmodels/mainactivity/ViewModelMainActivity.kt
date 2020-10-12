@@ -2,20 +2,18 @@ package com.example.projectkfudemo.architecturalcomponents.viewmodels.mainactivi
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
-import com.example.projectkfudemo.User
+import com.example.projectkfudemo.parametrclasses.User
 import com.example.projectkfudemo.architecturalcomponents.livadatas.LiveDataSearchDeclarers
 import com.example.projectkfudemo.architecturalcomponents.livadatas.LiveDataSearchWorkers
 import com.example.projectkfudemo.architecturalcomponents.models.SpinnerDataFromServer
 
-class MyViewModelMainActivity: ViewModel(), MyViewModelMainActivityInterface {
+class ViewModelMainActivity: ViewModel(), ViewModelMainActivityInterface {
     private val TAG = this.javaClass.simpleName
 
-    var user: User ?= null  //объект для хранения
+    var user: User?= null  //объект для хранения
     var spinnerDataFromServer: SpinnerDataFromServer = SpinnerDataFromServer(this) //объект отправляющий запросы
     var liveDataSearchDeclarers: LiveDataSearchDeclarers = LiveDataSearchDeclarers() //объект
     var liveDataSearchWorkers: LiveDataSearchWorkers = LiveDataSearchWorkers()
-
-
 
     @Override
     override fun onCleared() {
@@ -30,9 +28,8 @@ class MyViewModelMainActivity: ViewModel(), MyViewModelMainActivityInterface {
     }
 
     fun requestOnSetDataAboutSpinners() {//методу достаточно знать что так идёт запрос на получение данных с сервера
-        spinnerDataFromServer.sendRequests()
+        spinnerDataFromServer.sendRequest()
         spinnerDataFromServer.waitData()
-        setListsData()
     }
 
     override fun setListsData() {

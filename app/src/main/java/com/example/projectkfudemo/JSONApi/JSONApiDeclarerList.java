@@ -1,6 +1,6 @@
 package com.example.projectkfudemo.JSONApi;
 
-import com.example.projectkfudemo.forjson.SearchDeclarerList;
+import com.example.projectkfudemo.parametrclasses.forjson.SearchDeclarerList;
 
 import io.reactivex.Observable;
 import retrofit2.http.Field;

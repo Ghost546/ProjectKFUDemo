@@ -1,16 +1,16 @@
-package com.example.projectkfudemo.forjson;
+package com.example.projectkfudemo.parametrclasses.forjson;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class TechGroup {
+public class SearchWorkers {
     @SerializedName("id")
     @Expose
     int id;
 
     @SerializedName("name")
     @Expose
-    String groupName;
+    String name;
 
     public int getId() {
         return id;
@@ -20,11 +20,11 @@ public class TechGroup {
         this.id = id;
     }
 
-    public String getGroupName() {
-        return groupName;
+    public String getName() {
+        return name;
     }
 
-    public void setGroupName(String groupName) {
-        this.groupName = groupName;
+    public void setName(String name) {
+        this.name = name;
     }
 }

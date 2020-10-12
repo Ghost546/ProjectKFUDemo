@@ -9,10 +9,7 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.example.projectkfudemo.R;
-import com.example.projectkfudemo.forjson.Log;
-import com.example.projectkfudemo.forjson.Workers;
-
-import org.joda.time.format.DateTimeFormat;
+import com.example.projectkfudemo.parametrclasses.forjson.Log;
 
 import java.util.List;
 

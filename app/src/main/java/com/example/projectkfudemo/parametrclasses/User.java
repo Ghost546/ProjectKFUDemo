@@ -1,10 +1,6 @@
-package com.example.projectkfudemo;
+package com.example.projectkfudemo.parametrclasses;
 
-import android.os.Parcel;
-import android.os.Parcelable;
-import android.util.Log;
-
-import com.example.projectkfudemo.forjson.EmployeeInfo;
+import com.example.projectkfudemo.parametrclasses.forjson.EmployeeInfo;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 

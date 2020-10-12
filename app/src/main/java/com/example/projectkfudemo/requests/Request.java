@@ -1,13 +1,13 @@
 package com.example.projectkfudemo.requests;
 
-import com.example.projectkfudemo.forjson.Building;
-import com.example.projectkfudemo.forjson.Comments;
-import com.example.projectkfudemo.forjson.Log;
-import com.example.projectkfudemo.forjson.Offices;
-import com.example.projectkfudemo.forjson.Status;
-import com.example.projectkfudemo.forjson.Type;
-import com.example.projectkfudemo.forjson.Workers;
-import com.example.projectkfudemo.forjson.Works;
+import com.example.projectkfudemo.parametrclasses.forjson.Building;
+import com.example.projectkfudemo.parametrclasses.forjson.Comments;
+import com.example.projectkfudemo.parametrclasses.forjson.Log;
+import com.example.projectkfudemo.parametrclasses.forjson.Offices;
+import com.example.projectkfudemo.parametrclasses.forjson.Status;
+import com.example.projectkfudemo.parametrclasses.forjson.Type;
+import com.example.projectkfudemo.parametrclasses.forjson.Workers;
+import com.example.projectkfudemo.parametrclasses.forjson.Works;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
