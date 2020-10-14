@@ -30,6 +30,8 @@ public class GlobalSearchFragment extends Fragment implements View.OnClickListen
     MainActivity mainActivity;
     private String TAG = this.getClass().getSimpleName();
 
+    private LayoutInflater myInflater;
+
     private Button searchButton;
     private EditText editRequestNumber;
     private EditText editRequestRegistrationDateIdStart;
@@ -93,6 +95,7 @@ public class GlobalSearchFragment extends Fragment implements View.OnClickListen
         spinnerTypeOfRequest = rootView.findViewById(R.id.type_of_request);
     }
 
+    @Override
     public void setSpinners(LayoutInflater inflater) {
         if(mainActivity.getViewModelMainActivity().getLiveDataSearchDeclarers().getSearchDeclarerStrings()!=null) {
             adapterRequestRegistrationSpinner = new ArrayAdapter<>(inflater.getContext(), android.R.layout.simple_spinner_item, mainActivity.getViewModelMainActivity().getLiveDataSearchDeclarers().getSearchDeclarerStrings());
@@ -185,6 +188,8 @@ public class GlobalSearchFragment extends Fragment implements View.OnClickListen
         View rootView = inflater.inflate(R.layout.fragment_global_search, container, false);
         user = (User) args.getSerializable("user");
 
+        myInflater = inflater;
+
         viewModelGlobalSearch =  new ViewModelProvider(this).get(ViewModelGlobalSearch.class);
 
         viewModelGlobalSearch.setInterface(this);
@@ -193,7 +198,7 @@ public class GlobalSearchFragment extends Fragment implements View.OnClickListen
 
         mainActivity = (MainActivity) getActivity();
 
-        setSpinners(inflater);
+        setSpinners(myInflater);
 
         spinnerRequestRegistration.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             public void onItemSelected(AdapterView<?> parent,
