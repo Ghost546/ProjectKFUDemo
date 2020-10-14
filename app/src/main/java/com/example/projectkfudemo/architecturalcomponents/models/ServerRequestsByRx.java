@@ -37,6 +37,8 @@ public class ServerRequestsByRx { //из этого класса отправл�
     Integer workerId;
     RequestList requestListStates;
 
+    List<Request> requestListFromServer;
+
     //массив для Заявку зарегистрировал
     List<String> searchDeclarerStrings;
     List<SearchDeclarer> searchDeclarers;
@@ -83,6 +85,7 @@ public class ServerRequestsByRx { //из этого класса отправл�
     }
 
     public void sendRequestsForRequestOnGlobalSearch() {
+        Log.i(TAG, "Отправлен запрос GlobalSearch, поиск заявок по всей БД");
         setRequestListByGlobalSearchRequest();
     }
 
@@ -153,6 +156,10 @@ public class ServerRequestsByRx { //из этого класса отправл�
     }
 
     public void setRequestListByGlobalSearchRequest() {
+        Log.i(TAG, "!Отправляемые данные: " + user.getUserId() + " | " + user.getP2() + " | " +globalSearchParams.getDeclarerFIO()+ " | " +
+                globalSearchParams.getCod()+" | " + globalSearchParams.getDate1()+ " | " +globalSearchParams.getDate2()+" | " +
+                globalSearchParams.getRegType()+ " | " +globalSearchParams.getStatusId()+" | " +
+                globalSearchParams.getRegUserId()+" | " + globalSearchParams.getWorkerId()+ " | " +null+ " | " +null +"!");
         NetworkServiceRequests.getInstance().getJSONApiGlobalSearch().
                 getRequestListForSearch(user.getUserId(), user.getP2(), globalSearchParams.getDeclarerFIO(),
                         globalSearchParams.getCod(), globalSearchParams.getDate1(), globalSearchParams.getDate2(),
@@ -168,12 +175,19 @@ public class ServerRequestsByRx { //из этого класса отправл�
 
                     @Override
                     public void onNext(RequestList requestList) {
-                        requestListStates = requestList;
+                        requestListFromServer = requestList.getRequests();
+                        if(requestListFromServer != null) {
+                            Log.i(TAG, "!Массив requestList пришел!");
+                            Log.i(TAG, "!Размер states: " + requestListFromServer.size());
+                        } else {
+                            Log.i(TAG, "!Массив requestList пришел пустой!");
+                        }
+
                     }
 
                     @Override
                     public void onError(Throwable e) {
-
+                        e.printStackTrace();
                     }
 
                     @Override
@@ -181,5 +195,9 @@ public class ServerRequestsByRx { //из этого класса отправл�
 
                     }
                 });
+    }
+
+    public List<Request> getRequestListFromServer() {
+        return requestListFromServer;
     }
 }

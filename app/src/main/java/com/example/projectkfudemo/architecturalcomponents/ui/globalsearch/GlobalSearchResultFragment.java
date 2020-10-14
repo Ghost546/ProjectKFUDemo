@@ -27,9 +27,9 @@ public class GlobalSearchResultFragment extends Fragment {
     List<Request> list = new ArrayList<>();
     private ListView listView;
 
-    public static GlobalSearchResultFragment newInstance(RequestList requestList) {
+    public static GlobalSearchResultFragment newInstance(List<Request> requestList) {
         GlobalSearchResultFragment fragment = new GlobalSearchResultFragment();
-        fragment.requestList = requestList;
+        fragment.list = requestList;
         return fragment;
     }
 
@@ -38,10 +38,9 @@ public class GlobalSearchResultFragment extends Fragment {
         listView = rootView.findViewById(R.id.result_list_view);
     }
 
-    public void setListView(RequestList requestList, LayoutInflater inflater) {
-        if(requestList!=null) { //проверка на наличие заявок
-            list = requestList.getRequests();   //выполняется отображение зявок
-            requestAdapter = new RequestStateAdapter(inflater.getContext(), R.layout.task, list);
+    public void setListView(LayoutInflater inflater) {
+        if(list.size()!=0) { //проверка на наличие заявок
+            requestAdapter = new RequestStateAdapter(inflater.getContext(), R.layout.task, list);//выполняется отображение зявок
             listView.setAdapter(requestAdapter);
         } else {
             listView.setVisibility(View.GONE);  //показывается текст что заявок по поиску нет
@@ -54,7 +53,7 @@ public class GlobalSearchResultFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_global_search_result, container, false);
         setId(rootView);
-        setListView(requestList, inflater);
+        setListView(inflater);
         if(list.size()>0) {
             // слушатель выбора в списке
             AdapterView.OnItemClickListener itemListener = new AdapterView.OnItemClickListener() {

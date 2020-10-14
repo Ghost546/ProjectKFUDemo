@@ -1,11 +1,17 @@
 package com.example.projectkfudemo.architecturalcomponents.livadatas
 
+import android.content.Context
 import androidx.lifecycle.LiveData
-import com.example.projectkfudemo.requests.RequestList
+import androidx.lifecycle.MutableLiveData
+import com.example.projectkfudemo.requests.Request
 
-class LiveDataSearchResultFromServer: LiveData<RequestList>() {
+class LiveDataSearchResultFromServer: MutableLiveData<List<Request>>() {
 
-    var requestList:RequestList ?= null
+    companion object{
+        val temp = LiveDataSearchResultFromServer()
+    }
+
+    var requestList:List<Request> ?= null
 
     @Override
     override fun onActive() {

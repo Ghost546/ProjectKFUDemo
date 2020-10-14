@@ -29,14 +29,15 @@ class SpinnerDataFromServer(_viewModelMainActivityInterface: ViewModelMainActivi
     }
 
     override fun sendRequest() { //метод запрашивает метод на отправку запросов
-        serverRequestsByRx?.sendRequestForDataBySpinners()
         Log.i(TAG, "!отправил запрос на получение данных для Spinners")
+        serverRequestsByRx?.sendRequestForDataBySpinners()
     }
 
     override fun waitData() {
         GlobalScope.launch {
+            Log.i(TAG, "!Массивы пусты(SpinnerDataFromServer)!")
             while (serverRequestsByRx?.searchDeclarers == null || serverRequestsByRx?.searchWorkers == null) {
-                Log.i(TAG, "!Массивы пусты(SpinnerDataFromServer)!")
+
             }
             delay(5000)
             if (serverRequestsByRx?.searchDeclarers!=null && serverRequestsByRx?.searchWorkers != null) {

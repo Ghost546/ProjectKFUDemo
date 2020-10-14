@@ -3,18 +3,18 @@ package com.example.projectkfudemo.parametrclasses;
 public class GlobalSearchParams {
     String declarerFIO;
 
-    int cod;
+    Integer cod;
 
     String date1;
     String date2;
 
-    int regType;
+    Integer regType;
 
-    int statusId;
+    Integer statusId;
 
-    int regUserId;
+    Integer regUserId;
 
-    int workerId;
+    Integer workerId;
 
     public String getDeclarerFIO() {
         return declarerFIO;
@@ -24,11 +24,11 @@ public class GlobalSearchParams {
         this.declarerFIO = declarerFIO;
     }
 
-    public int getCod() {
+    public Integer getCod() {
         return cod;
     }
 
-    public void setCod(int cod) {
+    public void setCod(Integer cod) {
         this.cod = cod;
     }
 
@@ -48,35 +48,35 @@ public class GlobalSearchParams {
         this.date2 = date2;
     }
 
-    public int getRegType() {
+    public Integer getRegType() {
         return regType;
     }
 
-    public void setRegType(int regType) {
+    public void setRegType(Integer regType) {
         this.regType = regType;
     }
 
-    public int getStatusId() {
+    public Integer getStatusId() {
         return statusId;
     }
 
-    public void setStatusId(int statusId) {
+    public void setStatusId(Integer statusId) {
         this.statusId = statusId;
     }
 
-    public int getRegUserId() {
+    public Integer getRegUserId() {
         return regUserId;
     }
 
-    public void setRegUserId(int regUserId) {
+    public void setRegUserId(Integer regUserId) {
         this.regUserId = regUserId;
     }
 
-    public int getWorkerId() {
+    public Integer getWorkerId() {
         return workerId;
     }
 
-    public void setWorkerId(int workerId) {
+    public void setWorkerId(Integer workerId) {
         this.workerId = workerId;
     }
 }

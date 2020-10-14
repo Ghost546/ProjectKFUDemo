@@ -1,6 +1,7 @@
 package com.example.projectkfudemo.architecturalcomponents.ui.globalsearch;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,13 +18,17 @@ import androidx.lifecycle.ViewModelProvider;
 import com.example.projectkfudemo.architecturalcomponents.ui.MainActivity;
 import com.example.projectkfudemo.R;
 import com.example.projectkfudemo.architecturalcomponents.viewmodels.globalsearchfragment.ViewModelGlobalSearch;
+import com.example.projectkfudemo.requests.Request;
 import com.example.projectkfudemo.requests.RequestList;
 import com.example.projectkfudemo.parametrclasses.User;
+
+import java.util.List;
 
 
 public class GlobalSearchFragment extends Fragment implements View.OnClickListener, GlobalSearchInterface {
     static Bundle args;
     MainActivity mainActivity;
+    private String TAG = this.getClass().getSimpleName();
 
     private Button searchButton;
     private EditText editRequestNumber;
@@ -102,7 +107,12 @@ public class GlobalSearchFragment extends Fragment implements View.OnClickListen
     }
 
     public void setParams() {
-        stringDeclarer = editDeclarer.getText().toString();
+        if(editDeclarer.getText().length()!=0){
+            stringDeclarer = editDeclarer.getText().toString();
+        } else {
+            stringDeclarer = null;
+        }
+
         stringRequestNumber = editRequestNumber.getText().toString();
         try {
             integerRequestNumber = Integer.parseInt(stringRequestNumber);
@@ -111,27 +121,32 @@ public class GlobalSearchFragment extends Fragment implements View.OnClickListen
             integerRequestNumber = null;
             //Вывод ошибки на экран, приостановка данного метода и метода отправки запроса
         }
-        stringRequestRegistrationDateIdStart = editRequestRegistrationDateIdStart.getText().toString();
-        stringRequestRegistrationDateIdFinish = editRequestRegistrationDateIdFinish.getText().toString();
+        if (editRequestRegistrationDateIdStart.getText().length() != 0) {
+            stringRequestRegistrationDateIdStart = editRequestRegistrationDateIdStart.getText().toString();
+        } else {
+            stringRequestRegistrationDateIdStart = null;
+        }
+
+        if (editRequestRegistrationDateIdFinish.getText().length() != 0) {
+            stringRequestRegistrationDateIdFinish = editRequestRegistrationDateIdFinish.getText().toString();
+        } else {
+            stringRequestRegistrationDateIdFinish = null;
+        }
 
         integerTypeOfRequest = spinnerTypeOfRequest.getSelectedItemPosition();
-        if(integerTypeOfRequest==0) integerTypeOfRequest = null;
+        if(integerTypeOfRequest==0 || integerTypeOfRequest==-1) integerTypeOfRequest = null;
 
         integerStatusOfRequest = spinnerStatusOfRequest.getSelectedItemPosition();
-        if(integerStatusOfRequest==0) integerStatusOfRequest = null;
+        if(integerStatusOfRequest==0 || integerStatusOfRequest==-1) integerStatusOfRequest = null;
 
         integerRequestRegistration = spinnerRequestRegistration.getSelectedItemPosition();
-        if(integerRequestRegistration==0) integerRequestRegistration = null;
+        if(integerRequestRegistration ==0 || integerRequestRegistration == -1) integerRequestRegistration = null;
 
         integerApplicationExecutorsDepartment = spinnerApplicationExecutorsDepartment.getSelectedItemPosition();
-        if(integerApplicationExecutorsDepartment==0) integerApplicationExecutorsDepartment = null;
+        if(integerApplicationExecutorsDepartment==0 || integerApplicationExecutorsDepartment==-1) integerApplicationExecutorsDepartment = null;
     }
 
     private void onSearchButtonClick(User user) {
-        stringRequestNumber = editRequestNumber.toString();
-        stringRequestRegistrationDateIdStart = editRequestRegistrationDateIdStart.toString();
-        stringRequestRegistrationDateIdFinish = editRequestRegistrationDateIdFinish.toString();
-        stringDeclarer = editDeclarer.toString();
 
         viewModelGlobalSearch.setUser(user);
         viewModelGlobalSearch.setObjectForRequests();
@@ -145,18 +160,22 @@ public class GlobalSearchFragment extends Fragment implements View.OnClickListen
                 integerRequestRegistration,
                 integerFullNameOfExecutor
         );
+//        viewModelGlobalSearch.getLiveDataSearchResultFromServer().observe(this, new Observer<List<Request>>() {
+//            @Override
+//            public void onChanged(List<Request> requests) {
+//                Log.i(TAG, "!вызов onChanged");
+//                showResultFragment(requests);
+//            }
+//        });
 
         viewModelGlobalSearch.sendRequest();
-        viewModelGlobalSearch.getLiveDataSearchResultFromServer().observe(this, new Observer<RequestList>() {
-            @Override
-            public void onChanged(RequestList requestList) {
-                showResultFragment(requestList);
-            }
-        });
+        Log.i(TAG, "!Вызов sendRequest");
+
     }
 
     @Override
-    public void showResultFragment(RequestList requestList) {
+    public void showResultFragment(List<Request> requestList) {
+        Log.i(TAG, "!Вызван метод showResultFragment");
         MainActivity mainActivity = (MainActivity) getActivity();
         mainActivity.startFragmentGlobalSearchResult(requestList);
     }
@@ -167,6 +186,8 @@ public class GlobalSearchFragment extends Fragment implements View.OnClickListen
         user = (User) args.getSerializable("user");
 
         viewModelGlobalSearch =  new ViewModelProvider(this).get(ViewModelGlobalSearch.class);
+
+        viewModelGlobalSearch.setInterface(this);
 
         setId(rootView);
 
@@ -193,6 +214,7 @@ public class GlobalSearchFragment extends Fragment implements View.OnClickListen
             public void onNothingSelected(AdapterView<?> parent) {
             }
         });
+
 
         return rootView;
     }

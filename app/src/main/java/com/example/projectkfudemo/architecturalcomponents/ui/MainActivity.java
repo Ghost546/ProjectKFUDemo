@@ -26,6 +26,8 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity {
     private final String TAG = this.getClass().getSimpleName();
 
@@ -190,7 +192,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @NotNull
-    public void startFragmentGlobalSearchResult(RequestList requestList) {
+    public void startFragmentGlobalSearchResult(List<Request> requestList) {
         FragmentTransaction fragmentTransaction;
         fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.addToBackStack(null);
