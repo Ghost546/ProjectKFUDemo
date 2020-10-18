@@ -82,6 +82,15 @@
         <item>Приостановленные</item>
     </string-array>
 
+    <string-array name="type_request">
+        <item> </item>
+        <item>Устная</item>
+        <item>Письменная</item>
+        <item>Телефонная</item>
+        <item>Email заявка</item>
+        <item>Web заявка</item>
+    </string-array>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 

@@ -53,7 +53,7 @@
                     android:id="@+id/request_registration_date_id_edit_start"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="C">
+                    android:hint="C (гггг-мм-дд)">
 
                 </EditText>
 
@@ -61,7 +61,7 @@
                     android:id="@+id/request_registration_date_id_edit_finish"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="До">
+                    android:hint="До (гггг-мм-дд)">
 
                 </EditText>
 

@@ -89,7 +89,8 @@ public class RequestGeneralViewFragment extends Fragment implements View.OnClick
             visibleSetting(request1);
         }
         if(!request.getThatIsMyRequest() & !request.getThatIsCurrentRequest()) {
-            visibleSetting();
+            MyRequest request1 = new MyRequest(request);
+            visibleSetting(request1);
         }
     }
 
@@ -269,9 +270,9 @@ public class RequestGeneralViewFragment extends Fragment implements View.OnClick
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_general_view_request, container, false);
         setIds(root);
-        setByRequestType(fabGeneral);
-        sendRequestSetting(request);
 
+        sendRequestSetting(request);
+        setByRequestType(fabGeneral);
 
         Animation show_fab_1 = AnimationUtils.loadAnimation(getActivity().getApplication(), R.anim.fab1_show);
         Animation hide_fab_1 = AnimationUtils.loadAnimation(getActivity().getApplication(), R.anim.fab1_hide);

@@ -66,10 +66,9 @@ public class GlobalSearchFragment extends Fragment implements View.OnClickListen
 
     ArrayAdapter<String> adapterRequestRegistrationSpinner;
     ArrayAdapter<String> adapterFullNameOfExecutorSpinner;
+    ArrayAdapter<CharSequence> adapterTypeOfRequest;
 
     User user;
-
-    RequestList requestList;
 
     public static GlobalSearchFragment newInstance(Bundle arg) {
         GlobalSearchFragment fragment = new GlobalSearchFragment();
@@ -96,17 +95,20 @@ public class GlobalSearchFragment extends Fragment implements View.OnClickListen
     }
 
     @Override
-    public void setSpinners(LayoutInflater inflater) {
+    public void setSpinners() {
         if(mainActivity.getViewModelMainActivity().getLiveDataSearchDeclarers().getSearchDeclarerStrings()!=null) {
-            adapterRequestRegistrationSpinner = new ArrayAdapter<>(inflater.getContext(), android.R.layout.simple_spinner_item, mainActivity.getViewModelMainActivity().getLiveDataSearchDeclarers().getSearchDeclarerStrings());
+            adapterRequestRegistrationSpinner = new ArrayAdapter<>(myInflater.getContext(), android.R.layout.simple_spinner_item, mainActivity.getViewModelMainActivity().getLiveDataSearchDeclarers().getSearchDeclarerStrings());
             adapterRequestRegistrationSpinner.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             spinnerRequestRegistration.setAdapter(adapterRequestRegistrationSpinner);
         }
         if(mainActivity.getViewModelMainActivity().getLiveDataSearchWorkers().getSearchWorkerStrings()!=null) {
-            adapterFullNameOfExecutorSpinner = new ArrayAdapter<>(inflater.getContext(), android.R.layout.simple_spinner_item, mainActivity.getViewModelMainActivity().getLiveDataSearchWorkers().getSearchWorkerStrings());
+            adapterFullNameOfExecutorSpinner = new ArrayAdapter<>(myInflater.getContext(), android.R.layout.simple_spinner_item, mainActivity.getViewModelMainActivity().getLiveDataSearchWorkers().getSearchWorkerStrings());
             adapterFullNameOfExecutorSpinner.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             spinnerFullNameOfExecutor.setAdapter(adapterFullNameOfExecutorSpinner);
         }
+        adapterTypeOfRequest = ArrayAdapter.createFromResource(getContext(),
+                R.array.type_request, android.R.layout.simple_spinner_item);
+        spinnerTypeOfRequest.setAdapter(adapterTypeOfRequest);
     }
 
     public void setParams() {
@@ -137,16 +139,16 @@ public class GlobalSearchFragment extends Fragment implements View.OnClickListen
         }
 
         integerTypeOfRequest = spinnerTypeOfRequest.getSelectedItemPosition();
-        if(integerTypeOfRequest==0 || integerTypeOfRequest==-1) integerTypeOfRequest = null;
+        if(integerTypeOfRequest == 0 || integerTypeOfRequest == -1) integerTypeOfRequest = null;
 
         integerStatusOfRequest = spinnerStatusOfRequest.getSelectedItemPosition();
-        if(integerStatusOfRequest==0 || integerStatusOfRequest==-1) integerStatusOfRequest = null;
+        if(integerStatusOfRequest == 0 || integerStatusOfRequest == -1) integerStatusOfRequest = null;
 
         integerRequestRegistration = spinnerRequestRegistration.getSelectedItemPosition();
-        if(integerRequestRegistration ==0 || integerRequestRegistration == -1) integerRequestRegistration = null;
+        if(integerRequestRegistration == 0 || integerRequestRegistration == -1) integerRequestRegistration = null;
 
         integerApplicationExecutorsDepartment = spinnerApplicationExecutorsDepartment.getSelectedItemPosition();
-        if(integerApplicationExecutorsDepartment==0 || integerApplicationExecutorsDepartment==-1) integerApplicationExecutorsDepartment = null;
+        if(integerApplicationExecutorsDepartment == 0 || integerApplicationExecutorsDepartment == -1) integerApplicationExecutorsDepartment = null;
     }
 
     private void onSearchButtonClick(User user) {
@@ -192,14 +194,14 @@ public class GlobalSearchFragment extends Fragment implements View.OnClickListen
 
         viewModelGlobalSearch =  new ViewModelProvider(this).get(ViewModelGlobalSearch.class);
 
-        viewModelGlobalSearch.setInterface(this);
-
         setId(rootView);
 
         mainActivity = (MainActivity) getActivity();
 
-        setSpinners(myInflater);
+        setSpinners();
+        mainActivity.getViewModelMainActivity().setGlobalSearchInterface(this);
 
+        viewModelGlobalSearch.setInterface(this);
         spinnerRequestRegistration.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             public void onItemSelected(AdapterView<?> parent,
                                        View itemSelected, int selectedItemPosition, long selectedId) {
@@ -219,7 +221,6 @@ public class GlobalSearchFragment extends Fragment implements View.OnClickListen
             public void onNothingSelected(AdapterView<?> parent) {
             }
         });
-
 
         return rootView;
     }

@@ -8,5 +8,5 @@ import java.util.List;
 
 public interface GlobalSearchInterface {
     void showResultFragment(List<Request> requestList);
-    void setSpinners(LayoutInflater inflater);
+    void setSpinners();
 }

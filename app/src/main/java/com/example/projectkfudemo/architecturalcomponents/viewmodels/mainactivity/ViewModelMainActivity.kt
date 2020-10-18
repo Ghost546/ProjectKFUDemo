@@ -6,6 +6,7 @@ import com.example.projectkfudemo.parametrclasses.User
 import com.example.projectkfudemo.architecturalcomponents.livadatas.LiveDataSearchDeclarers
 import com.example.projectkfudemo.architecturalcomponents.livadatas.LiveDataSearchWorkers
 import com.example.projectkfudemo.architecturalcomponents.models.SpinnerDataFromServer
+import com.example.projectkfudemo.architecturalcomponents.ui.globalsearch.GlobalSearchInterface
 
 class ViewModelMainActivity: ViewModel(), ViewModelMainActivityInterface {
     private val TAG = this.javaClass.simpleName
@@ -14,6 +15,7 @@ class ViewModelMainActivity: ViewModel(), ViewModelMainActivityInterface {
     var spinnerDataFromServer: SpinnerDataFromServer = SpinnerDataFromServer(this) //объект отправляющий запросы
     var liveDataSearchDeclarers: LiveDataSearchDeclarers = LiveDataSearchDeclarers() //объект
     var liveDataSearchWorkers: LiveDataSearchWorkers = LiveDataSearchWorkers()
+    var globalSearchInterfaceInMain: GlobalSearchInterface? = null
 
     @Override
     override fun onCleared() {
@@ -32,6 +34,15 @@ class ViewModelMainActivity: ViewModel(), ViewModelMainActivityInterface {
         spinnerDataFromServer.waitData()
     }
 
+    fun setGlobalSearchInterface(_globalSearchInterface: GlobalSearchInterface) {
+        globalSearchInterfaceInMain = _globalSearchInterface
+    }
+
+    override fun setSpinners() {
+        Log.i(TAG, "!вызов setSpinners")
+        globalSearchInterfaceInMain?.setSpinners()
+    }
+
     override fun setListsData() {
         Log.i(TAG, "!Массивы пришли!")
         liveDataSearchDeclarers.searchDeclarers = spinnerDataFromServer.searchDeclarers
@@ -46,6 +57,7 @@ class ViewModelMainActivity: ViewModel(), ViewModelMainActivityInterface {
             (liveDataSearchWorkers.searchWorkerStrings as ArrayList<String>).add(i, spinnerDataFromServer.searchWorkers[i].name)
         }
         (liveDataSearchWorkers.searchWorkerStrings as ArrayList<String>).add(0, " ")
+
     }
 
 }

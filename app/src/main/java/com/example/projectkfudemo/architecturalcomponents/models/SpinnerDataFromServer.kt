@@ -39,7 +39,9 @@ class SpinnerDataFromServer(_viewModelMainActivityInterface: ViewModelMainActivi
             while (serverRequestsByRx?.searchDeclarers == null || serverRequestsByRx?.searchWorkers == null) {
 
             }
+
             delay(5000)
+
             if (serverRequestsByRx?.searchDeclarers!=null && serverRequestsByRx?.searchWorkers != null) {
                 Log.i(TAG, "!Массивы пришли(SpinnerDataFromServer)!")
                 if (serverRequestsByRx?.searchDeclarers != null) {
