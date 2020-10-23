@@ -40,12 +40,10 @@ public class ServerRequestsByRx { //из этого класса отправл�
     List<Request> requestListFromServer;
 
     //массив для Заявку зарегистрировал
-    List<String> searchDeclarerStrings;
-    List<SearchDeclarer> searchDeclarers;
+    SearchDeclarerList searchDeclarers;
 
     //массив для фио исполнителя
-    List<String> searchWorkersStrings;
-    List<SearchWorkers> searchWorkers;
+    SearchWorkersList searchWorkers;
 
     //Параметры для GlobalSearch
     GlobalSearchParams globalSearchParams = new GlobalSearchParams();
@@ -101,8 +99,8 @@ public class ServerRequestsByRx { //из этого класса отправл�
 
                     @Override
                     public void onNext(SearchWorkersList searchWorkersList) {
-                        searchWorkers = searchWorkersList.getWorkersList();
-                        if (searchWorkers.size() == 0) {
+                        searchWorkers = searchWorkersList;
+                        if (searchWorkers != null) {
                             Log.i(TAG, "!Пришел пустой массив на вывод! метод setWorkerArraysForSpinner");
                         } else {
                             Log.i(TAG, "!Массив пришел! метод setWorkerArraysForSpinner");
@@ -134,8 +132,8 @@ public class ServerRequestsByRx { //из этого класса отправл�
 
                     @Override
                     public void onNext(SearchDeclarerList searchDeclarerList) {
-                        searchDeclarers = searchDeclarerList.getDeclarersList();
-                        if (searchDeclarers.size() == 0) {
+                        searchDeclarers = searchDeclarerList;
+                        if (searchDeclarers != null) {
                             Log.i(TAG, "!Пришел пустой массив на вывод! метод setDeclarerArraysForSpinner");
                         } else {
                             Log.i(TAG, "!Массив пришел! метод setDeclarerArraysForSpinner");

@@ -4,6 +4,8 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import com.example.projectkfudemo.parametrclasses.User
 import com.example.projectkfudemo.architecturalcomponents.livadatas.LiveDataSearchDeclarers
+import com.example.projectkfudemo.architecturalcomponents.livadatas.LiveDataSearchDeclarersStrings
+import com.example.projectkfudemo.architecturalcomponents.livadatas.LiveDataSearchWorkerStrings
 import com.example.projectkfudemo.architecturalcomponents.livadatas.LiveDataSearchWorkers
 import com.example.projectkfudemo.architecturalcomponents.models.SpinnerDataFromServer
 import com.example.projectkfudemo.architecturalcomponents.ui.globalsearch.GlobalSearchInterface
@@ -13,8 +15,10 @@ class ViewModelMainActivity: ViewModel(), ViewModelMainActivityInterface {
 
     var user: User?= null  //объект для хранения
     var spinnerDataFromServer: SpinnerDataFromServer = SpinnerDataFromServer(this) //объект отправляющий запросы
-    var liveDataSearchDeclarers: LiveDataSearchDeclarers = LiveDataSearchDeclarers() //объект
-    var liveDataSearchWorkers: LiveDataSearchWorkers = LiveDataSearchWorkers()
+    var liveDataSearchDeclarers: LiveDataSearchDeclarers = LiveDataSearchDeclarers //объект
+    var liveDataSearchWorkers: LiveDataSearchWorkers = LiveDataSearchWorkers
+    var liveDataSearchDeclarerString: LiveDataSearchDeclarersStrings = LiveDataSearchDeclarersStrings
+    var liveDataSearchWorkerString: LiveDataSearchWorkerStrings = LiveDataSearchWorkerStrings
     var globalSearchInterfaceInMain: GlobalSearchInterface? = null
 
     @Override
@@ -29,7 +33,7 @@ class ViewModelMainActivity: ViewModel(), ViewModelMainActivityInterface {
         }
     }
 
-    fun requestOnSetDataAboutSpinners() {//методу достаточно знать что так идёт запрос на получение данных с сервера
+    fun requestOnSetDataAboutSpinners() {   //методу достаточно знать что так идёт запрос на получение данных с сервера
         spinnerDataFromServer.sendRequest()
         spinnerDataFromServer.waitData()
     }
@@ -38,26 +42,24 @@ class ViewModelMainActivity: ViewModel(), ViewModelMainActivityInterface {
         globalSearchInterfaceInMain = _globalSearchInterface
     }
 
-    override fun setSpinners() {
-        Log.i(TAG, "!вызов setSpinners")
-        globalSearchInterfaceInMain?.setSpinners()
-    }
-
     override fun setListsData() {
         Log.i(TAG, "!Массивы пришли!")
-        liveDataSearchDeclarers.searchDeclarers = spinnerDataFromServer.searchDeclarers
-        liveDataSearchDeclarers.searchDeclarerStrings = ArrayList()
-        for (i in spinnerDataFromServer.searchDeclarers.indices) {
-            (liveDataSearchDeclarers.searchDeclarerStrings as ArrayList<String>).add(i, spinnerDataFromServer.searchDeclarers[i].name)
+        liveDataSearchDeclarers.postValue(spinnerDataFromServer.searchDeclarers)
+        var mutableList = mutableListOf<String>()
+        for (i in spinnerDataFromServer.searchDeclarers?.declarersList?.indices!!) {
+            (mutableList as ArrayList<String>).add(i, spinnerDataFromServer.searchDeclarers!!.declarersList[i].name)
         }
-        (liveDataSearchDeclarers.searchDeclarerStrings as ArrayList<String>).add(0, " ")
-        liveDataSearchWorkers.searchWorkers = spinnerDataFromServer.searchWorkers
-        liveDataSearchWorkers.searchWorkerStrings = ArrayList()
-        for (i in spinnerDataFromServer.searchWorkers.indices) {
-            (liveDataSearchWorkers.searchWorkerStrings as ArrayList<String>).add(i, spinnerDataFromServer.searchWorkers[i].name)
-        }
-        (liveDataSearchWorkers.searchWorkerStrings as ArrayList<String>).add(0, " ")
+        (mutableList as ArrayList<String>).add(0, " ")
+        liveDataSearchDeclarerString.postValue(mutableList)
 
+        mutableList = mutableListOf()
+
+        liveDataSearchWorkers.postValue(spinnerDataFromServer.searchWorkers)
+        for (i in spinnerDataFromServer.searchWorkers?.workersList?.indices!!) {
+            (mutableList as ArrayList<String>).add(i, spinnerDataFromServer.searchWorkers!!.workersList[i].name)
+        }
+        (mutableList as ArrayList<String>).add(0, " ")
+        liveDataSearchWorkerString.postValue(mutableList)
     }
 
 }

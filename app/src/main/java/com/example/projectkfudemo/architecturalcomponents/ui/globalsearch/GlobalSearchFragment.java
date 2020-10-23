@@ -24,6 +24,8 @@ import com.example.projectkfudemo.parametrclasses.User;
 
 import java.util.List;
 
+import kotlinx.coroutines.GlobalScope;
+
 
 public class GlobalSearchFragment extends Fragment implements View.OnClickListener, GlobalSearchInterface {
     static Bundle args;
@@ -57,9 +59,9 @@ public class GlobalSearchFragment extends Fragment implements View.OnClickListen
     private Integer integerRequestNumber;
     private Integer integerNumberOfCabinet;
     private Integer integerApplicationExecutorsDepartment;
-    private Integer integerFullNameOfExecutor;
+    private Integer integerFullNameOfExecutor; //сюда getSearchWorkerStrings
     private Integer integerStatusOfRequest;
-    private Integer integerRequestRegistration;
+    private Integer integerRequestRegistration; //сюда getSearchDeclarersStrings
     private Integer integerTypeOfRequest;
 
     ViewModelGlobalSearch viewModelGlobalSearch;
@@ -96,19 +98,23 @@ public class GlobalSearchFragment extends Fragment implements View.OnClickListen
 
     @Override
     public void setSpinners() {
-        if(mainActivity.getViewModelMainActivity().getLiveDataSearchDeclarers().getSearchDeclarerStrings()!=null) {
-            adapterRequestRegistrationSpinner = new ArrayAdapter<>(myInflater.getContext(), android.R.layout.simple_spinner_item, mainActivity.getViewModelMainActivity().getLiveDataSearchDeclarers().getSearchDeclarerStrings());
-            adapterRequestRegistrationSpinner.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-            spinnerRequestRegistration.setAdapter(adapterRequestRegistrationSpinner);
-        }
-        if(mainActivity.getViewModelMainActivity().getLiveDataSearchWorkers().getSearchWorkerStrings()!=null) {
-            adapterFullNameOfExecutorSpinner = new ArrayAdapter<>(myInflater.getContext(), android.R.layout.simple_spinner_item, mainActivity.getViewModelMainActivity().getLiveDataSearchWorkers().getSearchWorkerStrings());
-            adapterFullNameOfExecutorSpinner.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-            spinnerFullNameOfExecutor.setAdapter(adapterFullNameOfExecutorSpinner);
-        }
+
+
         adapterTypeOfRequest = ArrayAdapter.createFromResource(getContext(),
                 R.array.type_request, android.R.layout.simple_spinner_item);
         spinnerTypeOfRequest.setAdapter(adapterTypeOfRequest);
+    }
+
+    public void setSpinnerRequestRegistration(List<String> list) {
+        adapterRequestRegistrationSpinner = new ArrayAdapter<>(myInflater.getContext(), android.R.layout.simple_spinner_item, list);
+        adapterRequestRegistrationSpinner.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerRequestRegistration.setAdapter(adapterRequestRegistrationSpinner);
+    }
+
+    public void setSpinnerFullNameOfExecutor(List<String> list) {
+        adapterFullNameOfExecutorSpinner = new ArrayAdapter<>(myInflater.getContext(), android.R.layout.simple_spinner_item, list);
+        adapterFullNameOfExecutorSpinner.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerFullNameOfExecutor.setAdapter(adapterFullNameOfExecutorSpinner);
     }
 
     public void setParams() {
@@ -139,16 +145,32 @@ public class GlobalSearchFragment extends Fragment implements View.OnClickListen
         }
 
         integerTypeOfRequest = spinnerTypeOfRequest.getSelectedItemPosition();
-        if(integerTypeOfRequest == 0 || integerTypeOfRequest == -1) integerTypeOfRequest = null;
+        if(integerTypeOfRequest == 0 || integerTypeOfRequest == -1) {
+            integerTypeOfRequest = null;
+        } else {
+            integerTypeOfRequest = spinnerTypeOfRequest.getSelectedItemPosition();
+        }
 
         integerStatusOfRequest = spinnerStatusOfRequest.getSelectedItemPosition();
         if(integerStatusOfRequest == 0 || integerStatusOfRequest == -1) integerStatusOfRequest = null;
 
         integerRequestRegistration = spinnerRequestRegistration.getSelectedItemPosition();
-        if(integerRequestRegistration == 0 || integerRequestRegistration == -1) integerRequestRegistration = null;
+        if(integerRequestRegistration == 0 || integerRequestRegistration == -1) {
+            integerRequestRegistration = null;
+        } else {
+            integerRequestRegistration = mainActivity.getViewModelMainActivity()
+                    .getLiveDataSearchDeclarers().getSearchDeclarers().getDeclarersList()
+                    .get(spinnerRequestRegistration.getSelectedItemPosition()).getId()-1; // -1 потому что в spinner первый элемент по индексу 1, а в массиве первый элемент под индексом 0, а дальше простая математика
+        }
 
         integerApplicationExecutorsDepartment = spinnerApplicationExecutorsDepartment.getSelectedItemPosition();
-        if(integerApplicationExecutorsDepartment == 0 || integerApplicationExecutorsDepartment == -1) integerApplicationExecutorsDepartment = null;
+        if(integerApplicationExecutorsDepartment == 0 || integerApplicationExecutorsDepartment == -1) {
+            integerApplicationExecutorsDepartment = null;
+        } else {
+            integerApplicationExecutorsDepartment = mainActivity.getViewModelMainActivity()
+                    .getLiveDataSearchWorkers().getSearchWorkers().getWorkersList()
+                    .get(spinnerApplicationExecutorsDepartment.getSelectedItemPosition()).getId()-1; // -1 потому что в spinner первый элемент по индексу 1, а в массиве первый элемент под индексом 0
+        }
     }
 
     private void onSearchButtonClick(User user) {
@@ -165,13 +187,14 @@ public class GlobalSearchFragment extends Fragment implements View.OnClickListen
                 integerRequestRegistration,
                 integerFullNameOfExecutor
         );
-//        viewModelGlobalSearch.getLiveDataSearchResultFromServer().observe(this, new Observer<List<Request>>() {
-//            @Override
-//            public void onChanged(List<Request> requests) {
-//                Log.i(TAG, "!вызов onChanged");
-//                showResultFragment(requests);
-//            }
-//        });
+
+        viewModelGlobalSearch.getLiveDataSearchResultFromServer().observe(this, new Observer<List<Request>>() {
+            @Override
+            public void onChanged(List<Request> requests) {
+                Log.i(TAG, "!вызов onChanged в SearchResultFromServer");
+                showResultFragment(requests);
+            }
+        });
 
         viewModelGlobalSearch.sendRequest();
         Log.i(TAG, "!Вызов sendRequest");
@@ -219,6 +242,21 @@ public class GlobalSearchFragment extends Fragment implements View.OnClickListen
             }
 
             public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+
+        mainActivity.getViewModelMainActivity().getLiveDataSearchDeclarerString().observe(getViewLifecycleOwner(), new Observer<List<String>>() {
+            @Override
+            public void onChanged(List<String> strings) {
+                Log.i(TAG, "!вызов onChanged в SearchDeclarerString");
+                setSpinnerRequestRegistration(strings);
+            }
+        });
+        mainActivity.getViewModelMainActivity().getLiveDataSearchWorkerString().observe(getViewLifecycleOwner(), new Observer<List<String>>() {
+            @Override
+            public void onChanged(List<String> strings) {
+                Log.i(TAG, "!вызов onChanged в SearchWorkerString");
+                setSpinnerFullNameOfExecutor(strings);
             }
         });
 

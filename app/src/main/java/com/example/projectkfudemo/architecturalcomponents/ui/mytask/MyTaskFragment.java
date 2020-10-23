@@ -48,8 +48,6 @@ public class MyTaskFragment extends Fragment {
 
     private volatile RequestStateAdapter requestAdapter = null;
 
-    MyTaskViewModel myTaskViewModel;
-
     private ListView requestListView = null;
 
     public static MyTaskFragment newInstance(Bundle arg) {

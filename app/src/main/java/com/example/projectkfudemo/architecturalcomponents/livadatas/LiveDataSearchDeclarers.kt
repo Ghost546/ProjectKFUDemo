@@ -1,14 +1,12 @@
 package com.example.projectkfudemo.architecturalcomponents.livadatas
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.example.projectkfudemo.parametrclasses.forjson.SearchDeclarer
 import com.example.projectkfudemo.parametrclasses.forjson.SearchDeclarerList
 
-class LiveDataSearchDeclarers: LiveData<SearchDeclarerList>() {
-    var searchDeclarerStrings:List<String>?=null
-    var searchDeclarers:List<SearchDeclarer>?=null
-
-
+object LiveDataSearchDeclarers: MutableLiveData<SearchDeclarerList>() {
+    var searchDeclarers:SearchDeclarerList?=null
 
     @Override
     override fun onActive() {

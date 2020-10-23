@@ -4,7 +4,9 @@ import android.util.Log
 import com.example.projectkfudemo.parametrclasses.User
 import com.example.projectkfudemo.architecturalcomponents.viewmodels.mainactivity.ViewModelMainActivityInterface
 import com.example.projectkfudemo.parametrclasses.forjson.SearchDeclarer
+import com.example.projectkfudemo.parametrclasses.forjson.SearchDeclarerList
 import com.example.projectkfudemo.parametrclasses.forjson.SearchWorkers
+import com.example.projectkfudemo.parametrclasses.forjson.SearchWorkersList
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -20,8 +22,8 @@ class SpinnerDataFromServer(_viewModelMainActivityInterface: ViewModelMainActivi
 
     override var serverRequestsByRx: ServerRequestsByRx ?= null
 
-    var searchDeclarers: List<SearchDeclarer> = listOf()
-    var searchWorkers: List<SearchWorkers> = listOf()
+    var searchDeclarers: SearchDeclarerList? = null
+    var searchWorkers: SearchWorkersList? = null
 
     @Override
     override fun setObject(user: User) {

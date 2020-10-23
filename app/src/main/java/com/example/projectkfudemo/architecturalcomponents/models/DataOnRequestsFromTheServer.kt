@@ -1,6 +1,7 @@
 package com.example.projectkfudemo.architecturalcomponents.models
 
 import android.util.Log
+import androidx.test.core.app.ActivityScenario.launch
 import com.example.projectkfudemo.parametrclasses.User
 import com.example.projectkfudemo.architecturalcomponents.viewmodels.globalsearchfragment.ViewModelGlobalSearchInterface
 import com.example.projectkfudemo.requests.Request

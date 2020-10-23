@@ -1,14 +1,10 @@
 package com.example.projectkfudemo.architecturalcomponents.livadatas
 
-import android.content.Context
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.example.projectkfudemo.requests.Request
 
-object LiveDataSearchResultFromServer: MutableLiveData<List<Request>>() {
-
-    var requestList:List<Request> ?= null
-
+object LiveDataSearchDeclarersStrings: MutableLiveData<MutableList<String>>() {
+    var searchDeclarersStrings: MutableList<String>? = null
+    
     @Override
     override fun onActive() {
         super.onActive()

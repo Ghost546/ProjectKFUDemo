@@ -1,12 +1,13 @@
 package com.example.projectkfudemo.architecturalcomponents.livadatas
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.example.projectkfudemo.parametrclasses.forjson.SearchWorkers
 import com.example.projectkfudemo.parametrclasses.forjson.SearchWorkersList
 
-class LiveDataSearchWorkers: LiveData<SearchWorkersList>(){
-    var searchWorkerStrings:List<String>?=null
-    var searchWorkers:List<SearchWorkers>?=null
+object LiveDataSearchWorkers: MutableLiveData<SearchWorkersList>(){
+
+    var searchWorkers:SearchWorkersList?=null
 
     @Override
     override fun onActive() {

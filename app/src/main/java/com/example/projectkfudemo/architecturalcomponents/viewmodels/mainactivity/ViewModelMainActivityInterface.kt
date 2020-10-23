@@ -2,5 +2,4 @@ package com.example.projectkfudemo.architecturalcomponents.viewmodels.mainactivi
 
 interface ViewModelMainActivityInterface {
     fun setListsData()
-    fun setSpinners()
 }

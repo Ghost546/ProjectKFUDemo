@@ -20,7 +20,7 @@ class ViewModelGlobalSearch: ViewModel(), ViewModelGlobalSearchInterface {
 
     val dataOnRequestsFromTheServer: DataOnRequestsFromTheServer = DataOnRequestsFromTheServer(this)
 
-    val liveDataSearchResultFromServer: MutableLiveData<List<Request>> = LiveDataSearchResultFromServer.temp
+    val liveDataSearchResultFromServer: MutableLiveData<List<Request>> = LiveDataSearchResultFromServer
 
     var states: List<Request>? = listOf()
 
@@ -63,9 +63,9 @@ class ViewModelGlobalSearch: ViewModel(), ViewModelGlobalSearchInterface {
     //для вызова через интерфейс из dataOnRequestsFromTheServer
     override fun setRequestList() {
         Log.i(TAG, "!Вызов setRequestList")
-        LiveDataSearchResultFromServer.temp.requestList = dataOnRequestsFromTheServer.requestListFromServer
-        showNextFragment()
+        liveDataSearchResultFromServer.postValue(dataOnRequestsFromTheServer.requestListFromServer)
+//        showNextFragment()
         Log.i(TAG, "!Размер массива requestListFromServer: " + dataOnRequestsFromTheServer.requestListFromServer?.size.toString())
-        Log.i(TAG, "!Размер массива requestList в LiveData: " + LiveDataSearchResultFromServer.temp.requestList?.size.toString())
+        Log.i(TAG, "!Размер массива requestList в LiveData: " + LiveDataSearchResultFromServer.requestList?.size.toString())
     }
 }
