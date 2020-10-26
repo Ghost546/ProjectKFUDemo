@@ -242,6 +242,7 @@ public class GlobalSearchFragment extends Fragment implements View.OnClickListen
             }
 
             public void onNothingSelected(AdapterView<?> parent) {
+                
             }
         });
 
