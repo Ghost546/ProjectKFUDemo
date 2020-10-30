@@ -1,18 +1,17 @@
 package com.example.projectkfudemo.architecturalcomponents.models
 
 import android.util.Log
-import androidx.test.core.app.ActivityScenario.launch
+import com.example.projectkfudemo.architecturalcomponents.viewmodels.ViewModelInterface
 import com.example.projectkfudemo.parametrclasses.User
-import com.example.projectkfudemo.architecturalcomponents.viewmodels.globalsearchfragment.ViewModelGlobalSearchInterface
 import com.example.projectkfudemo.requests.Request
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
-class DataOnRequestsFromTheServer(_viewModelGlobalSearchInterface: ViewModelGlobalSearchInterface): ModelsByRequestToServer {
+class DataOnRequestsFromTheServer(_viewModelInterface: ViewModelInterface): ModelsByRequestToServer {
     override val TAG = this.javaClass.simpleName
 
-    var viewModelGlobalSearchInterface = _viewModelGlobalSearchInterface
+    var viewModelInterface = _viewModelInterface
 
     init {
         Log.i(TAG, "!обект dataOnRequestsFromTheServer создался")
@@ -47,7 +46,11 @@ class DataOnRequestsFromTheServer(_viewModelGlobalSearchInterface: ViewModelGlob
         serverRequestsByRx?.sendRequestsForRequestOnGlobalSearch()
     }
 
-    override fun waitData() {
+    override fun setData() {
+
+    }
+
+    fun waitData() {
         GlobalScope.launch {
             Log.i(TAG, "!Массив пуст(DataOnRequestsFromTheServer)!")
             while (serverRequestsByRx?.getRequestListFromServer()== null) {
@@ -61,7 +64,7 @@ class DataOnRequestsFromTheServer(_viewModelGlobalSearchInterface: ViewModelGlob
                 Log.i(TAG, "!Размер массива requestListFromServer: " + requestListFromServer?.size.toString())
             }
             Log.i(TAG, "!вызов viewModelGlobalSearchInterface.setRequestList()!")
-            viewModelGlobalSearchInterface.setRequestList()
+            viewModelInterface.setListsData()
         }
     }
 }

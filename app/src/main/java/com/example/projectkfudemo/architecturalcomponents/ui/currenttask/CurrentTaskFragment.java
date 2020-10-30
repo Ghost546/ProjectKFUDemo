@@ -13,27 +13,21 @@ import android.widget.ListView;
 import android.widget.Spinner;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 
 import com.example.projectkfudemo.architecturalcomponents.ui.MainActivity;
-import com.example.projectkfudemo.architecturalcomponents.models.NetworkServiceRequests;
 import com.example.projectkfudemo.R;
+import com.example.projectkfudemo.architecturalcomponents.ui.UIList;
 import com.example.projectkfudemo.requests.Request;
-import com.example.projectkfudemo.requests.RequestList;
 import com.example.projectkfudemo.architecturalcomponents.models.RequestStateAdapter;
 import com.example.projectkfudemo.architecturalcomponents.models.Search;
 import com.example.projectkfudemo.parametrclasses.User;
-import com.google.firebase.crashlytics.FirebaseCrashlytics;
+import com.example.projectkfudemo.requests.RequestList;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
-import io.reactivex.Observer;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.schedulers.Schedulers;
-
-public class CurrentTaskFragment extends Fragment implements Serializable {
+public class CurrentTaskFragment extends Fragment implements Serializable, UIList {
 
     static private Bundle args;
     private Bundle saveRequests;
@@ -43,7 +37,8 @@ public class CurrentTaskFragment extends Fragment implements Serializable {
 
     private final String REQUEST_LIST_SAVING_KEY = "requestListSavingKey";
 
-    private List<Request> states = new ArrayList<>();
+    //requestList
+    public RequestList requestList = new RequestList();//requestList.ger
 
     private EditText searchEditText;
     
@@ -51,54 +46,34 @@ public class CurrentTaskFragment extends Fragment implements Serializable {
 
     private ListView requestListView = null;
 
+    LayoutInflater myInflater;
+
+    private List<Request> getStates() {
+        return requestList.getRequests();
+    }
+
     public static CurrentTaskFragment newInstance(Bundle arg) {
         CurrentTaskFragment fragment = new CurrentTaskFragment();
         args = arg;
         return fragment;
     }
 
-    public ListView getRequestListView(LayoutInflater inflater, int position) {
-        User user = (User) args.getSerializable("user");
-        NetworkServiceRequests.getInstance().getJSONRequestApi().getRequestWithLoginPassword(user.getUserId(), user.getP2(), position)
-                .subscribeOn(Schedulers.io()) //Schedulers.io()
-                .observeOn(AndroidSchedulers.mainThread()) //AndroidSchedulers.mainThread()
-                .subscribe(new Observer<RequestList>() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
-
-                    }
-
-                    @Override
-                    public void onNext(RequestList requestList) {
-                        states = requestList.getRequests();
-                        if (states.size() == 0) {
-                            FirebaseCrashlytics.getInstance().log("Пришел пустой массив на вывод! В текущих заявках. Class CurrentTaskFragment метод getRequestListView");
-//                            throw new RuntimeException("Test Crash");
-                        }
-                        System.out.println(states.size());
-                        requestAdapter = new RequestStateAdapter(inflater.getContext(), R.layout.task, states);
-                        requestListView.setAdapter(requestAdapter);
-                        System.out.println("Операция пройдена");
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        FirebaseCrashlytics.getInstance().recordException(e);
-                    }
-
-                    @Override
-                    public void onComplete() {
-
-                    }
-                });
-
+    public ListView setRequestListView(int position) {
+        requestAdapter = new RequestStateAdapter(myInflater.getContext(), R.layout.task, getStates());
+        requestListView.setAdapter(requestAdapter);
+        System.out.println("Операция пройдена");
         return requestListView;
     }
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
-        outState.putSerializable(REQUEST_LIST_SAVING_KEY, (Serializable) states);
+        outState.putSerializable(REQUEST_LIST_SAVING_KEY, (Serializable) requestList);
         super.onSaveInstanceState(outState);
+    }
+
+    public void setRequestListView() {
+        requestAdapter = new RequestStateAdapter(myInflater.getContext(), R.layout.task, getStates());
+        requestListView.setAdapter(requestAdapter);
     }
 
     private boolean getAlreadyLoaded() {
@@ -119,59 +94,48 @@ public class CurrentTaskFragment extends Fragment implements Serializable {
 //        currentTaskViewModel = ViewModelProviders.of(this).get(CurrentTaskViewModel.class);
         View rootView = inflater.inflate(R.layout.fragment_current_task_list, container, false);
 
-
-
         mainActivity = (MainActivity) getActivity();
-
+        myInflater = inflater;
+        mainActivity.getViewModelCurrentTask().setInterface(this);
 
         User user = (User) args.getSerializable("user");
-        if(user.getUserId() == 0) {
-            FirebaseCrashlytics.getInstance().log("userId = 0 в полученных данных о пользователе");
-            throw new RuntimeException("Test Crash");
-        } else {
-            FirebaseCrashlytics.getInstance().log(String.valueOf(user.getUserId()));
-        }
-        if(user.getP2() == null) {
-            FirebaseCrashlytics.getInstance().log("p2 прилетел null");
-            throw new RuntimeException("Test Crash");
-        } else {
-            FirebaseCrashlytics.getInstance().log(String.valueOf(user.getP2()));
-        }
-        if(user.getP2().equals("")) {
-            FirebaseCrashlytics.getInstance().log("p2 прилетел без данных");
-            throw new RuntimeException("Test Crash");
-        } else {
-            FirebaseCrashlytics.getInstance().log(String.valueOf(user.getP2()));
-        }
 
         requestListView = rootView.findViewById(R.id.currentTasksList);
 
         Spinner categorySpinner = rootView.findViewById(R.id.status);
 
-
-        ArrayAdapter<?> adapter = ArrayAdapter.createFromResource(inflater.getContext(), R.array.statuses_current_tasks, android.R.layout.simple_spinner_item);
+        ArrayAdapter<?> adapter = ArrayAdapter.createFromResource(inflater.getContext(),
+                R.array.statuses_current_tasks, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        mainActivity.getViewModelCurrentTask().getLiveDataCurrentTaskSelectedPosition().observe(getViewLifecycleOwner(), new Observer<Integer>() {
+            @Override
+            public void onChanged(Integer integer) {
+
+            }
+        });
 
         // Вызываем адаптер
         categorySpinner.setAdapter(adapter);
         categorySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             public void onItemSelected(AdapterView<?> parent,
                                        View itemSelected, int selectedItemPosition, long selectedId) {
+
                 if (savedInstanceState != null) {
-                    states = (List<Request>) savedInstanceState.getSerializable(REQUEST_LIST_SAVING_KEY);
-                    requestAdapter = new RequestStateAdapter(inflater.getContext(), R.layout.task, states);
+                    requestList = (RequestList) savedInstanceState.getSerializable(REQUEST_LIST_SAVING_KEY);
+                    requestAdapter = new RequestStateAdapter(inflater.getContext(), R.layout.task, getStates());
                     requestListView.setAdapter(requestAdapter);
                 } else {
                     if(getAlreadyLoaded()) {
                         setAlreadyLoaded(false);
                     }
                     else {
-                        requestListView = getRequestListView(inflater, selectedItemPosition);
+                        setRequestListView(selectedItemPosition);
                     }
                 }
 
                 if(firstLoad) {
-                    requestListView = getRequestListView(inflater, selectedItemPosition);
+                    setRequestListView(selectedItemPosition);
                     firstLoad = false;
                 }
             }
@@ -191,10 +155,12 @@ public class CurrentTaskFragment extends Fragment implements Serializable {
             public void onTextChanged(CharSequence s, int start,
                                       int before, int count) {
                 if(!String.valueOf(s).equals("")) {
-                    Search search = new Search(String.valueOf(s), states);
-                    requestAdapter = new RequestStateAdapter(inflater.getContext(), R.layout.task, search.getResultList());
+                    Search search = new Search(String.valueOf(s), getStates());
+                    requestAdapter = new RequestStateAdapter(inflater.getContext(), R.layout.task,
+                            search.getResultList());
                 } else {
-                    requestAdapter = new RequestStateAdapter(inflater.getContext(), R.layout.task, states);
+                    requestAdapter = new RequestStateAdapter(inflater.getContext(), R.layout.task,
+                            getStates());
                 }
                 requestListView.setAdapter(requestAdapter);
             }
@@ -239,5 +205,15 @@ public class CurrentTaskFragment extends Fragment implements Serializable {
         if (mainActivity != null) {
             mainActivity.switchSelectedItemCurrentTask();
         }
+    }
+
+    @Override
+    public void setRequestList() {
+
+    }
+
+    @Override
+    public void setList() {
+
     }
 }

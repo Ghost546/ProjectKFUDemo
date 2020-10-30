@@ -9,9 +9,10 @@ import com.example.projectkfudemo.architecturalcomponents.livadatas.LiveDataSear
 import com.example.projectkfudemo.architecturalcomponents.livadatas.LiveDataSearchWorkers
 import com.example.projectkfudemo.architecturalcomponents.models.SpinnerDataFromServer
 import com.example.projectkfudemo.architecturalcomponents.ui.globalsearch.GlobalSearchInterface
+import com.example.projectkfudemo.architecturalcomponents.viewmodels.ViewModelInterface
 
-class ViewModelMainActivity: ViewModel(), ViewModelMainActivityInterface {
-    private val TAG = this.javaClass.simpleName
+class ViewModelMainActivity: ViewModel(), ViewModelInterface {
+    override val TAG = this.javaClass.simpleName
 
     var user: User?= null  //объект для хранения
     var spinnerDataFromServer: SpinnerDataFromServer = SpinnerDataFromServer(this) //объект отправляющий запросы

@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.MenuItem;
 
 import com.example.projectkfudemo.R;
+import com.example.projectkfudemo.architecturalcomponents.viewmodels.currenttaskfragment.ViewModelCurrentTask;
 import com.example.projectkfudemo.parametrclasses.User;
 import com.example.projectkfudemo.architecturalcomponents.ui.changelogs.ChangeLogsFragment;
 import com.example.projectkfudemo.architecturalcomponents.ui.currenttask.CurrentTaskFragment;
@@ -17,7 +18,6 @@ import com.example.projectkfudemo.architecturalcomponents.ui.requestgeneralview.
 import com.example.projectkfudemo.architecturalcomponents.ui.map.MapFragment;
 import com.example.projectkfudemo.architecturalcomponents.viewmodels.mainactivity.ViewModelMainActivity;
 import com.example.projectkfudemo.requests.Request;
-import com.example.projectkfudemo.requests.RequestList;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.database.annotations.NotNull;
 
@@ -37,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
     public static final String APP_PREFERENCES_PASSWORD = "Password";
 
     ViewModelMainActivity viewModelMainActivity;
+    ViewModelCurrentTask viewModelCurrentTask;
 
     Fragment selectedFragment;
 //    private FirebaseAuth mFirebaseAuth;
@@ -92,6 +93,7 @@ public class MainActivity extends AppCompatActivity {
                     fragmentTransaction = getSupportFragmentManager().beginTransaction();
                     fragmentTransaction.addToBackStack(null);
                     selectedFragment = CurrentTaskFragment.newInstance(args);
+
                     fragmentTransaction.replace(R.id.fragment_container, selectedFragment);
                     fragmentTransaction.commit();
                     return true;
@@ -137,6 +139,9 @@ public class MainActivity extends AppCompatActivity {
         userMain = (User) args.getSerializable("user");
         viewModelMainActivity = new ViewModelProvider(this).get(ViewModelMainActivity.class);
         viewModelMainActivity.setUser(userMain);
+        if(viewModelCurrentTask==null) {
+            viewModelCurrentTask = new ViewModelProvider(this).get(ViewModelCurrentTask.class);
+        }
 
         Log.i(TAG, "!из " + TAG + " отправил userMain!");
 
@@ -209,6 +214,10 @@ public class MainActivity extends AppCompatActivity {
 
     public ViewModelMainActivity getViewModelMainActivity() {
         return viewModelMainActivity;
+    }
+
+    public ViewModelCurrentTask getViewModelCurrentTask() {
+        return viewModelCurrentTask;
     }
 
 }

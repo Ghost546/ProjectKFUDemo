@@ -91,6 +91,15 @@
         <item>Web заявка</item>
     </string-array>
 
+    <string-array name="status_of_request_for_global_search">
+        <item>Новые</item>
+        <item>Выполненные</item>
+        <item>Выполняемые</item>
+        <item>Закрытые</item>
+        <item>Отмененные</item>
+        <item>Приостановленные</item>
+    </string-array>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 

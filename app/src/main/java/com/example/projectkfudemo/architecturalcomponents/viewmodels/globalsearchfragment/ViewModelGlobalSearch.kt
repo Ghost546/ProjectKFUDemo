@@ -6,12 +6,12 @@ import androidx.lifecycle.ViewModel
 import com.example.projectkfudemo.architecturalcomponents.livadatas.LiveDataSearchResultFromServer
 import com.example.projectkfudemo.architecturalcomponents.models.DataOnRequestsFromTheServer
 import com.example.projectkfudemo.architecturalcomponents.ui.globalsearch.GlobalSearchInterface
+import com.example.projectkfudemo.architecturalcomponents.viewmodels.ViewModelInterface
 import com.example.projectkfudemo.parametrclasses.User
 import com.example.projectkfudemo.requests.Request
 
-
-class ViewModelGlobalSearch: ViewModel(), ViewModelGlobalSearchInterface {
-    private val TAG = this.javaClass.simpleName
+class ViewModelGlobalSearch: ViewModel(), ViewModelInterface {
+    override val TAG = this.javaClass.simpleName
 
     var user: User?= null  //объект для хранения
     val requestsList:List<Request> = listOf()
@@ -61,7 +61,7 @@ class ViewModelGlobalSearch: ViewModel(), ViewModelGlobalSearchInterface {
     }
 
     //для вызова через интерфейс из dataOnRequestsFromTheServer
-    override fun setRequestList() {
+    override fun setListsData() {
         Log.i(TAG, "!Вызов setRequestList")
         liveDataSearchResultFromServer.postValue(dataOnRequestsFromTheServer.requestListFromServer)
 //        showNextFragment()

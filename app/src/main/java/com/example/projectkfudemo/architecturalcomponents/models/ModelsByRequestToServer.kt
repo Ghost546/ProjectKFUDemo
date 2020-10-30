@@ -16,7 +16,5 @@ interface ModelsByRequestToServer {
 
     fun sendRequest()
 
-    fun waitData() {
-
-    }
+    fun setData()
 }

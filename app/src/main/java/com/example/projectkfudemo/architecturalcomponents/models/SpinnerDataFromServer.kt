@@ -2,19 +2,17 @@ package com.example.projectkfudemo.architecturalcomponents.models
 
 import android.util.Log
 import com.example.projectkfudemo.parametrclasses.User
-import com.example.projectkfudemo.architecturalcomponents.viewmodels.mainactivity.ViewModelMainActivityInterface
-import com.example.projectkfudemo.parametrclasses.forjson.SearchDeclarer
+import com.example.projectkfudemo.architecturalcomponents.viewmodels.ViewModelInterface
 import com.example.projectkfudemo.parametrclasses.forjson.SearchDeclarerList
-import com.example.projectkfudemo.parametrclasses.forjson.SearchWorkers
 import com.example.projectkfudemo.parametrclasses.forjson.SearchWorkersList
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
-class SpinnerDataFromServer(_viewModelMainActivityInterface: ViewModelMainActivityInterface): ModelsByRequestToServer {
+class SpinnerDataFromServer(_viewModelInterface: ViewModelInterface): ModelsByRequestToServer {
     override val TAG = this.javaClass.simpleName
 
-    var viewModelMainActivityInterface = _viewModelMainActivityInterface
+    var viewModelMainActivityInterface = _viewModelInterface
 
     init {
         Log.i(TAG, "!объект spinnerDataFromServer создался!")
@@ -35,7 +33,11 @@ class SpinnerDataFromServer(_viewModelMainActivityInterface: ViewModelMainActivi
         serverRequestsByRx?.sendRequestForDataBySpinners()
     }
 
-    override fun waitData() {
+    override fun setData() {
+
+    }
+
+    fun waitData() {
         GlobalScope.launch {
             Log.i(TAG, "!Массивы пусты(SpinnerDataFromServer)!")
             while (serverRequestsByRx?.searchDeclarers == null || serverRequestsByRx?.searchWorkers == null) {
