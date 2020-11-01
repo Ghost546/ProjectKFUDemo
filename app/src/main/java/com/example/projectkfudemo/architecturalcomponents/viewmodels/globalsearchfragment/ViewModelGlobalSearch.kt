@@ -4,7 +4,7 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.projectkfudemo.architecturalcomponents.livadatas.LiveDataSearchResultFromServer
-import com.example.projectkfudemo.architecturalcomponents.models.DataOnRequestsFromTheServer
+import com.example.projectkfudemo.architecturalcomponents.models.SearchedDataOnRequestsFromTheServer
 import com.example.projectkfudemo.architecturalcomponents.ui.globalsearch.GlobalSearchInterface
 import com.example.projectkfudemo.architecturalcomponents.viewmodels.ViewModelInterface
 import com.example.projectkfudemo.parametrclasses.User
@@ -18,7 +18,7 @@ class ViewModelGlobalSearch: ViewModel(), ViewModelInterface {
 
     var globalSearchInterface: GlobalSearchInterface? = null
 
-    val dataOnRequestsFromTheServer: DataOnRequestsFromTheServer = DataOnRequestsFromTheServer(this)
+    val searchedDataOnRequestsFromTheServer: SearchedDataOnRequestsFromTheServer = SearchedDataOnRequestsFromTheServer(this)
 
     val liveDataSearchResultFromServer: MutableLiveData<List<Request>> = LiveDataSearchResultFromServer
 
@@ -36,7 +36,7 @@ class ViewModelGlobalSearch: ViewModel(), ViewModelInterface {
     fun setObjectForRequests() {
         user?.let {
             Log.i(TAG, "!из MyViewModelMainActivity отправил user в spinnerDataFromServer!")
-            dataOnRequestsFromTheServer.setObject(user!!)
+            searchedDataOnRequestsFromTheServer.setObjectByUser(user!!)
         }
     }
 
@@ -44,28 +44,28 @@ class ViewModelGlobalSearch: ViewModel(), ViewModelInterface {
                                  date2: String?, regType: Int?, statusId: Int?,
                                  regUserId: Int?, workerId: Int?) {
         Log.i(TAG, "!отправил данные для параметров и вызвал настройку параметров")
-        dataOnRequestsFromTheServer.sendParamsForRequestOnGlobalSearch(declarerFIO, cod, date1,
+        searchedDataOnRequestsFromTheServer.sendParamsForRequestOnGlobalSearch(declarerFIO, cod, date1,
                 date2, regType, statusId,
                 regUserId, workerId)
-        dataOnRequestsFromTheServer.setParamsForRequestOnGlobalSearch()
+        searchedDataOnRequestsFromTheServer.setParamsForRequestOnGlobalSearch()
     }
 
     fun sendRequest() {
-        dataOnRequestsFromTheServer.sendRequest()
-        dataOnRequestsFromTheServer.waitData()
+        searchedDataOnRequestsFromTheServer.sendRequest()
+        searchedDataOnRequestsFromTheServer.waitData()
     }
 
     fun showNextFragment() {
         Log.i(TAG, "!Вызов метода showResultFragment")
-        globalSearchInterface?.showResultFragment(dataOnRequestsFromTheServer.requestListFromServer)
+        globalSearchInterface?.showResultFragment(searchedDataOnRequestsFromTheServer.requestListFromServer)
     }
 
     //для вызова через интерфейс из dataOnRequestsFromTheServer
     override fun setListsData() {
         Log.i(TAG, "!Вызов setRequestList")
-        liveDataSearchResultFromServer.postValue(dataOnRequestsFromTheServer.requestListFromServer)
+        liveDataSearchResultFromServer.postValue(searchedDataOnRequestsFromTheServer.requestListFromServer)
 //        showNextFragment()
-        Log.i(TAG, "!Размер массива requestListFromServer: " + dataOnRequestsFromTheServer.requestListFromServer?.size.toString())
+        Log.i(TAG, "!Размер массива requestListFromServer: " + searchedDataOnRequestsFromTheServer.requestListFromServer?.size.toString())
         Log.i(TAG, "!Размер массива requestList в LiveData: " + LiveDataSearchResultFromServer.requestList?.size.toString())
     }
 }

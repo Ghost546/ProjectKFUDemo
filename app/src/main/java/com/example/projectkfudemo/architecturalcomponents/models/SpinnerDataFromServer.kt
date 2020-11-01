@@ -24,8 +24,8 @@ class SpinnerDataFromServer(_viewModelInterface: ViewModelInterface): ModelsByRe
     var searchWorkers: SearchWorkersList? = null
 
     @Override
-    override fun setObject(user: User) {
-        super.setObject(user)
+    override fun setObjectByUser(user: User) {
+        super.setObjectByUser(user)
     }
 
     override fun sendRequest() { //метод запрашивает метод на отправку запросов

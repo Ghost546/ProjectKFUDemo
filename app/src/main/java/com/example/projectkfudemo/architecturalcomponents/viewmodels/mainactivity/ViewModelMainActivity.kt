@@ -30,7 +30,7 @@ class ViewModelMainActivity: ViewModel(), ViewModelInterface {
     fun setObjectForRequests() {
         user?.let {
             Log.i(TAG, "!из MyViewModelMainActivity отправил user в spinnerDataFromServer!")
-            spinnerDataFromServer.setObject(user!!)
+            spinnerDataFromServer.setObjectByUser(user!!)
         }
     }
 

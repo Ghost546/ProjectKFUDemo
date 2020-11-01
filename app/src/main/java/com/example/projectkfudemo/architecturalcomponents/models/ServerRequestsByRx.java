@@ -90,6 +90,10 @@ public class ServerRequestsByRx { //из этого класса отправл�
         globalSearchParams.setWorkerId(workerId);
     }
 
+    public void setPosition(int position) {
+        this.position = position;
+    }
+
     public RequestList getRequestListStates() {
         return requestListStates;
     }
@@ -188,7 +192,8 @@ public class ServerRequestsByRx { //из этого класса отправл�
                             FirebaseCrashlytics.getInstance().log("Пришел пустой массив на вывод! В текущих заявках. Class CurrentTaskFragment метод getRequestListView");
 //                            throw new RuntimeException("Test Crash");
                         }
-
+                        Log.i(TAG, "!Размер requestList: " + requestList.getRequests().size());
+                        modelsByRequestToServer.setData();
                     }
 
                     @Override

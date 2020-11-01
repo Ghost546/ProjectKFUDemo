@@ -1,6 +1,7 @@
 package com.example.projectkfudemo.architecturalcomponents.models;
 
 import com.example.projectkfudemo.requests.Request;
+import com.example.projectkfudemo.requests.RequestList;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -73,6 +74,12 @@ public class Search { //Вернуться позже
 
     public List<Request> getResultList() {
         return resultList;
+    }
+
+    public RequestList getResultListOnView() {
+        RequestList requestList = new RequestList();
+        requestList.setRequests(resultList);
+        return requestList;
     }
 
     private String[] objToString(Request request) {  //преобразование объекта в массив строк для алгоритма поиска

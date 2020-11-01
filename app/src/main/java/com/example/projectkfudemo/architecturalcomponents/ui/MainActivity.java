@@ -93,7 +93,6 @@ public class MainActivity extends AppCompatActivity {
                     fragmentTransaction = getSupportFragmentManager().beginTransaction();
                     fragmentTransaction.addToBackStack(null);
                     selectedFragment = CurrentTaskFragment.newInstance(args);
-
                     fragmentTransaction.replace(R.id.fragment_container, selectedFragment);
                     fragmentTransaction.commit();
                     return true;
@@ -141,6 +140,7 @@ public class MainActivity extends AppCompatActivity {
         viewModelMainActivity.setUser(userMain);
         if(viewModelCurrentTask==null) {
             viewModelCurrentTask = new ViewModelProvider(this).get(ViewModelCurrentTask.class);
+            viewModelCurrentTask.setObject(userMain);
         }
 
         Log.i(TAG, "!из " + TAG + " отправил userMain!");

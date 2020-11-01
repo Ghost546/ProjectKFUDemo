@@ -27,6 +27,7 @@ import com.example.projectkfudemo.requests.RequestList;
 import java.io.Serializable;
 import java.util.List;
 
+
 public class CurrentTaskFragment extends Fragment implements Serializable, UIList {
 
     static private Bundle args;
@@ -38,7 +39,7 @@ public class CurrentTaskFragment extends Fragment implements Serializable, UILis
     private final String REQUEST_LIST_SAVING_KEY = "requestListSavingKey";
 
     //requestList
-    public RequestList requestList = new RequestList();//requestList.ger
+    public RequestList myRequestList = new RequestList();//requestList.ger
 
     private EditText searchEditText;
     
@@ -49,7 +50,7 @@ public class CurrentTaskFragment extends Fragment implements Serializable, UILis
     LayoutInflater myInflater;
 
     private List<Request> getStates() {
-        return requestList.getRequests();
+        return myRequestList.getRequests();
     }
 
     public static CurrentTaskFragment newInstance(Bundle arg) {
@@ -67,7 +68,7 @@ public class CurrentTaskFragment extends Fragment implements Serializable, UILis
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
-        outState.putSerializable(REQUEST_LIST_SAVING_KEY, (Serializable) requestList);
+        outState.putSerializable(REQUEST_LIST_SAVING_KEY, (Serializable) myRequestList);
         super.onSaveInstanceState(outState);
     }
 
@@ -111,40 +112,57 @@ public class CurrentTaskFragment extends Fragment implements Serializable, UILis
         mainActivity.getViewModelCurrentTask().getLiveDataCurrentTaskSelectedPosition().observe(getViewLifecycleOwner(), new Observer<Integer>() {
             @Override
             public void onChanged(Integer integer) {
-
+                mainActivity.getViewModelCurrentTask().setOnChangedSelectedPosition();
             }
         });
-
+        mainActivity.getViewModelCurrentTask().getLiveDataCurrentTaskRequestList().observe(getViewLifecycleOwner(), new Observer<RequestList>() {
+            @Override
+            public void onChanged(RequestList requestList) {
+                myRequestList = requestList;
+                setRequestListView();
+            }
+        });
+        if(mainActivity.getViewModelCurrentTask().getFirstLoad()) {
+            mainActivity.getViewModelCurrentTask().sendRequest();
+            mainActivity.getViewModelCurrentTask().setFirstLoad(false);
+        }
         // Вызываем адаптер
         categorySpinner.setAdapter(adapter);
+        if (mainActivity.getViewModelCurrentTask().getLiveDataCurrentTaskSelectedPosition().getValue()!=null) {
+            if(mainActivity.getViewModelCurrentTask().getLiveDataCurrentTaskSelectedPosition().getValue()!=0) {
+                categorySpinner.setSelection(mainActivity.getViewModelCurrentTask().getLiveDataCurrentTaskSelectedPosition().getValue());
+            }
+        }
+
         categorySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             public void onItemSelected(AdapterView<?> parent,
                                        View itemSelected, int selectedItemPosition, long selectedId) {
-
-                if (savedInstanceState != null) {
-                    requestList = (RequestList) savedInstanceState.getSerializable(REQUEST_LIST_SAVING_KEY);
-                    requestAdapter = new RequestStateAdapter(inflater.getContext(), R.layout.task, getStates());
-                    requestListView.setAdapter(requestAdapter);
+                if(savedInstanceState!=null) {
+                    setRequestListView();
                 } else {
-                    if(getAlreadyLoaded()) {
-                        setAlreadyLoaded(false);
-                    }
-                    else {
-                        setRequestListView(selectedItemPosition);
+                    if(mainActivity.getViewModelCurrentTask().getAlreadyLoaded()){
+                        mainActivity.getViewModelCurrentTask().setAlreadyLoaded(false);
+                    } else {
+                        mainActivity.getViewModelCurrentTask().setOnSelectedPosition(selectedItemPosition);
                     }
                 }
-
-                if(firstLoad) {
-                    setRequestListView(selectedItemPosition);
-                    firstLoad = false;
-                }
+//                if (mainActivity.getViewModelCurrentTask().getFirstLoad()){
+//                    mainActivity.getViewModelCurrentTask().setOnSelectedPosition(selectedItemPosition);
+//                    mainActivity.getViewModelCurrentTask().setFirstLoad(false);
+//                }
             }
 
             public void onNothingSelected(AdapterView<?> parent) {
+
             }
         });
 
+
+
         searchEditText = rootView.findViewById(R.id.search_current_task_edit_text);
+        if(mainActivity.getViewModelCurrentTask().getSearchText().length()!=0) {
+            searchEditText.setText(mainActivity.getViewModelCurrentTask().getSearchText());
+        }
         searchEditText.addTextChangedListener(new TextWatcher() {
             public void afterTextChanged(Editable s) {}
 
@@ -154,15 +172,14 @@ public class CurrentTaskFragment extends Fragment implements Serializable, UILis
 
             public void onTextChanged(CharSequence s, int start,
                                       int before, int count) {
-                if(!String.valueOf(s).equals("")) {
+                if(String.valueOf(s).length()!=0) {
                     Search search = new Search(String.valueOf(s), getStates());
-                    requestAdapter = new RequestStateAdapter(inflater.getContext(), R.layout.task,
-                            search.getResultList());
+                    mainActivity.getViewModelCurrentTask().getLiveDataCurrentTaskRequestList().postValue(search.getResultListOnView());
+                    mainActivity.getViewModelCurrentTask().setSearchText(String.valueOf(s));
                 } else {
-                    requestAdapter = new RequestStateAdapter(inflater.getContext(), R.layout.task,
-                            getStates());
+                    mainActivity.getViewModelCurrentTask().getLiveDataCurrentTaskRequestList().postValue(mainActivity.getViewModelCurrentTask().getRequestList());
+                    mainActivity.getViewModelCurrentTask().setSearchText("");
                 }
-                requestListView.setAdapter(requestAdapter);
             }
         });
 
@@ -191,9 +208,9 @@ public class CurrentTaskFragment extends Fragment implements Serializable, UILis
         };
 
         requestListView.setOnItemClickListener(itemListener);
-
-        if (savedInstanceState == null && !getAlreadyLoaded()) {
-            setAlreadyLoaded(true);
+        mainActivity.getViewModelCurrentTask().setFirstLoad(false);
+        if (savedInstanceState == null && !mainActivity.getViewModelCurrentTask().getAlreadyLoaded()) {
+            mainActivity.getViewModelCurrentTask().setAlreadyLoaded(true);
         }
 
         return rootView;

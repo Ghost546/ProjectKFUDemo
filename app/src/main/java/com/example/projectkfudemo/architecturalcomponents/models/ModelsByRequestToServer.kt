@@ -8,9 +8,15 @@ interface ModelsByRequestToServer {
 
     var serverRequestsByRx: ServerRequestsByRx?
 
-    fun setObject(user: User) {
+    fun setObjectByUser(user: User) {
         serverRequestsByRx = ServerRequestsByRx(user)
-        Log.i(TAG, "!spinnerDataFromServer принял user!")
+        Log.i(TAG, "!spinnerDataFromServer принял user! Конструктор с юзером")
+        Log.i(TAG, "!в serverRequestsByRx отправил user!")
+    }
+
+    fun setObjectByUserAndInterface(modelsByRequestToServer: ModelsByRequestToServer, user: User) {
+        serverRequestsByRx = ServerRequestsByRx(modelsByRequestToServer, user)
+        Log.i(TAG, "!spinnerDataFromServer принял user! Конструктор с интерфейсом и юзером")
         Log.i(TAG, "!в serverRequestsByRx отправил user!")
     }
 

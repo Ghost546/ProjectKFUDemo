@@ -8,7 +8,7 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
-class DataOnRequestsFromTheServer(_viewModelInterface: ViewModelInterface): ModelsByRequestToServer {
+class SearchedDataOnRequestsFromTheServer(_viewModelInterface: ViewModelInterface): ModelsByRequestToServer {
     override val TAG = this.javaClass.simpleName
 
     var viewModelInterface = _viewModelInterface
@@ -23,8 +23,8 @@ class DataOnRequestsFromTheServer(_viewModelInterface: ViewModelInterface): Mode
 
 
     @Override
-    override fun setObject(user: User) {
-        super.setObject(user)
+    override fun setObjectByUser(user: User) {
+        super.setObjectByUser(user)
     }
 
     fun setParamsForRequestOnGlobalSearch() {
