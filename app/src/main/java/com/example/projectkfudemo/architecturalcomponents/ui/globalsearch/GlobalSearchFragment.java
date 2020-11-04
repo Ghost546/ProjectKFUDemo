@@ -64,8 +64,6 @@ public class GlobalSearchFragment extends Fragment implements View.OnClickListen
     private Integer integerRequestRegistration; //сюда getSearchDeclarersStrings
     private Integer integerTypeOfRequest;
 
-    ViewModelGlobalSearch viewModelGlobalSearch;
-
     ArrayAdapter<String> adapterRequestRegistrationSpinner;
     ArrayAdapter<String> adapterFullNameOfExecutorSpinner;
     ArrayAdapter<CharSequence> adapterTypeOfRequest;
@@ -177,9 +175,9 @@ public class GlobalSearchFragment extends Fragment implements View.OnClickListen
 
     private void onSearchButtonClick(User user) {
 
-        viewModelGlobalSearch.setUser(user);
-        viewModelGlobalSearch.setObjectForRequests();
-        viewModelGlobalSearch.setParamsForGlobalSearch(
+        mainActivity.getViewModelGlobalSearch().setUser(user);
+        mainActivity.getViewModelGlobalSearch().setObjectForRequests();
+        mainActivity.getViewModelGlobalSearch().setParamsForGlobalSearch(
                 stringDeclarer,
                 integerRequestNumber,
                 stringRequestRegistrationDateIdStart,
@@ -190,21 +188,22 @@ public class GlobalSearchFragment extends Fragment implements View.OnClickListen
                 integerFullNameOfExecutor
         );
 
-        viewModelGlobalSearch.getLiveDataSearchResultFromServer().observe(this, new Observer<List<Request>>() {
+        mainActivity.getViewModelGlobalSearch().getLiveDataSearchResultFromServer().observe(this, new Observer<RequestList>() {
             @Override
-            public void onChanged(List<Request> requests) {
+            public void onChanged(RequestList requestList) {
                 Log.i(TAG, "!вызов onChanged в SearchResultFromServer");
-                showResultFragment(requests);
+                showResultFragment(requestList);
             }
         });
 
-        viewModelGlobalSearch.sendRequest();
+
+        mainActivity.getViewModelGlobalSearch().sendRequest();
         Log.i(TAG, "!Вызов sendRequest");
 
     }
 
     @Override
-    public void showResultFragment(List<Request> requestList) {
+    public void showResultFragment(RequestList requestList) {
         Log.i(TAG, "!Вызван метод showResultFragment");
         MainActivity mainActivity = (MainActivity) getActivity();
         mainActivity.startFragmentGlobalSearchResult(requestList);
@@ -216,17 +215,14 @@ public class GlobalSearchFragment extends Fragment implements View.OnClickListen
         user = (User) args.getSerializable("user");
 
         myInflater = inflater;
-
-        viewModelGlobalSearch =  new ViewModelProvider(this).get(ViewModelGlobalSearch.class);
+        mainActivity = (MainActivity) getActivity();
 
         setId(rootView);
-
-        mainActivity = (MainActivity) getActivity();
 
         setSpinners();
         mainActivity.getViewModelMainActivity().setGlobalSearchInterface(this);
 
-        viewModelGlobalSearch.setInterface(this);
+        mainActivity.getViewModelGlobalSearch().setInterface(this);
         spinnerRequestRegistration.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             public void onItemSelected(AdapterView<?> parent,
                                        View itemSelected, int selectedItemPosition, long selectedId) {

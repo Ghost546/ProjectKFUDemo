@@ -14,15 +14,12 @@ class ViewModelGlobalSearch: ViewModel(), ViewModelInterface {
     override val TAG = this.javaClass.simpleName
 
     var user: User?= null  //объект для хранения
-    val requestsList:List<Request> = listOf()
 
     var globalSearchInterface: GlobalSearchInterface? = null
 
     val searchedDataOnRequestsFromTheServer: SearchedDataOnRequestsFromTheServer = SearchedDataOnRequestsFromTheServer(this)
 
-    val liveDataSearchResultFromServer: MutableLiveData<List<Request>> = LiveDataSearchResultFromServer
-
-    var states: List<Request>? = listOf()
+    val liveDataSearchResultFromServer = LiveDataSearchResultFromServer
 
     @Override
     override fun onCleared() {
@@ -65,7 +62,7 @@ class ViewModelGlobalSearch: ViewModel(), ViewModelInterface {
         Log.i(TAG, "!Вызов setRequestList")
         liveDataSearchResultFromServer.postValue(searchedDataOnRequestsFromTheServer.requestListFromServer)
 //        showNextFragment()
-        Log.i(TAG, "!Размер массива requestListFromServer: " + searchedDataOnRequestsFromTheServer.requestListFromServer?.size.toString())
+        Log.i(TAG, "!Размер массива requestListFromServer: " + searchedDataOnRequestsFromTheServer.requestListFromServer?.requests?.size.toString())
         Log.i(TAG, "!Размер массива requestList в LiveData: " + LiveDataSearchResultFromServer.requestList?.size.toString())
     }
 }

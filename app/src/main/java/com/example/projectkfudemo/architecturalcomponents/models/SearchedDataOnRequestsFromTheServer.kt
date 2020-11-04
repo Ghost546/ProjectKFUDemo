@@ -4,6 +4,7 @@ import android.util.Log
 import com.example.projectkfudemo.architecturalcomponents.viewmodels.ViewModelInterface
 import com.example.projectkfudemo.parametrclasses.User
 import com.example.projectkfudemo.requests.Request
+import com.example.projectkfudemo.requests.RequestList
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -19,7 +20,7 @@ class SearchedDataOnRequestsFromTheServer(_viewModelInterface: ViewModelInterfac
 
     override var serverRequestsByRx: ServerRequestsByRx ?= null
 
-    var requestListFromServer:List<Request>?=null
+    var requestListFromServer:RequestList?=null
 
 
     @Override
@@ -65,7 +66,7 @@ class SearchedDataOnRequestsFromTheServer(_viewModelInterface: ViewModelInterfac
             if(serverRequestsByRx?.getRequestListFromServer()!=null) {
                 Log.i(TAG, "!RequestListStates не пустой!")
                 requestListFromServer = serverRequestsByRx?.requestListFromServer
-                Log.i(TAG, "!Размер массива requestListFromServer: " + requestListFromServer?.size.toString())
+                Log.i(TAG, "!Размер массива requestListFromServer: " + requestListFromServer?.requests?.size.toString())
             }
             Log.i(TAG, "!вызов viewModelGlobalSearchInterface.setRequestList()!")
             viewModelInterface.setListsData()

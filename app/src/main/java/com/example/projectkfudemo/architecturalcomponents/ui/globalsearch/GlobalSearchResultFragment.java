@@ -12,24 +12,24 @@ import android.widget.TextView;
 
 import com.example.projectkfudemo.architecturalcomponents.ui.MainActivity;
 import com.example.projectkfudemo.R;
+import com.example.projectkfudemo.architecturalcomponents.ui.OnBackPressedListener;
 import com.example.projectkfudemo.requests.Request;
-import com.example.projectkfudemo.requests.RequestList;
 import com.example.projectkfudemo.architecturalcomponents.models.RequestStateAdapter;
+import com.example.projectkfudemo.requests.RequestList;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class GlobalSearchResultFragment extends Fragment {
+public class GlobalSearchResultFragment extends Fragment implements OnBackPressedListener {
+    MainActivity mainActivity;
+    LayoutInflater myInflater;
 
     private TextView resultEmpty;
     private volatile RequestStateAdapter requestAdapter = null;
-    private RequestList requestList;
-    List<Request> list = new ArrayList<>();
     private ListView listView;
 
-    public static GlobalSearchResultFragment newInstance(List<Request> requestList) {
+    public static GlobalSearchResultFragment newInstance(RequestList requestList) {
         GlobalSearchResultFragment fragment = new GlobalSearchResultFragment();
-        fragment.list = requestList;
+        fragment.setRequestList(requestList);
         return fragment;
     }
 
@@ -38,9 +38,9 @@ public class GlobalSearchResultFragment extends Fragment {
         listView = rootView.findViewById(R.id.result_list_view);
     }
 
-    public void setListView(LayoutInflater inflater) {
-        if(list.size()!=0) { //проверка на наличие заявок
-            requestAdapter = new RequestStateAdapter(inflater.getContext(), R.layout.task, list);//выполняется отображение зявок
+    public void setListView() {
+        if(getRequestList().getRequests().size()!=0) { //проверка на наличие заявок
+            requestAdapter = new RequestStateAdapter(myInflater.getContext(), R.layout.task, getRequestList().getRequests());//выполняется отображение зявок
             listView.setAdapter(requestAdapter);
         } else {
             listView.setVisibility(View.GONE);  //показывается текст что заявок по поиску нет
@@ -49,12 +49,26 @@ public class GlobalSearchResultFragment extends Fragment {
         }
     }
 
+    public void setRequestList(RequestList requestList) {
+        mainActivity.getViewModelGlobalSearchResult().setResultList(requestList);
+    }
+
+    public RequestList getRequestList() {
+        return mainActivity.getViewModelGlobalSearchResult().getLiveDataSearchResultListFromServer().getRequestList();
+    }
+
+    public void clearRequestList() {
+        mainActivity.getViewModelGlobalSearchResult().clearResultList();
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_global_search_result, container, false);
+        mainActivity = (MainActivity) getActivity();
+        myInflater = inflater;
         setId(rootView);
-        setListView(inflater);
-        if(list.size()>0) {
+        setListView();
+        if(getRequestList().getRequests().size()>0) {
             // слушатель выбора в списке
             AdapterView.OnItemClickListener itemListener = new AdapterView.OnItemClickListener() {
                 @Override
@@ -80,6 +94,12 @@ public class GlobalSearchResultFragment extends Fragment {
 
 
         return rootView;
+    }
+
+
+    @Override
+    public void onBackPressed() {
+        clearRequestList();
     }
 
 }

@@ -6,6 +6,8 @@ import android.util.Log;
 import android.view.MenuItem;
 
 import com.example.projectkfudemo.R;
+import com.example.projectkfudemo.architecturalcomponents.viewmodels.globalsearchfragment.ViewModelGlobalSearch;
+import com.example.projectkfudemo.architecturalcomponents.viewmodels.globalsearchfragment.ViewModelGlobalSearchResult;
 import com.example.projectkfudemo.architecturalcomponents.viewmodels.mytaskfragment.ViewModelMyTask;
 import com.example.projectkfudemo.architecturalcomponents.viewmodels.currenttaskfragment.ViewModelCurrentTask;
 import com.example.projectkfudemo.parametrclasses.User;
@@ -19,11 +21,13 @@ import com.example.projectkfudemo.architecturalcomponents.ui.requestgeneralview.
 import com.example.projectkfudemo.architecturalcomponents.ui.map.MapFragment;
 import com.example.projectkfudemo.architecturalcomponents.viewmodels.mainactivity.ViewModelMainActivity;
 import com.example.projectkfudemo.requests.Request;
+import com.example.projectkfudemo.requests.RequestList;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.database.annotations.NotNull;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -40,6 +44,8 @@ public class MainActivity extends AppCompatActivity {
     ViewModelMainActivity viewModelMainActivity;
     ViewModelCurrentTask viewModelCurrentTask;
     ViewModelMyTask viewModelMyTask;
+    ViewModelGlobalSearch viewModelGlobalSearch;
+    ViewModelGlobalSearchResult viewModelGlobalSearchResult;
 
     Fragment selectedFragment;
 //    private FirebaseAuth mFirebaseAuth;
@@ -108,9 +114,13 @@ public class MainActivity extends AppCompatActivity {
                 case R.id.navigation_global_search:
                     fragmentTransaction = getSupportFragmentManager().beginTransaction();
                     fragmentTransaction.addToBackStack(null);
-                    selectedFragment = GlobalSearchFragment.newInstance(args);
-                    fragmentTransaction.replace(R.id.fragment_container, selectedFragment);
-                    fragmentTransaction.commit();
+                    if(viewModelGlobalSearchResult.getLiveDataSearchResultListFromServer().getRequestList()==null) {
+                        selectedFragment = GlobalSearchFragment.newInstance(args);
+                        fragmentTransaction.replace(R.id.fragment_container, selectedFragment);
+                        fragmentTransaction.commit();
+                    } else {
+                        startFragmentGlobalSearchResult(viewModelGlobalSearchResult.getLiveDataSearchResultListFromServer().getRequestList());
+                    }
                     return true;
                 case R.id.navigation_map:
                     fragmentTransaction = getSupportFragmentManager().beginTransaction();
@@ -148,7 +158,12 @@ public class MainActivity extends AppCompatActivity {
             viewModelMyTask = new ViewModelProvider(this).get(ViewModelMyTask.class);
             viewModelMyTask.setObject(userMain);
         }
-
+        if(viewModelGlobalSearch==null) {
+            viewModelGlobalSearch = new ViewModelProvider(this).get(ViewModelGlobalSearch.class);
+        }
+        if(viewModelGlobalSearchResult==null) {
+            viewModelGlobalSearchResult = new ViewModelProvider(this).get(ViewModelGlobalSearchResult.class);
+        }
 
         Log.i(TAG, "!из " + TAG + " отправил userMain!");
 
@@ -204,7 +219,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @NotNull
-    public void startFragmentGlobalSearchResult(List<Request> requestList) {
+    public void startFragmentGlobalSearchResult(RequestList requestList) {
         FragmentTransaction fragmentTransaction;
         fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.addToBackStack(null);
@@ -219,6 +234,24 @@ public class MainActivity extends AppCompatActivity {
         
     }
 
+    @Override
+    public void onBackPressed() {
+        FragmentManager fm = getSupportFragmentManager();
+        OnBackPressedListener backPressedListener = null;
+        for (Fragment fragment: fm.getFragments()) {
+            if (fragment instanceof  OnBackPressedListener) {
+                backPressedListener = (OnBackPressedListener) fragment;
+                break;
+            }
+        }
+
+        if (backPressedListener != null) {
+            backPressedListener.onBackPressed();
+        } else {
+            super.onBackPressed();
+        }
+    }
+
     public ViewModelMainActivity getViewModelMainActivity() {
         return viewModelMainActivity;
     }
@@ -229,6 +262,14 @@ public class MainActivity extends AppCompatActivity {
 
     public ViewModelMyTask getViewModelMyTask() {
         return viewModelMyTask;
+    }
+
+    public ViewModelGlobalSearch getViewModelGlobalSearch() {
+        return viewModelGlobalSearch;
+    }
+
+    public ViewModelGlobalSearchResult getViewModelGlobalSearchResult() {
+        return viewModelGlobalSearchResult;
     }
 }
 

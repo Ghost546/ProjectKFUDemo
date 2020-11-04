@@ -44,7 +44,7 @@ public class ServerRequestsByRx { //из этого класса отправл�
     Integer regUserId;
     Integer workerId;
 
-    List<Request> requestListFromServer;
+    RequestList requestListFromServer;
 
     RequestList requestListStates;
 
@@ -253,10 +253,10 @@ public class ServerRequestsByRx { //из этого класса отправл�
 
                     @Override
                     public void onNext(RequestList requestList) {
-                        requestListFromServer = requestList.getRequests();
+                        requestListFromServer = requestList;
                         if(requestListFromServer != null) {
                             Log.i(TAG, "!Массив requestList пришел!");
-                            Log.i(TAG, "!Размер states: " + requestListFromServer.size());
+                            Log.i(TAG, "!Размер states: " + requestListFromServer.getRequests().size());
                         } else {
                             Log.i(TAG, "!Массив requestList пришел пустой!");
                         }
@@ -275,7 +275,7 @@ public class ServerRequestsByRx { //из этого класса отправл�
                 });
     }
 
-    public List<Request> getRequestListFromServer() {
+    public RequestList getRequestListFromServer() {
         return requestListFromServer;
     }
 }

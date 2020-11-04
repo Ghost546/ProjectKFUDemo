@@ -4,8 +4,9 @@ import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.projectkfudemo.requests.Request
+import com.example.projectkfudemo.requests.RequestList
 
-object LiveDataSearchResultFromServer: MutableLiveData<List<Request>>() {
+object LiveDataSearchResultFromServer: MutableLiveData<RequestList>() {
 
     var requestList:List<Request> ?= null
 
