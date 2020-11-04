@@ -56,7 +56,8 @@ public class Search { //Вернуться позже
                                 setResultList(list.get(i));
                                 countResultList++;  //счетчик формируемого массива для вывода
                             }
-                            if(countResultList != 0 & !getResultList().get(countResultList-1).equals(list.get(i))){ //проверяет текущую заявку по основному массиву заявок с заявками формируемого массива
+                            //проверяет текущую заявку по основному массиву заявок с заявками формируемого массива
+                            if(countResultList != 0 & !getResultList().get(countResultList-1).equals(list.get(i))){
                                 setResultList(list.get(i)); //в случае совпадения выписывает заявки в другой лист для отображения результата поиска
                                 countResultList++;
                             }

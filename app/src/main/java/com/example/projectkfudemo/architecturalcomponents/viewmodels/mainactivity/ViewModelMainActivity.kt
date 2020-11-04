@@ -35,7 +35,7 @@ class ViewModelMainActivity: ViewModel(), ViewModelInterface {
     }
 
     fun requestOnSetDataAboutSpinners() {   //методу достаточно знать что так идёт запрос на получение данных с сервера
-        spinnerDataFromServer.sendRequest()
+        spinnerDataFromServer.sendRequestCurrentTask()
         spinnerDataFromServer.waitData()
     }
 

@@ -2,12 +2,9 @@ package com.example.projectkfudemo.architecturalcomponents.models;
 
 import android.util.Log;
 
-import com.example.projectkfudemo.R;
 import com.example.projectkfudemo.parametrclasses.GlobalSearchParams;
 import com.example.projectkfudemo.parametrclasses.User;
-import com.example.projectkfudemo.parametrclasses.forjson.SearchDeclarer;
 import com.example.projectkfudemo.parametrclasses.forjson.SearchDeclarerList;
-import com.example.projectkfudemo.parametrclasses.forjson.SearchWorkers;
 import com.example.projectkfudemo.parametrclasses.forjson.SearchWorkersList;
 import com.example.projectkfudemo.requests.Request;
 import com.example.projectkfudemo.requests.RequestList;
@@ -46,11 +43,10 @@ public class ServerRequestsByRx { //из этого класса отправл�
     Integer statusId;
     Integer regUserId;
     Integer workerId;
-    RequestList requestListStates;
 
     List<Request> requestListFromServer;
 
-    RequestList requestListCurrentTask;
+    RequestList requestListStates;
 
     ModelsByRequestToServer modelsByRequestToServer;
 
@@ -92,10 +88,6 @@ public class ServerRequestsByRx { //из этого класса отправл�
 
     public void setPosition(int position) {
         this.position = position;
-    }
-
-    public RequestList getRequestListStates() {
-        return requestListStates;
     }
 
     // непосредственно отправляет запрос для получения данных для выпадающих списков
@@ -187,10 +179,9 @@ public class ServerRequestsByRx { //из этого класса отправл�
 
                     @Override
                     public void onNext(RequestList requestList) {
-                        requestListCurrentTask = requestList;
+                        requestListStates = requestList;
                         if (requestList != null) {
                             FirebaseCrashlytics.getInstance().log("Пришел пустой массив на вывод! В текущих заявках. Class CurrentTaskFragment метод getRequestListView");
-//                            throw new RuntimeException("Test Crash");
                         }
                         Log.i(TAG, "!Размер requestList: " + requestList.getRequests().size());
                         modelsByRequestToServer.setData();
@@ -207,6 +198,38 @@ public class ServerRequestsByRx { //из этого класса отправл�
                     }
                 });
 
+    }
+
+    public void setRequestListByMyTask() {
+        NetworkServiceRequests.getInstance().getJSONUserRequestApi().getRequestWithLoginPassword(user.getUserId(), user.getP2(), position-1)
+                .subscribeOn(Schedulers.io()) //Schedulers.io()
+                .observeOn(AndroidSchedulers.mainThread()) //AndroidSchedulers.mainThread()
+                .subscribe(new Observer<RequestList>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(RequestList requestList) {
+                        requestListStates = requestList;
+                        if (requestList != null) {
+                            FirebaseCrashlytics.getInstance().log("Пришел пустой массив на вывод! В текущих заявках. Class MyTaskFragment метод getRequestListView");
+                        }
+                        Log.i(TAG, "!Размер requestList: " + requestList.getRequests().size());
+                        modelsByRequestToServer.setData();
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        FirebaseCrashlytics.getInstance().recordException(e);
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
     }
 
     //запрос на глобальный поиск

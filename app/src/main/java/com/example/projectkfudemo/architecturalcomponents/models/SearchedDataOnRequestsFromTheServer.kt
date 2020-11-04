@@ -41,9 +41,13 @@ class SearchedDataOnRequestsFromTheServer(_viewModelInterface: ViewModelInterfac
                                                                          workerId)
     }
 
-    override fun sendRequest() {
+    override fun sendRequestCurrentTask() {
         Log.i(TAG, "!отправил запрос на получение данных для Spinners!")
         serverRequestsByRx?.sendRequestsForRequestOnGlobalSearch()
+    }
+
+    override fun sendRequestMyTask() {
+
     }
 
     override fun setData() {

@@ -51,7 +51,7 @@ class ViewModelGlobalSearch: ViewModel(), ViewModelInterface {
     }
 
     fun sendRequest() {
-        searchedDataOnRequestsFromTheServer.sendRequest()
+        searchedDataOnRequestsFromTheServer.sendRequestCurrentTask()
         searchedDataOnRequestsFromTheServer.waitData()
     }
 

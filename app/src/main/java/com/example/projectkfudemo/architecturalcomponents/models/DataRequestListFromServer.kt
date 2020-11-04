@@ -26,13 +26,18 @@ class DataRequestListFromServer(_viewModelInterface: ViewModelInterface): Models
         }
     }
 
-    override fun sendRequest() {
+    override fun sendRequestCurrentTask() {
         Log.i(TAG, "!Отправка запроса на сервер")
         serverRequestsByRx?.setRequestListByCurrentTask()
     }
 
+    override fun sendRequestMyTask() {
+        Log.i(TAG, "!Отправка запроса на сервер")
+        serverRequestsByRx?.setRequestListByMyTask()
+    }
+
     override fun setData() {
-        requestList = serverRequestsByRx!!.requestListCurrentTask
+        requestList = serverRequestsByRx!!.requestListStates
         Log.i(TAG, "!Установка requestList, её размер: " + requestList.requests.size)
         viewModelInterface.setListsData()
         Log.i(TAG, "!Установка list во ViewModel")

@@ -69,6 +69,7 @@ public class GlobalSearchFragment extends Fragment implements View.OnClickListen
     ArrayAdapter<String> adapterRequestRegistrationSpinner;
     ArrayAdapter<String> adapterFullNameOfExecutorSpinner;
     ArrayAdapter<CharSequence> adapterTypeOfRequest;
+    ArrayAdapter<CharSequence> adapterStatusOfRequest;
 
     User user;
 
@@ -98,11 +99,10 @@ public class GlobalSearchFragment extends Fragment implements View.OnClickListen
 
     @Override
     public void setSpinners() {
-
-
-        adapterTypeOfRequest = ArrayAdapter.createFromResource(getContext(),
-                R.array.type_request, android.R.layout.simple_spinner_item);
+        adapterTypeOfRequest = ArrayAdapter.createFromResource(getContext(), R.array.type_request, android.R.layout.simple_spinner_item);
+        adapterStatusOfRequest =ArrayAdapter.createFromResource(getContext(), R.array.status_of_request_for_global_search, android.R.layout.simple_spinner_item);
         spinnerTypeOfRequest.setAdapter(adapterTypeOfRequest);
+        spinnerStatusOfRequest.setAdapter(adapterStatusOfRequest);
     }
 
     public void setSpinnerRequestRegistration(List<String> list) {
@@ -116,6 +116,8 @@ public class GlobalSearchFragment extends Fragment implements View.OnClickListen
         adapterFullNameOfExecutorSpinner.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerFullNameOfExecutor.setAdapter(adapterFullNameOfExecutorSpinner);
     }
+
+
 
     public void setParams() {
         if(editDeclarer.getText().length()!=0){

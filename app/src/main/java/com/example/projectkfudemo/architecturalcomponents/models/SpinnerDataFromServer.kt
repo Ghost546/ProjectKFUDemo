@@ -28,9 +28,13 @@ class SpinnerDataFromServer(_viewModelInterface: ViewModelInterface): ModelsByRe
         super.setObjectByUser(user)
     }
 
-    override fun sendRequest() { //метод запрашивает метод на отправку запросов
+    override fun sendRequestCurrentTask() { //метод запрашивает метод на отправку запросов
         Log.i(TAG, "!отправил запрос на получение данных для Spinners")
         serverRequestsByRx?.sendRequestForDataBySpinners()
+    }
+
+    override fun sendRequestMyTask() {
+        TODO("Not yet implemented")
     }
 
     override fun setData() {

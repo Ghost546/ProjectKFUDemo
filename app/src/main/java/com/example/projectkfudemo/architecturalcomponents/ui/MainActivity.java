@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.MenuItem;
 
 import com.example.projectkfudemo.R;
+import com.example.projectkfudemo.architecturalcomponents.viewmodels.mytaskfragment.ViewModelMyTask;
 import com.example.projectkfudemo.architecturalcomponents.viewmodels.currenttaskfragment.ViewModelCurrentTask;
 import com.example.projectkfudemo.parametrclasses.User;
 import com.example.projectkfudemo.architecturalcomponents.ui.changelogs.ChangeLogsFragment;
@@ -38,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
 
     ViewModelMainActivity viewModelMainActivity;
     ViewModelCurrentTask viewModelCurrentTask;
+    ViewModelMyTask viewModelMyTask;
 
     Fragment selectedFragment;
 //    private FirebaseAuth mFirebaseAuth;
@@ -142,6 +144,11 @@ public class MainActivity extends AppCompatActivity {
             viewModelCurrentTask = new ViewModelProvider(this).get(ViewModelCurrentTask.class);
             viewModelCurrentTask.setObject(userMain);
         }
+        if(viewModelMyTask==null) {
+            viewModelMyTask = new ViewModelProvider(this).get(ViewModelMyTask.class);
+            viewModelMyTask.setObject(userMain);
+        }
+
 
         Log.i(TAG, "!из " + TAG + " отправил userMain!");
 
@@ -220,6 +227,9 @@ public class MainActivity extends AppCompatActivity {
         return viewModelCurrentTask;
     }
 
+    public ViewModelMyTask getViewModelMyTask() {
+        return viewModelMyTask;
+    }
 }
 
 

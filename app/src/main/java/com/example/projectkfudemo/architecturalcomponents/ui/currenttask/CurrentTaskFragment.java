@@ -27,19 +27,15 @@ import com.example.projectkfudemo.requests.RequestList;
 import java.io.Serializable;
 import java.util.List;
 
-
 public class CurrentTaskFragment extends Fragment implements Serializable, UIList {
 
     static private Bundle args;
-    private Bundle saveRequests;
     MainActivity mainActivity;
-    private boolean mAlreadyLoaded = false;
-    private boolean firstLoad = true;
 
     private final String REQUEST_LIST_SAVING_KEY = "requestListSavingKey";
 
     //requestList
-    public RequestList myRequestList = new RequestList();//requestList.ger
+    public RequestList myRequestList = new RequestList();
 
     private EditText searchEditText;
     
@@ -49,21 +45,18 @@ public class CurrentTaskFragment extends Fragment implements Serializable, UILis
 
     LayoutInflater myInflater;
 
-    private List<Request> getStates() {
-        return myRequestList.getRequests();
-    }
-
     public static CurrentTaskFragment newInstance(Bundle arg) {
         CurrentTaskFragment fragment = new CurrentTaskFragment();
         args = arg;
         return fragment;
     }
 
-    public ListView setRequestListView(int position) {
-        requestAdapter = new RequestStateAdapter(myInflater.getContext(), R.layout.task, getStates());
-        requestListView.setAdapter(requestAdapter);
-        System.out.println("Операция пройдена");
-        return requestListView;
+    private List<Request> getStates() {
+        return myRequestList.getRequests();
+    }
+
+    private void setRequestList(RequestList requestList) {
+        this.myRequestList = requestList;
     }
 
     @Override
@@ -77,22 +70,8 @@ public class CurrentTaskFragment extends Fragment implements Serializable, UILis
         requestListView.setAdapter(requestAdapter);
     }
 
-    private boolean getAlreadyLoaded() {
-        return mAlreadyLoaded;
-    }
-
-    private void setAlreadyLoaded(boolean mAlreadyLoaded) {
-        this.mAlreadyLoaded = mAlreadyLoaded;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-//        currentTaskViewModel = ViewModelProviders.of(this).get(CurrentTaskViewModel.class);
         View rootView = inflater.inflate(R.layout.fragment_current_task_list, container, false);
 
         mainActivity = (MainActivity) getActivity();
@@ -105,8 +84,7 @@ public class CurrentTaskFragment extends Fragment implements Serializable, UILis
 
         Spinner categorySpinner = rootView.findViewById(R.id.status);
 
-        ArrayAdapter<?> adapter = ArrayAdapter.createFromResource(inflater.getContext(),
-                R.array.statuses_current_tasks, android.R.layout.simple_spinner_item);
+        ArrayAdapter<?> adapter = ArrayAdapter.createFromResource(inflater.getContext(), R.array.statuses_current_tasks, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         mainActivity.getViewModelCurrentTask().getLiveDataCurrentTaskSelectedPosition().observe(getViewLifecycleOwner(), new Observer<Integer>() {
@@ -118,12 +96,12 @@ public class CurrentTaskFragment extends Fragment implements Serializable, UILis
         mainActivity.getViewModelCurrentTask().getLiveDataCurrentTaskRequestList().observe(getViewLifecycleOwner(), new Observer<RequestList>() {
             @Override
             public void onChanged(RequestList requestList) {
-                myRequestList = requestList;
+                setRequestList(requestList);
                 setRequestListView();
             }
         });
         if(mainActivity.getViewModelCurrentTask().getFirstLoad()) {
-            mainActivity.getViewModelCurrentTask().sendRequest();
+            mainActivity.getViewModelCurrentTask().sendRequestCurrentTask();
             mainActivity.getViewModelCurrentTask().setFirstLoad(false);
         }
         // Вызываем адаптер
@@ -133,7 +111,6 @@ public class CurrentTaskFragment extends Fragment implements Serializable, UILis
                 categorySpinner.setSelection(mainActivity.getViewModelCurrentTask().getLiveDataCurrentTaskSelectedPosition().getValue());
             }
         }
-
         categorySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             public void onItemSelected(AdapterView<?> parent,
                                        View itemSelected, int selectedItemPosition, long selectedId) {
@@ -146,18 +123,12 @@ public class CurrentTaskFragment extends Fragment implements Serializable, UILis
                         mainActivity.getViewModelCurrentTask().setOnSelectedPosition(selectedItemPosition);
                     }
                 }
-//                if (mainActivity.getViewModelCurrentTask().getFirstLoad()){
-//                    mainActivity.getViewModelCurrentTask().setOnSelectedPosition(selectedItemPosition);
-//                    mainActivity.getViewModelCurrentTask().setFirstLoad(false);
-//                }
             }
 
             public void onNothingSelected(AdapterView<?> parent) {
 
             }
         });
-
-
 
         searchEditText = rootView.findViewById(R.id.search_current_task_edit_text);
         if(mainActivity.getViewModelCurrentTask().getSearchText().length()!=0) {
@@ -183,10 +154,6 @@ public class CurrentTaskFragment extends Fragment implements Serializable, UILis
             }
         });
 
-        //получаем элемент ListView
-
-        // устанавливаем адаптер
-
         // слушатель выбора в списке
         AdapterView.OnItemClickListener itemListener = new AdapterView.OnItemClickListener() {
             @Override
@@ -197,13 +164,10 @@ public class CurrentTaskFragment extends Fragment implements Serializable, UILis
                 //настраиваем и отправляем будущий фрагмент
                 //запускаем фрагмент
                 if (selectedRequest != null) {
-//                    Gson gson = new Gson();
-//                    getArguments().putString("list",gson.toJson(states));
                     mainActivity.startFragmentGeneralView(selectedRequest);
                 } else {
                     System.out.println("selectedRequest is null");
                 }
-                //((MainActivity)getActivity())
             }
         };
 

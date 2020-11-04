@@ -13,36 +13,29 @@ import android.widget.ListView;
 import android.widget.Spinner;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 
 import com.example.projectkfudemo.architecturalcomponents.ui.MainActivity;
-import com.example.projectkfudemo.architecturalcomponents.models.NetworkServiceRequests;
 import com.example.projectkfudemo.R;
+import com.example.projectkfudemo.architecturalcomponents.ui.UIList;
 import com.example.projectkfudemo.requests.Request;
 import com.example.projectkfudemo.requests.RequestList;
 import com.example.projectkfudemo.architecturalcomponents.models.RequestStateAdapter;
 import com.example.projectkfudemo.architecturalcomponents.models.Search;
 import com.example.projectkfudemo.parametrclasses.User;
-import com.google.firebase.crashlytics.FirebaseCrashlytics;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
-import io.reactivex.Observer;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.schedulers.Schedulers;
-
-public class MyTaskFragment extends Fragment {
+public class MyTaskFragment extends Fragment implements Serializable, UIList {
 
     static Bundle args;
     MainActivity mainActivity;
-    private boolean mAlreadyLoaded = false;
-    private boolean firstLoad = true;
 
     private final String REQUEST_LIST_SAVING_KEY = "requestListSavingKey";
 
-    private List<Request> states = new ArrayList();
+    //requestList
+    public RequestList myRequestList = new RequestList();
 
     private EditText searchEditText;
 
@@ -50,75 +43,97 @@ public class MyTaskFragment extends Fragment {
 
     private ListView requestListView = null;
 
+    LayoutInflater myInflater;
+
     public static MyTaskFragment newInstance(Bundle arg) {
         MyTaskFragment fragment = new MyTaskFragment();
         args = arg;
         return fragment;
     }
 
-    public ListView getRequestListView(LayoutInflater inflater, int position) {
-        User user = (User) args.getSerializable("user");
-        NetworkServiceRequests.getInstance().getJSONUserRequestApi().getRequestWithLoginPassword(user.getUserId(), user.getP2(), position-1)
-                .subscribeOn(Schedulers.io()) //Schedulers.io()
-                .observeOn(AndroidSchedulers.mainThread()) //AndroidSchedulers.mainThread()
-                .subscribe(new Observer<RequestList>() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
+    private List<Request> getStates() {
+        return myRequestList.getRequests();
+    }
 
-                    }
-
-                    @Override
-                    public void onNext(RequestList requestList) {
-                        states = requestList.getRequests();
-                        FirebaseCrashlytics.getInstance().log("Пришел пустой массив на вывод! В текущих заявках. Class MyTaskFragment метод getRequestListView");
-                        requestAdapter = new RequestStateAdapter(inflater.getContext(), R.layout.task, states);
-                        requestListView.setAdapter(requestAdapter);
-                        System.out.println("Операция пройдена");
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        FirebaseCrashlytics.getInstance().recordException(e);
-                    }
-
-                    @Override
-                    public void onComplete() {
-
-                    }
-                });
-        return requestListView;
+    private void setRequestList(RequestList requestList) {
+        this.myRequestList = requestList;
     }
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
-        outState.putSerializable(REQUEST_LIST_SAVING_KEY, (Serializable) states);
+        outState.putSerializable(REQUEST_LIST_SAVING_KEY, (Serializable) myRequestList);
         super.onSaveInstanceState(outState);
     }
 
-    private boolean getAlreadyLoaded() {
-        return mAlreadyLoaded;
-    }
-
-    private void setAlreadyLoaded(boolean mAlreadyLoaded) {
-        this.mAlreadyLoaded = mAlreadyLoaded;
+    public void setRequestListView() {
+        requestAdapter = new RequestStateAdapter(myInflater.getContext(), R.layout.task, getStates());
+        requestListView.setAdapter(requestAdapter);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-//        myTaskViewModel = ViewModelProviders.of(this).get(MyTaskViewModel.class);
-
         View rootView = inflater.inflate(R.layout.fragment_my_task_list, container, false);
+
         mainActivity = (MainActivity) getActivity();
+        myInflater = inflater;
+        mainActivity.getViewModelMyTask().setInterface(this);
 
         User user = (User) args.getSerializable("user");
 
-        System.out.println("Здесь твои переменные: " + user.getUserId() + ", " + user.getP2());
+        requestListView = rootView.findViewById(R.id.myTasksList);
+
         Spinner categorySpinner = (Spinner) rootView.findViewById(R.id.status);
 
         ArrayAdapter<?> adapter = ArrayAdapter.createFromResource(inflater.getContext(), R.array.statuses_my_tasks, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
+        mainActivity.getViewModelMyTask().getLiveDataMyTaskSelectedPosition().observe(getViewLifecycleOwner(), new androidx.lifecycle.Observer<Integer>() {
+            @Override
+            public void onChanged(Integer integer) {
+                mainActivity.getViewModelMyTask().setOnChangedSelectedPosition();
+            }
+        });
+        mainActivity.getViewModelMyTask().getLiveDataMyTaskRequestList().observe(getViewLifecycleOwner(), new Observer<RequestList>() {
+            @Override
+            public void onChanged(RequestList requestList) {
+                setRequestList(requestList);
+                setRequestListView();
+            }
+        });
+        if(mainActivity.getViewModelMyTask().getFirstLoad()) {
+            mainActivity.getViewModelMyTask().sendRequestMyTask();
+            mainActivity.getViewModelMyTask().setFirstLoad(false);
+        }
+        // Вызываем адаптер
+        categorySpinner.setAdapter(adapter);
+        categorySpinner.setSelection(4);
+        if (mainActivity.getViewModelMyTask().getLiveDataMyTaskSelectedPosition().getValue()!=null) {
+            if(mainActivity.getViewModelMyTask().getLiveDataMyTaskSelectedPosition().getValue()!=4) {
+                categorySpinner.setSelection(mainActivity.getViewModelMyTask().getLiveDataMyTaskSelectedPosition().getValue());
+            }
+        }
+        categorySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            public void onItemSelected(AdapterView<?> parent,
+                                       View itemSelected, int selectedItemPosition, long selectedId) {
+                if(savedInstanceState!=null) {
+                    setRequestListView();
+                } else {
+                    if(mainActivity.getViewModelMyTask().getAlreadyLoaded()){
+                        mainActivity.getViewModelMyTask().setAlreadyLoaded(false);
+                    } else {
+                        mainActivity.getViewModelMyTask().setOnSelectedPosition(selectedItemPosition);
+                    }
+                }
+            }
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
         searchEditText = rootView.findViewById(R.id.search_my_task_edit_text);
+        if(mainActivity.getViewModelMyTask().getSearchText().length()!=0) {
+            searchEditText.setText(mainActivity.getViewModelMyTask().getSearchText());
+        }
         searchEditText.addTextChangedListener(new TextWatcher() {
 
             public void afterTextChanged(Editable s) {}
@@ -130,46 +145,16 @@ public class MyTaskFragment extends Fragment {
             public void onTextChanged(CharSequence s, int start,
                                       int before, int count) {
 
-                if(!String.valueOf(s).equals("")) {
-                    Search search = new Search(String.valueOf(s), states);
-                    requestAdapter = new RequestStateAdapter(inflater.getContext(), R.layout.task, search.getResultList());
+                if(String.valueOf(s).length()!=0) {
+                    Search search = new Search(String.valueOf(s), getStates());
+                    mainActivity.getViewModelMyTask().getLiveDataMyTaskRequestList().postValue(search.getResultListOnView());
+                    mainActivity.getViewModelMyTask().setSearchText(String.valueOf(s));
                 } else {
-                    requestAdapter = new RequestStateAdapter(inflater.getContext(), R.layout.task, states);
+                    mainActivity.getViewModelMyTask().getLiveDataMyTaskRequestList().postValue(mainActivity.getViewModelMyTask().getRequestList());
+                    mainActivity.getViewModelMyTask().setSearchText("");
                 }
-                requestListView.setAdapter(requestAdapter);
             }
         });
-
-        // Вызываем адаптер
-        categorySpinner.setAdapter(adapter);
-        categorySpinner.setSelection(4);
-        categorySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            public void onItemSelected(AdapterView<?> parent,
-                                       View itemSelected, int selectedItemPosition, long selectedId) {
-                if (savedInstanceState != null) {
-                    states = (List<Request>) savedInstanceState.getSerializable(REQUEST_LIST_SAVING_KEY);
-                    requestAdapter = new RequestStateAdapter(inflater.getContext(), R.layout.task, states);
-                    requestListView.setAdapter(requestAdapter);
-                } else {
-                    if(getAlreadyLoaded()) {
-                        setAlreadyLoaded(false);
-                    }
-                    else {
-                        requestListView = getRequestListView(inflater, selectedItemPosition);
-                    }
-                }
-
-                if(firstLoad) {
-                    requestListView = getRequestListView(inflater, selectedItemPosition);
-                    firstLoad = false;
-                }
-            }
-            public void onNothingSelected(AdapterView<?> parent) {
-            }
-        });
-
-        // получаем элемент ListView
-        requestListView = rootView.findViewById(R.id.myTasksList);
 
         // слушатель выбора в списке
         AdapterView.OnItemClickListener itemListener = new AdapterView.OnItemClickListener() {
@@ -187,10 +172,11 @@ public class MyTaskFragment extends Fragment {
                 }
             }
         };
-        requestListView.setOnItemClickListener(itemListener);
 
-        if (savedInstanceState == null && !getAlreadyLoaded()) {
-            setAlreadyLoaded(true);
+        requestListView.setOnItemClickListener(itemListener);
+        mainActivity.getViewModelMyTask().setFirstLoad(false);
+        if (savedInstanceState == null && !mainActivity.getViewModelMyTask().getAlreadyLoaded()) {
+            mainActivity.getViewModelMyTask().setAlreadyLoaded(true);
         }
 
         return rootView;
@@ -204,4 +190,13 @@ public class MyTaskFragment extends Fragment {
         }
     }
 
+    @Override
+    public void setRequestList() {
+
+    }
+
+    @Override
+    public void setList() {
+
+    }
 }

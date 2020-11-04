@@ -1,25 +1,25 @@
-   package com.example.projectkfudemo.architecturalcomponents.viewmodels.currenttaskfragment
+package com.example.projectkfudemo.architecturalcomponents.viewmodels.mytaskfragment
 
 import androidx.lifecycle.ViewModel
-import com.example.projectkfudemo.architecturalcomponents.livadatas.LiveDataCurrentTaskRequestList
-import com.example.projectkfudemo.architecturalcomponents.livadatas.LiveDataCurrentTaskSelectedPosition
+import com.example.projectkfudemo.architecturalcomponents.livadatas.LiveDataMyTaskRequestList
+import com.example.projectkfudemo.architecturalcomponents.livadatas.LiveDataMyTaskSelectedPosition
 import com.example.projectkfudemo.architecturalcomponents.models.DataRequestListFromServer
 import com.example.projectkfudemo.architecturalcomponents.ui.UIList
 import com.example.projectkfudemo.architecturalcomponents.viewmodels.ViewModelTasksInterface
 import com.example.projectkfudemo.parametrclasses.User
 import com.example.projectkfudemo.requests.RequestList
 
-class ViewModelCurrentTask: ViewModel(), ViewModelTasksInterface {
-    override val TAG = this.javaClass.simpleName
+class ViewModelMyTask: ViewModel(), ViewModelTasksInterface {
+    override val TAG: String = this.javaClass.simpleName
 
     //CII
     override var user:User? = null
     //CII
-    override var firstLoad = true
+    override var firstLoad: Boolean = true
     //CII
-    override var alreadyLoaded = false
+    override var alreadyLoaded: Boolean = false
     //CII
-    override var uiList:UIList?=null
+    override var uiList: UIList? = null
     //CII
     override var requestList: RequestList = RequestList()
     //CII
@@ -27,24 +27,23 @@ class ViewModelCurrentTask: ViewModel(), ViewModelTasksInterface {
     //CII
     override val dataRequestListFromServer = DataRequestListFromServer(this)
     //основная liveData с list с заявками
-    var liveDataCurrentTaskRequestList = LiveDataCurrentTaskRequestList
+    var liveDataMyTaskRequestList = LiveDataMyTaskRequestList
     //тип заявки текущего отображения
-    var liveDataCurrentTaskSelectedPosition = LiveDataCurrentTaskSelectedPosition
+    var liveDataMyTaskSelectedPosition = LiveDataMyTaskSelectedPosition
 
     override fun setListsData() {
-        liveDataCurrentTaskRequestList.postValue(dataRequestListFromServer.requestList)
+        liveDataMyTaskRequestList.postValue(dataRequestListFromServer.requestList)
         requestList = dataRequestListFromServer.requestList
     }
 
-    //CII
     override fun setOnSelectedPosition(position: Int) {
         super.setOnSelectedPosition(position)
-        liveDataCurrentTaskSelectedPosition.postValue(position)
+        liveDataMyTaskSelectedPosition.postValue(position)
     }
 
     override fun setOnChangedSelectedPosition() {
         super.setOnChangedSelectedPosition()
-        liveDataCurrentTaskSelectedPosition.value?.let { setPosition(it) }
+        liveDataMyTaskSelectedPosition.value?.let { setPosition(it) }
         sendRequestCurrentTask()
     }
 

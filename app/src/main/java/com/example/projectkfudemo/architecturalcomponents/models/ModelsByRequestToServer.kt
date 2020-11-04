@@ -20,7 +20,9 @@ interface ModelsByRequestToServer {
         Log.i(TAG, "!в serverRequestsByRx отправил user!")
     }
 
-    fun sendRequest()
+    fun sendRequestCurrentTask()
+
+    fun sendRequestMyTask()
 
     fun setData()
 }
