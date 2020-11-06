@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 
@@ -26,18 +27,47 @@ import static com.example.projectkfudemo.architecturalcomponents.ui.MainActivity
 //https://shelly.kpfu.ru/e-ksu/docs/F383898805/19545.jpg
 public class MenuFragment extends Fragment implements View.OnClickListener {
     static Bundle args;
+    SharedPreferences userPreferences;
+    User user;
+
     MainActivity mainActivity;
+    LayoutInflater myInflater;
+    View rootView;
 
     private Button mLogOutButton;
     private ImageView userPicture;
     private Bitmap imageInMemory;
-    User user;
-    SharedPreferences userPreferences;
+    private TextView mFirstNameText;
+    private TextView mSecondNameText;
+    private TextView mThirdNameText;
 
     public static MenuFragment newInstance(Bundle arg) {
         MenuFragment fragment = new MenuFragment();
         args = arg;
         return fragment;
+    }
+
+    private void setIds() {
+        userPicture = rootView.findViewById(R.id.fragment_menu_user_icon);
+        mLogOutButton = rootView.findViewById(R.id.fragment_menu_log_out_button);
+        mFirstNameText = rootView.findViewById(R.id.fragment_first_name_text);
+        mSecondNameText = rootView.findViewById(R.id.fragment_second_name_text);
+        mThirdNameText = rootView.findViewById(R.id.fragment_third_name_text);
+    }
+
+    private void setUserNameOnView() {
+        mFirstNameText.setText(user.getLastname());
+        if(mFirstNameText.getText().toString().length()>0) {
+            mFirstNameText.setVisibility(View.VISIBLE);
+        }
+        mSecondNameText.setText(user.getFirstname());
+        if(mSecondNameText.getText().toString().length()>0) {
+            mSecondNameText.setVisibility(View.VISIBLE);
+        }
+        mThirdNameText.setText(user.getMiddlename());
+        if(mThirdNameText.getText().toString().length()>0) {
+            mThirdNameText.setVisibility(View.VISIBLE);
+        }
     }
 
     public String getStringForURL() {
@@ -46,15 +76,19 @@ public class MenuFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_menu, container, false);
+        View view = inflater.inflate(R.layout.fragment_menu, container, false);
         userPreferences = getActivity().getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
 
         mainActivity = (MainActivity) getActivity();
+        myInflater = inflater;
+        rootView = view;
 
         user = (User) args.getSerializable("user");
-        userPicture = rootView.findViewById(R.id.fragment_menu_user_icon);
 
-        mLogOutButton = rootView.findViewById(R.id.fragment_menu_log_out_button);
+        setIds();
+
+        setUserNameOnView();
+
         mLogOutButton.setOnClickListener(this);
 
         if(!getStringForURL().equals("")) {
@@ -63,7 +97,7 @@ public class MenuFragment extends Fragment implements View.OnClickListener {
         //TODO: придумать что-нибудь с кнопкой выхода и отображением изображения польователя,
         // в идеале сделать динамическим по размеру изображения. Возможно переписать с Picasso на Glide
 
-        return rootView;
+        return view;
     }
 
 

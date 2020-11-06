@@ -3,6 +3,7 @@ package com.example.projectkfudemo.architecturalcomponents.ui.currenttask;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,6 +29,7 @@ import java.io.Serializable;
 import java.util.List;
 
 public class CurrentTaskFragment extends Fragment implements Serializable, UIList {
+    final String TAG = this.getClass().getName();
 
     static private Bundle args;
     MainActivity mainActivity;
@@ -61,7 +63,7 @@ public class CurrentTaskFragment extends Fragment implements Serializable, UILis
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
-        outState.putSerializable(REQUEST_LIST_SAVING_KEY, (Serializable) myRequestList);
+//        outState.putSerializable(REQUEST_LIST_SAVING_KEY, (Serializable) myRequestList);
         super.onSaveInstanceState(outState);
     }
 
@@ -79,6 +81,7 @@ public class CurrentTaskFragment extends Fragment implements Serializable, UILis
         mainActivity.getViewModelCurrentTask().setInterface(this);
 
         User user = (User) args.getSerializable("user");
+        Log.i(TAG, "!userId = " + user.getUserId() + " p2 = " + user.getP2());
 
         requestListView = rootView.findViewById(R.id.currentTasksList);
 
