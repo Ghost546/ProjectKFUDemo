@@ -3,9 +3,10 @@ package com.example.projectkfudemo.requests;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class RequestList {
+public class RequestList implements Serializable {
 
     @SerializedName("requests")
     @Expose

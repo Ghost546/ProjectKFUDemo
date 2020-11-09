@@ -48,10 +48,11 @@ public class MainActivity extends AppCompatActivity {
     ViewModelGlobalSearchResult viewModelGlobalSearchResult;
 
     Fragment selectedFragment;
+    public FragmentTransaction fragmentTransaction;
 //    private FirebaseAuth mFirebaseAuth;
 //    private FirebaseUser mFirebaseUser;
 //    FirebaseUser user;
-    Bundle args;
+    public Bundle args;
     User userMain = null;
     SharedPreferences userPreferences;
     BottomNavigationView navView;
@@ -94,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
         @Override
         public boolean onNavigationItemSelected(MenuItem item) {
-            FragmentTransaction fragmentTransaction;
+
 
             switch (item.getItemId()) {
                 case R.id.navigation_current_task:
@@ -114,12 +115,13 @@ public class MainActivity extends AppCompatActivity {
                 case R.id.navigation_global_search:
                     fragmentTransaction = getSupportFragmentManager().beginTransaction();
                     fragmentTransaction.addToBackStack(null);
-                    if(viewModelGlobalSearchResult.getLiveDataSearchResultListFromServer().getRequestList()==null) {
+                    if(viewModelGlobalSearchResult.getLiveDataSearchResultListFromServer().getValue()==null) {
+                        Log.i(TAG, "!операция в BottomNavigationView. viewModelGlobalSearchResult.liveDataSearchResultListFromServer.requestList==null");
                         selectedFragment = GlobalSearchFragment.newInstance(args);
                         fragmentTransaction.replace(R.id.fragment_container, selectedFragment);
                         fragmentTransaction.commit();
                     } else {
-                        startFragmentGlobalSearchResult(viewModelGlobalSearchResult.getLiveDataSearchResultListFromServer().getRequestList());
+                        startFragmentGlobalSearchResult(viewModelGlobalSearchResult.getLiveDataSearchResultListFromServer().getValue());
                     }
                     return true;
                 case R.id.navigation_map:
@@ -163,6 +165,10 @@ public class MainActivity extends AppCompatActivity {
         }
         if(viewModelGlobalSearchResult==null) {
             viewModelGlobalSearchResult = new ViewModelProvider(this).get(ViewModelGlobalSearchResult.class);
+            if(viewModelGlobalSearchResult!=null) {
+                Log.i(TAG, "!viewModelGlobalSearchResult!=null");
+            }
+
         }
 
         Log.i(TAG, "!из " + TAG + " отправил userMain!");
@@ -170,13 +176,9 @@ public class MainActivity extends AppCompatActivity {
         viewModelMainActivity.setObjectForRequests();
         viewModelMainActivity.requestOnSetDataAboutSpinners();
 
-        System.out.println("Здесь твои переменные: " + userMain.getUserId() + ", " + userMain.getP2());
-
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-
-        System.out.println("Здесь твои переменные: " + userMain.getUserId() + ", " + userMain.getP2());
 
         if (savedInstanceState == null) {
             // при первом запуске программы
@@ -197,6 +199,7 @@ public class MainActivity extends AppCompatActivity {
         super.onDestroy();
         finishAffinity();
     }
+
 
     @NotNull
     public void startFragmentGeneralView(@NotNull Request request) {
@@ -219,10 +222,30 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @NotNull
+    public void startFragmentGlobalSearch() {
+        fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.addToBackStack(null);
+        if(viewModelGlobalSearchResult.getLiveDataSearchResultListFromServer().getValue()==null) {
+            Log.i(TAG, "!операция в BottomNavigationView. viewModelGlobalSearchResult.liveDataSearchResultListFromServer.requestList==null");
+            selectedFragment = GlobalSearchFragment.newInstance(args);
+            fragmentTransaction.replace(R.id.fragment_container, selectedFragment);
+            fragmentTransaction.commit();
+        } else {
+            startFragmentGlobalSearchResult(viewModelGlobalSearchResult.getLiveDataSearchResultListFromServer().getValue());
+        }
+    }
+
+    @NotNull
     public void startFragmentGlobalSearchResult(RequestList requestList) {
+        Log.i(TAG, "!Выполнение startFragmentGlobalSearchResult");
         FragmentTransaction fragmentTransaction;
         fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.addToBackStack(null);
+        if(viewModelGlobalSearchResult==null) {
+            Log.i(TAG, "!viewModelGlobalSearchResult == null");
+        } else {
+            Log.i(TAG, "!Хэш-код viewModelGlobalSearchResult: " + viewModelGlobalSearchResult.hashCode());
+        }
         Fragment selectedFragment = GlobalSearchResultFragment.newInstance(requestList);
         fragmentTransaction.replace(R.id.fragment_container, selectedFragment);
         fragmentTransaction.commit();
@@ -252,6 +275,10 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    public FragmentTransaction getFragmentTransaction() {
+        return fragmentTransaction;
+    }
+
     public ViewModelMainActivity getViewModelMainActivity() {
         return viewModelMainActivity;
     }
@@ -271,6 +298,7 @@ public class MainActivity extends AppCompatActivity {
     public ViewModelGlobalSearchResult getViewModelGlobalSearchResult() {
         return viewModelGlobalSearchResult;
     }
+
 }
 
 

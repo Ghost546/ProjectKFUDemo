@@ -28,10 +28,10 @@ import kotlinx.coroutines.GlobalScope;
 
 
 public class GlobalSearchFragment extends Fragment implements View.OnClickListener, GlobalSearchInterface {
-    static Bundle args;
-    MainActivity mainActivity;
     private String TAG = this.getClass().getSimpleName();
 
+    static Bundle args;
+    MainActivity mainActivity;
     private LayoutInflater myInflater;
 
     private Button searchButton;
@@ -192,6 +192,12 @@ public class GlobalSearchFragment extends Fragment implements View.OnClickListen
             @Override
             public void onChanged(RequestList requestList) {
                 Log.i(TAG, "!вызов onChanged в SearchResultFromServer");
+                if(requestList==null) {
+                    Log.i(TAG, "!requestList = null");
+                } else {
+                    Log.i(TAG, "!размер requestList: " + requestList.getRequests().size());
+                }
+
                 showResultFragment(requestList);
             }
         });

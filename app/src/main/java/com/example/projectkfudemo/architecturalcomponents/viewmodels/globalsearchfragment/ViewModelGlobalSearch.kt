@@ -59,10 +59,10 @@ class ViewModelGlobalSearch: ViewModel(), ViewModelInterface {
 
     //для вызова через интерфейс из dataOnRequestsFromTheServer
     override fun setListsData() {
-        Log.i(TAG, "!Вызов setRequestList")
+        Log.i(TAG, "!выполнение setListsData")
         liveDataSearchResultFromServer.postValue(searchedDataOnRequestsFromTheServer.requestListFromServer)
 //        showNextFragment()
         Log.i(TAG, "!Размер массива requestListFromServer: " + searchedDataOnRequestsFromTheServer.requestListFromServer?.requests?.size.toString())
-        Log.i(TAG, "!Размер массива requestList в LiveData: " + LiveDataSearchResultFromServer.requestList?.size.toString())
+        Log.i(TAG, "!Размер массива requestList в LiveData: " + liveDataSearchResultFromServer.value?.requests?.size.toString())
     }
 }

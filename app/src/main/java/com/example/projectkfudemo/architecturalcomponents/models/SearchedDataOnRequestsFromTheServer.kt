@@ -62,10 +62,13 @@ class SearchedDataOnRequestsFromTheServer(_viewModelInterface: ViewModelInterfac
 
             }
             if(serverRequestsByRx?.getRequestListFromServer()!=null) Log.i(TAG, "!Массив получен(DataOnRequestsFromTheServer)!")
-            delay(5000)
+            while(serverRequestsByRx!!.getRequestListFromServer().requests.size==0) {
+
+            }
+            delay(1000)
             if(serverRequestsByRx?.getRequestListFromServer()!=null) {
                 Log.i(TAG, "!RequestListStates не пустой!")
-                requestListFromServer = serverRequestsByRx?.requestListFromServer
+                requestListFromServer = serverRequestsByRx?.getRequestListFromServer()
                 Log.i(TAG, "!Размер массива requestListFromServer: " + requestListFromServer?.requests?.size.toString())
             }
             Log.i(TAG, "!вызов viewModelGlobalSearchInterface.setRequestList()!")
