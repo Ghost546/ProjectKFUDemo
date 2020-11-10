@@ -13,8 +13,6 @@ public class User implements Serializable {
 
     }
 
-
-
     @SerializedName("successful")
     @Expose
     private boolean successful;

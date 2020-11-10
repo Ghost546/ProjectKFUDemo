@@ -3,6 +3,7 @@ package com.example.projectkfudemo.architecturalcomponents.ui.mytask;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,6 +29,7 @@ import java.io.Serializable;
 import java.util.List;
 
 public class MyTaskFragment extends Fragment implements Serializable, UIList {
+    final String TAG = this.getClass().getName();
 
     static Bundle args;
     MainActivity mainActivity;
@@ -79,6 +81,7 @@ public class MyTaskFragment extends Fragment implements Serializable, UIList {
         mainActivity.getViewModelMyTask().setInterface(this);
 
         User user = (User) args.getSerializable("user");
+        Log.i(TAG, "!userId = " + user.getUserId() + " p2 = " + user.getP2());
 
         requestListView = rootView.findViewById(R.id.myTasksList);
 
