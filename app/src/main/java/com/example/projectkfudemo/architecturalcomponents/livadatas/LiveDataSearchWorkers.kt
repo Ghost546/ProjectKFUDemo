@@ -7,7 +7,6 @@ import com.example.projectkfudemo.parametrclasses.forjson.SearchWorkersList
 
 object LiveDataSearchWorkers: MutableLiveData<SearchWorkersList>(){
 
-    var searchWorkers:SearchWorkersList?=null
 
     @Override
     override fun onActive() {

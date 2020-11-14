@@ -10,15 +10,20 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.Observer;
 
 import com.example.projectkfudemo.architecturalcomponents.ui.MainActivity;
 import com.example.projectkfudemo.R;
-import com.example.projectkfudemo.architecturalcomponents.ui.UIList;
+import com.example.projectkfudemo.architecturalcomponents.ui.ListVisibilityInterface;
+import com.example.projectkfudemo.architecturalcomponents.ui.TasksVisibilityInterface;
 import com.example.projectkfudemo.requests.Request;
 import com.example.projectkfudemo.requests.RequestList;
 import com.example.projectkfudemo.architecturalcomponents.models.RequestStateAdapter;
@@ -28,7 +33,7 @@ import com.example.projectkfudemo.parametrclasses.User;
 import java.io.Serializable;
 import java.util.List;
 
-public class MyTaskFragment extends Fragment implements Serializable, UIList {
+public class MyTaskFragment extends Fragment implements Serializable, TasksVisibilityInterface {
     final String TAG = this.getClass().getName();
 
     static Bundle args;
@@ -43,7 +48,9 @@ public class MyTaskFragment extends Fragment implements Serializable, UIList {
 
     private volatile RequestStateAdapter requestAdapter = null;
 
-    private ListView requestListView = null;
+    private ListView myTaskRequestListView = null;
+    private ProgressBar myTaskProgressBar = null;
+    private LinearLayout myTaskMessageByLinearLayout = null;
 
     LayoutInflater myInflater;
 
@@ -68,8 +75,14 @@ public class MyTaskFragment extends Fragment implements Serializable, UIList {
     }
 
     public void setRequestListView() {
+        hideProgressBar();
         requestAdapter = new RequestStateAdapter(myInflater.getContext(), R.layout.task, getStates());
-        requestListView.setAdapter(requestAdapter);
+        myTaskRequestListView.setAdapter(requestAdapter);
+        if(getStates().size()==0) {
+            showMessage();
+        } else {
+            showList();
+        }
     }
 
     @Override
@@ -83,9 +96,11 @@ public class MyTaskFragment extends Fragment implements Serializable, UIList {
         User user = (User) args.getSerializable("user");
         Log.i(TAG, "!userId = " + user.getUserId() + " p2 = " + user.getP2());
 
-        requestListView = rootView.findViewById(R.id.myTasksList);
+        myTaskRequestListView = rootView.findViewById(R.id.my_tasks_list);
+        myTaskProgressBar = rootView.findViewById(R.id.my_tasks_progress_bar);
+        myTaskMessageByLinearLayout = rootView.findViewById(R.id.my_task_message_about_result_from_server);
 
-        Spinner categorySpinner = (Spinner) rootView.findViewById(R.id.status);
+        Spinner categorySpinner = rootView.findViewById(R.id.status);
 
         ArrayAdapter<?> adapter = ArrayAdapter.createFromResource(inflater.getContext(), R.array.statuses_my_tasks, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -93,9 +108,12 @@ public class MyTaskFragment extends Fragment implements Serializable, UIList {
         mainActivity.getViewModelMyTask().getLiveDataMyTaskSelectedPosition().observe(getViewLifecycleOwner(), new androidx.lifecycle.Observer<Integer>() {
             @Override
             public void onChanged(Integer integer) {
+                hideList();
+                showProgressBar();
                 mainActivity.getViewModelMyTask().setOnChangedSelectedPosition();
             }
         });
+
         mainActivity.getViewModelMyTask().getLiveDataMyTaskRequestList().observe(getViewLifecycleOwner(), new Observer<RequestList>() {
             @Override
             public void onChanged(RequestList requestList) {
@@ -103,10 +121,12 @@ public class MyTaskFragment extends Fragment implements Serializable, UIList {
                 setRequestListView();
             }
         });
+
         if(mainActivity.getViewModelMyTask().getFirstLoad()) {
             mainActivity.getViewModelMyTask().sendRequestMyTask();
             mainActivity.getViewModelMyTask().setFirstLoad(false);
         }
+
         // Вызываем адаптер
         categorySpinner.setAdapter(adapter);
         categorySpinner.setSelection(4);
@@ -124,6 +144,15 @@ public class MyTaskFragment extends Fragment implements Serializable, UIList {
                     if(mainActivity.getViewModelMyTask().getAlreadyLoaded()){
                         mainActivity.getViewModelMyTask().setAlreadyLoaded(false);
                     } else {
+                        if(myTaskMessageByLinearLayout.getVisibility()==View.VISIBLE){
+                            hideMessage();
+                        }
+                        if(myTaskRequestListView.getVisibility()==View.VISIBLE){
+                            hideList();
+                        }
+                        if(myTaskProgressBar.getVisibility()==View.GONE) {
+                            showProgressBar();
+                        }
                         mainActivity.getViewModelMyTask().setOnSelectedPosition(selectedItemPosition);
                     }
                 }
@@ -176,7 +205,7 @@ public class MyTaskFragment extends Fragment implements Serializable, UIList {
             }
         };
 
-        requestListView.setOnItemClickListener(itemListener);
+        myTaskRequestListView.setOnItemClickListener(itemListener);
         mainActivity.getViewModelMyTask().setFirstLoad(false);
         if (savedInstanceState == null && !mainActivity.getViewModelMyTask().getAlreadyLoaded()) {
             mainActivity.getViewModelMyTask().setAlreadyLoaded(true);
@@ -194,12 +223,37 @@ public class MyTaskFragment extends Fragment implements Serializable, UIList {
     }
 
     @Override
-    public void setRequestList() {
+    public void showList() {
+        myTaskRequestListView.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideList() {
+        myTaskRequestListView.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void showMessage() {
+        myTaskMessageByLinearLayout.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideMessage() {
+        myTaskMessageByLinearLayout.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void changeTextMessage(String mutableMessage) {
 
     }
 
     @Override
-    public void setList() {
+    public void showProgressBar() {
+        myTaskProgressBar.setVisibility(View.VISIBLE);
+    }
 
+    @Override
+    public void hideProgressBar() {
+        myTaskProgressBar.setVisibility(View.GONE);
     }
 }

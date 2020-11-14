@@ -24,9 +24,40 @@
             android:layout_height="wrap_content"
             android:entries="@array/statuses_current_tasks" />
 
-        <ListView android:id="@+id/currentTasksList"
+        <ListView android:id="@+id/current_tasks_list"
             android:layout_height="match_parent"
-            android:layout_width="match_parent" />
+            android:layout_width="match_parent"
+            android:visibility="gone"/>
+
+        <ProgressBar
+            android:id="@+id/current_tasks_progress_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:visibility="visible"
+            android:backgroundTint="#005D9F"
+            android:layout_weight="1"/>
+        <LinearLayout
+            android:id="@+id/current_task_message_about_result_from_server"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:visibility="gone"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:padding="24dp"
+                android:text="Заявок данной категории нет, либо произошел сбой в системе"/>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:text="Повторить попытку"/>
+        </LinearLayout>
+
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

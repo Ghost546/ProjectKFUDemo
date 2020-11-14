@@ -8,8 +8,6 @@ import com.example.projectkfudemo.requests.RequestList
 
 object LiveDataSearchResultFromServer: MutableLiveData<RequestList>() {
 
-    var requestList:List<Request> ?= null
-
     @Override
     override fun onActive() {
         super.onActive()

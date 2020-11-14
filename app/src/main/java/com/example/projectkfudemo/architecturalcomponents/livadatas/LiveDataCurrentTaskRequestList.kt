@@ -5,7 +5,6 @@ import com.example.projectkfudemo.requests.Request
 import com.example.projectkfudemo.requests.RequestList
 
 object LiveDataCurrentTaskRequestList: MutableLiveData<RequestList>() {
-    var requestList:RequestList?=null
 
     @Override
     override fun onActive() {

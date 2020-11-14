@@ -17,7 +17,6 @@ public class Search { //Вернуться позже
         this.list = list;   //в конструкторе задаем список для дальнешего поиска
         allActions(stringFromSearch);
     }
-//    int largeSize = 0;
 
     private void allActions(String stringFromSearch) {
         setListToArray();
@@ -38,8 +37,7 @@ public class Search { //Вернуться позже
     }
 
     private int getStringsArraySize(String[] stringsArray) {
-        int arraySize = stringsArray.length;
-        return arraySize;
+        return stringsArray.length;
     }
 
     private void startSearch(String stringFromSearching) {

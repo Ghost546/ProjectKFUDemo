@@ -6,7 +6,6 @@ import com.example.projectkfudemo.parametrclasses.forjson.SearchDeclarer
 import com.example.projectkfudemo.parametrclasses.forjson.SearchDeclarerList
 
 object LiveDataSearchDeclarers: MutableLiveData<SearchDeclarerList>() {
-    var searchDeclarers:SearchDeclarerList?=null
 
     @Override
     override fun onActive() {

@@ -9,14 +9,18 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.projectkfudemo.architecturalcomponents.ui.LayoutVisibilityInterface;
 import com.example.projectkfudemo.architecturalcomponents.ui.MainActivity;
 import com.example.projectkfudemo.R;
+import com.example.projectkfudemo.architecturalcomponents.ui.ProgressBarVisibilityInterface;
 import com.example.projectkfudemo.architecturalcomponents.viewmodels.globalsearchfragment.ViewModelGlobalSearch;
 import com.example.projectkfudemo.requests.Request;
 import com.example.projectkfudemo.requests.RequestList;
@@ -27,7 +31,7 @@ import java.util.List;
 import kotlinx.coroutines.GlobalScope;
 
 
-public class GlobalSearchFragment extends Fragment implements View.OnClickListener, GlobalSearchInterface {
+public class GlobalSearchFragment extends Fragment implements View.OnClickListener, GlobalSearchInterface, LayoutVisibilityInterface, ProgressBarVisibilityInterface {
     private String TAG = this.getClass().getSimpleName();
 
     static Bundle args;
@@ -63,6 +67,11 @@ public class GlobalSearchFragment extends Fragment implements View.OnClickListen
     private Integer integerStatusOfRequest;
     private Integer integerRequestRegistration; //сюда getSearchDeclarersStrings
     private Integer integerTypeOfRequest;
+    private ProgressBar mainProgressBar;
+    private ProgressBar searchButtonProgressBar;
+    private RelativeLayout searchLayout;
+
+    private Boolean allDataReady;
 
     ArrayAdapter<String> adapterRequestRegistrationSpinner;
     ArrayAdapter<String> adapterFullNameOfExecutorSpinner;
@@ -93,6 +102,9 @@ public class GlobalSearchFragment extends Fragment implements View.OnClickListen
         spinnerStatusOfRequest = rootView.findViewById(R.id.status_of_request);
         spinnerRequestRegistration = rootView.findViewById(R.id.request_registration);
         spinnerTypeOfRequest = rootView.findViewById(R.id.type_of_request);
+        mainProgressBar = rootView.findViewById(R.id.global_search_progress_bar);
+        searchButtonProgressBar = rootView.findViewById(R.id.search_button_progress_bar_id);
+        searchLayout = rootView.findViewById(R.id.global_search_layout);
     }
 
     @Override
@@ -115,7 +127,20 @@ public class GlobalSearchFragment extends Fragment implements View.OnClickListen
         spinnerFullNameOfExecutor.setAdapter(adapterFullNameOfExecutorSpinner);
     }
 
+    public void checkDataForShow() {
+        if(mainActivity.getViewModelMainActivity().getLiveDataSearchWorkerString().getValue()!=null && mainActivity.getViewModelMainActivity().getLiveDataSearchDeclarerString().getValue()!=null) {
+            setAllDataReady(true);
+        } else {
+            setAllDataReady(false);
+        }
+    }
 
+    public void tryToHideMainProgressBar() {
+        if(getAllDataReady()) {
+            hideProgressBar();
+            showLayout();
+        }
+    }
 
     public void setParams() {
         if(editDeclarer.getText().length()!=0){
@@ -161,7 +186,7 @@ public class GlobalSearchFragment extends Fragment implements View.OnClickListen
             integerRequestRegistration = null;
         } else {
             integerRequestRegistration = mainActivity.getViewModelMainActivity()
-                    .getLiveDataSearchDeclarers().getSearchDeclarers().getDeclarersList()
+                    .getLiveDataSearchDeclarers().getValue().getDeclarersList()
                     .get(spinnerRequestRegistration.getSelectedItemPosition()).getId()-1; // -1 потому что в spinner первый элемент по индексу 1, а в массиве первый элемент под индексом 0, а дальше простая математика
         }
 
@@ -170,7 +195,7 @@ public class GlobalSearchFragment extends Fragment implements View.OnClickListen
             integerApplicationExecutorsDepartment = null;
         } else {
             integerApplicationExecutorsDepartment = mainActivity.getViewModelMainActivity()
-                    .getLiveDataSearchWorkers().getSearchWorkers().getWorkersList()
+                    .getLiveDataSearchWorkers().getValue().getWorkersList()
                     .get(spinnerApplicationExecutorsDepartment.getSelectedItemPosition()).getId()-1; // -1 потому что в spinner первый элемент по индексу 1, а в массиве первый элемент под индексом 0
         }
     }
@@ -199,7 +224,8 @@ public class GlobalSearchFragment extends Fragment implements View.OnClickListen
                 } else {
                     Log.i(TAG, "!размер requestList: " + requestList.getRequests().size());
                 }
-
+                hideSearchButtonProgressBar();
+                searchButton.setClickable(true);
                 showResultFragment(requestList);
             }
         });
@@ -227,7 +253,14 @@ public class GlobalSearchFragment extends Fragment implements View.OnClickListen
 
         setId(rootView);
 
+        showProgressBar();
+        hideSearchButtonProgressBar();
+        hideLayout();
+
         setSpinners();
+
+        checkDataForShow();
+
         mainActivity.getViewModelMainActivity().setGlobalSearchInterface(this);
 
         mainActivity.getViewModelGlobalSearch().setInterface(this);
@@ -257,6 +290,8 @@ public class GlobalSearchFragment extends Fragment implements View.OnClickListen
             public void onChanged(List<String> strings) {
                 Log.i(TAG, "!вызов onChanged в SearchDeclarerString");
                 setSpinnerRequestRegistration(strings);
+                checkDataForShow();
+                tryToHideMainProgressBar();
             }
         });
         mainActivity.getViewModelMainActivity().getLiveDataSearchWorkerString().observe(getViewLifecycleOwner(), new Observer<List<String>>() {
@@ -264,6 +299,8 @@ public class GlobalSearchFragment extends Fragment implements View.OnClickListen
             public void onChanged(List<String> strings) {
                 Log.i(TAG, "!вызов onChanged в SearchWorkerString");
                 setSpinnerFullNameOfExecutor(strings);
+                checkDataForShow();
+                tryToHideMainProgressBar();
             }
         });
 
@@ -281,10 +318,48 @@ public class GlobalSearchFragment extends Fragment implements View.OnClickListen
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.search_button:
+                showSearchButtonProgressBar();
+                searchButton.setClickable(false);
                 setParams();
                 onSearchButtonClick(user);
                 break;
         }
     }
 
+    @Override
+    public void showLayout() {
+        searchLayout.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideLayout() {
+        searchLayout.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void showProgressBar() {
+        mainProgressBar.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideProgressBar() {
+        mainProgressBar.setVisibility(View.GONE);
+    }
+
+    public void showSearchButtonProgressBar() {
+        searchButtonProgressBar.setVisibility(View.VISIBLE);
+    }
+
+    public void hideSearchButtonProgressBar() {
+        searchButtonProgressBar.setVisibility(View.GONE);
+    }
+
+    public Boolean getAllDataReady() {
+        return allDataReady;
+    }
+
+    public void setAllDataReady(Boolean allDataReady) {
+        Log.i(TAG, "В allDataReady входит значение: " + allDataReady);
+        this.allDataReady = allDataReady;
+    }
 }

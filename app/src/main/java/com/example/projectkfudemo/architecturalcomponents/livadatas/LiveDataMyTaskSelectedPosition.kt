@@ -4,7 +4,6 @@ import androidx.lifecycle.MutableLiveData
 
 object LiveDataMyTaskSelectedPosition: MutableLiveData<Int>() {
 
-
     @Override
     override fun onActive() {
         super.onActive()

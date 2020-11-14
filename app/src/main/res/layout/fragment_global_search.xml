@@ -12,247 +12,269 @@
         tools:layout_editor_absoluteX="-95dp"
         tools:layout_editor_absoluteY="-271dp">
 
-
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="15dp"
-            tools:layout_editor_absoluteX="0dp"
-            tools:layout_editor_absoluteY="0dp">
+            android:orientation="vertical">
 
-            <LinearLayout
-                android:id="@+id/request_number_block"
+            <ProgressBar
+                android:id="@+id/global_search_progress_bar"
+                android:visibility="gone"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:layout_height="match_parent"/>
 
-                <EditText
-                    android:id="@+id/request_number"
+            <RelativeLayout
+                android:id="@+id/global_search_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="15dp"
+                android:visibility="visible"
+                tools:layout_editor_absoluteX="0dp"
+                tools:layout_editor_absoluteY="0dp">
+
+                <LinearLayout
+                    android:id="@+id/request_number_block"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/request_id"/>
-            </LinearLayout>
+                    android:orientation="vertical">
 
-            <LinearLayout
-                android:id="@+id/request_registration_date_id_block"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/request_number_block"
-                android:orientation="vertical">
+                    <EditText
+                        android:id="@+id/request_number"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/request_id"/>
+                </LinearLayout>
 
-                <TextView
-                    android:id="@+id/request_registration_date_id"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:text="@string/request_registration_date"
-                    android:textSize="20sp" />
-
-
-                <EditText
-                    android:id="@+id/request_registration_date_id_edit_start"
+                <LinearLayout
+                    android:id="@+id/request_registration_date_id_block"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="C (гггг-мм-дд)">
+                    android:layout_below="@id/request_number_block"
+                    android:orientation="vertical">
 
-                </EditText>
+                    <TextView
+                        android:id="@+id/request_registration_date_id"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:text="@string/request_registration_date"
+                        android:textSize="20sp" />
 
-                <EditText
-                    android:id="@+id/request_registration_date_id_edit_finish"
+
+                    <EditText
+                        android:id="@+id/request_registration_date_id_edit_start"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="C (гггг-мм-дд)">
+
+                    </EditText>
+
+                    <EditText
+                        android:id="@+id/request_registration_date_id_edit_finish"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="До (гггг-мм-дд)">
+
+                    </EditText>
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:id="@+id/declarer_block"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="До (гггг-мм-дд)">
+                    android:layout_below="@id/request_registration_date_id_block"
+                    android:orientation="vertical"
+                    android:paddingTop="15dp">
 
-                </EditText>
+                    <EditText
+                        android:id="@+id/declarer"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/declarer">
 
-            </LinearLayout>
+                    </EditText>
 
+                </LinearLayout>
 
-            <LinearLayout
-                android:id="@+id/declarer_block"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/request_registration_date_id_block"
-                android:orientation="vertical"
-                android:paddingTop="15dp">
-
-                <EditText
-                    android:id="@+id/declarer"
+                <LinearLayout
+                    android:id="@+id/subdivision_block"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/declarer">
+                    android:layout_below="@id/declarer_block"
+                    android:orientation="vertical">
 
-                </EditText>
+                    <EditText
+                        android:id="@+id/subdivision"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/subdivision"></EditText>
+                </LinearLayout>
 
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/subdivision_block"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/declarer_block"
-                android:orientation="vertical">
-
-                <EditText
-                    android:id="@+id/subdivision"
+                <LinearLayout
+                    android:id="@+id/address_block"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/subdivision"></EditText>
-            </LinearLayout>
+                    android:layout_below="@id/subdivision_block"
+                    android:orientation="vertical">
 
-            <LinearLayout
-                android:id="@+id/address_block"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/subdivision_block"
-                android:orientation="vertical">
+                    <EditText
+                        android:id="@+id/address"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/address"></EditText>
+                </LinearLayout>
 
-                <EditText
-                    android:id="@+id/address"
+                <LinearLayout
+                    android:id="@+id/number_of_cabinet_block"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/address"></EditText>
-            </LinearLayout>
+                    android:layout_below="@id/address_block"
+                    android:orientation="vertical">
 
-            <LinearLayout
-                android:id="@+id/number_of_cabinet_block"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/address_block"
-                android:orientation="vertical">
+                    <EditText
+                        android:id="@+id/number_of_cabinet"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/number_of_cabinet"></EditText>
+                </LinearLayout>
 
-                <EditText
-                    android:id="@+id/number_of_cabinet"
+                <LinearLayout
+                    android:id="@+id/application_executors_department_block"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/number_of_cabinet"></EditText>
-            </LinearLayout>
+                    android:layout_below="@id/number_of_cabinet_block"
+                    android:orientation="vertical">
 
-            <LinearLayout
-                android:id="@+id/application_executors_department_block"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/number_of_cabinet_block"
-                android:orientation="vertical">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/application_executors_department"
+                        android:visibility="visible" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/application_executors_department"
-                    android:visibility="visible" />
+                    <Spinner
+                        android:id="@+id/application_executors_department"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
 
-                <Spinner
-                    android:id="@+id/application_executors_department"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/full_name_of_executor_block"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/application_executors_department_block"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/full_name_of_executor"
-                    android:visibility="visible" />
-
-                <Spinner
-                    android:id="@+id/full_name_of_executor"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/status_of_request_block"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/full_name_of_executor_block"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/status_of_request"
-                    android:visibility="visible" />
-
-                <Spinner
-                    android:id="@+id/status_of_request"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/request_registration_block"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/status_of_request_block"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/request_registration"
-                    android:visibility="visible" />
-
-                <Spinner
-                    android:id="@+id/request_registration"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/type_of_request_block"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/request_registration_block"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/type_of_request"
-                    android:visibility="visible" />
-
-                <Spinner
-                    android:id="@+id/type_of_request"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/text_of_request_block"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/type_of_request_block"
-                android:orientation="vertical">
-
-                <EditText
-                    android:id="@+id/text_of_request"
+                <LinearLayout
+                    android:id="@+id/full_name_of_executor_block"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/text_of_request"/>
-            </LinearLayout>
+                    android:layout_below="@id/application_executors_department_block"
+                    android:orientation="vertical">
 
-            <LinearLayout
-                android:id="@+id/search_button_block"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/text_of_request_block"
-                android:orientation="vertical">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/full_name_of_executor"
+                        android:visibility="visible" />
 
-                <Button
-                    android:id="@+id/search_button"
-                    android:layout_width="wrap_content"
+                    <Spinner
+                        android:id="@+id/full_name_of_executor"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/status_of_request_block"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:onClick="onClick"
-                    android:text="Поиск" />
-            </LinearLayout>
-        </RelativeLayout>
+                    android:layout_below="@+id/full_name_of_executor_block"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/status_of_request"
+                        android:visibility="visible" />
+
+                    <Spinner
+                        android:id="@+id/status_of_request"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/request_registration_block"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/status_of_request_block"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/request_registration"
+                        android:visibility="visible" />
+
+                    <Spinner
+                        android:id="@+id/request_registration"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/type_of_request_block"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/request_registration_block"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/type_of_request"
+                        android:visibility="visible" />
+
+                    <Spinner
+                        android:id="@+id/type_of_request"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/text_of_request_block"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/type_of_request_block"
+                    android:orientation="vertical">
+
+                    <EditText
+                        android:id="@+id/text_of_request"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/text_of_request"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/search_button_block"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/text_of_request_block"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/search_button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:onClick="onClick"
+                        android:text="Поиск" />
+                    <ProgressBar
+                        android:id="@+id/search_button_progress_bar_id"
+                        android:visibility="visible"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                </LinearLayout>
+
+            </RelativeLayout>
+        </LinearLayout>
+
+
     </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -4,7 +4,6 @@ import androidx.lifecycle.MutableLiveData
 import com.example.projectkfudemo.requests.RequestList
 
 object LiveDataMyTaskRequestList: MutableLiveData<RequestList>() {
-    var requestList: RequestList?=null
 
     @Override
     override fun onActive() {

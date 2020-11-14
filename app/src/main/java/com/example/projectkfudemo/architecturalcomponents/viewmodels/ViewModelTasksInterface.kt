@@ -2,7 +2,7 @@ package com.example.projectkfudemo.architecturalcomponents.viewmodels
 
 import android.util.Log
 import com.example.projectkfudemo.architecturalcomponents.models.DataRequestListFromServer
-import com.example.projectkfudemo.architecturalcomponents.ui.UIList
+import com.example.projectkfudemo.architecturalcomponents.ui.ListVisibilityInterface
 import com.example.projectkfudemo.parametrclasses.User
 import com.example.projectkfudemo.requests.RequestList
 
@@ -14,7 +14,7 @@ interface ViewModelTasksInterface: ViewModelInterface {
     //постоянная переменная для проверки загружался ли экран до этого
     var alreadyLoaded:Boolean
     //интерфейс для взаимодействия с list в view
-    var uiList:UIList?
+    var listVisibilityInterface:ListVisibilityInterface?
     //переменная хранящая текущий лист, нужен для того чтобы была незовисимая возможность вернуть отображаемый список после использвания локального поиска
     var requestList:RequestList
     //Значение хранящий текущий текст поисковика
@@ -32,8 +32,8 @@ interface ViewModelTasksInterface: ViewModelInterface {
         Log.i(TAG, "!Изменение позиции на: $position (конкретная реализация)")
     }
 
-    fun setInterface(_uiList: UIList) {
-        uiList = _uiList
+    fun setInterface(_ListVisibilityInterface: ListVisibilityInterface) {
+        listVisibilityInterface = _ListVisibilityInterface
     }
 
     //отправка запроса на сервер на заявки отдела

@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import com.example.projectkfudemo.architecturalcomponents.livadatas.LiveDataCurrentTaskRequestList
 import com.example.projectkfudemo.architecturalcomponents.livadatas.LiveDataCurrentTaskSelectedPosition
 import com.example.projectkfudemo.architecturalcomponents.models.DataRequestListFromServer
-import com.example.projectkfudemo.architecturalcomponents.ui.UIList
+import com.example.projectkfudemo.architecturalcomponents.ui.ListVisibilityInterface
 import com.example.projectkfudemo.architecturalcomponents.viewmodels.ViewModelTasksInterface
 import com.example.projectkfudemo.parametrclasses.User
 import com.example.projectkfudemo.requests.RequestList
@@ -19,7 +19,7 @@ class ViewModelCurrentTask: ViewModel(), ViewModelTasksInterface {
     //CII
     override var alreadyLoaded = false
     //CII
-    override var uiList:UIList?=null
+    override var listVisibilityInterface:ListVisibilityInterface?=null
     //CII
     override var requestList: RequestList = RequestList()
     //CII
