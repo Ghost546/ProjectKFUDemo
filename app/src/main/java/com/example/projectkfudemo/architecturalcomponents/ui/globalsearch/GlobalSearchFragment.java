@@ -169,16 +169,14 @@ public class GlobalSearchFragment extends Fragment implements View.OnClickListen
             stringRequestRegistrationDateIdFinish = null;
         }
 
+        integerTypeOfRequest = spinnerTypeOfRequest.getSelectedItemPosition();
         if(integerTypeOfRequest == 0 || integerTypeOfRequest == -1) {
             integerTypeOfRequest = null;
-        } else {
-            integerTypeOfRequest = spinnerTypeOfRequest.getSelectedItemPosition();
         }
 
+        integerStatusOfRequest = spinnerStatusOfRequest.getSelectedItemPosition();
         if(integerStatusOfRequest == 0 || integerStatusOfRequest == -1) {
             integerStatusOfRequest = null;
-        } else {
-            integerStatusOfRequest = spinnerStatusOfRequest.getSelectedItemPosition();
         }
 
         integerRequestRegistration = spinnerRequestRegistration.getSelectedItemPosition();
