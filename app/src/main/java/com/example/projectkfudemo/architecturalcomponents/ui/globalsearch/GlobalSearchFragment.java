@@ -196,6 +196,13 @@ public class GlobalSearchFragment extends Fragment implements View.OnClickListen
                     .getLiveDataSearchWorkers().getValue().getWorkersList()
                     .get(spinnerApplicationExecutorsDepartment.getSelectedItemPosition()).getId()-1; // -1 потому что в spinner первый элемент по индексу 1, а в массиве первый элемент под индексом 0
         }
+
+        if (editTextOfRequest.getText().toString().length() != 0) {
+            stringTextOfRequest = editTextOfRequest.getText().toString();
+        } else {
+            stringTextOfRequest = null;
+        }
+
     }
 
     private void onSearchButtonClick(User user) {
@@ -210,7 +217,8 @@ public class GlobalSearchFragment extends Fragment implements View.OnClickListen
                 integerTypeOfRequest,
                 integerStatusOfRequest,
                 integerRequestRegistration,
-                integerFullNameOfExecutor
+                integerFullNameOfExecutor,
+                stringTextOfRequest
         );
 
         mainActivity.getViewModelGlobalSearch().getLiveDataSearchResultFromServer().observe(this, new Observer<RequestList>() {
@@ -236,6 +244,7 @@ public class GlobalSearchFragment extends Fragment implements View.OnClickListen
 
     @Override
     public void showResultFragment(RequestList requestList) {
+        editRequestNumber.setText(null);
         Log.i(TAG, "!Вызван метод showResultFragment");
         MainActivity mainActivity = (MainActivity) getActivity();
         mainActivity.startFragmentGlobalSearchResult(requestList);

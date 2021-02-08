@@ -16,6 +16,8 @@ public class GlobalSearchParams {
 
     Integer workerId;
 
+    String text;
+
     public String getDeclarerFIO() {
         return declarerFIO;
     }
@@ -78,5 +80,13 @@ public class GlobalSearchParams {
 
     public void setWorkerId(Integer workerId) {
         this.workerId = workerId;
+    }
+
+    public String getText() {
+        return text;
+    }
+
+    public void setText(String text) {
+        this.text = text;
     }
 }

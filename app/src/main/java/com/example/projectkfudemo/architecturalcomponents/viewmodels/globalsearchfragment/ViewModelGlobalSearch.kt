@@ -39,11 +39,11 @@ class ViewModelGlobalSearch: ViewModel(), ViewModelInterface {
 
     fun setParamsForGlobalSearch(declarerFIO: String?, cod: Int?, date1: String?,
                                  date2: String?, regType: Int?, statusId: Int?,
-                                 regUserId: Int?, workerId: Int?) {
+                                 regUserId: Int?, workerId: Int?, text: String?) {
         Log.i(TAG, "!отправил данные для параметров и вызвал настройку параметров")
         searchedDataOnRequestsFromTheServer.sendParamsForRequestOnGlobalSearch(declarerFIO, cod, date1,
                 date2, regType, statusId,
-                regUserId, workerId)
+                regUserId, workerId, text)
         searchedDataOnRequestsFromTheServer.setParamsForRequestOnGlobalSearch()
     }
 
@@ -57,7 +57,7 @@ class ViewModelGlobalSearch: ViewModel(), ViewModelInterface {
         globalSearchInterface?.showResultFragment(searchedDataOnRequestsFromTheServer.requestListFromServer)
     }
 
-    //для вызова через интерфейс из dataOnRequestsFromTheServer
+    //для вызова через интерфейс из SearchedDataOnRequestsFromTheServer
     override fun setListsData() {
         Log.i(TAG, "!выполнение setListsData")
         liveDataSearchResultFromServer.postValue(searchedDataOnRequestsFromTheServer.requestListFromServer)

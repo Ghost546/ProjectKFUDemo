@@ -6,11 +6,8 @@ import com.example.projectkfudemo.parametrclasses.GlobalSearchParams;
 import com.example.projectkfudemo.parametrclasses.User;
 import com.example.projectkfudemo.parametrclasses.forjson.SearchDeclarerList;
 import com.example.projectkfudemo.parametrclasses.forjson.SearchWorkersList;
-import com.example.projectkfudemo.requests.Request;
 import com.example.projectkfudemo.requests.RequestList;
 import com.google.firebase.crashlytics.FirebaseCrashlytics;
-
-import java.util.List;
 
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -43,6 +40,7 @@ public class ServerRequestsByRx { //из этого класса отправл�
     Integer statusId;
     Integer regUserId;
     Integer workerId;
+    String text;
 
     RequestList requestListFromServer;
 
@@ -64,7 +62,7 @@ public class ServerRequestsByRx { //из этого класса отправл�
 
     public void setParamsForRequestOnGlobalSearchToVariables(String declarerFIO, Integer cod, String date1,
                                                   String date2, Integer regType, Integer statusId,
-                                                  Integer regUserId, Integer workerId) {
+                                                  Integer regUserId, Integer workerId, String text) {
         this.declarerFIO = declarerFIO;
         this.cod = cod;
         this.date1 = date1;
@@ -73,6 +71,7 @@ public class ServerRequestsByRx { //из этого класса отправл�
         this.statusId = statusId;
         this.regUserId = regUserId;
         this.workerId = workerId;
+        this.text = text;
     }
 
     public void setParamsGlobalSearchFromVariablesToParamsObject() {
@@ -84,6 +83,7 @@ public class ServerRequestsByRx { //из этого класса отправл�
         globalSearchParams.setStatusId(statusId);
         globalSearchParams.setRegUserId(regUserId);
         globalSearchParams.setWorkerId(workerId);
+        globalSearchParams.setText(text);
     }
 
     public void setPosition(int position) {
@@ -242,7 +242,7 @@ public class ServerRequestsByRx { //из этого класса отправл�
                 getRequestListForSearch(user.getUserId(), user.getP2(), globalSearchParams.getDeclarerFIO(),
                         globalSearchParams.getCod(), globalSearchParams.getDate1(), globalSearchParams.getDate2(),
                         globalSearchParams.getRegType(), globalSearchParams.getStatusId(),
-                        globalSearchParams.getRegUserId(), globalSearchParams.getWorkerId(), null, null)
+                        globalSearchParams.getRegUserId(), globalSearchParams.getWorkerId(), globalSearchParams.getText(), null, null)
                 .subscribeOn(Schedulers.io()) //Schedulers.io()
                 .observeOn(AndroidSchedulers.mainThread()) //AndroidSchedulers.mainThread()
                 .subscribe(new Observer<RequestList>() {

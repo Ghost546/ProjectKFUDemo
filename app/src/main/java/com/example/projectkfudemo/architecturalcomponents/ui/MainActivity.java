@@ -113,16 +113,17 @@ public class MainActivity extends AppCompatActivity {
                     fragmentTransaction.commit();
                     return true;
                 case R.id.navigation_global_search:
-                    fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                    fragmentTransaction.addToBackStack(null);
-                    if(viewModelGlobalSearchResult.getLiveDataSearchResultListFromServer().getValue()==null) {
-                        Log.i(TAG, "!операция в BottomNavigationView. viewModelGlobalSearchResult.liveDataSearchResultListFromServer.requestList==null");
-                        selectedFragment = GlobalSearchFragment.newInstance(args);
-                        fragmentTransaction.replace(R.id.fragment_container, selectedFragment);
-                        fragmentTransaction.commit();
-                    } else {
-                        startFragmentGlobalSearchResult(viewModelGlobalSearchResult.getLiveDataSearchResultListFromServer().getValue());
-                    }
+//                    fragmentTransaction = getSupportFragmentManager().beginTransaction();
+//                    fragmentTransaction.addToBackStack(null);
+//                    if(viewModelGlobalSearchResult.getLiveDataSearchResultListFromServer().getValue()==null) {
+//                        Log.i(TAG, "!операция в BottomNavigationView. viewModelGlobalSearchResult.liveDataSearchResultListFromServer.requestList==null");
+//                        selectedFragment = GlobalSearchFragment.newInstance(args);
+//                        fragmentTransaction.replace(R.id.fragment_container, selectedFragment);
+//                        fragmentTransaction.commit();
+//                    } else {
+//                        startFragmentGlobalSearchResult(viewModelGlobalSearchResult.getLiveDataSearchResultListFromServer().getValue());
+//                    }
+                    startFragmentGlobalSearch();
                     return true;
                 case R.id.navigation_map:
                     fragmentTransaction = getSupportFragmentManager().beginTransaction();
@@ -264,6 +265,11 @@ public class MainActivity extends AppCompatActivity {
         for (Fragment fragment: fm.getFragments()) {
             if (fragment instanceof  OnBackPressedListener) {
                 backPressedListener = (OnBackPressedListener) fragment;
+                if(getFragmentManager().getBackStackEntryCount() == 1) {
+                    moveTaskToBack(false);
+                } else {
+                    super.onBackPressed();
+                }
                 break;
             }
         }
@@ -273,6 +279,8 @@ public class MainActivity extends AppCompatActivity {
         } else {
             super.onBackPressed();
         }
+
+
     }
 
     public FragmentTransaction getFragmentTransaction() {

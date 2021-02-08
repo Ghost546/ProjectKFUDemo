@@ -6,9 +6,11 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
@@ -24,21 +26,25 @@
                 android:orientation="horizontal"
                 android:visibility="gone"
                 android:layout_marginBottom="10dp">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
 
                     android:text="@string/request_id"/>
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text=": "/>
+
                 <TextView
                     android:id="@+id/request_code"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="#000000"
                     android:text=""/>
+
             </LinearLayout>
 
             <LinearLayout
@@ -48,20 +54,24 @@
                 android:orientation="horizontal"
                 android:visibility="gone"
                 android:layout_marginBottom="10dp">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/accepted_the_request"/>
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text=": "/>
+
                 <TextView
                     android:id="@+id/accepted_the_request"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="#000000"
                     android:text=""/>
+
             </LinearLayout>
 
             <LinearLayout
@@ -71,20 +81,24 @@
                 android:orientation="horizontal"
                 android:visibility="gone"
                 android:layout_marginBottom="10dp">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/request_registration_date"/>
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text=": "/>
+
                 <TextView
                     android:id="@+id/request_registration_date"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="#000000"
                     android:text=""/>
+
             </LinearLayout>
 
             <LinearLayout
@@ -94,20 +108,24 @@
                 android:orientation="horizontal"
                 android:visibility="gone"
                 android:layout_marginBottom="10dp">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/period_of_execution"/>
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text=": "/>
+
                 <TextView
                     android:id="@+id/period_of_execution"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="#000000"
                     android:text=""/>
+
             </LinearLayout>
 
             <LinearLayout
@@ -117,20 +135,24 @@
                 android:orientation="horizontal"
                 android:visibility="gone"
                 android:layout_marginBottom="10dp">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/status_of_request"/>
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text=": "/>
+
                 <TextView
                     android:id="@+id/status_of_request"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="#000000"
                     android:text=""/>
+
             </LinearLayout>
 
             <LinearLayout
@@ -140,18 +162,22 @@
                 android:orientation="vertical"
                 android:visibility="gone"
                 android:layout_marginBottom="10dp">
+
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/declarer"/>
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text=": "/>
+
                 </LinearLayout>
 
                 <TextView
@@ -160,6 +186,7 @@
                     android:layout_height="wrap_content"
                     android:textColor="#000000"
                     android:text=""/>
+
             </LinearLayout>
 
             <LinearLayout
@@ -168,18 +195,22 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:visibility="gone">
+
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/subdivision"/>
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text=": "/>
+
                 </LinearLayout>
 
                 <TextView
@@ -196,18 +227,22 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:visibility="gone">
+
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/data_about_declarer"/>
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text=": "/>
+
                 </LinearLayout>
 
                 <TextView
@@ -216,10 +251,12 @@
                     android:layout_height="wrap_content"
                     android:textColor="#000000"
                     android:text=""/>
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text=""/>
+
             </LinearLayout>
 
             <LinearLayout
@@ -228,18 +265,22 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:visibility="gone">
+
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/text_of_request"/>
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text=": "/>
+
                 </LinearLayout>
 
                 <TextView
@@ -248,10 +289,12 @@
                     android:layout_height="wrap_content"
                     android:textColor="#000000"
                     android:text=""/>
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text=""/>
+
             </LinearLayout>
 
             <LinearLayout
@@ -260,19 +303,23 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:visibility="gone">
+
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/responsible_for_the_execution_of_the_request"/>
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
 
                         android:text=": "/>
+
                 </LinearLayout>
 
                 <TextView
@@ -281,10 +328,12 @@
                     android:layout_height="wrap_content"
                     android:textColor="#000000"
                     android:text=""/>
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text=""/>
+
             </LinearLayout>
 
             <LinearLayout

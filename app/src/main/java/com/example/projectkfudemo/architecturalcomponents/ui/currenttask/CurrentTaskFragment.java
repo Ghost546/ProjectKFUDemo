@@ -90,42 +90,6 @@ public class CurrentTaskFragment extends Fragment implements Serializable, Tasks
         }
     }
 
-//    void setObserver() {
-//        if(myRequestList!=null) {
-//            requestListObservable.subscribe(new io.reactivex.Observer<RequestList>() {
-//                @Override
-//                public void onSubscribe(@NonNull Disposable d) {
-//
-//                }
-//
-//                @Override
-//                public void onNext(@NonNull RequestList requestList) {
-//                    hideProgressBar();
-//                    if(requestList.getRequests()!= null) {
-//                        if(requestList.getRequests().size()==0) {
-//                            showMessage();
-//                        } else {
-//                            if(requestList.getRequests().size()>0) {
-//                                showList();
-//                            }
-//                        }
-//                    }
-//
-//                }
-//
-//                @Override
-//                public void onError(@NonNull Throwable e) {
-//
-//                }
-//
-//                @Override
-//                public void onComplete() {
-//
-//                }
-//            });
-//        }
-//    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_current_task_list, container, false);

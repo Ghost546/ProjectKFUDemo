@@ -22,7 +22,9 @@ class ViewModelGlobalSearchResult: ViewModel(), ViewModelInterface {
     }
 
     fun clearResultList() {
-        liveDataSearchResultListFromServer.value = null
+        Log.i(TAG, "!запрос на очистку списка поиска")
+        Log.i(TAG, "!выполнение clearResultList")
+        liveDataSearchResultListFromServer.postValue(null)
     }
 
 }

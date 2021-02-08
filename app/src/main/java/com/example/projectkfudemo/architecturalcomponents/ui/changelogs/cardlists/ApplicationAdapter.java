@@ -26,7 +26,7 @@ public class ApplicationAdapter extends ArrayAdapter<Log> {
         this.inflater = LayoutInflater.from(context);
     }
 
-    @SuppressLint("SetTextI18n")
+//    @SuppressLint("SetTextI18n")
     public View getView(int position, View convertView, ViewGroup parent) {
 
         if(convertView==null){

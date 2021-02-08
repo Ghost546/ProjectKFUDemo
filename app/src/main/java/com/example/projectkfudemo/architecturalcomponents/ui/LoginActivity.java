@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -26,6 +27,7 @@ import static com.example.projectkfudemo.R.*;
 
 
 public class LoginActivity extends AppCompatActivity {
+    private final String TAG = this.getClass().getSimpleName();
 
     private EditText login;
     private EditText password;
@@ -87,7 +89,7 @@ public class LoginActivity extends AppCompatActivity {
                             public void onError(Throwable e) {
                                 e.printStackTrace();
                                 saver.setVisibility(View.GONE);                                     //подразумевается спад заглушки при уже авторизованном пользователе но при этом ошибки повторного входа
-                                System.out.println("Произошла ошибка входа");//TODO: обязательно прописать подобное на экране
+                                System.out.println("Произошла ошибка входа");                       //TODO:прописать подобное на экране
                             }
 
                             @Override
@@ -102,7 +104,6 @@ public class LoginActivity extends AppCompatActivity {
         signInButton = findViewById(R.id.email_sign_in_button);
         login = findViewById(id.field_login);
         password = findViewById(id.field_password);
-
     }
 
 //    private void updateUI(FirebaseUser user) {
@@ -163,12 +164,12 @@ public class LoginActivity extends AppCompatActivity {
                             @Override
                             public void onError(Throwable e) {
                                 e.printStackTrace();
-
                             }
 
                             @Override
                             public void onComplete() {
-
+                                Log.i(TAG, "!выполнение метода onComplete");
+                                saver.setVisibility(View.GONE);                                                         //заглушка спадает в случае неудачной проверки
                             }
                         });
             }
@@ -178,10 +179,17 @@ public class LoginActivity extends AppCompatActivity {
         //получить idшник и работать с ним
     }
 
-    public void LogIn(User user) {//запуск главной активности
-        Intent intent = new Intent(this, MainActivity.class);
-        intent.putExtra("user", user);
-        startActivity(intent);
+    public void LogIn(User user) {          //запуск главной активности
+        if(userMain.isSuccessful()) {
+            Log.i(TAG, "!user isSuccessful = true");
+            Intent intent = new Intent(this, MainActivity.class);
+            intent.putExtra("user", user);
+            startActivity(intent);
+        }  else {
+            Log.i(TAG, "!user isSuccessful = false");
+            saver.setVisibility(View.GONE);                                                         //заглушка спадает в случае неудачной проверки
+        }
+
     }
 
     public void onClick(View v) {

@@ -8,9 +8,7 @@
     <ScrollView
         android:id="@+id/scrollable"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:layout_editor_absoluteX="-95dp"
-        tools:layout_editor_absoluteY="-271dp">
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -43,6 +41,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/request_id"/>
+
                 </LinearLayout>
 
                 <LinearLayout
@@ -60,22 +59,17 @@
                         android:text="@string/request_registration_date"
                         android:textSize="20sp" />
 
-
                     <EditText
                         android:id="@+id/request_registration_date_id_edit_start"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="C (гггг-мм-дд)">
-
-                    </EditText>
+                        android:hint="C (гггг-мм-дд)"/>
 
                     <EditText
                         android:id="@+id/request_registration_date_id_edit_finish"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="До (гггг-мм-дд)">
-
-                    </EditText>
+                        android:hint="До (гггг-мм-дд)"/>
 
                 </LinearLayout>
 
@@ -92,9 +86,7 @@
                         android:id="@+id/declarer"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="@string/declarer">
-
-                    </EditText>
+                        android:hint="@string/declarer"/>
 
                 </LinearLayout>
 
@@ -109,7 +101,8 @@
                         android:id="@+id/subdivision"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="@string/subdivision"></EditText>
+                        android:hint="@string/subdivision"/>
+
                 </LinearLayout>
 
                 <LinearLayout
@@ -123,7 +116,8 @@
                         android:id="@+id/address"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="@string/address"></EditText>
+                        android:hint="@string/address"/>
+
                 </LinearLayout>
 
                 <LinearLayout
@@ -137,7 +131,8 @@
                         android:id="@+id/number_of_cabinet"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="@string/number_of_cabinet"></EditText>
+                        android:hint="@string/number_of_cabinet"/>
+
                 </LinearLayout>
 
                 <LinearLayout
@@ -157,6 +152,7 @@
                         android:id="@+id/application_executors_department"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
+
                 </LinearLayout>
 
                 <LinearLayout
@@ -176,6 +172,7 @@
                         android:id="@+id/full_name_of_executor"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
+
                 </LinearLayout>
 
                 <LinearLayout
@@ -195,6 +192,7 @@
                         android:id="@+id/status_of_request"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
+
                 </LinearLayout>
 
                 <LinearLayout
@@ -214,6 +212,7 @@
                         android:id="@+id/request_registration"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
+
                 </LinearLayout>
 
                 <LinearLayout
@@ -233,6 +232,7 @@
                         android:id="@+id/type_of_request"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
+
                 </LinearLayout>
 
                 <LinearLayout
@@ -247,6 +247,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/text_of_request"/>
+
                 </LinearLayout>
 
                 <LinearLayout
@@ -263,17 +264,19 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:onClick="onClick"
-                        android:text="Поиск" />
+                        android:text="@string/search" />
+
                     <ProgressBar
                         android:id="@+id/search_button_progress_bar_id"
                         android:visibility="visible"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
+
                 </LinearLayout>
 
             </RelativeLayout>
-        </LinearLayout>
 
+        </LinearLayout>
 
     </ScrollView>
 

@@ -54,15 +54,17 @@ public class GlobalSearchResultFragment extends Fragment implements OnBackPresse
                     Log.i(TAG, "! requestList.getRequests().size()>0");
                     requestAdapter = new RequestStateAdapter(myInflater.getContext(), R.layout.task, requestList.getRequests());//выполняется отображение зявок
                     listView.setAdapter(requestAdapter);
+                } else {
+                    Log.i(TAG, "! requestList().size = 0");
+                    listView.setVisibility(View.GONE);  //показывается текст что заявок по поиску нет
+                    resultEmpty.setVisibility(View.VISIBLE);
+                    resultEmpty.setText("По результатам поиска заявки отсутсвуют");
                 }
             } else {
                 Log.i(TAG, "! requestList().getRequests()=null");
             }
         } else {
             Log.i(TAG, "! requestList()=null");
-            listView.setVisibility(View.GONE);  //показывается текст что заявок по поиску нет
-            resultEmpty.setVisibility(View.VISIBLE);
-            resultEmpty.setText("По результатам поиска заявки отсутсвуют");
         }
     }
 
@@ -70,19 +72,24 @@ public class GlobalSearchResultFragment extends Fragment implements OnBackPresse
         Log.i(TAG, "!метод setRequestList");
         if(requestList!= null) {
             Log.i(TAG, "! requestList!= null");
+            this.mRequestList = requestList;
             if(requestList.getRequests().size()>0){
                 Log.i(TAG, "! requestList.getRequests().size()>0");
-                this.mRequestList = requestList;
+
 //                mainActivity.getViewModelGlobalSearchResult().setResultList(requestList);
+            } else {
+                Log.i(TAG, "! requestList.getRequests().size()=0");
             }
         }
     }
 
     public RequestList getRequestList() {
+        Log.i(TAG, "!запрос на получение списка поиска");
         return mainActivity.getViewModelGlobalSearchResult().getLiveDataSearchResultListFromServer().getValue();
     }
 
     public void clearRequestList() {
+        Log.i(TAG, "!запрос на очистку списка поиска");
         mainActivity.getViewModelGlobalSearchResult().clearResultList();
     }
 
@@ -103,34 +110,33 @@ public class GlobalSearchResultFragment extends Fragment implements OnBackPresse
                 setListView(requestList);
             }
         });
+
         if (mRequestList != null) {
             mainActivity.getViewModelGlobalSearchResult().setResultList(mRequestList);
         }
         setId(rootView);
 
-            // слушатель выбора в списке
-            AdapterView.OnItemClickListener itemListener = new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
-                    // получаем выбранный пункт
-                    Request selectedRequest = (Request) parent.getItemAtPosition(position);
-                    //настраиваем и отправляем будущий фрагмент
-                    MainActivity mainActivity = (MainActivity) getActivity();
-                    //запускаем фрагмент
-                    if (selectedRequest != null) {
-//                    Gson gson = new Gson();
-//                    getArguments().putString("list",gson.toJson(states));
-                        mainActivity.startFragmentGeneralView(selectedRequest);
-                    } else {
-                        System.out.println("selectedRequest is null");
-                    }
-                    //((MainActivity)getActivity())
+        // слушатель выбора в списке
+        AdapterView.OnItemClickListener itemListener = new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
+                // получаем выбранный пункт
+                Request selectedRequest = (Request) parent.getItemAtPosition(position);
+                //настраиваем и отправляем будущий фрагмент
+                MainActivity mainActivity = (MainActivity) getActivity();
+                //запускаем фрагмент
+                if (selectedRequest != null) {
+//                   Gson gson = new Gson();
+//                   getArguments().putString("list",gson.toJson(states));
+                    mainActivity.startFragmentGeneralView(selectedRequest);
+                } else {
+                    System.out.println("selectedRequest is null");
                 }
-            };
+                //((MainActivity)getActivity())
+            }
+        };
 
-            listView.setOnItemClickListener(itemListener);
-
-
+        listView.setOnItemClickListener(itemListener);
 
         return rootView;
     }
@@ -139,10 +145,6 @@ public class GlobalSearchResultFragment extends Fragment implements OnBackPresse
     @Override
     public void onBackPressed() {
         clearRequestList();
-        mainActivity.fragmentTransaction = mainActivity.getSupportFragmentManager().beginTransaction();
-        mainActivity.getFragmentTransaction().remove(this);
-        Fragment selectedFragment = GlobalSearchFragment.newInstance(mainActivity.args);
-        mainActivity.getFragmentTransaction().replace(R.id.fragment_container, selectedFragment).commit();
     }
 
 }

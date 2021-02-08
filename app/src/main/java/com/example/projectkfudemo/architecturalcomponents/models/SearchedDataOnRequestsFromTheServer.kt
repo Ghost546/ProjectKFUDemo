@@ -35,11 +35,11 @@ class SearchedDataOnRequestsFromTheServer(_viewModelInterface: ViewModelInterfac
 
     fun sendParamsForRequestOnGlobalSearch(declarerFIO: String?, cod: Int?, date1: String?,
                                            date2: String?, regType: Int?, statusId: Int?,
-                                           regUserId: Int?, workerId: Int?) {
+                                           regUserId: Int?, workerId: Int?, text: String?) {
         Log.i(TAG, "!отправил параметры для отправки запроса!")
         serverRequestsByRx?.setParamsForRequestOnGlobalSearchToVariables(declarerFIO, cod, date1, date2,
                                                                          regType, statusId, regUserId,
-                                                                         workerId)
+                                                                         workerId, text)
     }
 
     override fun sendRequestCurrentTask() {
@@ -48,7 +48,7 @@ class SearchedDataOnRequestsFromTheServer(_viewModelInterface: ViewModelInterfac
     }
 
     override fun sendRequestMyTask() {
-
+        
     }
 
     override fun setData() {
@@ -62,9 +62,6 @@ class SearchedDataOnRequestsFromTheServer(_viewModelInterface: ViewModelInterfac
 
             }
             if(serverRequestsByRx?.getRequestListFromServer()!=null) Log.i(TAG, "!Массив получен(DataOnRequestsFromTheServer)!")
-            while(serverRequestsByRx!!.getRequestListFromServer().requests.size==0) {
-
-            }
             delay(1000)
             if(serverRequestsByRx?.getRequestListFromServer()!=null) {
                 Log.i(TAG, "!RequestListStates не пустой!")
