@@ -42,6 +42,7 @@ class SpinnerDataFromServer(_viewModelInterface: ViewModelInterface): ModelsByRe
     }
 
     fun waitData() {
+
         GlobalScope.launch {
             Log.i(TAG, "!Массивы пусты(SpinnerDataFromServer)!")
             while (serverRequestsByRx?.searchDeclarers == null || serverRequestsByRx?.searchWorkers == null) {

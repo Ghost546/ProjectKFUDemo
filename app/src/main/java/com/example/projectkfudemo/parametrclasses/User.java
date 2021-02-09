@@ -9,10 +9,6 @@ import java.io.Serializable;
 public class User implements Serializable {
     final static String LOG_TAG = "myLogs";
 
-    User() {
-
-    }
-
     @SerializedName("successful")
     @Expose
     private boolean successful;

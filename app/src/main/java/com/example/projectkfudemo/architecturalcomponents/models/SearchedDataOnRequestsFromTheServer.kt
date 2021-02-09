@@ -28,6 +28,8 @@ class SearchedDataOnRequestsFromTheServer(_viewModelInterface: ViewModelInterfac
         super.setObjectByUser(user)
     }
 
+
+
     fun setParamsForRequestOnGlobalSearch() {
         Log.i(TAG, "!вызвал настройку параметров!")
         serverRequestsByRx?.setParamsGlobalSearchFromVariablesToParamsObject()

@@ -42,17 +42,21 @@ public class ServerRequestsByRx { //из этого класса отправл�
     Integer workerId;
     String text;
 
-    RequestList requestListFromServer;
+    RequestList requestListFromServer;  //список-ответ на глобальный поиск. наблюдать
 
-    RequestList requestListStates;
+    RequestList requestListStates;      //список-ответ на запрос по Current и MyTask, допустимо
+                                        //потому что на каждый VM создается свой экземпляр класса
+                                        //модели. наблюдать
 
     ModelsByRequestToServer modelsByRequestToServer;
 
+    //списки-ответы на запрос о списках сотрудниках и заявителях
+
     //массив для Заявку зарегистрировал
-    SearchDeclarerList searchDeclarers;
+    SearchDeclarerList searchDeclarers; //наблюдать
 
     //массив для фио исполнителя
-    SearchWorkersList searchWorkers;
+    SearchWorkersList searchWorkers;    //наблюдать
 
 
     //Параметры для GlobalSearch
@@ -234,7 +238,7 @@ public class ServerRequestsByRx { //из этого класса отправл�
 
     //запрос на глобальный поиск
     public void setRequestListByGlobalSearchRequest() {
-        Log.i(TAG, "!Отправляемые данные: " + user.getUserId() + " | " + user.getP2() + " | " +globalSearchParams.getDeclarerFIO()+ " | " +
+        Log.i(TAG, "!Отправляемые данные: " + user.getUserId() + " | " + user.getP2() + " | " + globalSearchParams.getDeclarerFIO()+ " | " +
                 globalSearchParams.getCod()+" | " + globalSearchParams.getDate1()+ " | " +globalSearchParams.getDate2()+" | " +
                 globalSearchParams.getRegType()+ " | " +globalSearchParams.getStatusId()+" | " +
                 globalSearchParams.getRegUserId()+" | " + globalSearchParams.getWorkerId()+ " | " +null+ " | " +null +"!");

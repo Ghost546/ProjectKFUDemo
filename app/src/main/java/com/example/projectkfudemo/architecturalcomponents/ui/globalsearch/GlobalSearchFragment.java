@@ -236,7 +236,6 @@ public class GlobalSearchFragment extends Fragment implements View.OnClickListen
             }
         });
 
-
         mainActivity.getViewModelGlobalSearch().sendRequest();
         Log.i(TAG, "!Вызов sendRequest");
 
