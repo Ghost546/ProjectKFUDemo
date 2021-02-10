@@ -12,8 +12,10 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.projectkfudemo.architecturalcomponents.ui.ListVisibilityInterface;
 import com.example.projectkfudemo.architecturalcomponents.ui.MainActivity;
 import com.example.projectkfudemo.R;
+import com.example.projectkfudemo.architecturalcomponents.ui.MessageVisibilityInterface;
 import com.example.projectkfudemo.architecturalcomponents.ui.OnBackPressedListener;
 import com.example.projectkfudemo.architecturalcomponents.ui.requestgeneralview.RequestGeneralViewFragment;
 import com.example.projectkfudemo.requests.Request;
@@ -22,7 +24,7 @@ import com.example.projectkfudemo.requests.RequestList;
 
 import java.util.List;
 
-public class GlobalSearchResultFragment extends Fragment implements OnBackPressedListener {
+public class GlobalSearchResultFragment extends Fragment implements OnBackPressedListener, MessageVisibilityInterface, ListVisibilityInterface {
     private final String TAG = this.getClass().getSimpleName();
 
     MainActivity mainActivity;
@@ -54,11 +56,13 @@ public class GlobalSearchResultFragment extends Fragment implements OnBackPresse
                     Log.i(TAG, "! requestList.getRequests().size()>0");
                     requestAdapter = new RequestStateAdapter(myInflater.getContext(), R.layout.task, requestList.getRequests());//выполняется отображение зявок
                     listView.setAdapter(requestAdapter);
+                    Log.i(TAG, "! установка адаптера в listView");
+                    hideMessage();
+                    showList();
                 } else {
                     Log.i(TAG, "! requestList().size = 0");
-                    listView.setVisibility(View.GONE);  //показывается текст что заявок по поиску нет
-                    resultEmpty.setVisibility(View.VISIBLE);
-                    resultEmpty.setText("По результатам поиска заявки отсутсвуют");
+                    hideList();
+                    showMessage();  //показывается текст что заявок по поиску нет
                 }
             } else {
                 Log.i(TAG, "! requestList().getRequests()=null");
@@ -98,6 +102,8 @@ public class GlobalSearchResultFragment extends Fragment implements OnBackPresse
         View rootView = inflater.inflate(R.layout.fragment_global_search_result, container, false);
         mainActivity = (MainActivity) getActivity();
         myInflater = inflater;
+        setId(rootView);
+
 //        mainActivity.getViewModelGlobalSearchResult().getLiveDataSearchResultListFromServer().observe(getViewLifecycleOwner(), new Observer<RequestList>() {
 //            @Override
 //            public void onChanged(RequestList requestList) {
@@ -107,6 +113,7 @@ public class GlobalSearchResultFragment extends Fragment implements OnBackPresse
         mainActivity.getViewModelGlobalSearch().getLiveDataSearchResultFromServer().observe(getViewLifecycleOwner(), new Observer<RequestList>() {
             @Override
             public void onChanged(RequestList requestList) {
+                Log.i(TAG, "!обновление с LiveDataSearchResultFromServer");
                 setListView(requestList);
             }
         });
@@ -114,7 +121,8 @@ public class GlobalSearchResultFragment extends Fragment implements OnBackPresse
         if (mRequestList != null) {
             mainActivity.getViewModelGlobalSearchResult().setResultList(mRequestList);
         }
-        setId(rootView);
+
+        resultEmpty.setText("По результатам поиска заявки отсутсвуют");
 
         // слушатель выбора в списке
         AdapterView.OnItemClickListener itemListener = new AdapterView.OnItemClickListener() {
@@ -132,7 +140,7 @@ public class GlobalSearchResultFragment extends Fragment implements OnBackPresse
                 } else {
                     System.out.println("selectedRequest is null");
                 }
-                //((MainActivity)getActivity())
+
             }
         };
 
@@ -142,9 +150,34 @@ public class GlobalSearchResultFragment extends Fragment implements OnBackPresse
     }
 
 
+
     @Override
     public void onBackPressed() {
         clearRequestList();
     }
 
+    @Override
+    public void showMessage() {
+        resultEmpty.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideMessage() {
+        resultEmpty.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void changeTextMessage(String mutableMessage) {
+
+    }
+
+    @Override
+    public void showList() {
+        listView.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideList() {
+        listView.setVisibility(View.GONE);
+    }
 }

@@ -25,7 +25,7 @@ class SearchedDataOnRequestsFromTheServer(_viewModelInterface: ViewModelInterfac
 
     @Override
     override fun setObjectByUser(user: User) {
-        super.setObjectByUser(user)
+        setObjectByUserAndInterface(this, user)
     }
 
 
@@ -54,7 +54,12 @@ class SearchedDataOnRequestsFromTheServer(_viewModelInterface: ViewModelInterfac
     }
 
     override fun setData() {
-
+        if(serverRequestsByRx?.getRequestListFromServer()!=null) {
+            Log.i(TAG, "!RequestListStates не пустой!")
+            requestListFromServer = serverRequestsByRx?.getRequestListFromServer()
+            Log.i(TAG, "!Размер массива requestListFromServer: " + requestListFromServer?.requests?.size.toString())
+            viewModelInterface.setListsData()
+        }
     }
 
     fun waitData() {

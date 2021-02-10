@@ -79,8 +79,10 @@ public class MyTaskFragment extends Fragment implements Serializable, TasksVisib
         requestAdapter = new RequestStateAdapter(myInflater.getContext(), R.layout.task, getStates());
         myTaskRequestListView.setAdapter(requestAdapter);
         if(getStates().size()==0) {
+            hideList();
             showMessage();
         } else {
+            hideMessage();
             showList();
         }
     }
@@ -181,9 +183,11 @@ public class MyTaskFragment extends Fragment implements Serializable, TasksVisib
                     Search search = new Search(String.valueOf(s), getStates());
                     mainActivity.getViewModelMyTask().getLiveDataMyTaskRequestList().postValue(search.getResultListOnView());
                     mainActivity.getViewModelMyTask().setSearchText(String.valueOf(s));
+                    hideMessage();
                 } else {
                     mainActivity.getViewModelMyTask().getLiveDataMyTaskRequestList().postValue(mainActivity.getViewModelMyTask().getRequestList());
                     mainActivity.getViewModelMyTask().setSearchText("");
+                    hideMessage();
                 }
             }
         });

@@ -84,8 +84,11 @@ public class CurrentTaskFragment extends Fragment implements Serializable, Tasks
         requestAdapter = new RequestStateAdapter(myInflater.getContext(), R.layout.task, getStates());
         currentTaskRequestListView.setAdapter(requestAdapter);
         if(getStates().size()==0) {
+            hideList();
             showMessage();
         } else {
+            hideMessage();
+            hideProgressBar();
             showList();
         }
     }
@@ -186,9 +189,11 @@ public class CurrentTaskFragment extends Fragment implements Serializable, Tasks
                     Search search = new Search(String.valueOf(s), getStates());
                     mainActivity.getViewModelCurrentTask().getLiveDataCurrentTaskRequestList().postValue(search.getResultListOnView());
                     mainActivity.getViewModelCurrentTask().setSearchText(String.valueOf(s));
+                    hideMessage();
                 } else {
                     mainActivity.getViewModelCurrentTask().getLiveDataCurrentTaskRequestList().postValue(mainActivity.getViewModelCurrentTask().getRequestList());
                     mainActivity.getViewModelCurrentTask().setSearchText("");
+                    hideMessage();
                 }
             }
         });

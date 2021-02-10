@@ -30,13 +30,14 @@ class ViewModelMainActivity: ViewModel(), ViewModelInterface {
     fun setObjectForRequests() {
         user?.let {
             Log.i(TAG, "!из MyViewModelMainActivity отправил user в spinnerDataFromServer!")
-            spinnerDataFromServer.setObjectByUser(user!!)
+            spinnerDataFromServer.setObject(user!!)
         }
     }
 
+
     fun requestOnSetDataAboutSpinners() {   //методу достаточно знать что так идёт запрос на получение данных с сервера
         spinnerDataFromServer.sendRequestCurrentTask()
-        spinnerDataFromServer.waitData()
+//        spinnerDataFromServer.waitData()
     }
 
     fun setGlobalSearchInterface(_globalSearchInterface: GlobalSearchInterface) {

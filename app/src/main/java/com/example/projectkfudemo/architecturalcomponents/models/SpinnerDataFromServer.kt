@@ -23,9 +23,8 @@ class SpinnerDataFromServer(_viewModelInterface: ViewModelInterface): ModelsByRe
     var searchDeclarers: SearchDeclarerList? = null
     var searchWorkers: SearchWorkersList? = null
 
-    @Override
-    override fun setObjectByUser(user: User) {
-        super.setObjectByUser(user)
+    fun setObject(user: User) {
+        setObjectByUserAndInterface(this, user)
     }
 
     override fun sendRequestCurrentTask() { //метод запрашивает метод на отправку запросов
@@ -38,7 +37,18 @@ class SpinnerDataFromServer(_viewModelInterface: ViewModelInterface): ModelsByRe
     }
 
     override fun setData() {
-
+        if (serverRequestsByRx?.searchDeclarers!=null && serverRequestsByRx?.searchWorkers != null) {
+            Log.i(TAG, "!Массивы пришли(SpinnerDataFromServer)!")
+            if (serverRequestsByRx?.searchDeclarers != null) {
+                Log.i(TAG, "!searchDeclarers пришёл(SpinnerDataFromServer)!")
+                searchDeclarers = serverRequestsByRx?.searchDeclarers!!
+            }
+            if (serverRequestsByRx?.searchWorkers != null) {
+                Log.i(TAG, "!searchWorkers пришёл(SpinnerDataFromServer)!")
+                searchWorkers = serverRequestsByRx?.searchWorkers!!
+            }
+            viewModelMainActivityInterface.setListsData()
+        }
     }
 
     fun waitData() {

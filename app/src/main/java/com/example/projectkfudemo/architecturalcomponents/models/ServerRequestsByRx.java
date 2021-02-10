@@ -123,6 +123,7 @@ public class ServerRequestsByRx { //из этого класса отправл�
                         } else {
                             Log.i(TAG, "!Массив пришел! метод setWorkerArraysForSpinner");
                         }
+                        modelsByRequestToServer.setData();
                     }
 
                     @Override
@@ -156,7 +157,7 @@ public class ServerRequestsByRx { //из этого класса отправл�
                         } else {
                             Log.i(TAG, "!Массив пришел! метод setDeclarerArraysForSpinner");
                         }
-
+                        modelsByRequestToServer.setData();
                     }
 
                     @Override
@@ -241,7 +242,7 @@ public class ServerRequestsByRx { //из этого класса отправл�
         Log.i(TAG, "!Отправляемые данные: " + user.getUserId() + " | " + user.getP2() + " | " + globalSearchParams.getDeclarerFIO()+ " | " +
                 globalSearchParams.getCod()+" | " + globalSearchParams.getDate1()+ " | " +globalSearchParams.getDate2()+" | " +
                 globalSearchParams.getRegType()+ " | " +globalSearchParams.getStatusId()+" | " +
-                globalSearchParams.getRegUserId()+" | " + globalSearchParams.getWorkerId()+ " | " +null+ " | " +null +"!");
+                globalSearchParams.getRegUserId()+" | " + globalSearchParams.getWorkerId()+ " | " + globalSearchParams.getText() + " | " +null+ " | " +null +"!");
         NetworkServiceRequests.getInstance().getJSONApiGlobalSearch().
                 getRequestListForSearch(user.getUserId(), user.getP2(), globalSearchParams.getDeclarerFIO(),
                         globalSearchParams.getCod(), globalSearchParams.getDate1(), globalSearchParams.getDate2(),
@@ -264,7 +265,7 @@ public class ServerRequestsByRx { //из этого класса отправл�
                         } else {
                             Log.i(TAG, "!Массив requestList пришел пустой!");
                         }
-
+                        modelsByRequestToServer.setData();
                     }
 
                     @Override

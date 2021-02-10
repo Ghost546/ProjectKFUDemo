@@ -2,6 +2,7 @@ package com.example.projectkfudemo.architecturalcomponents.models
 
 import android.util.Log
 import com.example.projectkfudemo.parametrclasses.User
+import com.example.projectkfudemo.requests.RequestList
 
 interface ModelsByRequestToServer {
     val TAG: String
@@ -23,6 +24,8 @@ interface ModelsByRequestToServer {
     fun sendRequestCurrentTask()
 
     fun sendRequestMyTask()
+
+
 
     fun setData()
 }

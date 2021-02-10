@@ -1,13 +1,12 @@
 package com.example.projectkfudemo.requests;
 
-import com.example.projectkfudemo.architecturalcomponents.models.observersinterface.RequestListObserver;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
 import java.util.List;
 
-public class RequestList implements Serializable, RequestListObserver {
+public class RequestList implements Serializable {
 
     @SerializedName("requests")
     @Expose
@@ -19,11 +18,6 @@ public class RequestList implements Serializable, RequestListObserver {
 
     public void setRequests(List<Request> requests) {
         this.requests = requests;
-    }
-
-    @Override
-    public void update() {
-
     }
 }
 

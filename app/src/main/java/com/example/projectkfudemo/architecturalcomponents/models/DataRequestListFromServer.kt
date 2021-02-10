@@ -5,7 +5,7 @@ import com.example.projectkfudemo.architecturalcomponents.viewmodels.ViewModelIn
 import com.example.projectkfudemo.parametrclasses.User
 import com.example.projectkfudemo.requests.RequestList
 
-
+//Класс отправляет запрос и получает ответ для MyTask и CurrentTask
 class DataRequestListFromServer(_viewModelInterface: ViewModelInterface): ModelsByRequestToServer {
     override val TAG = this.javaClass.simpleName
 

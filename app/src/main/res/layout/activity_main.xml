@@ -7,28 +7,27 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".architecturalcomponents.ui.MainActivity">
-
-    <FrameLayout
-        android:id="@+id/fragment_container"
+<!-- вернул RelativeLayout чтобы не съезжали фабы и анимашки и другие элементы-->
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/nav_view"
-        android:layout_alignParentTop="true"
-        app:layout_constraintBottom_toTopOf="parent"
-        tools:ignore="MissingConstraints" />
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <FrameLayout
+            android:id="@+id/fragment_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_above="@+id/nav_view"/>
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/nav_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:background="?android:attr/windowBackground"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:menu="@menu/bottom_nav_menu"
-        tools:ignore="MissingConstraints" />
-
-
-
-
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/nav_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?android:attr/windowBackground"
+            android:layout_marginStart="0dp"
+            android:layout_marginEnd="0dp"
+            android:layout_alignParentBottom="true"
+            app:menu="@menu/bottom_nav_menu" />
+    </RelativeLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

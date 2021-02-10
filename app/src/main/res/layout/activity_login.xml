@@ -12,7 +12,7 @@
         android:padding="50dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="gone"
+        android:visibility="visible"
         android:background="#FFFFFF"
         android:src="@drawable/ic_kfu_logo_gerb_1_"/>
 
