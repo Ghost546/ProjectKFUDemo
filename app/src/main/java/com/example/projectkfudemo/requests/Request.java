@@ -1,5 +1,7 @@
 package com.example.projectkfudemo.requests;
 
+import androidx.annotation.Nullable;
+
 import com.example.projectkfudemo.parametrclasses.forjson.Building;
 import com.example.projectkfudemo.parametrclasses.forjson.Comments;
 import com.example.projectkfudemo.parametrclasses.forjson.Log;
@@ -335,10 +337,11 @@ public class Request {
         return String.valueOf(charArr);
     }
 
-    public Request getRequest() {
-        Request request = new Request();
-        return request;
+    @Override
+    public boolean equals(@Nullable Object obj) {
+        if(obj==this)return true;
+        Request request = (Request) obj;
+        return request.getRequestId()==getRequestId() && request.getCode()==getCode();
     }
-
 }
 

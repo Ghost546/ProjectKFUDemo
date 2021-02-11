@@ -13,8 +13,6 @@ interface ViewModelTasksInterface: ViewModelInterface {
     var firstLoad: Boolean
     //постоянная переменная для проверки загружался ли экран до этого
     var alreadyLoaded:Boolean
-    //интерфейс для взаимодействия с list в view
-    var listVisibilityInterface:ListVisibilityInterface?
     //переменная хранящая текущий лист, нужен для того чтобы была незовисимая возможность вернуть отображаемый список после использвания локального поиска
     var requestList:RequestList
     //Значение хранящий текущий текст поисковика
@@ -26,14 +24,10 @@ interface ViewModelTasksInterface: ViewModelInterface {
         dataRequestListFromServer.setObject(user)
     }
 
-    //На фоне логов, комментарии излишни
+    //читать логи, комментарии излишни
     fun setOnSelectedPosition(position: Int) {
         Log.i(TAG, "!Вызов при смене типа отображаемых заявок")
         Log.i(TAG, "!Изменение позиции на: $position (конкретная реализация)")
-    }
-
-    fun setInterface(_ListVisibilityInterface: ListVisibilityInterface) {
-        listVisibilityInterface = _ListVisibilityInterface
     }
 
     //отправка запроса на сервер на заявки отдела
@@ -42,7 +36,7 @@ interface ViewModelTasksInterface: ViewModelInterface {
         dataRequestListFromServer.sendRequestCurrentTask()
     }
 
-    //отправка запроса на сервер на заявки отдела
+    //отправка запроса на сервер на заявки пользователя
     fun sendRequestMyTask() {
         Log.i(TAG, "!Отправка запроса на сервер")
         dataRequestListFromServer.sendRequestMyTask()
@@ -50,7 +44,7 @@ interface ViewModelTasksInterface: ViewModelInterface {
 
 
     fun setPosition(position: Int) {
-        Log.i(TAG, "!Установка позиции во внутреннем объекте: " + position)
+        Log.i(TAG, "!Установка позиции во внутреннем объекте: $position")
         dataRequestListFromServer.setPosition(position)
     }
 

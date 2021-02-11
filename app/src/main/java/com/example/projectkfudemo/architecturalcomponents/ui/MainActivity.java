@@ -95,8 +95,6 @@ public class MainActivity extends AppCompatActivity {
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
         @Override
         public boolean onNavigationItemSelected(MenuItem item) {
-
-
             switch (item.getItemId()) {
                 case R.id.navigation_current_task:
                     fragmentTransaction = getSupportFragmentManager().beginTransaction();
@@ -171,6 +169,8 @@ public class MainActivity extends AppCompatActivity {
             }
 
         }
+
+
 
         Log.i(TAG, "!из " + TAG + " отправил userMain!");
 

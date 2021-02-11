@@ -18,10 +18,9 @@ import android.widget.Spinner;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 
+import com.example.projectkfudemo.architecturalcomponents.ui.DataRequestList;
 import com.example.projectkfudemo.architecturalcomponents.ui.MainActivity;
 import com.example.projectkfudemo.R;
-import com.example.projectkfudemo.architecturalcomponents.ui.ProgressBarVisibilityInterface;
-import com.example.projectkfudemo.architecturalcomponents.ui.ListVisibilityInterface;
 import com.example.projectkfudemo.architecturalcomponents.ui.TasksVisibilityInterface;
 import com.example.projectkfudemo.requests.Request;
 import com.example.projectkfudemo.architecturalcomponents.models.RequestStateAdapter;
@@ -29,23 +28,18 @@ import com.example.projectkfudemo.architecturalcomponents.models.Search;
 import com.example.projectkfudemo.parametrclasses.User;
 import com.example.projectkfudemo.requests.RequestList;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.io.Serializable;
 import java.util.List;
 
-import io.reactivex.Observable;
-import io.reactivex.annotations.NonNull;
-import io.reactivex.disposables.Disposable;
-
-public class CurrentTaskFragment extends Fragment implements Serializable, TasksVisibilityInterface {
+public class CurrentTaskFragment extends Fragment implements Serializable, TasksVisibilityInterface, DataRequestList {
     final String TAG = this.getClass().getName();
 
     static private Bundle args;
     MainActivity mainActivity;
 
     private final String REQUEST_LIST_SAVING_KEY = "requestListSavingKey";
-
-    //requestList
-    public RequestList myRequestList = new RequestList();
 
     private EditText searchEditText;
     
@@ -57,8 +51,6 @@ public class CurrentTaskFragment extends Fragment implements Serializable, Tasks
 
     LayoutInflater myInflater;
 
-    Observable<RequestList> requestListObservable;
-
     public static CurrentTaskFragment newInstance(Bundle arg) {
         CurrentTaskFragment fragment = new CurrentTaskFragment();
         args = arg;
@@ -66,16 +58,12 @@ public class CurrentTaskFragment extends Fragment implements Serializable, Tasks
     }
 
     private List<Request> getStates() {
-        return myRequestList.getRequests();
-    }
-
-    private void setRequestList(RequestList requestList) {
-        this.myRequestList = requestList;
+        return getRequestList().getRequests();
     }
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
-        outState.putSerializable(REQUEST_LIST_SAVING_KEY, (Serializable) myRequestList);
+        outState.putSerializable(REQUEST_LIST_SAVING_KEY, (Serializable) getRequestList());
         super.onSaveInstanceState(outState);
     }
 
@@ -99,7 +87,6 @@ public class CurrentTaskFragment extends Fragment implements Serializable, Tasks
 
         mainActivity = (MainActivity) getActivity();
         myInflater = inflater;
-        mainActivity.getViewModelCurrentTask().setInterface(this);
 
         User user = (User) args.getSerializable("user");
         Log.i(TAG, "!userId = " + user.getUserId() + " p2 = " + user.getP2());
@@ -122,13 +109,24 @@ public class CurrentTaskFragment extends Fragment implements Serializable, Tasks
             }
         });
 
+        if(!mainActivity.getViewModelCurrentTask().getAlreadyLoaded()) {
+            showProgressBar();
+        } else {
+            if(mainActivity.getViewModelCurrentTask().getRequestList().getRequests().size()==0) {
+                showMessage();
+            } else {
+                showList();
+            }
+        }
+
         mainActivity.getViewModelCurrentTask().getLiveDataCurrentTaskRequestList().observe(getViewLifecycleOwner(), new Observer<RequestList>() {
             @Override
             public void onChanged(RequestList requestList) {
-//                requestListObservable = Observable.just(myRequestList);
-                setRequestList(requestList);
-//                setObserver();
-                setRequestListView();
+                Log.i(TAG, "! сработал метод onChanged на LiveDataCurrentTaskRequestList");
+                if(getRequestList().getRequests().size()==requestList.getRequests().size()&&getRequestList().getRequests().containsAll(requestList.getRequests())) {
+                    setRequestList(requestList);
+                    setRequestListView();
+                }
             }
         });
 
@@ -177,10 +175,13 @@ public class CurrentTaskFragment extends Fragment implements Serializable, Tasks
             searchEditText.setText(mainActivity.getViewModelCurrentTask().getSearchText());
         }
         searchEditText.addTextChangedListener(new TextWatcher() {
-            public void afterTextChanged(Editable s) {}
+            public void afterTextChanged(Editable s) {
+
+            }
 
             public void beforeTextChanged(CharSequence s, int start,
                                           int count, int after) {
+
             }
 
             public void onTextChanged(CharSequence s, int start,
@@ -189,12 +190,11 @@ public class CurrentTaskFragment extends Fragment implements Serializable, Tasks
                     Search search = new Search(String.valueOf(s), getStates());
                     mainActivity.getViewModelCurrentTask().getLiveDataCurrentTaskRequestList().postValue(search.getResultListOnView());
                     mainActivity.getViewModelCurrentTask().setSearchText(String.valueOf(s));
-                    hideMessage();
                 } else {
                     mainActivity.getViewModelCurrentTask().getLiveDataCurrentTaskRequestList().postValue(mainActivity.getViewModelCurrentTask().getRequestList());
                     mainActivity.getViewModelCurrentTask().setSearchText("");
-                    hideMessage();
                 }
+                hideMessage();
             }
         });
 
@@ -268,6 +268,16 @@ public class CurrentTaskFragment extends Fragment implements Serializable, Tasks
     @Override
     public void changeTextMessage(String mutableMessage) {
 
+    }
+
+    @Override
+    public void setRequestList(@NotNull RequestList requestList) {
+        mainActivity.getViewModelCurrentTask().setRequestList(requestList);
+    }
+
+    @Override
+    public RequestList getRequestList() {
+        return mainActivity.getViewModelCurrentTask().getRequestList();
     }
 }
 

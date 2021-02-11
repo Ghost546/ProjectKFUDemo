@@ -28,8 +28,6 @@ class SearchedDataOnRequestsFromTheServer(_viewModelInterface: ViewModelInterfac
         setObjectByUserAndInterface(this, user)
     }
 
-
-
     fun setParamsForRequestOnGlobalSearch() {
         Log.i(TAG, "!вызвал настройку параметров!")
         serverRequestsByRx?.setParamsGlobalSearchFromVariablesToParamsObject()
@@ -62,21 +60,21 @@ class SearchedDataOnRequestsFromTheServer(_viewModelInterface: ViewModelInterfac
         }
     }
 
-    fun waitData() {
-        GlobalScope.launch {
-            Log.i(TAG, "!Массив пуст(DataOnRequestsFromTheServer)!")
-            while (serverRequestsByRx?.getRequestListFromServer()== null) {
-
-            }
-            if(serverRequestsByRx?.getRequestListFromServer()!=null) Log.i(TAG, "!Массив получен(DataOnRequestsFromTheServer)!")
-            delay(1000)
-            if(serverRequestsByRx?.getRequestListFromServer()!=null) {
-                Log.i(TAG, "!RequestListStates не пустой!")
-                requestListFromServer = serverRequestsByRx?.getRequestListFromServer()
-                Log.i(TAG, "!Размер массива requestListFromServer: " + requestListFromServer?.requests?.size.toString())
-            }
-            Log.i(TAG, "!вызов viewModelGlobalSearchInterface.setRequestList()!")
-            viewModelInterface.setListsData()
-        }
-    }
+//    fun waitData() {
+//        GlobalScope.launch {
+//            Log.i(TAG, "!Массив пуст(DataOnRequestsFromTheServer)!")
+//            while (serverRequestsByRx?.getRequestListFromServer()== null) {
+//
+//            }
+//            if(serverRequestsByRx?.getRequestListFromServer()!=null) Log.i(TAG, "!Массив получен(DataOnRequestsFromTheServer)!")
+//            delay(1000)
+//            if(serverRequestsByRx?.getRequestListFromServer()!=null) {
+//                Log.i(TAG, "!RequestListStates не пустой!")
+//                requestListFromServer = serverRequestsByRx?.getRequestListFromServer()
+//                Log.i(TAG, "!Размер массива requestListFromServer: " + requestListFromServer?.requests?.size.toString())
+//            }
+//            Log.i(TAG, "!вызов viewModelGlobalSearchInterface.setRequestList()!")
+//            viewModelInterface.setListsData()
+//        }
+//    }
 }

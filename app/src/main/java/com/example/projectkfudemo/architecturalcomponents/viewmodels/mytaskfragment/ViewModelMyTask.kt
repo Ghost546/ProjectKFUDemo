@@ -19,8 +19,6 @@ class ViewModelMyTask: ViewModel(), ViewModelTasksInterface {
     //CII
     override var alreadyLoaded: Boolean = false
     //CII
-    override var listVisibilityInterface: ListVisibilityInterface? = null
-    //CII
     override var requestList: RequestList = RequestList()
     //CII
     override var searchText: String = ""

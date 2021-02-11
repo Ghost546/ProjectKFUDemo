@@ -15,14 +15,12 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 
-import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.Observer;
 
+import com.example.projectkfudemo.architecturalcomponents.ui.DataRequestList;
 import com.example.projectkfudemo.architecturalcomponents.ui.MainActivity;
 import com.example.projectkfudemo.R;
-import com.example.projectkfudemo.architecturalcomponents.ui.ListVisibilityInterface;
 import com.example.projectkfudemo.architecturalcomponents.ui.TasksVisibilityInterface;
 import com.example.projectkfudemo.requests.Request;
 import com.example.projectkfudemo.requests.RequestList;
@@ -30,19 +28,18 @@ import com.example.projectkfudemo.architecturalcomponents.models.RequestStateAda
 import com.example.projectkfudemo.architecturalcomponents.models.Search;
 import com.example.projectkfudemo.parametrclasses.User;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.io.Serializable;
 import java.util.List;
 
-public class MyTaskFragment extends Fragment implements Serializable, TasksVisibilityInterface {
+public class MyTaskFragment extends Fragment implements Serializable, TasksVisibilityInterface, DataRequestList {
     final String TAG = this.getClass().getName();
 
     static Bundle args;
     MainActivity mainActivity;
 
     private final String REQUEST_LIST_SAVING_KEY = "requestListSavingKey";
-
-    //requestList
-    public RequestList myRequestList = new RequestList();
 
     private EditText searchEditText;
 
@@ -61,16 +58,12 @@ public class MyTaskFragment extends Fragment implements Serializable, TasksVisib
     }
 
     private List<Request> getStates() {
-        return myRequestList.getRequests();
-    }
-
-    private void setRequestList(RequestList requestList) {
-        this.myRequestList = requestList;
+        return getRequestList().getRequests();
     }
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
-        outState.putSerializable(REQUEST_LIST_SAVING_KEY, (Serializable) myRequestList);
+        outState.putSerializable(REQUEST_LIST_SAVING_KEY, (Serializable) getRequestList());
         super.onSaveInstanceState(outState);
     }
 
@@ -83,6 +76,7 @@ public class MyTaskFragment extends Fragment implements Serializable, TasksVisib
             showMessage();
         } else {
             hideMessage();
+            hideProgressBar();
             showList();
         }
     }
@@ -93,7 +87,6 @@ public class MyTaskFragment extends Fragment implements Serializable, TasksVisib
 
         mainActivity = (MainActivity) getActivity();
         myInflater = inflater;
-        mainActivity.getViewModelMyTask().setInterface(this);
 
         User user = (User) args.getSerializable("user");
         Log.i(TAG, "!userId = " + user.getUserId() + " p2 = " + user.getP2());
@@ -107,7 +100,7 @@ public class MyTaskFragment extends Fragment implements Serializable, TasksVisib
         ArrayAdapter<?> adapter = ArrayAdapter.createFromResource(inflater.getContext(), R.array.statuses_my_tasks, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-        mainActivity.getViewModelMyTask().getLiveDataMyTaskSelectedPosition().observe(getViewLifecycleOwner(), new androidx.lifecycle.Observer<Integer>() {
+        mainActivity.getViewModelMyTask().getLiveDataMyTaskSelectedPosition().observe(getViewLifecycleOwner(), new Observer<Integer>() {
             @Override
             public void onChanged(Integer integer) {
                 hideList();
@@ -116,11 +109,23 @@ public class MyTaskFragment extends Fragment implements Serializable, TasksVisib
             }
         });
 
+        if(!mainActivity.getViewModelCurrentTask().getAlreadyLoaded()) {
+            showProgressBar();
+        } else {
+            if(mainActivity.getViewModelCurrentTask().getRequestList().getRequests().size()==0) {
+                showMessage();
+            } else {
+                showList();
+            }
+        }
+
         mainActivity.getViewModelMyTask().getLiveDataMyTaskRequestList().observe(getViewLifecycleOwner(), new Observer<RequestList>() {
             @Override
             public void onChanged(RequestList requestList) {
-                setRequestList(requestList);
-                setRequestListView();
+                if(getRequestList().getRequests().size()==requestList.getRequests().size()&&getRequestList().getRequests().containsAll(requestList.getRequests())) {
+                    setRequestList(requestList);
+                    setRequestListView();
+                }
             }
         });
 
@@ -183,12 +188,11 @@ public class MyTaskFragment extends Fragment implements Serializable, TasksVisib
                     Search search = new Search(String.valueOf(s), getStates());
                     mainActivity.getViewModelMyTask().getLiveDataMyTaskRequestList().postValue(search.getResultListOnView());
                     mainActivity.getViewModelMyTask().setSearchText(String.valueOf(s));
-                    hideMessage();
                 } else {
                     mainActivity.getViewModelMyTask().getLiveDataMyTaskRequestList().postValue(mainActivity.getViewModelMyTask().getRequestList());
                     mainActivity.getViewModelMyTask().setSearchText("");
-                    hideMessage();
                 }
+                hideMessage();
             }
         });
 
@@ -259,5 +263,16 @@ public class MyTaskFragment extends Fragment implements Serializable, TasksVisib
     @Override
     public void hideProgressBar() {
         myTaskProgressBar.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void setRequestList(@NotNull RequestList requestList) {
+        mainActivity.getViewModelMyTask().setRequestList(requestList);
+    }
+
+    @NotNull
+    @Override
+    public RequestList getRequestList() {
+        return mainActivity.getViewModelMyTask().getRequestList();
     }
 }
