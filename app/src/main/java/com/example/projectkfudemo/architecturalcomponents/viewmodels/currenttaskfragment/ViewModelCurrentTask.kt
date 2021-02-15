@@ -20,6 +20,8 @@ class ViewModelCurrentTask: ViewModel(), ViewModelTasksInterface {
     //CII
     override var alreadyLoaded = false
     //CII
+    override var category = 0
+    //CII
     override var requestList: RequestList = RequestList()
     //CII
     override var searchText: String = ""
@@ -44,6 +46,7 @@ class ViewModelCurrentTask: ViewModel(), ViewModelTasksInterface {
     override fun setOnChangedSelectedPosition() {
         super.setOnChangedSelectedPosition()
         liveDataCurrentTaskSelectedPosition.value?.let { setPosition(it) }
+        liveDataCurrentTaskSelectedPosition.value?.let { category = it }
         sendRequestCurrentTask()
     }
 

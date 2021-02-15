@@ -23,6 +23,8 @@ class ViewModelMyTask: ViewModel(), ViewModelTasksInterface {
     //CII
     override var searchText: String = ""
     //CII
+    override var category:Int = -1
+    //CII
     override val dataRequestListFromServer = DataRequestListFromServer(this)
     //основная liveData с list с заявками
     var liveDataMyTaskRequestList = LiveDataMyTaskRequestList
@@ -42,6 +44,7 @@ class ViewModelMyTask: ViewModel(), ViewModelTasksInterface {
     override fun setOnChangedSelectedPosition() {
         super.setOnChangedSelectedPosition()
         liveDataMyTaskSelectedPosition.value?.let { setPosition(it) }
+        liveDataMyTaskSelectedPosition.value?.let { category = it }
         sendRequestCurrentTask()
     }
 

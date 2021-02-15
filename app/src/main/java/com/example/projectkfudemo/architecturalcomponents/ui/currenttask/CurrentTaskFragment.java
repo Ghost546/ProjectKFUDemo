@@ -17,11 +17,14 @@ import android.widget.Spinner;
 
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModel;
 
 import com.example.projectkfudemo.architecturalcomponents.ui.DataRequestList;
 import com.example.projectkfudemo.architecturalcomponents.ui.MainActivity;
 import com.example.projectkfudemo.R;
 import com.example.projectkfudemo.architecturalcomponents.ui.TasksVisibilityInterface;
+import com.example.projectkfudemo.architecturalcomponents.ui.ViewModelGet;
+import com.example.projectkfudemo.architecturalcomponents.viewmodels.currenttaskfragment.ViewModelCurrentTask;
 import com.example.projectkfudemo.requests.Request;
 import com.example.projectkfudemo.architecturalcomponents.models.RequestStateAdapter;
 import com.example.projectkfudemo.architecturalcomponents.models.Search;
@@ -33,7 +36,7 @@ import org.jetbrains.annotations.NotNull;
 import java.io.Serializable;
 import java.util.List;
 
-public class CurrentTaskFragment extends Fragment implements Serializable, TasksVisibilityInterface, DataRequestList {
+public class CurrentTaskFragment extends Fragment implements Serializable, TasksVisibilityInterface, DataRequestList, ViewModelGet {
     final String TAG = this.getClass().getName();
 
     static private Bundle args;
@@ -100,46 +103,49 @@ public class CurrentTaskFragment extends Fragment implements Serializable, Tasks
         ArrayAdapter<?> adapter = ArrayAdapter.createFromResource(inflater.getContext(), R.array.statuses_current_tasks, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-        mainActivity.getViewModelCurrentTask().getLiveDataCurrentTaskSelectedPosition().observe(getViewLifecycleOwner(), new Observer<Integer>() {
+        getViewModel().getLiveDataCurrentTaskSelectedPosition().observe(getViewLifecycleOwner(), new Observer<Integer>() {
             @Override
             public void onChanged(Integer integer) {
-                hideList();
-                showProgressBar();
-                mainActivity.getViewModelCurrentTask().setOnChangedSelectedPosition();
+                if(getViewModel().getCategory()!=integer) {
+                    hideList();
+                    showProgressBar();
+                    getViewModel().setOnChangedSelectedPosition();
+                } else {
+                    hideProgressBar();
+                    showList();
+                }
             }
         });
 
-        if(!mainActivity.getViewModelCurrentTask().getAlreadyLoaded()) {
+        if(!getViewModel().getAlreadyLoaded()) {
             showProgressBar();
         } else {
-            if(mainActivity.getViewModelCurrentTask().getRequestList().getRequests().size()==0) {
+            if(getViewModel().getRequestList().getRequests().size()==0) {
                 showMessage();
             } else {
                 showList();
             }
         }
 
-        mainActivity.getViewModelCurrentTask().getLiveDataCurrentTaskRequestList().observe(getViewLifecycleOwner(), new Observer<RequestList>() {
+        getViewModel().getLiveDataCurrentTaskRequestList().observe(getViewLifecycleOwner(), new Observer<RequestList>() {
             @Override
             public void onChanged(RequestList requestList) {
                 Log.i(TAG, "! сработал метод onChanged на LiveDataCurrentTaskRequestList");
-                if(getRequestList().getRequests().size()==requestList.getRequests().size()&&getRequestList().getRequests().containsAll(requestList.getRequests())) {
-                    setRequestList(requestList);
-                    setRequestListView();
-                }
+                setRequestList(requestList);
+                setRequestListView();
             }
         });
 
-        if(mainActivity.getViewModelCurrentTask().getFirstLoad()) {
-            mainActivity.getViewModelCurrentTask().sendRequestCurrentTask();
-            mainActivity.getViewModelCurrentTask().setFirstLoad(false);
+        if(getViewModel().getFirstLoad()) {
+            getViewModel().sendRequestCurrentTask();
+            getViewModel().setFirstLoad(false);
         }
 
         // Вызываем адаптер
         categorySpinner.setAdapter(adapter);
-        if (mainActivity.getViewModelCurrentTask().getLiveDataCurrentTaskSelectedPosition().getValue()!=null) {
-            if(mainActivity.getViewModelCurrentTask().getLiveDataCurrentTaskSelectedPosition().getValue()!=0) {
-                categorySpinner.setSelection(mainActivity.getViewModelCurrentTask().getLiveDataCurrentTaskSelectedPosition().getValue());
+        if (getViewModel().getLiveDataCurrentTaskSelectedPosition().getValue()!=null) {
+            if(getViewModel().getLiveDataCurrentTaskSelectedPosition().getValue()!=0) {
+                categorySpinner.setSelection(getViewModel().getLiveDataCurrentTaskSelectedPosition().getValue());
             }
         }
         categorySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -148,8 +154,8 @@ public class CurrentTaskFragment extends Fragment implements Serializable, Tasks
                 if(savedInstanceState!=null) {
                     setRequestListView();
                 } else {
-                    if(mainActivity.getViewModelCurrentTask().getAlreadyLoaded()){
-                        mainActivity.getViewModelCurrentTask().setAlreadyLoaded(false);
+                    if(getViewModel().getAlreadyLoaded()){
+                        getViewModel().setAlreadyLoaded(false);
                     } else {
                         if(currentTaskMessageByLinearLayout.getVisibility()==View.VISIBLE){
                             hideMessage();
@@ -160,7 +166,7 @@ public class CurrentTaskFragment extends Fragment implements Serializable, Tasks
                         if(currentTaskProgressBar.getVisibility()==View.GONE) {
                             showProgressBar();
                         }
-                        mainActivity.getViewModelCurrentTask().setOnSelectedPosition(selectedItemPosition);
+                        getViewModel().setOnSelectedPosition(selectedItemPosition);
                     }
                 }
             }
@@ -171,8 +177,8 @@ public class CurrentTaskFragment extends Fragment implements Serializable, Tasks
         });
 
         searchEditText = rootView.findViewById(R.id.search_current_task_edit_text);
-        if(mainActivity.getViewModelCurrentTask().getSearchText().length()!=0) {
-            searchEditText.setText(mainActivity.getViewModelCurrentTask().getSearchText());
+        if(getViewModel().getSearchText().length()!=0) {
+            searchEditText.setText(getViewModel().getSearchText());
         }
         searchEditText.addTextChangedListener(new TextWatcher() {
             public void afterTextChanged(Editable s) {
@@ -188,11 +194,11 @@ public class CurrentTaskFragment extends Fragment implements Serializable, Tasks
                                       int before, int count) {
                 if(String.valueOf(s).length()!=0) {
                     Search search = new Search(String.valueOf(s), getStates());
-                    mainActivity.getViewModelCurrentTask().getLiveDataCurrentTaskRequestList().postValue(search.getResultListOnView());
-                    mainActivity.getViewModelCurrentTask().setSearchText(String.valueOf(s));
+                    getViewModel().getLiveDataCurrentTaskRequestList().postValue(search.getResultListOnView());
+                    getViewModel().setSearchText(String.valueOf(s));
                 } else {
-                    mainActivity.getViewModelCurrentTask().getLiveDataCurrentTaskRequestList().postValue(mainActivity.getViewModelCurrentTask().getRequestList());
-                    mainActivity.getViewModelCurrentTask().setSearchText("");
+                    getViewModel().getLiveDataCurrentTaskRequestList().postValue(getViewModel().getRequestList());
+                    getViewModel().setSearchText("");
                 }
                 hideMessage();
             }
@@ -216,12 +222,12 @@ public class CurrentTaskFragment extends Fragment implements Serializable, Tasks
         };
 
         currentTaskRequestListView.setOnItemClickListener(itemListener);
-        mainActivity.getViewModelCurrentTask().setFirstLoad(false);
+        getViewModel().setFirstLoad(false);
 
 
 
-        if (savedInstanceState == null && !mainActivity.getViewModelCurrentTask().getAlreadyLoaded()) {
-            mainActivity.getViewModelCurrentTask().setAlreadyLoaded(true);
+        if (savedInstanceState == null && !getViewModel().getAlreadyLoaded()) {
+            getViewModel().setAlreadyLoaded(true);
         }
 
         return rootView;
@@ -278,6 +284,12 @@ public class CurrentTaskFragment extends Fragment implements Serializable, Tasks
     @Override
     public RequestList getRequestList() {
         return mainActivity.getViewModelCurrentTask().getRequestList();
+    }
+
+
+    @Override
+    public ViewModelCurrentTask getViewModel() {
+        return mainActivity.getViewModelCurrentTask();
     }
 }
 

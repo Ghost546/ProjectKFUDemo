@@ -9,8 +9,7 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="25dp">
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:orientation="vertical"
@@ -364,9 +363,6 @@
                     android:textColor="#000000"
                     android:text=""/>
             </LinearLayout>
-
-
-
         </LinearLayout>
     </ScrollView>
 

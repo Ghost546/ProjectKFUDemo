@@ -103,9 +103,14 @@ public class MyTaskFragment extends Fragment implements Serializable, TasksVisib
         mainActivity.getViewModelMyTask().getLiveDataMyTaskSelectedPosition().observe(getViewLifecycleOwner(), new Observer<Integer>() {
             @Override
             public void onChanged(Integer integer) {
-                hideList();
-                showProgressBar();
-                mainActivity.getViewModelMyTask().setOnChangedSelectedPosition();
+                if(mainActivity.getViewModelMyTask().getCategory()!=integer) {
+                    hideList();
+                    showProgressBar();
+                    mainActivity.getViewModelMyTask().setOnChangedSelectedPosition();
+                } else {
+                    hideProgressBar();
+                    showList();
+                }
             }
         });
 

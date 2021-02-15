@@ -10,7 +10,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/searching"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
 
     <Spinner
@@ -18,17 +17,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:entries="@array/statuses_my_tasks"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/search_my_task_edit_text"/>
 
     <ListView
         android:id="@+id/my_tasks_list"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:visibility="gone"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/status"
-        app:layout_constraintStart_toStartOf="parent"/>
+        android:layout_height="0dp"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/status"/>
 
     <ProgressBar
         android:id="@+id/my_tasks_progress_bar"
@@ -51,7 +48,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/status"
         app:layout_constraintStart_toStartOf="parent"
-        android:visibility="visible"
+        android:visibility="gone"
         android:orientation="vertical">
 
         <TextView

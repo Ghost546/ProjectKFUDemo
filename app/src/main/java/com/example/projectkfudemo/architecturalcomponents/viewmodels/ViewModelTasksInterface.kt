@@ -13,6 +13,8 @@ interface ViewModelTasksInterface: ViewModelInterface {
     var firstLoad: Boolean
     //постоянная переменная для проверки загружался ли экран до этого
     var alreadyLoaded:Boolean
+    //значение хранит текущую котегорию заявок
+    var category: Int
     //переменная хранящая текущий лист, нужен для того чтобы была незовисимая возможность вернуть отображаемый список после использвания локального поиска
     var requestList:RequestList
     //Значение хранящий текущий текст поисковика
@@ -49,6 +51,6 @@ interface ViewModelTasksInterface: ViewModelInterface {
     }
 
     fun setOnChangedSelectedPosition() {
-        Log.i(TAG, "!Вызов при изменении позиции в LiveData")
+        Log.i(TAG, "!Вызов при изменении позиции в LiveDataSelectedPosition")
     }
 }
