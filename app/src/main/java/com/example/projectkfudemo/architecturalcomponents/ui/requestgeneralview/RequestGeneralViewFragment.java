@@ -1,6 +1,7 @@
 package com.example.projectkfudemo.architecturalcomponents.ui.requestgeneralview;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
@@ -18,9 +20,11 @@ import com.example.projectkfudemo.architecturalcomponents.ui.MainActivity;
 import com.example.projectkfudemo.requests.MyRequest;
 import com.example.projectkfudemo.R;
 import com.example.projectkfudemo.requests.Request;
+import com.example.projectkfudemo.requests.RequestGeneral;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class RequestGeneralViewFragment extends Fragment implements View.OnClickListener {
+    final String TAG = this.getClass().getName();
     private LinearLayout requestCodeBlock;
     private TextView requestCode;
     private LinearLayout requestRegistrationDateBlock;
@@ -69,10 +73,6 @@ public class RequestGeneralViewFragment extends Fragment implements View.OnClick
     public static RequestGeneralViewFragment newInstance(Request request) {
         RequestGeneralViewFragment fragment = new RequestGeneralViewFragment();
         fragment.setCount(0);
-//        Bundle args = new Bundle();
-//        Gson gson = new Gson();
-//        args.putString("req",gson.toJson(request));
-//        getArguments().putString("list",gson.toJson(states));
         fragment.request = request;
 
         return fragment;
@@ -82,6 +82,7 @@ public class RequestGeneralViewFragment extends Fragment implements View.OnClick
         generalSetting(request);
         if(request.getThatIsCurrentRequest()) {
             CurrentRequest request1 = new CurrentRequest(request);
+
             visibleSetting(request1);
         }
         if(request.getThatIsMyRequest()) {
@@ -159,8 +160,8 @@ public class RequestGeneralViewFragment extends Fragment implements View.OnClick
     }
 
     public void visibleSetting(CurrentRequest request) {                                           //настраивает фрагмент для отображения в виде текущей заявки
-        setFabByStatus(request.getStatus().getId());
-
+//        Log.i(TAG,"!метод getThatIsCurrentRequest() возвращает: " + request.getRequest().getThatIsCurrentRequest());
+//        setFabByStatus(request, request.getStatus().getId());
     }
     public void visibleSetting() {
         fabGeneral.setVisibility(View.GONE);
@@ -169,28 +170,30 @@ public class RequestGeneralViewFragment extends Fragment implements View.OnClick
     }
 
     private void visibleSetting(MyRequest request) {                                                //настраивает фрагмент для отображения в виде текущей заявки
-        fab2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //здесь будет переход на экран "добавить комментарий"
-            }
-        });
+//        setFabByStatus(request, request.getStatus().getId());
     }
 
-
-
-    public void setFabByStatus(int status) {
-        if(status == 1) {
-            fab2.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    //здесь будет запрос "назначить заявку на себя
-                }
-            });
-        } else {
-            fab2.setVisibility(View.GONE);
-        }
-    }
+//    public void setFabByStatus(RequestGeneral requestGeneral, int status) {
+//        if(requestGeneral.getRequest().getThatIsCurrentRequest() && status == 1) {
+//            fab2.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    //здесь будет запрос "назначить заявку на себя"
+//                }
+//            });
+//        } else {
+//            if(requestGeneral.getRequest().getThatIsMyRequest() && status == 3) {
+//                fab2.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        //здесь будет переход на экран "добавить комментарий"
+//                    }
+//                });
+//            } else{
+//                fab2.setVisibility(View.GONE);
+//            }
+//        }
+//    }
 
     @Override
     public void onStart() {

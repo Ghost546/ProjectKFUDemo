@@ -127,10 +127,13 @@ public class MyTaskFragment extends Fragment implements Serializable, TasksVisib
         mainActivity.getViewModelMyTask().getLiveDataMyTaskRequestList().observe(getViewLifecycleOwner(), new Observer<RequestList>() {
             @Override
             public void onChanged(RequestList requestList) {
-                if(getRequestList().getRequests().size()==requestList.getRequests().size()&&getRequestList().getRequests().containsAll(requestList.getRequests())) {
-                    setRequestList(requestList);
-                    setRequestListView();
+                if(getRequestList()!=null && getRequestList().getRequests()!=null) {
+                    if(getRequestList().getRequests().size()==requestList.getRequests().size()&&getRequestList().getRequests().containsAll(requestList.getRequests())) {
+                        setRequestList(requestList);
+                        setRequestListView();
+                    }
                 }
+
             }
         });
 

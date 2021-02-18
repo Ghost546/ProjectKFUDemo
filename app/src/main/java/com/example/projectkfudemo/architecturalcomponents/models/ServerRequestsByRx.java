@@ -261,7 +261,11 @@ public class ServerRequestsByRx { //из этого класса отправл�
                         requestListFromServer = requestList;
                         if(requestListFromServer != null) {
                             Log.i(TAG, "!Массив requestList пришел!");
-                            Log.i(TAG, "!Размер states: " + requestListFromServer.getRequests().size());
+                            if(requestListFromServer.getRequests()!=null) {
+                                Log.i(TAG, "!Размер states: " + requestListFromServer.getRequests().size());
+                            } else{
+                                Log.i(TAG, "!requestListFromServer.getRequests пустой");
+                            }
                         } else {
                             Log.i(TAG, "!Массив requestList пришел пустой!");
                         }

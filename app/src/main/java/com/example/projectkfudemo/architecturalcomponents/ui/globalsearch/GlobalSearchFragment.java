@@ -206,6 +206,25 @@ public class GlobalSearchFragment extends Fragment implements View.OnClickListen
     }
 
     private void onSearchButtonClick(User user) {
+        if(stringRequestRegistrationDateIdStart != null) {
+            if(stringRequestRegistrationDateIdStart.length()>0) {
+                if(stringRequestRegistrationDateIdStart.length()!=10) {
+                    editRequestRegistrationDateIdStart.setError("Неверный формат даты");
+                    hideSearchButtonProgressBar();
+                    return;
+                }
+            }
+        }
+
+        if(stringRequestRegistrationDateIdFinish != null) {
+            if(stringRequestRegistrationDateIdFinish.length()>0) {
+                if(stringRequestRegistrationDateIdFinish.length()!=10) {
+                    editRequestRegistrationDateIdStart.setError("Неверный формат даты");
+                    hideSearchButtonProgressBar();
+                    return;
+                }
+            }
+        }
 
         mainActivity.getViewModelGlobalSearch().setUser(user);
         mainActivity.getViewModelGlobalSearch().setObjectForRequests();

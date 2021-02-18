@@ -11,8 +11,13 @@ import org.joda.time.LocalDate;
 
 import java.util.List;
 
-public class MyRequest {
+public class MyRequest implements RequestGeneral {
     Request request;
+
+    @Override
+    public Request getRequest(){
+        return request;
+    }
 
     public MyRequest(Request request) {
         this.request = request;
@@ -102,14 +107,6 @@ public class MyRequest {
         request.setContactFullName(contactFullName);
     }
 
-//    public String getTextOfRequest() {
-//        return request.getTextOfRequest();
-//    }
-//
-//    public void setTextOfRequest(String textOfRequest) {
-//        request.setTextOfRequest(textOfRequest);
-//    }
-
     public List<Log> getActionsOverRequest() {
         return request.getActionsOverRequest();
     }
@@ -121,8 +118,6 @@ public class MyRequest {
     public String getStatusOfRequest() {
         return request.getStatusOfRequest();
     }
-
-
 
     public String getResponsibleForTheExecutionOfTheRequest() {
         return request.getResponsibleForTheExecutionOfTheRequest();

@@ -1,5 +1,7 @@
 package com.example.projectkfudemo.parametrclasses;
 
+import android.util.Log;
+
 public class GlobalSearchParams {
     String declarerFIO;
 

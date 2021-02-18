@@ -7,13 +7,19 @@ import com.example.projectkfudemo.parametrclasses.forjson.Offices;
 import com.example.projectkfudemo.parametrclasses.forjson.Status;
 import com.example.projectkfudemo.parametrclasses.forjson.Works;
 
+import org.jetbrains.annotations.NotNull;
 import org.joda.time.LocalDate;
 
 import java.util.List;
 
-//TODO: объеденить классы CurrentRequest, MyRequest и Request в отдельную папку
-public class CurrentRequest {
+public class CurrentRequest implements RequestGeneral {
     Request request;
+
+    @NotNull
+    @Override
+    public Request getRequest() {
+        return null;
+    }
 
     public CurrentRequest(Request request) {
         this.request = request;
@@ -102,14 +108,6 @@ public class CurrentRequest {
     public void setContactFullName(String contactFullName) {
         request.setContactFullName(contactFullName);
     }
-
-//    public String getTextOfRequest() {
-//        return request.getTextOfRequest();
-//    }
-//
-//    public void setTextOfRequest(String textOfRequest) {
-//        request.setTextOfRequest(textOfRequest);
-//    }
 
     public List<Log> getActionsOverRequest() {
         return request.getActionsOverRequest();
