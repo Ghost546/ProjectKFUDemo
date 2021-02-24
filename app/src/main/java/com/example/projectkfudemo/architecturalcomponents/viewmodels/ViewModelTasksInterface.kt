@@ -13,7 +13,7 @@ interface ViewModelTasksInterface: ViewModelInterface {
     var firstLoad: Boolean
     //постоянная переменная для проверки загружался ли экран до этого
     var alreadyLoaded:Boolean
-    //значение хранит текущую котегорию заявок
+    //значение хранит текущую категорию заявок
     var category: Int
     //переменная хранящая текущий лист, нужен для того чтобы была незовисимая возможность вернуть отображаемый список после использвания локального поиска
     var requestList:RequestList

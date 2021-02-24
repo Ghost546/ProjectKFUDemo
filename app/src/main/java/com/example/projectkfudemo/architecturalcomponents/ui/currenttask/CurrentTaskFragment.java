@@ -29,6 +29,7 @@ import com.example.projectkfudemo.requests.Request;
 import com.example.projectkfudemo.architecturalcomponents.models.RequestStateAdapter;
 import com.example.projectkfudemo.architecturalcomponents.models.Search;
 import com.example.projectkfudemo.parametrclasses.User;
+import com.example.projectkfudemo.requests.RequestGeneral;
 import com.example.projectkfudemo.requests.RequestList;
 
 import org.jetbrains.annotations.NotNull;
@@ -40,7 +41,7 @@ public class CurrentTaskFragment extends Fragment implements Serializable, Tasks
     final String TAG = this.getClass().getName();
 
     static private Bundle args;
-    MainActivity mainActivity;
+    private MainActivity mainActivity;
 
     private final String REQUEST_LIST_SAVING_KEY = "requestListSavingKey";
 

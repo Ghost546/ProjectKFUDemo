@@ -25,6 +25,9 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class RequestGeneralViewFragment extends Fragment implements View.OnClickListener {
     final String TAG = this.getClass().getName();
+
+    private MainActivity mainActivity;
+
     private LinearLayout requestCodeBlock;
     private TextView requestCode;
     private LinearLayout requestRegistrationDateBlock;
@@ -47,6 +50,8 @@ public class RequestGeneralViewFragment extends Fragment implements View.OnClick
     private TextView responsibleForTheExecutionOfTheRequest;
     private LinearLayout actionsOverRequestBlock;
     private TextView actionsOverRequest;
+
+    RequestGeneral requestGeneral;
 
     private Button changeLogsButton;
 
@@ -81,17 +86,18 @@ public class RequestGeneralViewFragment extends Fragment implements View.OnClick
     private void sendRequestSetting(Request request) {
         generalSetting(request);
         if(request.getThatIsCurrentRequest()) {
-            CurrentRequest request1 = new CurrentRequest(request);
-
-            visibleSetting(request1);
+            Log.i(TAG, "!Заявка из списка Текущие заявки");
+            requestGeneral = new CurrentRequest(request);
+            visibleSetting((CurrentRequest) requestGeneral);
         }
         if(request.getThatIsMyRequest()) {
-            MyRequest request1 = new MyRequest(request);
-            visibleSetting(request1);
+            Log.i(TAG, "!Заявка из списка Мои заявки");
+            requestGeneral = new MyRequest(request);
+            visibleSetting((MyRequest) requestGeneral);
         }
         if(!request.getThatIsMyRequest() & !request.getThatIsCurrentRequest()) {
-            MyRequest request1 = new MyRequest(request);
-            visibleSetting(request1);
+            Log.i(TAG, "!Вероятно заявка с глобального поиска");
+            visibleSetting(request);
         }
     }
 
@@ -160,40 +166,47 @@ public class RequestGeneralViewFragment extends Fragment implements View.OnClick
     }
 
     public void visibleSetting(CurrentRequest request) {                                           //настраивает фрагмент для отображения в виде текущей заявки
-//        Log.i(TAG,"!метод getThatIsCurrentRequest() возвращает: " + request.getRequest().getThatIsCurrentRequest());
-//        setFabByStatus(request, request.getStatus().getId());
+        Log.i(TAG,"!метод getThatIsCurrentRequest() возвращает: " + request.getRequest().getThatIsCurrentRequest());
+        setFabByStatus(request, request.getStatus().getId());
     }
+
+    private void visibleSetting(MyRequest request) {                                                //настраивает фрагмент для отображения в виде текущей заявки
+        setFabByStatus(request, request.getStatus().getId());
+    }
+
+    private void visibleSetting(Request request) {
+
+    }
+
     public void visibleSetting() {
         fabGeneral.setVisibility(View.GONE);
         fab1.setVisibility(View.GONE);
         fab2.setVisibility(View.GONE);
     }
 
-    private void visibleSetting(MyRequest request) {                                                //настраивает фрагмент для отображения в виде текущей заявки
-//        setFabByStatus(request, request.getStatus().getId());
-    }
 
-//    public void setFabByStatus(RequestGeneral requestGeneral, int status) {
-//        if(requestGeneral.getRequest().getThatIsCurrentRequest() && status == 1) {
-//            fab2.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    //здесь будет запрос "назначить заявку на себя"
-//                }
-//            });
-//        } else {
-//            if(requestGeneral.getRequest().getThatIsMyRequest() && status == 3) {
-//                fab2.setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View v) {
-//                        //здесь будет переход на экран "добавить комментарий"
-//                    }
-//                });
-//            } else{
-//                fab2.setVisibility(View.GONE);
-//            }
-//        }
-//    }
+
+    public void setFabByStatus(RequestGeneral requestGeneral, int status) {
+        if(requestGeneral.getRequest().getThatIsCurrentRequest() && status == 1) {
+            fab2.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //здесь будет запрос "назначить заявку на себя"
+                }
+            });
+        } else {
+            if(requestGeneral.getRequest().getThatIsMyRequest() && status == 3) {
+                fab2.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        mainActivity.startFragmentAddCommentToRequest(request);
+                    }
+                });
+            } else{
+                fab2.setVisibility(View.GONE);
+            }
+        }
+    }
 
     @Override
     public void onStart() {
@@ -272,6 +285,9 @@ public class RequestGeneralViewFragment extends Fragment implements View.OnClick
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_general_view_request, container, false);
+
+        mainActivity = (MainActivity) getActivity();
+
         setIds(root);
 
         sendRequestSetting(request);

@@ -18,7 +18,7 @@ public class CurrentRequest implements RequestGeneral {
     @NotNull
     @Override
     public Request getRequest() {
-        return null;
+        return request;
     }
 
     public CurrentRequest(Request request) {

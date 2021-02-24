@@ -6,6 +6,8 @@ import android.util.Log;
 import android.view.MenuItem;
 
 import com.example.projectkfudemo.R;
+import com.example.projectkfudemo.architecturalcomponents.ui.addcommenttorequest.AddCommentToRequestFragment;
+import com.example.projectkfudemo.architecturalcomponents.viewmodels.addcommenttorequestfragment.ViewModelAddCommentToRequest;
 import com.example.projectkfudemo.architecturalcomponents.viewmodels.globalsearchfragment.ViewModelGlobalSearch;
 import com.example.projectkfudemo.architecturalcomponents.viewmodels.globalsearchfragment.ViewModelGlobalSearchResult;
 import com.example.projectkfudemo.architecturalcomponents.viewmodels.mytaskfragment.ViewModelMyTask;
@@ -46,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
     ViewModelMyTask viewModelMyTask;
     ViewModelGlobalSearch viewModelGlobalSearch;
     ViewModelGlobalSearchResult viewModelGlobalSearchResult;
+    ViewModelAddCommentToRequest viewModelAddCommentToRequest;
 
     Fragment selectedFragment;
     public FragmentTransaction fragmentTransaction;
@@ -248,6 +251,22 @@ public class MainActivity extends AppCompatActivity {
             Log.i(TAG, "!Хэш-код viewModelGlobalSearchResult: " + viewModelGlobalSearchResult.hashCode());
         }
         Fragment selectedFragment = GlobalSearchResultFragment.newInstance(requestList);
+        fragmentTransaction.replace(R.id.fragment_container, selectedFragment);
+        fragmentTransaction.commit();
+    }
+
+    @NotNull
+    public void startFragmentAddCommentToRequest(Request request) {
+        Log.i(TAG, "!Выполнение startFragmentAddCommentToRequest");
+        FragmentTransaction fragmentTransaction;
+        fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.addToBackStack(null);
+        if(viewModelAddCommentToRequest==null) {
+            Log.i(TAG, "!viewModelAddCommentToRequest == null");
+        } else {
+            Log.i(TAG, "!Хэш-код viewModelAddCommentToRequest" + viewModelAddCommentToRequest.hashCode());
+        }
+        Fragment selectedFragment = AddCommentToRequestFragment.Companion.newInstance(request);
         fragmentTransaction.replace(R.id.fragment_container, selectedFragment);
         fragmentTransaction.commit();
     }
