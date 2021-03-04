@@ -9,6 +9,9 @@ import com.example.projectkfudemo.databinding.FragmentAddCommentToRequestBinding
 import com.example.projectkfudemo.requests.Request
 
 class AddCommentToRequestFragment: Fragment() {
+
+
+
     companion object {
         fun newInstance(request: Request): AddCommentToRequestFragment {
             val fragment = AddCommentToRequestFragment()
@@ -26,6 +29,7 @@ class AddCommentToRequestFragment: Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         _binding = FragmentAddCommentToRequestBinding.inflate(inflater, container, false)
         val view = binding.root
+
         return view
     }
 
