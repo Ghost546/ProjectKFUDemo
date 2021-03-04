@@ -15,7 +15,7 @@ class AssignOnOneselfRequestToServer: ModelsByRequestToServer {
     }
 
     override fun sendRequest() {
-        TODO("Not yet implemented")
+
     }
 
     override fun setData() {

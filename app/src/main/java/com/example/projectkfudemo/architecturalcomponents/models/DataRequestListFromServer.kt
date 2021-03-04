@@ -36,6 +36,10 @@ class DataRequestListFromServer(_viewModelInterface: ViewModelInterface): Models
         serverRequestsByRx?.setRequestListByMyTask()
     }
 
+    override fun sendRequest() {
+        TODO("Not implemented")
+    }
+
     override fun setData() {
         requestList = serverRequestsByRx!!.requestListStates
         Log.i(TAG, "!Установка requestList, её размер: " + requestList.requests.size)

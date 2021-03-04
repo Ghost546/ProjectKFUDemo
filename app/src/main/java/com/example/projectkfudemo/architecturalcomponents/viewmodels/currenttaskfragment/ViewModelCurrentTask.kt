@@ -4,8 +4,6 @@ import androidx.lifecycle.ViewModel
 import com.example.projectkfudemo.architecturalcomponents.livadatas.LiveDataCurrentTaskRequestList
 import com.example.projectkfudemo.architecturalcomponents.livadatas.LiveDataCurrentTaskSelectedPosition
 import com.example.projectkfudemo.architecturalcomponents.models.DataRequestListFromServer
-import com.example.projectkfudemo.architecturalcomponents.models.ModelsByRequestToServer
-import com.example.projectkfudemo.architecturalcomponents.ui.ListVisibilityInterface
 import com.example.projectkfudemo.architecturalcomponents.viewmodels.ViewModelTasksInterface
 import com.example.projectkfudemo.parametrclasses.User
 import com.example.projectkfudemo.requests.RequestList
