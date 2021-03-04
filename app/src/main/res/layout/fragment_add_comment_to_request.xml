@@ -6,11 +6,29 @@
     android:layout_height="match_parent">
 
     <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/input_text_start"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:hint="C"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/input_text_finish"
         app:layout_constraintTop_toTopOf="parent">
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/input_text_finish"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:hint="До"
+        app:layout_constraintStart_toEndOf="@id/input_text_start"
+        app:layout_constraintTop_toTopOf="parent">
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
