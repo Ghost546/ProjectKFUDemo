@@ -13,8 +13,13 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.example.projectkfudemo.architecturalcomponents.ui.ViewModelGet;
+import com.example.projectkfudemo.architecturalcomponents.viewmodels.ViewModelInterface;
+import com.example.projectkfudemo.architecturalcomponents.viewmodels.requestgeneralviewfragment.ViewModelRequestGeneralView;
+import com.example.projectkfudemo.parametrclasses.User;
 import com.example.projectkfudemo.requests.CurrentRequest;
 import com.example.projectkfudemo.architecturalcomponents.ui.MainActivity;
 import com.example.projectkfudemo.requests.MyRequest;
@@ -27,6 +32,10 @@ public class RequestGeneralViewFragment extends Fragment implements View.OnClick
     final String TAG = this.getClass().getName();
 
     private MainActivity mainActivity;
+
+    static Bundle args;
+
+    private User user;
 
     private LinearLayout requestCodeBlock;
     private TextView requestCode;
@@ -75,11 +84,11 @@ public class RequestGeneralViewFragment extends Fragment implements View.OnClick
 
     private Request request;
 
-    public static RequestGeneralViewFragment newInstance(Request request) {
+    public static RequestGeneralViewFragment newInstance(Request request, Bundle arg) {
         RequestGeneralViewFragment fragment = new RequestGeneralViewFragment();
         fragment.setCount(0);
         fragment.request = request;
-
+        args = arg;
         return fragment;
     }
 
@@ -191,7 +200,9 @@ public class RequestGeneralViewFragment extends Fragment implements View.OnClick
             fab2.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    //здесь будет запрос "назначить заявку на себя"
+                    //здесь запрос "назначить заявку на себя"
+                    assignToOneself();
+
                 }
             });
         } else {
@@ -206,6 +217,12 @@ public class RequestGeneralViewFragment extends Fragment implements View.OnClick
                 fab2.setVisibility(View.GONE);
             }
         }
+    }
+
+    private void assignToOneself() {
+        getViewModel().setUser(user);
+        getViewModel().setRequest(request);
+        getViewModel().sendAssign();
     }
 
     @Override
@@ -283,12 +300,20 @@ public class RequestGeneralViewFragment extends Fragment implements View.OnClick
     }
 
     @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        user = (User) args.getSerializable("user");
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_general_view_request, container, false);
 
         mainActivity = (MainActivity) getActivity();
 
         setIds(root);
+
+
 
         sendRequestSetting(request);
         setByRequestType(fabGeneral);
@@ -347,6 +372,10 @@ public class RequestGeneralViewFragment extends Fragment implements View.OnClick
     private void changeLogsButtonClick() {
         MainActivity mainActivity = (MainActivity) getActivity();
         mainActivity.startFragmentChangeLogsView(request);
+    }
+
+    public ViewModelRequestGeneralView getViewModel() {
+        return mainActivity.getViewModelRequestGeneralView();
     }
 
     public void onClick(View v) {

@@ -12,6 +12,7 @@ import com.example.projectkfudemo.architecturalcomponents.viewmodels.globalsearc
 import com.example.projectkfudemo.architecturalcomponents.viewmodels.globalsearchfragment.ViewModelGlobalSearchResult;
 import com.example.projectkfudemo.architecturalcomponents.viewmodels.mytaskfragment.ViewModelMyTask;
 import com.example.projectkfudemo.architecturalcomponents.viewmodels.currenttaskfragment.ViewModelCurrentTask;
+import com.example.projectkfudemo.architecturalcomponents.viewmodels.requestgeneralviewfragment.ViewModelRequestGeneralView;
 import com.example.projectkfudemo.parametrclasses.User;
 import com.example.projectkfudemo.architecturalcomponents.ui.changelogs.ChangeLogsFragment;
 import com.example.projectkfudemo.architecturalcomponents.ui.currenttask.CurrentTaskFragment;
@@ -49,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
     ViewModelGlobalSearch viewModelGlobalSearch;
     ViewModelGlobalSearchResult viewModelGlobalSearchResult;
     ViewModelAddCommentToRequest viewModelAddCommentToRequest;
+    ViewModelRequestGeneralView viewModelRequestGeneralView;
 
     Fragment selectedFragment;
     public FragmentTransaction fragmentTransaction;
@@ -172,7 +174,12 @@ public class MainActivity extends AppCompatActivity {
             }
 
         }
-
+        if(viewModelRequestGeneralView==null) {
+            viewModelRequestGeneralView = new ViewModelProvider(this).get(ViewModelRequestGeneralView.class);
+            if(viewModelRequestGeneralView!=null) {
+                Log.i(TAG, "!viewModelRequestGeneralView!=null");
+            }
+        }
 
 
         Log.i(TAG, "!из " + TAG + " отправил userMain!");
@@ -210,7 +217,7 @@ public class MainActivity extends AppCompatActivity {
         FragmentTransaction fragmentTransaction;
         fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.addToBackStack(null);
-        Fragment selectedFragment = RequestGeneralViewFragment.newInstance(request);
+        Fragment selectedFragment = RequestGeneralViewFragment.newInstance(request, args);
         fragmentTransaction.replace(R.id.fragment_container, selectedFragment);
         fragmentTransaction.commit();
     }
@@ -326,6 +333,13 @@ public class MainActivity extends AppCompatActivity {
         return viewModelGlobalSearchResult;
     }
 
+    public ViewModelAddCommentToRequest getViewModelAddCommentToRequest() {
+        return viewModelAddCommentToRequest;
+    }
+
+    public ViewModelRequestGeneralView getViewModelRequestGeneralView() {
+        return viewModelRequestGeneralView;
+    }
 }
 
 

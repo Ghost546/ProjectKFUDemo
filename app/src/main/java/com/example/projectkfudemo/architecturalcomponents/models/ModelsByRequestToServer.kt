@@ -25,7 +25,7 @@ interface ModelsByRequestToServer {
 
     fun sendRequestMyTask()
 
-
+    fun sendRequest()
 
     fun setData()
 }
