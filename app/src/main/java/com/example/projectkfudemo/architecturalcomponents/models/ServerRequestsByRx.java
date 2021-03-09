@@ -6,11 +6,14 @@ import com.example.projectkfudemo.parametrclasses.GlobalSearchParams;
 import com.example.projectkfudemo.parametrclasses.User;
 import com.example.projectkfudemo.parametrclasses.forjson.SearchDeclarerList;
 import com.example.projectkfudemo.parametrclasses.forjson.SearchWorkersList;
+import com.example.projectkfudemo.parametrclasses.forjson.WorkCategory;
+import com.example.projectkfudemo.parametrclasses.forjson.WorkCategoryList;
 import com.example.projectkfudemo.requests.RequestList;
 import com.google.firebase.crashlytics.FirebaseCrashlytics;
 
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
@@ -58,6 +61,7 @@ public class ServerRequestsByRx { //из этого класса отправл�
     //массив для фио исполнителя
     SearchWorkersList searchWorkers;    //наблюдать
 
+    private WorkCategoryList workCategoryList;
 
     //Параметры для GlobalSearch
     GlobalSearchParams globalSearchParams = new GlobalSearchParams();
@@ -92,6 +96,15 @@ public class ServerRequestsByRx { //из этого класса отправл�
 
     public void setPosition(int position) {
         this.position = position;
+    }
+
+    public WorkCategoryList getWorkCategoryList() {
+        return workCategoryList;
+    }
+
+    public void setWorkCategoryList(WorkCategoryList workCategoryList) {
+        this.workCategoryList = workCategoryList;
+        modelsByRequestToServer.setData();
     }
 
     // непосредственно отправляет запрос для получения данных для выпадающих списков
@@ -275,6 +288,34 @@ public class ServerRequestsByRx { //из этого класса отправл�
                     @Override
                     public void onError(Throwable e) {
                         e.printStackTrace();
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+    }
+
+    public void setWorkCategoryListByRetrofit() {
+        NetworkServiceRequests.getInstance().getJSONWorkCategoryList().getSearchWorkCategory(user.getUserId())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<WorkCategoryList>() {
+                    @Override
+                    public void onSubscribe(@NonNull Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(@NonNull WorkCategoryList workCategoryList) {
+                        Log.i(TAG, "!Массив Категория Работ пришла");
+                        setWorkCategoryList(workCategoryList);
+                    }
+
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+
                     }
 
                     @Override

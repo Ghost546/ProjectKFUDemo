@@ -7,9 +7,7 @@ import com.example.projectkfudemo.parametrclasses.User
 import com.example.projectkfudemo.requests.Request
 
 class ViewModelRequestGeneralView:ViewModel(), ViewModelInterface {
-    var request: Request? = null
     var user: User? = null
-
 
     fun sendAssign() {
 

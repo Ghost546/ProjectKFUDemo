@@ -4,6 +4,7 @@ import com.example.projectkfudemo.JSONApi.JSONApiDeclarerList;
 import com.example.projectkfudemo.JSONApi.JSONApiGlobalSearch;
 import com.example.projectkfudemo.JSONApi.JSONApiRequest;
 import com.example.projectkfudemo.JSONApi.JSONApiUserRequest;
+import com.example.projectkfudemo.JSONApi.JSONApiWorkCategoryList;
 import com.example.projectkfudemo.JSONApi.JSONApiWorkersList;
 import com.example.projectkfudemo.JSONApi.JSONLoginApi;
 
@@ -54,5 +55,9 @@ public class NetworkServiceRequests {
 
     public JSONApiDeclarerList getJSONDeclarerListApi() {
         return mRetrofit.create(JSONApiDeclarerList.class);
+    }
+
+    public JSONApiWorkCategoryList getJSONWorkCategoryList() {
+        return mRetrofit.create(JSONApiWorkCategoryList.class);
     }
 }
