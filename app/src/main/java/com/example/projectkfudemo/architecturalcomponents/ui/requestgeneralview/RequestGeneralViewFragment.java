@@ -221,7 +221,6 @@ public class RequestGeneralViewFragment extends Fragment implements View.OnClick
 
     private void assignToOneself() {
         getViewModel().setUser(user);
-        getViewModel().setRequest(request);
         getViewModel().sendAssign();
     }
 
