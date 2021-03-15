@@ -16,7 +16,7 @@ class ViewModelRequestGeneralView:ViewModel(), ViewModelInterface {
     override val TAG: String
         get() = this.javaClass.simpleName
 
-    override fun setListsData() {
+    override fun changedListsData() {
         //неправильная логика интерфейсов, бесполезный метод ИМХО
     }
 

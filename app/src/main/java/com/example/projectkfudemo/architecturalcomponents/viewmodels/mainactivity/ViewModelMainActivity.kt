@@ -44,7 +44,7 @@ class ViewModelMainActivity: ViewModel(), ViewModelInterface {
         globalSearchInterfaceInMain = _globalSearchInterface
     }
 
-    override fun setListsData() {
+    override fun changedListsData() {
         Log.i(TAG, "!Массивы пришли!")
         liveDataSearchDeclarers.postValue(spinnerDataFromServer.searchDeclarers)
         var mutableList = mutableListOf<String>()

@@ -58,7 +58,7 @@ class ViewModelGlobalSearch: ViewModel(), ViewModelInterface {
     }
 
     //для вызова через интерфейс из SearchedDataOnRequestsFromTheServer
-    override fun setListsData() {
+    override fun changedListsData() {
         Log.i(TAG, "!выполнение setListsData")
         liveDataSearchResultFromServer.postValue(searchedDataOnRequestsFromTheServer.requestListFromServer)
 //        showNextFragment()

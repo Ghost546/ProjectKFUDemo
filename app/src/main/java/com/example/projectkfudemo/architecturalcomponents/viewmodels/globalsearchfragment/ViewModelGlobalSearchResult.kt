@@ -11,7 +11,7 @@ class ViewModelGlobalSearchResult: ViewModel(), ViewModelInterface {
 
     val liveDataSearchResultListFromServer = LiveDataSearchResultListFromServer
 
-    override fun setListsData() {
+    override fun changedListsData() {
         Log.i(TAG, "!выполнение setListsData")
     }
 

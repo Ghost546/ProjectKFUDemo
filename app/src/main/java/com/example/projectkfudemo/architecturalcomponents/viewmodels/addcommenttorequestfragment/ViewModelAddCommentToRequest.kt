@@ -12,7 +12,7 @@ class ViewModelAddCommentToRequest:ViewModel(), ViewModelInterface {
 
     var getDataWorkCategory = GetDataWorkCategory(this)
 
-    override fun setListsData() {
+    override fun changedListsData() {
         TODO("Not yet implemented")
     }
 }

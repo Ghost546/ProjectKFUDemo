@@ -47,7 +47,7 @@ class SpinnerDataFromServer(_viewModelInterface: ViewModelInterface): ModelsByRe
                 Log.i(TAG, "!searchWorkers пришёл(SpinnerDataFromServer)!")
                 searchWorkers = serverRequestsByRx?.searchWorkers!!
             }
-            viewModelMainActivityInterface.setListsData()
+            viewModelMainActivityInterface.changedListsData()
         }
     }
 
@@ -71,7 +71,7 @@ class SpinnerDataFromServer(_viewModelInterface: ViewModelInterface): ModelsByRe
                     Log.i(TAG, "!searchWorkers пришёл(SpinnerDataFromServer)!")
                     searchWorkers = serverRequestsByRx?.searchWorkers!!
                 }
-                viewModelMainActivityInterface.setListsData()
+                viewModelMainActivityInterface.changedListsData()
             }
 
         }
