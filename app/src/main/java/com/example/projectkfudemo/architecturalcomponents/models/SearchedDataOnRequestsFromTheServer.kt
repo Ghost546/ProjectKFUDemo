@@ -3,6 +3,7 @@ package com.example.projectkfudemo.architecturalcomponents.models
 import android.util.Log
 import com.example.projectkfudemo.architecturalcomponents.viewmodels.ViewModelInterface
 import com.example.projectkfudemo.parametrclasses.User
+import com.example.projectkfudemo.parametrclasses.forjson.TechGroup
 import com.example.projectkfudemo.requests.RequestList
 
 class SearchedDataOnRequestsFromTheServer(_viewModelInterface: ViewModelInterface): ModelsByRequestToServer {
@@ -24,18 +25,18 @@ class SearchedDataOnRequestsFromTheServer(_viewModelInterface: ViewModelInterfac
         setObjectByUserAndInterface(this, user)
     }
 
-    fun setParamsForRequestOnGlobalSearch() {
-        Log.i(TAG, "!вызвал настройку параметров!")
-        serverRequestsByRx?.setParamsGlobalSearchFromVariablesToParamsObject()
-    }
+
 
     fun sendParamsForRequestOnGlobalSearch(declarerFIO: String?, cod: Int?, date1: String?,
                                            date2: String?, regType: Int?, statusId: Int?,
-                                           regUserId: Int?, workerId: Int?, text: String?) {
+                                           regUserId: Int?, workerId: Int?, text: String?,
+                                           techGroup: Int?, office:String?, address: String?,
+                                           roomNum:String?) {
         Log.i(TAG, "!отправил параметры для отправки запроса!")
         serverRequestsByRx?.setParamsForRequestOnGlobalSearchToVariables(declarerFIO, cod, date1, date2,
                                                                          regType, statusId, regUserId,
-                                                                         workerId, text)
+                                                                         workerId, text, techGroup,
+                                                                         office, address, roomNum)
     }
 
     override fun sendRequestCurrentTask() {

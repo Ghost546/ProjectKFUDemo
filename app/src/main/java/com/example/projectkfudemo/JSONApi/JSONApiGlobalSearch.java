@@ -16,7 +16,8 @@ public interface JSONApiGlobalSearch {
                                                     @Field("p_cod") Integer cod, @Field("p_date1") String dateStart, @Field("p_date2") String dateFinish,
                                                     @Field("p_regtype") Integer reg_type, @Field("p_status_id") Integer status, @Field("p_reg_user_id") Integer reg_user_id,
                                                     @Field("p_worker_id") Integer worker_id, @Field("p_text") String p_text, @Field("p_page") Integer page,
-                                                    @Field("p_page_size") Integer page_size);
+                                                    @Field("p_page_size") Integer page_size, @Field("p_tech_group") Integer p_tech_group, @Field("p_office") String p_office,
+                                                    @Field("p_address") String p_address, @Field("p_room_num") String p_room_num);
 //    p_user_id NUMBER,
 //
 //    p2 NUMBER,
@@ -36,13 +37,19 @@ public interface JSONApiGlobalSearch {
 //    p_reg_user_id number default null, --id зарегистрировавшего заявку
 //
 //    p_worker_id number default null, --id исполнителя
-
-//    p_text varchar2(предположительно) default null, --текст заявки
+//
+//    p_text varchar2 default null, --текст заявки
 //
 //    p_page NUMBER DEFAULT NULL,
 //
-//    p_page_size NUMBER DEFAULT NULL)
+//    p_page_size NUMBER DEFAULT NULL
+//
+//    p_tech_group integer default null,      --id отдела исполнителей
+//
+//    p_office varchar2 default null,         --подразделение заявителя
+//
+//    p_address varchar2 default null,        --местонахождение заявителя
+//
+//    p_room_num varchar2 default null        --номер комнаты(кабинета)
 
-    @POST("e-ksu/service_desk_mobile.get_search_request_list?p_user_id=82801&p2=12490708491553622138440874532401&p_declarant_fio=лукоянова&p_status_id=6&p_date1=2019-01-01&p_date2=2019-12-25")
-    Observable<RequestList> getRequestListForSearchWithoutParams();
 }

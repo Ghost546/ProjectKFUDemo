@@ -3,22 +3,30 @@ package com.example.projectkfudemo.parametrclasses;
 import android.util.Log;
 
 public class GlobalSearchParams {
-    String declarerFIO;
+    String declarerFIO; //ФИО заявителя
 
-    Integer cod;
+    Integer cod;    //номер заявки
 
-    String date1;
-    String date2;
+    String date1;   //дата подачи заявки с
+    String date2;   //дата подачи заявки по
 
-    Integer regType;
+    Integer regType;    //тип заявки
 
-    Integer statusId;
+    Integer statusId;   //статус заявки
 
-    Integer regUserId;
+    Integer regUserId;  //id зарегистрировавшего заявку
 
-    Integer workerId;
+    Integer workerId;   //id исполнителя
 
-    String text;
+    String text;    //текст заявки
+
+    Integer techGroup;  //id отдела исполнителей
+
+    String office;  //подразделение заявителя
+
+    String address; //местонахождение заявителя
+
+    String roomNum; //номер комнаты(кабинета)
 
     public String getDeclarerFIO() {
         return declarerFIO;
@@ -90,5 +98,37 @@ public class GlobalSearchParams {
 
     public void setText(String text) {
         this.text = text;
+    }
+
+    public Integer getTechGroup() {
+        return techGroup;
+    }
+
+    public void setTechGroup(Integer techGroup) {
+        this.techGroup = techGroup;
+    }
+
+    public String getOffice() {
+        return office;
+    }
+
+    public void setOffice(String office) {
+        this.office = office;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getRoomNum() {
+        return roomNum;
+    }
+
+    public void setRoomNum(String roomNum) {
+        this.roomNum = roomNum;
     }
 }

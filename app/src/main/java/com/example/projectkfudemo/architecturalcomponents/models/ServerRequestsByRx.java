@@ -35,16 +35,6 @@ public class ServerRequestsByRx { //из этого класса отправл�
         this.user = user;
     }
 
-    String declarerFIO;
-    Integer cod;
-    String date1;
-    String date2;
-    Integer regType;
-    Integer statusId;
-    Integer regUserId;
-    Integer workerId;
-    String text;
-
     RequestList requestListFromServer;  //список-ответ на глобальный поиск. наблюдать
 
     RequestList requestListStates;      //список-ответ на запрос по Current и MyTask, допустимо
@@ -69,20 +59,10 @@ public class ServerRequestsByRx { //из этого класса отправл�
     int position;
 
     public void setParamsForRequestOnGlobalSearchToVariables(String declarerFIO, Integer cod, String date1,
-                                                  String date2, Integer regType, Integer statusId,
-                                                  Integer regUserId, Integer workerId, String text) {
-        this.declarerFIO = declarerFIO;
-        this.cod = cod;
-        this.date1 = date1;
-        this.date2 = date2;
-        this.regType = regType;
-        this.statusId = statusId;
-        this.regUserId = regUserId;
-        this.workerId = workerId;
-        this.text = text;
-    }
-
-    public void setParamsGlobalSearchFromVariablesToParamsObject() {
+                                                             String date2, Integer regType, Integer statusId,
+                                                             Integer regUserId, Integer workerId, String text,
+                                                             Integer techGroup, String office, String address,
+                                                             String roomNum) {
         globalSearchParams.setDeclarerFIO(declarerFIO);
         globalSearchParams.setCod(cod);
         globalSearchParams.setDate1(date1);
@@ -92,6 +72,10 @@ public class ServerRequestsByRx { //из этого класса отправл�
         globalSearchParams.setRegUserId(regUserId);
         globalSearchParams.setWorkerId(workerId);
         globalSearchParams.setText(text);
+        globalSearchParams.setTechGroup(techGroup);
+        globalSearchParams.setOffice(office);
+        globalSearchParams.setAddress(address);
+        globalSearchParams.setRoomNum(roomNum);
     }
 
     public void setPosition(int position) {
@@ -260,7 +244,8 @@ public class ServerRequestsByRx { //из этого класса отправл�
                 getRequestListForSearch(user.getUserId(), user.getP2(), globalSearchParams.getDeclarerFIO(),
                         globalSearchParams.getCod(), globalSearchParams.getDate1(), globalSearchParams.getDate2(),
                         globalSearchParams.getRegType(), globalSearchParams.getStatusId(),
-                        globalSearchParams.getRegUserId(), globalSearchParams.getWorkerId(), globalSearchParams.getText(), null, null)
+                        globalSearchParams.getRegUserId(), globalSearchParams.getWorkerId(), globalSearchParams.getText(), null, null,
+                        globalSearchParams.getTechGroup(), globalSearchParams.getOffice(), globalSearchParams.getAddress(), globalSearchParams.getRoomNum())
                 .subscribeOn(Schedulers.io()) //Schedulers.io()
                 .observeOn(AndroidSchedulers.mainThread()) //AndroidSchedulers.mainThread()
                 .subscribe(new Observer<RequestList>() {

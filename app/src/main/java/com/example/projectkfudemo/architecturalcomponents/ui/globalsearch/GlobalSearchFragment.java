@@ -42,32 +42,32 @@ public class GlobalSearchFragment extends Fragment implements View.OnClickListen
     private EditText editRequestNumber;
     private EditText editRequestRegistrationDateIdStart;
     private EditText editRequestRegistrationDateIdFinish;
-    private EditText editDeclarer;
+    private EditText editDeclarer; //поле ввода Заявитель
     private EditText editSubdivision;
     private EditText editAddress;
     private EditText editNumberOfCabinet;
     private EditText editTextOfRequest;
     private String stringRequestNumber;
-    private String stringRequestRegistrationDateIdStart;
-    private String stringRequestRegistrationDateIdFinish;
-    private String stringDeclarer;
-    private String stringSubdivision;
-    private String stringAddress;
-    private String stringNumberOfCabinet;
-    private String stringTextOfRequest;
-    private Spinner spinnerApplicationExecutorsDepartment;
-    private Spinner spinnerFullNameOfExecutor;
-    private Spinner spinnerStatusOfRequest;
-    private Spinner spinnerRequestRegistration;
-    private Spinner spinnerTypeOfRequest;
-    private Integer integerRequestNumber;
-    private Integer integerNumberOfCabinet;
-    private Integer integerApplicationExecutorsDepartment;
-    private Integer integerFullNameOfExecutor; //сюда getSearchWorkerStrings
-    private Integer integerStatusOfRequest;
-    private Integer integerRequestRegistration; //сюда getSearchDeclarersStrings
-    private Integer integerTypeOfRequest;
-    private ProgressBar mainProgressBar;
+    private String stringRequestRegistrationDateIdStart; //Дата подачи С
+    private String stringRequestRegistrationDateIdFinish; //Дата подачи По
+    private String stringDeclarer;  //Заявитель
+    private String stringSubdivision;   //Подразделение
+    private String stringAddress;   //Адресс
+    private String stringNumberOfCabinet;   //Номер комнаты(Кабинета)
+    private String stringTextOfRequest; //текст заявки
+    //TODO: попросить API на получение списка Отдел(Исполнителей заявки)
+    private Spinner spinnerApplicationExecutorsDepartment;  //падающее меню Отдел(исполнителей заявки)
+    private Spinner spinnerFullNameOfExecutor;  //падающее меню ФИО исполнителя
+    private Spinner spinnerStatusOfRequest;     //падающее меню Статус заявки
+    private Spinner spinnerRequestRegistration; //падающее меню Заявку зарегестрировал
+    private Spinner spinnerTypeOfRequest;       //падающее меню Тип заявки
+    private Integer integerRequestNumber;       //Номер заявки
+    private Integer integerApplicationExecutorsDepartment;  //отдел исполнителей заявки
+    private Integer integerFullNameOfExecutor; //id ФИО исполнителя
+    private Integer integerStatusOfRequest;     //id статус заявки
+    private Integer integerRequestRegistration; //id заявку зарегестрировал
+    private Integer integerTypeOfRequest;   //id типа заявки
+    private ProgressBar mainProgressBar;    //Грузилка-крутилка
     private ProgressBar searchButtonProgressBar;
     private RelativeLayout searchLayout;
 
@@ -142,13 +142,16 @@ public class GlobalSearchFragment extends Fragment implements View.OnClickListen
         }
     }
 
+    //в методе из элементов View преобразовывает в типовые данные
     public void setParams() {
+        //Заявитель
         if(editDeclarer.getText().length()!=0){
             stringDeclarer = editDeclarer.getText().toString();
         } else {
             stringDeclarer = null;
         }
 
+        //Номер заявки
         stringRequestNumber = editRequestNumber.getText().toString();
         try {
             integerRequestNumber = Integer.parseInt(stringRequestNumber);
@@ -157,28 +160,34 @@ public class GlobalSearchFragment extends Fragment implements View.OnClickListen
             integerRequestNumber = null;
             //Вывод ошибки на экран, приостановка данного метода и метода отправки запроса
         }
+
+        //Дата регистрации заявки С
         if (editRequestRegistrationDateIdStart.getText().length() != 0) {
             stringRequestRegistrationDateIdStart = editRequestRegistrationDateIdStart.getText().toString();
         } else {
             stringRequestRegistrationDateIdStart = null;
         }
 
+        //Дата регистрации заявки По
         if (editRequestRegistrationDateIdFinish.getText().length() != 0) {
             stringRequestRegistrationDateIdFinish = editRequestRegistrationDateIdFinish.getText().toString();
         } else {
             stringRequestRegistrationDateIdFinish = null;
         }
 
+        //Тип заявки
         integerTypeOfRequest = spinnerTypeOfRequest.getSelectedItemPosition();
         if(integerTypeOfRequest == 0 || integerTypeOfRequest == -1) {
             integerTypeOfRequest = null;
         }
 
+        //Статус заявки
         integerStatusOfRequest = spinnerStatusOfRequest.getSelectedItemPosition();
         if(integerStatusOfRequest == 0 || integerStatusOfRequest == -1) {
             integerStatusOfRequest = null;
         }
 
+        //Заявку зарегестрировал
         integerRequestRegistration = spinnerRequestRegistration.getSelectedItemPosition();
         if(integerRequestRegistration == 0 || integerRequestRegistration == -1) {
             integerRequestRegistration = null;
@@ -188,19 +197,50 @@ public class GlobalSearchFragment extends Fragment implements View.OnClickListen
                     .get(spinnerRequestRegistration.getSelectedItemPosition()).getId()-1; // -1 потому что в spinner первый элемент по индексу 1, а в массиве первый элемент под индексом 0, а дальше простая математика
         }
 
+        //Отдел(исполнителей заявки)
         integerApplicationExecutorsDepartment = spinnerApplicationExecutorsDepartment.getSelectedItemPosition();
         if(integerApplicationExecutorsDepartment == 0 || integerApplicationExecutorsDepartment == -1) {
             integerApplicationExecutorsDepartment = null;
         } else {
-            integerApplicationExecutorsDepartment = mainActivity.getViewModelMainActivity()
-                    .getLiveDataSearchWorkers().getValue().getWorkersList()
-                    .get(spinnerApplicationExecutorsDepartment.getSelectedItemPosition()).getId()-1; // -1 потому что в spinner первый элемент по индексу 1, а в массиве первый элемент под индексом 0
+            integerApplicationExecutorsDepartment = null;
         }
 
+        //ФИО исполнителя
+        integerFullNameOfExecutor = spinnerFullNameOfExecutor.getSelectedItemPosition();
+        if(integerFullNameOfExecutor==0 || integerFullNameOfExecutor==-1) {
+            integerFullNameOfExecutor = null;
+        } else {
+            integerFullNameOfExecutor = mainActivity.getViewModelMainActivity()
+                    .getLiveDataSearchWorkers().getValue().getWorkersList()
+                    .get(spinnerFullNameOfExecutor.getSelectedItemPosition()).getId()-1; // -1 потому что в spinner первый элемент по индексу 1, а в массиве первый элемент под индексом 0=
+        }
+
+        //Текст заявки
         if (editTextOfRequest.getText().toString().length() != 0) {
             stringTextOfRequest = editTextOfRequest.getText().toString();
         } else {
             stringTextOfRequest = null;
+        }
+
+        //Подразделение
+        if (editSubdivision.getText().length() != 0) {
+            stringSubdivision = editSubdivision.getText().toString();
+        } else {
+            stringSubdivision = null;
+        }
+
+        //Адресс
+        if (editAddress.getText().length() != 0) {
+            stringAddress = editAddress.getText().toString();
+        } else {
+            stringAddress = null;
+        }
+
+        //Номер комнаты
+        if (editNumberOfCabinet.getText().length() != 0) {
+            stringNumberOfCabinet = editNumberOfCabinet.getText().toString();
+        } else {
+            stringNumberOfCabinet = null;
         }
 
     }
@@ -237,7 +277,11 @@ public class GlobalSearchFragment extends Fragment implements View.OnClickListen
                 integerStatusOfRequest,
                 integerRequestRegistration,
                 integerFullNameOfExecutor,
-                stringTextOfRequest
+                stringTextOfRequest,
+                integerApplicationExecutorsDepartment,
+                stringSubdivision,
+                stringAddress,
+                stringNumberOfCabinet
         );
 
         mainActivity.getViewModelGlobalSearch().getLiveDataSearchResultFromServer().observe(this, new Observer<RequestList>() {

@@ -39,12 +39,15 @@ class ViewModelGlobalSearch: ViewModel(), ViewModelInterface {
 
     fun setParamsForGlobalSearch(declarerFIO: String?, cod: Int?, date1: String?,
                                  date2: String?, regType: Int?, statusId: Int?,
-                                 regUserId: Int?, workerId: Int?, text: String?) {
+                                 regUserId: Int?, workerId: Int?, text: String?,
+                                 techGroup: Int?, office:String?, address: String?,
+                                 roomNum:String?) {
         Log.i(TAG, "!отправил данные для параметров и вызвал настройку параметров")
         searchedDataOnRequestsFromTheServer.sendParamsForRequestOnGlobalSearch(declarerFIO, cod, date1,
-                date2, regType, statusId,
-                regUserId, workerId, text)
-        searchedDataOnRequestsFromTheServer.setParamsForRequestOnGlobalSearch()
+                                                                               date2, regType, statusId,
+                                                                               regUserId, workerId, text,
+                                                                               techGroup, office, address,
+                                                                               roomNum)
     }
 
     fun sendRequest() {
