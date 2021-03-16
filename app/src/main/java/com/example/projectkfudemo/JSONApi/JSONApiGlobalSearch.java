@@ -1,6 +1,6 @@
 package com.example.projectkfudemo.JSONApi;
 
-import com.example.projectkfudemo.requests.RequestList;
+import com.example.projectkfudemo.parametrclasses.requests.RequestList;
 
 
 import io.reactivex.Observable;

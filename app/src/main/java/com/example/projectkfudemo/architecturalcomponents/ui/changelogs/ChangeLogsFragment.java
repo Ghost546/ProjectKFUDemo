@@ -13,7 +13,7 @@ import android.widget.ListView;
 import android.widget.Spinner;
 
 import com.example.projectkfudemo.R;
-import com.example.projectkfudemo.requests.Request;
+import com.example.projectkfudemo.parametrclasses.requests.Request;
 import com.example.projectkfudemo.architecturalcomponents.ui.changelogs.cardlists.ApplicationAdapter;
 import com.example.projectkfudemo.architecturalcomponents.ui.changelogs.cardlists.PerformersAdapter;
 import com.example.projectkfudemo.architecturalcomponents.ui.changelogs.cardlists.ResponsibleAdapter;

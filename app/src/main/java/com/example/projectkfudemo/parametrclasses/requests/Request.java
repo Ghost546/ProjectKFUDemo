@@ -1,4 +1,4 @@
-package com.example.projectkfudemo.requests;
+package com.example.projectkfudemo.parametrclasses.requests;
 
 import androidx.annotation.Nullable;
 

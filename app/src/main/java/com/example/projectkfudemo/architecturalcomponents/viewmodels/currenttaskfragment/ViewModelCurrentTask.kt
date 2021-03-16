@@ -6,7 +6,7 @@ import com.example.projectkfudemo.architecturalcomponents.livadatas.LiveDataCurr
 import com.example.projectkfudemo.architecturalcomponents.models.DataRequestListFromServer
 import com.example.projectkfudemo.architecturalcomponents.viewmodels.ViewModelTasksInterface
 import com.example.projectkfudemo.parametrclasses.User
-import com.example.projectkfudemo.requests.RequestList
+import com.example.projectkfudemo.parametrclasses.requests.RequestList
 
 class ViewModelCurrentTask: ViewModel(), ViewModelTasksInterface {
     override val TAG = this.javaClass.simpleName

@@ -17,12 +17,9 @@ import com.example.projectkfudemo.architecturalcomponents.ui.MainActivity;
 import com.example.projectkfudemo.R;
 import com.example.projectkfudemo.architecturalcomponents.ui.MessageVisibilityInterface;
 import com.example.projectkfudemo.architecturalcomponents.ui.OnBackPressedListener;
-import com.example.projectkfudemo.architecturalcomponents.ui.requestgeneralview.RequestGeneralViewFragment;
-import com.example.projectkfudemo.requests.Request;
+import com.example.projectkfudemo.parametrclasses.requests.Request;
 import com.example.projectkfudemo.architecturalcomponents.models.RequestStateAdapter;
-import com.example.projectkfudemo.requests.RequestList;
-
-import java.util.List;
+import com.example.projectkfudemo.parametrclasses.requests.RequestList;
 
 public class GlobalSearchResultFragment extends Fragment implements OnBackPressedListener, MessageVisibilityInterface, ListVisibilityInterface {
     private final String TAG = this.getClass().getSimpleName();

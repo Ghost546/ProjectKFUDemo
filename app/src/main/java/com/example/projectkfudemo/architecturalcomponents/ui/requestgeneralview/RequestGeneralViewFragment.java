@@ -11,21 +11,18 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.example.projectkfudemo.architecturalcomponents.ui.ViewModelGet;
-import com.example.projectkfudemo.architecturalcomponents.viewmodels.ViewModelInterface;
 import com.example.projectkfudemo.architecturalcomponents.viewmodels.requestgeneralviewfragment.ViewModelRequestGeneralView;
 import com.example.projectkfudemo.parametrclasses.User;
-import com.example.projectkfudemo.requests.CurrentRequest;
+import com.example.projectkfudemo.parametrclasses.requests.CurrentRequest;
 import com.example.projectkfudemo.architecturalcomponents.ui.MainActivity;
-import com.example.projectkfudemo.requests.MyRequest;
+import com.example.projectkfudemo.parametrclasses.requests.MyRequest;
 import com.example.projectkfudemo.R;
-import com.example.projectkfudemo.requests.Request;
-import com.example.projectkfudemo.requests.RequestGeneral;
+import com.example.projectkfudemo.parametrclasses.requests.Request;
+import com.example.projectkfudemo.parametrclasses.requests.RequestGeneral;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class RequestGeneralViewFragment extends Fragment implements View.OnClickListener {
@@ -187,7 +184,7 @@ public class RequestGeneralViewFragment extends Fragment implements View.OnClick
 
     }
 
-    public void visibleSetting() {
+    public void invisibleSetting() {
         fabGeneral.setVisibility(View.GONE);
         fab1.setVisibility(View.GONE);
         fab2.setVisibility(View.GONE);
@@ -199,7 +196,7 @@ public class RequestGeneralViewFragment extends Fragment implements View.OnClick
         if(requestGeneral.getRequest().getThatIsCurrentRequest() && status == 1) {
             fab2.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onClick(View v) {
+                public void onClick(View v) { //TODO: работа с этим блоком
                     //здесь запрос "назначить заявку на себя"
                     assignToOneself();
 
@@ -209,7 +206,7 @@ public class RequestGeneralViewFragment extends Fragment implements View.OnClick
             if(requestGeneral.getRequest().getThatIsMyRequest() && status == 3) {
                 fab2.setOnClickListener(new View.OnClickListener() {
                     @Override
-                    public void onClick(View v) {
+                    public void onClick(View v) {//переход на экран "добавить комментарий"
                         mainActivity.startFragmentAddCommentToRequest(request);
                     }
                 });
@@ -220,8 +217,9 @@ public class RequestGeneralViewFragment extends Fragment implements View.OnClick
     }
 
     private void assignToOneself() {
-        getViewModel().setUser(user);
-        getViewModel().sendAssign();
+        getViewModel().setUser(user);       //установка данных о пользователе
+        getViewModel().setRequest(request); //установка заявки которую назначают на себя
+        getViewModel().sendAssign();        //запрос на отправку заявки
     }
 
     @Override
