@@ -8,7 +8,7 @@ import com.example.projectkfudemo.requests.Request
 
 class ViewModelRequestGeneralView:ViewModel(), ViewModelInterface {
     var user: User? = null
-
+    var request: Request?= null
     fun sendAssign() {
 
     }
