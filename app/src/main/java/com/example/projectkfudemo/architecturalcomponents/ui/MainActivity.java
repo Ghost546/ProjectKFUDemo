@@ -180,6 +180,12 @@ public class MainActivity extends AppCompatActivity {
                 Log.i(TAG, "!viewModelRequestGeneralView!=null");
             }
         }
+        if(viewModelAddCommentToRequest==null) {
+            viewModelAddCommentToRequest = new ViewModelProvider(this).get(ViewModelAddCommentToRequest.class);
+            if(viewModelAddCommentToRequest!=null) {
+                Log.i(TAG, "!viewModelAddCommentToRequest!=null");
+            }
+        }
 
 
         Log.i(TAG, "!из " + TAG + " отправил userMain!");

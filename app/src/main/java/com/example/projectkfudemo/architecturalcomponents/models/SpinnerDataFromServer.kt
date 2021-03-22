@@ -5,9 +5,6 @@ import com.example.projectkfudemo.parametrclasses.User
 import com.example.projectkfudemo.architecturalcomponents.viewmodels.ViewModelInterface
 import com.example.projectkfudemo.parametrclasses.forjson.SearchDeclarerList
 import com.example.projectkfudemo.parametrclasses.forjson.SearchWorkersList
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 
 class SpinnerDataFromServer(_viewModelInterface: ViewModelInterface): ModelsByRequestToServer {
     override val TAG = this.javaClass.simpleName
@@ -51,7 +48,7 @@ class SpinnerDataFromServer(_viewModelInterface: ViewModelInterface): ModelsByRe
                 Log.i(TAG, "!searchWorkers пришёл(SpinnerDataFromServer)!")
                 searchWorkers = serverRequestsByRx?.searchWorkers!!
             }
-            viewModelMainActivityInterface.changedListsData()
+            viewModelMainActivityInterface.changedData()
         }
     }
 

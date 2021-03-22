@@ -14,7 +14,7 @@ import com.example.projectkfudemo.architecturalcomponents.viewmodels.ViewModelIn
 class ViewModelMainActivity: ViewModel(), ViewModelInterface {
     override val TAG = this.javaClass.simpleName
 
-    var user: User?= null  //объект для хранения
+    override var user: User?= null  //объект для хранения
     var spinnerDataFromServer: SpinnerDataFromServer = SpinnerDataFromServer(this) //объект отправляющий запросы
     var liveDataSearchDeclarers: LiveDataSearchDeclarers = LiveDataSearchDeclarers //объект
     var liveDataSearchWorkers: LiveDataSearchWorkers = LiveDataSearchWorkers
@@ -25,6 +25,10 @@ class ViewModelMainActivity: ViewModel(), ViewModelInterface {
     @Override
     override fun onCleared() {
         super.onCleared()
+    }
+
+    override fun setObject(user: User) {
+        TODO("Not yet implemented")
     }
 
     fun setObjectForRequests() {
@@ -43,7 +47,7 @@ class ViewModelMainActivity: ViewModel(), ViewModelInterface {
         globalSearchInterfaceInMain = _globalSearchInterface
     }
 
-    override fun changedListsData() {
+    override fun changedData() {
         Log.i(TAG, "!Массивы пришли!")
         liveDataSearchDeclarers.postValue(spinnerDataFromServer.searchDeclarers)
         var mutableList = mutableListOf<String>()

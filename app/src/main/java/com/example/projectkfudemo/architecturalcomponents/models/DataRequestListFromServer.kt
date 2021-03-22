@@ -43,7 +43,7 @@ class DataRequestListFromServer(_viewModelInterface: ViewModelInterface): Models
     override fun setData() {
         requestList = serverRequestsByRx!!.requestListStates
         Log.i(TAG, "!Установка requestList, её размер: " + requestList.requests.size)
-        viewModelInterface.changedListsData()
+        viewModelInterface.changedData()
         Log.i(TAG, "!Установка list во ViewModel")
     }
 

@@ -24,7 +24,7 @@ class GetDataWorkCategory(_viewModelInterface: ViewModelInterface): ModelsByRequ
     //метод устанавливает значение в листе и оповещает viewmodel
     private fun setWorkCategory(workCategoryList: WorkCategoryList) {
         this.workCategoryList = workCategoryList
-        viewModel?.changedListsData()
+        viewModel?.changedData()
     }
 
     fun setObject(user: User) {

@@ -32,7 +32,7 @@ class AddCommentToRequestFragment: Fragment(), ViewModelGet {
 
     private var request: Request? = null
 
-    public var mainActivity: MainActivity?=null
+    var mainActivity: MainActivity?=null
 
     private var _binding: FragmentAddCommentToRequestBinding? = null
 

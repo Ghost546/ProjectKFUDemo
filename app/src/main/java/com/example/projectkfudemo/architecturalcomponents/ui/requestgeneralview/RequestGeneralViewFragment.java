@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 
 import com.example.projectkfudemo.architecturalcomponents.ui.ViewModelGet;
 import com.example.projectkfudemo.architecturalcomponents.viewmodels.ViewModelInterface;
@@ -206,6 +207,7 @@ public class RequestGeneralViewFragment extends Fragment implements View.OnClick
                 }
             });
         } else {
+            //TODO: перед сборкой apk сменить значение 2 на 3(2 для тестов, 3 в версиях для сборки)
             if(requestGeneral.getRequest().getThatIsMyRequest() && status == 3) {//переход на экран "добавить комментарий"
                 fab2.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -222,7 +224,7 @@ public class RequestGeneralViewFragment extends Fragment implements View.OnClick
     private void assignToOneself() {
         getViewModel().setUser(user);       //установка данных о пользователе
         getViewModel().setRequest(request); //установка заявки которую назначают на себя
-        getViewModel().sendAssign();        //запрос на отправку заявки
+        getViewModel().setOnAction();       //оповещение о нажатии кнопки
     }
 
     @Override
@@ -359,13 +361,20 @@ public class RequestGeneralViewFragment extends Fragment implements View.OnClick
                 }
             }
         });
+        getViewModel().getLiveDataLogAboutAssignOnOneself().observe(getViewLifecycleOwner(), new Observer<String>() {
+            @Override
+            public void onChanged(String s) {
+                Log.i(TAG, "!сработал метод onChanged на LiveDataLogAboutAssignOnOneself");
+                Toast toast = Toast.makeText(getActivity(), s, Toast.LENGTH_LONG);
+                toast.show();
+            }
+        });
         fab1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 changeLogsButtonClick();
             }
         });
-
         return root;
     }
 

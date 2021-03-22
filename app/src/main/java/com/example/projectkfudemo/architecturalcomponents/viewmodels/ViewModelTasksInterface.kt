@@ -7,8 +7,6 @@ import com.example.projectkfudemo.parametrclasses.User
 import com.example.projectkfudemo.requests.RequestList
 
 interface ViewModelTasksInterface: ViewModelInterface {
-    //объект для хранения данных о пользователе
-    var user: User?
     //единоразовая переменная для проверки загружался ли экран до этого
     var firstLoad: Boolean
     //постоянная переменная для проверки загружался ли экран до этого
@@ -22,7 +20,7 @@ interface ViewModelTasksInterface: ViewModelInterface {
     //объект для взаимодействия с запросами на сервер
     val dataRequestListFromServer: DataRequestListFromServer
 
-    fun setObject(user: User) {
+    override fun setObject(user: User) {
         dataRequestListFromServer.setObject(user)
     }
 

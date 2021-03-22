@@ -13,7 +13,7 @@ import com.example.projectkfudemo.requests.Request
 class ViewModelGlobalSearch: ViewModel(), ViewModelInterface {
     override val TAG = this.javaClass.simpleName
 
-    var user: User?= null  //объект для хранения
+    override var user: User?= null  //объект для хранения
 
     var globalSearchInterface: GlobalSearchInterface? = null
 
@@ -24,6 +24,10 @@ class ViewModelGlobalSearch: ViewModel(), ViewModelInterface {
     @Override
     override fun onCleared() {
         super.onCleared()
+    }
+
+    override fun setObject(user: User) {
+        TODO("Not yet implemented")
     }
 
     fun setInterface(_globalSearchInterface: GlobalSearchInterface) {
@@ -61,7 +65,7 @@ class ViewModelGlobalSearch: ViewModel(), ViewModelInterface {
     }
 
     //для вызова через интерфейс из SearchedDataOnRequestsFromTheServer
-    override fun changedListsData() {
+    override fun changedData() {
         Log.i(TAG, "!выполнение setListsData")
         liveDataSearchResultFromServer.postValue(searchedDataOnRequestsFromTheServer.requestListFromServer)
 //        showNextFragment()

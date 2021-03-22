@@ -30,7 +30,7 @@ class ViewModelCurrentTask: ViewModel(), ViewModelTasksInterface {
     //тип заявки текущего отображения
     var liveDataCurrentTaskSelectedPosition = LiveDataCurrentTaskSelectedPosition
 
-    override fun changedListsData() {
+    override fun changedData() {
         liveDataCurrentTaskRequestList.postValue(dataRequestListFromServer.requestList)
         requestList = dataRequestListFromServer.requestList
     }

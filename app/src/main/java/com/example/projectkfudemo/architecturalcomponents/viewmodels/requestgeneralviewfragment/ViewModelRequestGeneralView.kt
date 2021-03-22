@@ -1,6 +1,8 @@
 package com.example.projectkfudemo.architecturalcomponents.viewmodels.requestgeneralviewfragment
 
 import androidx.lifecycle.ViewModel
+import com.example.projectkfudemo.architecturalcomponents.livadatas.LiveDataLogAboutAssignOnOneself
+import com.example.projectkfudemo.architecturalcomponents.models.AssignOnOneselfRequestToServer
 import com.example.projectkfudemo.architecturalcomponents.ui.ViewModelGet
 import com.example.projectkfudemo.architecturalcomponents.viewmodels.ViewModelInterface
 import com.example.projectkfudemo.parametrclasses.User
@@ -10,16 +12,32 @@ class ViewModelRequestGeneralView:ViewModel(), ViewModelInterface {
     override val TAG: String
         get() = this.javaClass.simpleName
 
-    var user: User? = null
+    override var user: User? = null
     var request: Request? = null
 
-    fun sendAssign() {
+    val liveDataLogAboutAssignOnOneself = LiveDataLogAboutAssignOnOneself
 
+    val assignOnOneselfRequestToServer = AssignOnOneselfRequestToServer(this)
+
+    override fun setObject(user: User) {
+        assignOnOneselfRequestToServer.setObject(user)
     }
 
-    override fun changedListsData() {
-        //неправильная логика интерфейсов, бесполезный метод ИМХО
+    private fun sendUserToStreak() {
+        user?.let { setObject(user = it) }
     }
 
+    fun setOnAction() {
+        sendAssign()
+    }
+
+    private fun sendAssign() {
+        sendUserToStreak()
+        assignOnOneselfRequestToServer.sendRequest()
+    }
+
+    override fun changedData() {
+        assignOnOneselfRequestToServer.textFromServer.let { liveDataLogAboutAssignOnOneself.postValue(it) }
+    }
 
 }

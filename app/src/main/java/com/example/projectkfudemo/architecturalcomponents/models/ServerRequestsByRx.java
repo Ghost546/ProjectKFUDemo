@@ -56,6 +56,13 @@ public class ServerRequestsByRx { //из этого класса отправл�
     //Параметры для GlobalSearch
     GlobalSearchParams globalSearchParams = new GlobalSearchParams();
 
+    String textAnswerFromServerByAssignOnOneself;
+
+    public void setTextAnswerFromServerByAssignOnOneself(String textAnswerFromServerByAssignOnOneself) {
+        this.textAnswerFromServerByAssignOnOneself = textAnswerFromServerByAssignOnOneself;
+        modelsByRequestToServer.setData();
+    }
+
     int position;
 
     public void setParamsForRequestOnGlobalSearchToVariables(String declarerFIO, Integer cod, String date1,
@@ -308,6 +315,10 @@ public class ServerRequestsByRx { //из этого класса отправл�
 
                     }
                 });
+    }
+
+    public void setAssignOnOneselfRequestToServer() {
+        setTextAnswerFromServerByAssignOnOneself("В данный момент запрос на сервер отсутствует");
     }
 
     public RequestList getRequestListFromServer() {

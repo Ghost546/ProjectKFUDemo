@@ -3,7 +3,6 @@ package com.example.projectkfudemo.architecturalcomponents.models
 import android.util.Log
 import com.example.projectkfudemo.architecturalcomponents.viewmodels.ViewModelInterface
 import com.example.projectkfudemo.parametrclasses.User
-import com.example.projectkfudemo.parametrclasses.forjson.TechGroup
 import com.example.projectkfudemo.requests.RequestList
 
 class SearchedDataOnRequestsFromTheServer(_viewModelInterface: ViewModelInterface): ModelsByRequestToServer {
@@ -21,7 +20,7 @@ class SearchedDataOnRequestsFromTheServer(_viewModelInterface: ViewModelInterfac
 
     private fun setRequestList(requestListFromServer: RequestList) {
         this.requestListFromServer = requestListFromServer
-        viewModelInterface.changedListsData()
+        viewModelInterface.changedData()
     }
 
     @Override
@@ -59,7 +58,7 @@ class SearchedDataOnRequestsFromTheServer(_viewModelInterface: ViewModelInterfac
             Log.i(TAG, "!RequestListStates не пустой!")
             serverRequestsByRx?.requestListFromServer?.let { setRequestList(it) }
             Log.i(TAG, "!Размер массива requestListFromServer: " + requestListFromServer?.requests?.size.toString())
-            viewModelInterface.changedListsData()
+            viewModelInterface.changedData()
         }
     }
 

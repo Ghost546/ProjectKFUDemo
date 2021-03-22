@@ -1,13 +1,28 @@
 package com.example.projectkfudemo.architecturalcomponents.models
 
 import com.example.projectkfudemo.architecturalcomponents.viewmodels.ViewModelInterface
+import com.example.projectkfudemo.parametrclasses.User
 
 //класс прослойка отправляет запрос на сервер "назначить на себя"
 class AssignOnOneselfRequestToServer (_viewModelInterface: ViewModelInterface):ModelsByRequestToServer {
     override val TAG: String
         get() = this.javaClass.simpleName
 
+    val viewModelInterface = _viewModelInterface
+
+    var textFromServer: String? = null
+
+    fun setText(text: String) {
+        textFromServer = text
+        viewModelInterface.changedData()
+    }
+
     override var serverRequestsByRx: ServerRequestsByRx? = null
+
+    fun setObject(user: User) {
+        setObjectByUserAndInterface(this, user)
+    }
+
 
     override fun sendRequestCurrentTask() {
         TODO("Not yet implemented")
@@ -18,10 +33,10 @@ class AssignOnOneselfRequestToServer (_viewModelInterface: ViewModelInterface):M
     }
 
     override fun sendRequest() {
-        TODO("Not yet implemented")
+        serverRequestsByRx?.setAssignOnOneselfRequestToServer()
     }
 
     override fun setData() {
-        TODO("Not yet implemented")
+        serverRequestsByRx?.textAnswerFromServerByAssignOnOneself?.let { setText(it) }
     }
 }
