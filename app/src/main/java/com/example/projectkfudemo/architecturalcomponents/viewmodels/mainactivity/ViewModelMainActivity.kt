@@ -36,8 +36,7 @@ class ViewModelMainActivity: ViewModel(), ViewModelInterface {
 
 
     fun requestOnSetDataAboutSpinners() {   //методу достаточно знать что так идёт запрос на получение данных с сервера
-        spinnerDataFromServer.sendRequestCurrentTask()
-//        spinnerDataFromServer.waitData()
+        spinnerDataFromServer.sendRequest()
     }
 
     fun setGlobalSearchInterface(_globalSearchInterface: GlobalSearchInterface) {

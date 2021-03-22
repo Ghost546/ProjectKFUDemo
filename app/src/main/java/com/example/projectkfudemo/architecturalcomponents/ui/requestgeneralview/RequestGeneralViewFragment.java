@@ -187,7 +187,7 @@ public class RequestGeneralViewFragment extends Fragment implements View.OnClick
 
     }
 
-    public void visibleSetting() {
+    public void invisibleSetting() {
         fabGeneral.setVisibility(View.GONE);
         fab1.setVisibility(View.GONE);
         fab2.setVisibility(View.GONE);
@@ -206,7 +206,7 @@ public class RequestGeneralViewFragment extends Fragment implements View.OnClick
                 }
             });
         } else {
-            if(requestGeneral.getRequest().getThatIsMyRequest() && status == 3) {
+            if(requestGeneral.getRequest().getThatIsMyRequest() && status == 3) {//переход на экран "добавить комментарий"
                 fab2.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -220,8 +220,9 @@ public class RequestGeneralViewFragment extends Fragment implements View.OnClick
     }
 
     private void assignToOneself() {
-        getViewModel().setUser(user);
-        getViewModel().sendAssign();
+        getViewModel().setUser(user);       //установка данных о пользователе
+        getViewModel().setRequest(request); //установка заявки которую назначают на себя
+        getViewModel().sendAssign();        //запрос на отправку заявки
     }
 
     @Override

@@ -7,14 +7,15 @@ import com.example.projectkfudemo.parametrclasses.User
 import com.example.projectkfudemo.requests.Request
 
 class ViewModelRequestGeneralView:ViewModel(), ViewModelInterface {
+    override val TAG: String
+        get() = this.javaClass.simpleName
+
     var user: User? = null
+    var request: Request? = null
 
     fun sendAssign() {
 
     }
-
-    override val TAG: String
-        get() = this.javaClass.simpleName
 
     override fun changedListsData() {
         //неправильная логика интерфейсов, бесполезный метод ИМХО

@@ -45,7 +45,7 @@ class ViewModelMyTask: ViewModel(), ViewModelTasksInterface {
         super.setOnChangedSelectedPosition()
         liveDataMyTaskSelectedPosition.value?.let { setPosition(it) }
         liveDataMyTaskSelectedPosition.value?.let { category = it }
-        sendRequestCurrentTask()
+        sendRequestMyTask()
     }
 
     @Override

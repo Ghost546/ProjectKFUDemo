@@ -27,13 +27,17 @@ class SpinnerDataFromServer(_viewModelInterface: ViewModelInterface): ModelsByRe
         setObjectByUserAndInterface(this, user)
     }
 
-    override fun sendRequestCurrentTask() { //метод запрашивает метод на отправку запросов
-        Log.i(TAG, "!отправил запрос на получение данных для Spinners")
-        serverRequestsByRx?.sendRequestForDataBySpinners()
+    override fun sendRequestCurrentTask() {
+        //код не нужен
     }
 
     override fun sendRequestMyTask() {
-        TODO("Not yet implemented")
+        //код не нужен
+    }
+
+    override fun sendRequest() {    //метод запрашивает метод на отправку запросов
+        Log.i(TAG, "!отправил запрос на получение данных для Spinners")
+        serverRequestsByRx?.sendRequestForDataBySpinners()
     }
 
     override fun setData() {
@@ -48,32 +52,6 @@ class SpinnerDataFromServer(_viewModelInterface: ViewModelInterface): ModelsByRe
                 searchWorkers = serverRequestsByRx?.searchWorkers!!
             }
             viewModelMainActivityInterface.changedListsData()
-        }
-    }
-
-    fun waitData() {
-
-        GlobalScope.launch {
-            Log.i(TAG, "!Массивы пусты(SpinnerDataFromServer)!")
-            while (serverRequestsByRx?.searchDeclarers == null || serverRequestsByRx?.searchWorkers == null) {
-
-            }
-
-            delay(5000)
-
-            if (serverRequestsByRx?.searchDeclarers!=null && serverRequestsByRx?.searchWorkers != null) {
-                Log.i(TAG, "!Массивы пришли(SpinnerDataFromServer)!")
-                if (serverRequestsByRx?.searchDeclarers != null) {
-                    Log.i(TAG, "!searchDeclarers пришёл(SpinnerDataFromServer)!")
-                    searchDeclarers = serverRequestsByRx?.searchDeclarers!!
-                }
-                if (serverRequestsByRx?.searchWorkers != null) {
-                    Log.i(TAG, "!searchWorkers пришёл(SpinnerDataFromServer)!")
-                    searchWorkers = serverRequestsByRx?.searchWorkers!!
-                }
-                viewModelMainActivityInterface.changedListsData()
-            }
-
         }
     }
 

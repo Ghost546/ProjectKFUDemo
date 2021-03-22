@@ -19,13 +19,20 @@ class SearchedDataOnRequestsFromTheServer(_viewModelInterface: ViewModelInterfac
 
     var requestListFromServer:RequestList?=null
 
+    private fun setRequestList(requestListFromServer: RequestList) {
+        this.requestListFromServer = requestListFromServer
+        viewModelInterface.changedListsData()
+    }
 
     @Override
     override fun setObjectByUser(user: User) {
         setObjectByUserAndInterface(this, user)
     }
 
-
+    override fun sendRequest() {
+        Log.i(TAG, "!отправил запрос на получение данных для Spinners!")
+        serverRequestsByRx?.sendRequestsForRequestOnGlobalSearch()
+    }
 
     fun sendParamsForRequestOnGlobalSearch(declarerFIO: String?, cod: Int?, date1: String?,
                                            date2: String?, regType: Int?, statusId: Int?,
@@ -40,8 +47,7 @@ class SearchedDataOnRequestsFromTheServer(_viewModelInterface: ViewModelInterfac
     }
 
     override fun sendRequestCurrentTask() {
-        Log.i(TAG, "!отправил запрос на получение данных для Spinners!")
-        serverRequestsByRx?.sendRequestsForRequestOnGlobalSearch()
+
     }
 
     override fun sendRequestMyTask() {
@@ -51,7 +57,7 @@ class SearchedDataOnRequestsFromTheServer(_viewModelInterface: ViewModelInterfac
     override fun setData() {
         if(serverRequestsByRx?.getRequestListFromServer()!=null) {
             Log.i(TAG, "!RequestListStates не пустой!")
-            requestListFromServer = serverRequestsByRx?.getRequestListFromServer()
+            serverRequestsByRx?.requestListFromServer?.let { setRequestList(it) }
             Log.i(TAG, "!Размер массива requestListFromServer: " + requestListFromServer?.requests?.size.toString())
             viewModelInterface.changedListsData()
         }
