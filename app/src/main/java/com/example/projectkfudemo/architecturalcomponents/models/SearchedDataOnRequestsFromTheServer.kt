@@ -3,13 +3,13 @@ package com.example.projectkfudemo.architecturalcomponents.models
 import android.util.Log
 import com.example.projectkfudemo.architecturalcomponents.viewmodels.ViewModelInterface
 import com.example.projectkfudemo.parametrclasses.User
-import com.example.projectkfudemo.parametrclasses.forjson.TechGroup
-import com.example.projectkfudemo.requests.RequestList
+import com.example.projectkfudemo.parametrclasses.requests.RequestList
 
-class SearchedDataOnRequestsFromTheServer(_viewModelInterface: ViewModelInterface): ModelsByRequestToServer {
+//класс отправляет запрос на сервер на поиск
+class SearchedDataOnRequestsFromTheServer(_viewModelInterface: ViewModelInterface): StreakToServer {
     override val TAG = this.javaClass.simpleName
 
-    var viewModelInterface = _viewModelInterface
+    var viewModel = _viewModelInterface
 
     init {
         Log.i(TAG, "!обект dataOnRequestsFromTheServer создался")
@@ -19,12 +19,15 @@ class SearchedDataOnRequestsFromTheServer(_viewModelInterface: ViewModelInterfac
 
     var requestListFromServer:RequestList?=null
 
+    private fun setRequestList(requestListFromServer: RequestList) {
+        this.requestListFromServer = requestListFromServer
+        viewModel.changedListsData()
+    }
 
     @Override
     override fun setObjectByUser(user: User) {
         setObjectByUserAndInterface(this, user)
     }
-
 
 
     fun sendParamsForRequestOnGlobalSearch(declarerFIO: String?, cod: Int?, date1: String?,
@@ -39,39 +42,16 @@ class SearchedDataOnRequestsFromTheServer(_viewModelInterface: ViewModelInterfac
                                                                          office, address, roomNum)
     }
 
-    override fun sendRequestCurrentTask() {
+    override fun sendRequest() {
         Log.i(TAG, "!отправил запрос на получение данных для Spinners!")
         serverRequestsByRx?.sendRequestsForRequestOnGlobalSearch()
-    }
-
-    override fun sendRequestMyTask() {
-        
     }
 
     override fun setData() {
         if(serverRequestsByRx?.getRequestListFromServer()!=null) {
             Log.i(TAG, "!RequestListStates не пустой!")
-            requestListFromServer = serverRequestsByRx?.getRequestListFromServer()
+            serverRequestsByRx?.requestListFromServer?.let { setRequestList(it) }
             Log.i(TAG, "!Размер массива requestListFromServer: " + requestListFromServer?.requests?.size.toString())
-            viewModelInterface.changedListsData()
         }
     }
-
-//    fun waitData() {
-//        GlobalScope.launch {
-//            Log.i(TAG, "!Массив пуст(DataOnRequestsFromTheServer)!")
-//            while (serverRequestsByRx?.getRequestListFromServer()== null) {
-//
-//            }
-//            if(serverRequestsByRx?.getRequestListFromServer()!=null) Log.i(TAG, "!Массив получен(DataOnRequestsFromTheServer)!")
-//            delay(1000)
-//            if(serverRequestsByRx?.getRequestListFromServer()!=null) {
-//                Log.i(TAG, "!RequestListStates не пустой!")
-//                requestListFromServer = serverRequestsByRx?.getRequestListFromServer()
-//                Log.i(TAG, "!Размер массива requestListFromServer: " + requestListFromServer?.requests?.size.toString())
-//            }
-//            Log.i(TAG, "!вызов viewModelGlobalSearchInterface.setRequestList()!")
-//            viewModelInterface.setListsData()
-//        }
-//    }
 }

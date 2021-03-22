@@ -1,23 +1,23 @@
 package com.example.projectkfudemo.architecturalcomponents.viewmodels.globalsearchfragment
 
 import android.util.Log
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.projectkfudemo.architecturalcomponents.livadatas.LiveDataSearchResultFromServer
 import com.example.projectkfudemo.architecturalcomponents.models.SearchedDataOnRequestsFromTheServer
+import com.example.projectkfudemo.architecturalcomponents.models.StreakToServer
 import com.example.projectkfudemo.architecturalcomponents.ui.globalsearch.GlobalSearchInterface
+import com.example.projectkfudemo.architecturalcomponents.viewmodels.ViewModelDefaultInterface
 import com.example.projectkfudemo.architecturalcomponents.viewmodels.ViewModelInterface
 import com.example.projectkfudemo.parametrclasses.User
-import com.example.projectkfudemo.requests.Request
 
-class ViewModelGlobalSearch: ViewModel(), ViewModelInterface {
+class ViewModelGlobalSearch: ViewModel(), ViewModelDefaultInterface {
     override val TAG = this.javaClass.simpleName
 
     var user: User?= null  //объект для хранения
 
     var globalSearchInterface: GlobalSearchInterface? = null
 
-    val searchedDataOnRequestsFromTheServer: SearchedDataOnRequestsFromTheServer = SearchedDataOnRequestsFromTheServer(this)
+    override var streakToServer: StreakToServer = SearchedDataOnRequestsFromTheServer(this)
 
     val liveDataSearchResultFromServer = LiveDataSearchResultFromServer
 
@@ -33,7 +33,7 @@ class ViewModelGlobalSearch: ViewModel(), ViewModelInterface {
     fun setObjectForRequests() {
         user?.let {
             Log.i(TAG, "!из MyViewModelMainActivity отправил user в spinnerDataFromServer!")
-            searchedDataOnRequestsFromTheServer.setObjectByUser(user!!)
+            streakToServer.setObjectByUser(user!!)
         }
     }
 
@@ -43,7 +43,7 @@ class ViewModelGlobalSearch: ViewModel(), ViewModelInterface {
                                  techGroup: Int?, office:String?, address: String?,
                                  roomNum:String?) {
         Log.i(TAG, "!отправил данные для параметров и вызвал настройку параметров")
-        searchedDataOnRequestsFromTheServer.sendParamsForRequestOnGlobalSearch(declarerFIO, cod, date1,
+        streakToServer.sendParamsForRequestOnGlobalSearch(declarerFIO, cod, date1,
                                                                                date2, regType, statusId,
                                                                                regUserId, workerId, text,
                                                                                techGroup, office, address,
@@ -51,21 +51,21 @@ class ViewModelGlobalSearch: ViewModel(), ViewModelInterface {
     }
 
     fun sendRequest() {
-        searchedDataOnRequestsFromTheServer.sendRequestCurrentTask()
+        streakToServer.sendRequest()
 //        searchedDataOnRequestsFromTheServer.waitData()
     }
 
     fun showNextFragment() {
         Log.i(TAG, "!Вызов метода showResultFragment")
-        globalSearchInterface?.showResultFragment(searchedDataOnRequestsFromTheServer.requestListFromServer)
+        globalSearchInterface?.showResultFragment(streakToServer.requestListFromServer)
     }
 
     //для вызова через интерфейс из SearchedDataOnRequestsFromTheServer
     override fun changedListsData() {
         Log.i(TAG, "!выполнение setListsData")
-        liveDataSearchResultFromServer.postValue(searchedDataOnRequestsFromTheServer.requestListFromServer)
+        liveDataSearchResultFromServer.postValue(streakToServer.requestListFromServer)
 //        showNextFragment()
-        Log.i(TAG, "!Размер массива requestListFromServer: " + searchedDataOnRequestsFromTheServer.requestListFromServer?.requests?.size.toString())
+        Log.i(TAG, "!Размер массива requestListFromServer: " + streakToServer.requestListFromServer?.requests?.size.toString())
         Log.i(TAG, "!Размер массива requestList в LiveData: " + liveDataSearchResultFromServer.value?.requests?.size.toString())
     }
 }

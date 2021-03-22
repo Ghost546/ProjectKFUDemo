@@ -1,24 +1,16 @@
 package com.example.projectkfudemo.architecturalcomponents.ui.addcommenttorequest
 
-import android.app.Activity
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
-import androidx.compose.foundation.layout.Column
-import androidx.compose.material.Checkbox
-import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.platform.ComposeView
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
 import com.example.projectkfudemo.architecturalcomponents.ui.MainActivity
 import com.example.projectkfudemo.architecturalcomponents.ui.ViewModelGet
 import com.example.projectkfudemo.architecturalcomponents.viewmodels.ViewModelInterface
 import com.example.projectkfudemo.databinding.FragmentAddCommentToRequestBinding
-import com.example.projectkfudemo.requests.Request
+import com.example.projectkfudemo.parametrclasses.requests.Request
 
 class AddCommentToRequestFragment: Fragment(), ViewModelGet {
 

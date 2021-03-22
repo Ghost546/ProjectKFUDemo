@@ -5,7 +5,7 @@ import com.example.projectkfudemo.parametrclasses.User
 import com.example.projectkfudemo.parametrclasses.forjson.WorkCategoryList
 
 //класс нужен чтобы получать список "Категория работ"
-class GetDataWorkCategory(_viewModelInterface: ViewModelInterface): ModelsByRequestToServer {
+class GetDataWorkCategory(_viewModelInterface: ViewModelInterface): StreakToServer {
     override val TAG: String = this.javaClass.simpleName
 
     //интерфейс для взаимодействия с viewmodel которая создала объект по данному классу
@@ -19,7 +19,7 @@ class GetDataWorkCategory(_viewModelInterface: ViewModelInterface): ModelsByRequ
     override var serverRequestsByRx: ServerRequestsByRx? = null
 
     //Лист, содержащий данные из модели
-    var workCategoryList: WorkCategoryList? = null
+    private var workCategoryList: WorkCategoryList? = null
 
     //метод устанавливает значение в листе и оповещает viewmodel
     private fun setWorkCategory(workCategoryList: WorkCategoryList) {
@@ -27,17 +27,8 @@ class GetDataWorkCategory(_viewModelInterface: ViewModelInterface): ModelsByRequ
         viewModel?.changedListsData()
     }
 
-    fun setObject(user: User) {
-        setObjectByUserAndInterface(this, user)
-    }
 
-    override fun sendRequestCurrentTask() {
-        TODO("Not yet implemented")
-    }
 
-    override fun sendRequestMyTask() {
-        TODO("Not yet implemented")
-    }
 
     override fun sendRequest() {
         serverRequestsByRx?.setWorkCategoryListByRetrofit()

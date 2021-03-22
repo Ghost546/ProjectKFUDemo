@@ -3,10 +3,10 @@ package com.example.projectkfudemo.architecturalcomponents.models
 import android.util.Log
 import com.example.projectkfudemo.architecturalcomponents.viewmodels.ViewModelInterface
 import com.example.projectkfudemo.parametrclasses.User
-import com.example.projectkfudemo.requests.RequestList
+import com.example.projectkfudemo.parametrclasses.requests.RequestList
 
 //Класс отправляет запрос и получает ответ для MyTask и CurrentTask
-class DataRequestListFromServer(_viewModelInterface: ViewModelInterface): ModelsByRequestToServer {
+class DataRequestListFromServer(_viewModelInterface: ViewModelInterface): StreakByRequestToServer {
     override val TAG = this.javaClass.simpleName
 
     override var serverRequestsByRx: ServerRequestsByRx? = null

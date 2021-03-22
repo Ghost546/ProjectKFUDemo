@@ -2,9 +2,8 @@ package com.example.projectkfudemo.architecturalcomponents.viewmodels
 
 import android.util.Log
 import com.example.projectkfudemo.architecturalcomponents.models.DataRequestListFromServer
-import com.example.projectkfudemo.architecturalcomponents.ui.ListVisibilityInterface
 import com.example.projectkfudemo.parametrclasses.User
-import com.example.projectkfudemo.requests.RequestList
+import com.example.projectkfudemo.parametrclasses.requests.RequestList
 
 interface ViewModelTasksInterface: ViewModelInterface {
     //объект для хранения данных о пользователе

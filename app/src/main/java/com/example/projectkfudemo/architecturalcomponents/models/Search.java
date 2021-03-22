@@ -1,7 +1,7 @@
 package com.example.projectkfudemo.architecturalcomponents.models;
 
-import com.example.projectkfudemo.requests.Request;
-import com.example.projectkfudemo.requests.RequestList;
+import com.example.projectkfudemo.parametrclasses.requests.Request;
+import com.example.projectkfudemo.parametrclasses.requests.RequestList;
 
 import java.util.ArrayList;
 import java.util.List;

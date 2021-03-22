@@ -8,7 +8,7 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.example.projectkfudemo.R;
-import com.example.projectkfudemo.requests.Request;
+import com.example.projectkfudemo.parametrclasses.requests.Request;
 
 import java.util.List;
 
