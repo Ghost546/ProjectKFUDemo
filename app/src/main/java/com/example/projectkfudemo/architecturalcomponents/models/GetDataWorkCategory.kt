@@ -3,9 +3,10 @@ package com.example.projectkfudemo.architecturalcomponents.models
 import com.example.projectkfudemo.architecturalcomponents.viewmodels.ViewModelInterface
 import com.example.projectkfudemo.parametrclasses.User
 import com.example.projectkfudemo.parametrclasses.forjson.WorkCategoryList
+import javax.inject.Inject
 
 //класс нужен чтобы получать список "Категория работ"
-class GetDataWorkCategory(_viewModelInterface: ViewModelInterface): ModelsByRequestToServer {
+class GetDataWorkCategory @Inject constructor(_viewModelInterface: ViewModelInterface): ModelsByRequestToServer {
     override val TAG: String = this.javaClass.simpleName
 
     //интерфейс для взаимодействия с viewmodel которая создала объект по данному классу

@@ -301,7 +301,7 @@ public class ServerRequestsByRx { //из этого класса отправл�
 
                     @Override
                     public void onNext(@NonNull WorkCategoryList workCategoryList) {
-                        Log.i(TAG, "!Массив Категория Работ пришла");
+                        Log.i(TAG, "!Массив Категория Работ пришла!");
                         setWorkCategoryList(workCategoryList);
                     }
 

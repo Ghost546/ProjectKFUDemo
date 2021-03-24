@@ -7,6 +7,7 @@ import com.example.projectkfudemo.requests.RequestList
 interface ModelsByRequestToServer {
     val TAG: String
 
+    //класс модели
     var serverRequestsByRx: ServerRequestsByRx?
 
     fun setObjectByUser(user: User) {
@@ -21,11 +22,15 @@ interface ModelsByRequestToServer {
         Log.i(TAG, "!в serverRequestsByRx отправил user!")
     }
 
+    //отправка запроса в модель из экрана CurrentTask
     fun sendRequestCurrentTask()
 
+    //отправка запроса в модель из экрана MyTask
     fun sendRequestMyTask()
 
+    //отправка запроса в модель, общая
     fun sendRequest()
 
+    //уведомление класса обл изменении данных в модели
     fun setData()
 }

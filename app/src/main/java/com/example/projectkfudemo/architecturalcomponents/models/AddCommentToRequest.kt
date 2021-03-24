@@ -1,6 +1,8 @@
 package com.example.projectkfudemo.architecturalcomponents.models
 
-class AddCommentToRequest: ModelsByRequestToServer {
+import com.example.projectkfudemo.architecturalcomponents.viewmodels.ViewModelInterface
+
+class AddCommentToRequest(_viewModelInterface:ViewModelInterface): ModelsByRequestToServer {
     override val TAG: String
         get() = TODO("Not yet implemented")
     override var serverRequestsByRx: ServerRequestsByRx?
