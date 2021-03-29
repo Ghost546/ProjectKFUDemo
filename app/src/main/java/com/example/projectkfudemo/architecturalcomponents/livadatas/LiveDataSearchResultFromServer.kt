@@ -1,10 +1,7 @@
 package com.example.projectkfudemo.architecturalcomponents.livadatas
 
-import android.content.Context
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.example.projectkfudemo.requests.Request
-import com.example.projectkfudemo.requests.RequestList
+import com.example.projectkfudemo.parametrclasses.requests.RequestList
 
 object LiveDataSearchResultFromServer: MutableLiveData<RequestList>() {
 

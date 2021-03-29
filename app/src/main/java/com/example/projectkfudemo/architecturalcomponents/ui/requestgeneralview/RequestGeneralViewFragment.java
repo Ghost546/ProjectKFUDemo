@@ -211,7 +211,7 @@ public class RequestGeneralViewFragment extends Fragment implements View.OnClick
             if(requestGeneral.getRequest().getThatIsMyRequest() && status == 3) {//переход на экран "добавить комментарий"
                 fab2.setOnClickListener(new View.OnClickListener() {
                     @Override
-                    public void onClick(View v) {
+                    public void onClick(View v) {//переход на экран "добавить комментарий"
                         mainActivity.startFragmentAddCommentToRequest(request);
                     }
                 });

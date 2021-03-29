@@ -6,9 +6,8 @@ import com.example.projectkfudemo.parametrclasses.GlobalSearchParams;
 import com.example.projectkfudemo.parametrclasses.User;
 import com.example.projectkfudemo.parametrclasses.forjson.SearchDeclarerList;
 import com.example.projectkfudemo.parametrclasses.forjson.SearchWorkersList;
-import com.example.projectkfudemo.parametrclasses.forjson.WorkCategory;
 import com.example.projectkfudemo.parametrclasses.forjson.WorkCategoryList;
-import com.example.projectkfudemo.requests.RequestList;
+import com.example.projectkfudemo.parametrclasses.requests.RequestList;
 import com.google.firebase.crashlytics.FirebaseCrashlytics;
 
 import io.reactivex.Observer;
@@ -23,8 +22,13 @@ public class ServerRequestsByRx { //из этого класса отправл�
 
     }
 
-    public ServerRequestsByRx(ModelsByRequestToServer modelsByRequestToServer, User user) {
-        this.modelsByRequestToServer = modelsByRequestToServer;
+    public ServerRequestsByRx(StreakToServer streakToServer, User user) {
+        this.streakToServer = streakToServer;
+        this.user=user;
+    }
+
+    public ServerRequestsByRx(StreakByRequestToServer streakByRequestToServer, User user) {
+        this.streakByRequestToServer = streakByRequestToServer;
         this.user=user;
     }
 
@@ -41,7 +45,8 @@ public class ServerRequestsByRx { //из этого класса отправл�
                                         //потому что на каждый VM создается свой экземпляр класса
                                         //модели. наблюдать
 
-    ModelsByRequestToServer modelsByRequestToServer;
+    StreakToServer streakToServer;
+    StreakByRequestToServer streakByRequestToServer;
 
     //списки-ответы на запрос о списках сотрудниках и заявителях
 
@@ -95,7 +100,7 @@ public class ServerRequestsByRx { //из этого класса отправл�
 
     public void setWorkCategoryList(WorkCategoryList workCategoryList) {
         this.workCategoryList = workCategoryList;
-        modelsByRequestToServer.setData();
+        streakByRequestToServer.setData();
     }
 
     // непосредственно отправляет запрос для получения данных для выпадающих списков
@@ -127,7 +132,7 @@ public class ServerRequestsByRx { //из этого класса отправл�
                         } else {
                             Log.i(TAG, "!Массив пришел! метод setWorkerArraysForSpinner");
                         }
-                        modelsByRequestToServer.setData();
+                        streakByRequestToServer.setData();
                     }
 
                     @Override
@@ -161,7 +166,7 @@ public class ServerRequestsByRx { //из этого класса отправл�
                         } else {
                             Log.i(TAG, "!Массив пришел! метод setDeclarerArraysForSpinner");
                         }
-                        modelsByRequestToServer.setData();
+                        streakByRequestToServer.setData();
                     }
 
                     @Override
@@ -193,7 +198,7 @@ public class ServerRequestsByRx { //из этого класса отправл�
                             FirebaseCrashlytics.getInstance().log("Пришел пустой массив на вывод! В текущих заявках. Class CurrentTaskFragment метод getRequestListView");
                         }
                         Log.i(TAG, "!Размер requestList: " + requestList.getRequests().size());
-                        modelsByRequestToServer.setData();
+                        streakByRequestToServer.setData();
                     }
 
                     @Override
@@ -226,7 +231,7 @@ public class ServerRequestsByRx { //из этого класса отправл�
                             FirebaseCrashlytics.getInstance().log("Пришел пустой массив на вывод! В текущих заявках. Class MyTaskFragment метод getRequestListView");
                         }
                         Log.i(TAG, "!Размер requestList: " + requestList.getRequests().size());
-                        modelsByRequestToServer.setData();
+                        streakByRequestToServer.setData();
                     }
 
                     @Override
@@ -274,7 +279,7 @@ public class ServerRequestsByRx { //из этого класса отправл�
                         } else {
                             Log.i(TAG, "!Массив requestList пришел пустой!");
                         }
-                        modelsByRequestToServer.setData();
+                        streakByRequestToServer.setData();
                     }
 
                     @Override

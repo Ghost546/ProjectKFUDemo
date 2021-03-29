@@ -17,7 +17,6 @@ import android.widget.Spinner;
 
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModel;
 
 import com.example.projectkfudemo.architecturalcomponents.ui.DataRequestList;
 import com.example.projectkfudemo.architecturalcomponents.ui.MainActivity;
@@ -25,12 +24,11 @@ import com.example.projectkfudemo.R;
 import com.example.projectkfudemo.architecturalcomponents.ui.TasksVisibilityInterface;
 import com.example.projectkfudemo.architecturalcomponents.ui.ViewModelGet;
 import com.example.projectkfudemo.architecturalcomponents.viewmodels.currenttaskfragment.ViewModelCurrentTask;
-import com.example.projectkfudemo.requests.Request;
+import com.example.projectkfudemo.parametrclasses.requests.Request;
 import com.example.projectkfudemo.architecturalcomponents.models.RequestStateAdapter;
 import com.example.projectkfudemo.architecturalcomponents.models.Search;
 import com.example.projectkfudemo.parametrclasses.User;
-import com.example.projectkfudemo.requests.RequestGeneral;
-import com.example.projectkfudemo.requests.RequestList;
+import com.example.projectkfudemo.parametrclasses.requests.RequestList;
 
 import org.jetbrains.annotations.NotNull;
 

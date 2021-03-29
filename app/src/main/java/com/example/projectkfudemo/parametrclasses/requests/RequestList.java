@@ -1,4 +1,4 @@
-package com.example.projectkfudemo.requests;
+package com.example.projectkfudemo.parametrclasses.requests;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

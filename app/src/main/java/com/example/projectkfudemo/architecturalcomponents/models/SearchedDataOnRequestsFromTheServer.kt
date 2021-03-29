@@ -5,6 +5,7 @@ import com.example.projectkfudemo.architecturalcomponents.viewmodels.ViewModelIn
 import com.example.projectkfudemo.parametrclasses.User
 import com.example.projectkfudemo.requests.RequestList
 
+//класс отправляет запрос на сервер на поиск
 class SearchedDataOnRequestsFromTheServer(_viewModelInterface: ViewModelInterface): ModelsByRequestToServer {
     override val TAG = this.javaClass.simpleName
 
@@ -61,22 +62,4 @@ class SearchedDataOnRequestsFromTheServer(_viewModelInterface: ViewModelInterfac
             viewModelInterface.changedData()
         }
     }
-
-//    fun waitData() {
-//        GlobalScope.launch {
-//            Log.i(TAG, "!Массив пуст(DataOnRequestsFromTheServer)!")
-//            while (serverRequestsByRx?.getRequestListFromServer()== null) {
-//
-//            }
-//            if(serverRequestsByRx?.getRequestListFromServer()!=null) Log.i(TAG, "!Массив получен(DataOnRequestsFromTheServer)!")
-//            delay(1000)
-//            if(serverRequestsByRx?.getRequestListFromServer()!=null) {
-//                Log.i(TAG, "!RequestListStates не пустой!")
-//                requestListFromServer = serverRequestsByRx?.getRequestListFromServer()
-//                Log.i(TAG, "!Размер массива requestListFromServer: " + requestListFromServer?.requests?.size.toString())
-//            }
-//            Log.i(TAG, "!вызов viewModelGlobalSearchInterface.setRequestList()!")
-//            viewModelInterface.setListsData()
-//        }
-//    }
 }

@@ -1,11 +1,6 @@
 package com.example.projectkfudemo.architecturalcomponents.ui.globalsearch;
 
-import android.view.LayoutInflater;
-
-import com.example.projectkfudemo.requests.Request;
-import com.example.projectkfudemo.requests.RequestList;
-
-import java.util.List;
+import com.example.projectkfudemo.parametrclasses.requests.RequestList;
 
 public interface GlobalSearchInterface {
     void showResultFragment(RequestList requestList);

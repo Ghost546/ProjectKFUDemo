@@ -1,4 +1,4 @@
-package com.example.projectkfudemo.requests;
+package com.example.projectkfudemo.parametrclasses.requests;
 
 import com.example.projectkfudemo.parametrclasses.forjson.Building;
 import com.example.projectkfudemo.parametrclasses.forjson.Comments;
@@ -7,35 +7,33 @@ import com.example.projectkfudemo.parametrclasses.forjson.Offices;
 import com.example.projectkfudemo.parametrclasses.forjson.Status;
 import com.example.projectkfudemo.parametrclasses.forjson.Works;
 
-import org.jetbrains.annotations.NotNull;
 import org.joda.time.LocalDate;
 
 import java.util.List;
 
-public class CurrentRequest implements RequestGeneral {
+public class MyRequest implements RequestGeneral {
     Request request;
 
-    @NotNull
     @Override
-    public Request getRequest() {
+    public Request getRequest(){
         return request;
     }
 
-    public CurrentRequest(Request request) {
+    public MyRequest(Request request) {
         this.request = request;
     }
 
     public int getRequestId() {
         return request.getRequestId();
-    } //айдишник заявки
+    }
 
     public void setRequestId(int requestId){
         request.setRequestId(requestId);
     }
 
-    public int getCode(){
+    public int getCode() {
         return request.getCode();
-    }   //код заявки
+    }
 
     public void setCode(int code) {
         request.setCode(code);
@@ -45,11 +43,11 @@ public class CurrentRequest implements RequestGeneral {
         return request.getRequestRegistrationDate();
     }
 
-    public void setRequestRegistrationDateFromString(String requestRegistrationDate) {
-        request.setRequestRegistrationDateFromString(requestRegistrationDate);
+    public void setPeriodOfExecutionFromString(String requestRegistrationDateString) {
+        request.setPeriodOfExecutionFromString(requestRegistrationDateString);
     }
 
-    public LocalDate getPeriodOfExecution() {                                           //used joda-time
+    public LocalDate getPeriodOfExecution() {//used joda-time
         return request.getPeriodOfExecution();
     }
 

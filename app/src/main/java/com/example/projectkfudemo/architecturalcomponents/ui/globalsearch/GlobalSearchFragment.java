@@ -15,20 +15,15 @@ import android.widget.Spinner;
 
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
 
 import com.example.projectkfudemo.architecturalcomponents.ui.LayoutVisibilityInterface;
 import com.example.projectkfudemo.architecturalcomponents.ui.MainActivity;
 import com.example.projectkfudemo.R;
 import com.example.projectkfudemo.architecturalcomponents.ui.ProgressBarVisibilityInterface;
-import com.example.projectkfudemo.architecturalcomponents.viewmodels.globalsearchfragment.ViewModelGlobalSearch;
-import com.example.projectkfudemo.requests.Request;
-import com.example.projectkfudemo.requests.RequestList;
+import com.example.projectkfudemo.parametrclasses.requests.RequestList;
 import com.example.projectkfudemo.parametrclasses.User;
 
 import java.util.List;
-
-import kotlinx.coroutines.GlobalScope;
 
 
 public class GlobalSearchFragment extends Fragment implements View.OnClickListener, GlobalSearchInterface, LayoutVisibilityInterface, ProgressBarVisibilityInterface {
@@ -110,7 +105,7 @@ public class GlobalSearchFragment extends Fragment implements View.OnClickListen
     @Override
     public void setSpinners() {
         adapterTypeOfRequest = ArrayAdapter.createFromResource(getContext(), R.array.type_request, android.R.layout.simple_spinner_item);
-        adapterStatusOfRequest =ArrayAdapter.createFromResource(getContext(), R.array.status_of_request_for_global_search, android.R.layout.simple_spinner_item);
+        adapterStatusOfRequest = ArrayAdapter.createFromResource(getContext(), R.array.status_of_request_for_global_search, android.R.layout.simple_spinner_item);
         spinnerTypeOfRequest.setAdapter(adapterTypeOfRequest);
         spinnerStatusOfRequest.setAdapter(adapterStatusOfRequest);
     }

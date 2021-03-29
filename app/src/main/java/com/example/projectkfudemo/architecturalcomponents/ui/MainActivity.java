@@ -23,8 +23,8 @@ import com.example.projectkfudemo.architecturalcomponents.ui.mytask.MyTaskFragme
 import com.example.projectkfudemo.architecturalcomponents.ui.requestgeneralview.RequestGeneralViewFragment;
 import com.example.projectkfudemo.architecturalcomponents.ui.map.MapFragment;
 import com.example.projectkfudemo.architecturalcomponents.viewmodels.mainactivity.ViewModelMainActivity;
-import com.example.projectkfudemo.requests.Request;
-import com.example.projectkfudemo.requests.RequestList;
+import com.example.projectkfudemo.parametrclasses.requests.Request;
+import com.example.projectkfudemo.parametrclasses.requests.RequestList;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.database.annotations.NotNull;
 
@@ -33,8 +33,6 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
-
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     private final String TAG = this.getClass().getSimpleName();
