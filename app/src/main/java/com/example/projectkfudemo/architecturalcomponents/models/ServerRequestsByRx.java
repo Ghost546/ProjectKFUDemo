@@ -6,7 +6,9 @@ import com.example.projectkfudemo.parametrclasses.GlobalSearchParams;
 import com.example.projectkfudemo.parametrclasses.User;
 import com.example.projectkfudemo.parametrclasses.forjson.SearchDeclarerList;
 import com.example.projectkfudemo.parametrclasses.forjson.SearchWorkersList;
+import com.example.projectkfudemo.parametrclasses.forjson.WorkCategory;
 import com.example.projectkfudemo.parametrclasses.forjson.WorkCategoryList;
+
 import com.example.projectkfudemo.parametrclasses.requests.RequestList;
 import com.google.firebase.crashlytics.FirebaseCrashlytics;
 
@@ -22,13 +24,8 @@ public class ServerRequestsByRx { //из этого класса отправл�
 
     }
 
-    public ServerRequestsByRx(StreakToServer streakToServer, User user) {
-        this.streakToServer = streakToServer;
-        this.user=user;
-    }
-
-    public ServerRequestsByRx(StreakByRequestToServer streakByRequestToServer, User user) {
-        this.streakByRequestToServer = streakByRequestToServer;
+    public ServerRequestsByRx(ModelsByRequestToServer modelsByRequestToServer, User user) {
+        this.modelsByRequestToServer = modelsByRequestToServer;
         this.user=user;
     }
 
@@ -42,11 +39,10 @@ public class ServerRequestsByRx { //из этого класса отправл�
     RequestList requestListFromServer;  //список-ответ на глобальный поиск. наблюдать
 
     RequestList requestListStates;      //список-ответ на запрос по Current и MyTask, допустимо
-                                        //потому что на каждый VM создается свой экземпляр класса
-                                        //модели. наблюдать
+    //потому что на каждый VM создается свой экземпляр класса
+    //модели. наблюдать
 
-    StreakToServer streakToServer;
-    StreakByRequestToServer streakByRequestToServer;
+    ModelsByRequestToServer modelsByRequestToServer;
 
     //списки-ответы на запрос о списках сотрудниках и заявителях
 
@@ -100,7 +96,7 @@ public class ServerRequestsByRx { //из этого класса отправл�
 
     public void setWorkCategoryList(WorkCategoryList workCategoryList) {
         this.workCategoryList = workCategoryList;
-        streakByRequestToServer.setData();
+        modelsByRequestToServer.setData();
     }
 
     // непосредственно отправляет запрос для получения данных для выпадающих списков
@@ -132,7 +128,7 @@ public class ServerRequestsByRx { //из этого класса отправл�
                         } else {
                             Log.i(TAG, "!Массив пришел! метод setWorkerArraysForSpinner");
                         }
-                        streakByRequestToServer.setData();
+                        modelsByRequestToServer.setData();
                     }
 
                     @Override
@@ -166,7 +162,7 @@ public class ServerRequestsByRx { //из этого класса отправл�
                         } else {
                             Log.i(TAG, "!Массив пришел! метод setDeclarerArraysForSpinner");
                         }
-                        streakByRequestToServer.setData();
+                        modelsByRequestToServer.setData();
                     }
 
                     @Override
@@ -198,7 +194,7 @@ public class ServerRequestsByRx { //из этого класса отправл�
                             FirebaseCrashlytics.getInstance().log("Пришел пустой массив на вывод! В текущих заявках. Class CurrentTaskFragment метод getRequestListView");
                         }
                         Log.i(TAG, "!Размер requestList: " + requestList.getRequests().size());
-                        streakByRequestToServer.setData();
+                        modelsByRequestToServer.setData();
                     }
 
                     @Override
@@ -231,7 +227,7 @@ public class ServerRequestsByRx { //из этого класса отправл�
                             FirebaseCrashlytics.getInstance().log("Пришел пустой массив на вывод! В текущих заявках. Class MyTaskFragment метод getRequestListView");
                         }
                         Log.i(TAG, "!Размер requestList: " + requestList.getRequests().size());
-                        streakByRequestToServer.setData();
+                        modelsByRequestToServer.setData();
                     }
 
                     @Override
@@ -279,7 +275,7 @@ public class ServerRequestsByRx { //из этого класса отправл�
                         } else {
                             Log.i(TAG, "!Массив requestList пришел пустой!");
                         }
-                        streakByRequestToServer.setData();
+                        modelsByRequestToServer.setData();
                     }
 
                     @Override
@@ -306,7 +302,7 @@ public class ServerRequestsByRx { //из этого класса отправл�
 
                     @Override
                     public void onNext(@NonNull WorkCategoryList workCategoryList) {
-                        Log.i(TAG, "!Массив Категория Работ пришла!");
+                        Log.i(TAG, "!Массив Категория Работ пришла");
                         setWorkCategoryList(workCategoryList);
                     }
 

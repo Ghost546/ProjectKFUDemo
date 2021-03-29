@@ -6,7 +6,7 @@ import com.example.projectkfudemo.parametrclasses.User
 import com.example.projectkfudemo.parametrclasses.requests.RequestList
 
 //Класс отправляет запрос и получает ответ для MyTask и CurrentTask
-class DataRequestListFromServer(_viewModelInterface: ViewModelInterface): StreakByRequestToServer {
+class DataRequestListFromServer(_viewModelInterface: ViewModelInterface): ModelsByRequestToServer {
     override val TAG = this.javaClass.simpleName
 
     override var serverRequestsByRx: ServerRequestsByRx? = null

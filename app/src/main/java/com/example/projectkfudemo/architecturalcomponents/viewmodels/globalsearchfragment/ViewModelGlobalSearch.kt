@@ -8,7 +8,6 @@ import com.example.projectkfudemo.architecturalcomponents.models.SearchedDataOnR
 import com.example.projectkfudemo.architecturalcomponents.ui.globalsearch.GlobalSearchInterface
 import com.example.projectkfudemo.architecturalcomponents.viewmodels.ViewModelInterface
 import com.example.projectkfudemo.parametrclasses.User
-import com.example.projectkfudemo.requests.Request
 
 class ViewModelGlobalSearch: ViewModel(), ViewModelInterface {
     override val TAG = this.javaClass.simpleName

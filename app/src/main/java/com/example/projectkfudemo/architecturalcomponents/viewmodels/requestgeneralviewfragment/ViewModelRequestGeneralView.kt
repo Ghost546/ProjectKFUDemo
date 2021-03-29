@@ -6,7 +6,7 @@ import com.example.projectkfudemo.architecturalcomponents.models.AssignOnOneself
 import com.example.projectkfudemo.architecturalcomponents.ui.ViewModelGet
 import com.example.projectkfudemo.architecturalcomponents.viewmodels.ViewModelInterface
 import com.example.projectkfudemo.parametrclasses.User
-import com.example.projectkfudemo.requests.Request
+import com.example.projectkfudemo.parametrclasses.requests.Request
 
 class ViewModelRequestGeneralView:ViewModel(), ViewModelInterface {
     override val TAG: String

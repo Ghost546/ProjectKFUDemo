@@ -21,12 +21,12 @@ import com.example.projectkfudemo.architecturalcomponents.ui.ViewModelGet;
 import com.example.projectkfudemo.architecturalcomponents.viewmodels.ViewModelInterface;
 import com.example.projectkfudemo.architecturalcomponents.viewmodels.requestgeneralviewfragment.ViewModelRequestGeneralView;
 import com.example.projectkfudemo.parametrclasses.User;
-import com.example.projectkfudemo.requests.CurrentRequest;
 import com.example.projectkfudemo.architecturalcomponents.ui.MainActivity;
-import com.example.projectkfudemo.requests.MyRequest;
 import com.example.projectkfudemo.R;
-import com.example.projectkfudemo.requests.Request;
-import com.example.projectkfudemo.requests.RequestGeneral;
+import com.example.projectkfudemo.parametrclasses.requests.CurrentRequest;
+import com.example.projectkfudemo.parametrclasses.requests.MyRequest;
+import com.example.projectkfudemo.parametrclasses.requests.Request;
+import com.example.projectkfudemo.parametrclasses.requests.RequestGeneral;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class RequestGeneralViewFragment extends Fragment implements View.OnClickListener {
@@ -62,6 +62,7 @@ public class RequestGeneralViewFragment extends Fragment implements View.OnClick
     private TextView actionsOverRequest;
 
     RequestGeneral requestGeneral;
+
 
     private Button changeLogsButton;
 

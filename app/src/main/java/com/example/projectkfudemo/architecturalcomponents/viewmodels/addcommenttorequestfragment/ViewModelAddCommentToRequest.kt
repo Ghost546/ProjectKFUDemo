@@ -5,15 +5,14 @@ import com.example.projectkfudemo.architecturalcomponents.models.GetDataWorkCate
 import com.example.projectkfudemo.architecturalcomponents.viewmodels.ViewModelInterface
 import com.example.projectkfudemo.parametrclasses.User
 import com.example.projectkfudemo.parametrclasses.forjson.WorkCategoryList
-import com.example.projectkfudemo.requests.Request
-import com.example.projectkfudemo.requests.RequestList
+import com.example.projectkfudemo.parametrclasses.requests.Request
 
 class ViewModelAddCommentToRequest:ViewModel(), ViewModelInterface {
     override val TAG = this.javaClass.simpleName
 
     var workCategory:WorkCategoryList? = null
     override var user: User? = null
-    var request:Request? = null
+    var request: Request? = null
 
     override fun setObject(user: User) {
         getDataWorkCategory.setObject(user)

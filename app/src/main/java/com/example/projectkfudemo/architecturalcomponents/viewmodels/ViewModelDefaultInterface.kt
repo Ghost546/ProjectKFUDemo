@@ -1,7 +1,7 @@
 package com.example.projectkfudemo.architecturalcomponents.viewmodels
 
-import com.example.projectkfudemo.architecturalcomponents.models.StreakToServer
+import com.example.projectkfudemo.architecturalcomponents.models.ModelsByRequestToServer
 
 interface ViewModelDefaultInterface: ViewModelInterface {
-    var streakToServer: StreakToServer?
+    var modelsByRequestToServer: ModelsByRequestToServer?
 }

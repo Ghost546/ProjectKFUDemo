@@ -3,7 +3,7 @@ package com.example.projectkfudemo.architecturalcomponents.models
 import android.util.Log
 import com.example.projectkfudemo.architecturalcomponents.viewmodels.ViewModelInterface
 import com.example.projectkfudemo.parametrclasses.User
-import com.example.projectkfudemo.requests.RequestList
+import com.example.projectkfudemo.parametrclasses.requests.RequestList
 
 //класс отправляет запрос на сервер на поиск
 class SearchedDataOnRequestsFromTheServer(_viewModelInterface: ViewModelInterface): ModelsByRequestToServer {
@@ -17,7 +17,7 @@ class SearchedDataOnRequestsFromTheServer(_viewModelInterface: ViewModelInterfac
 
     override var serverRequestsByRx: ServerRequestsByRx ?= null
 
-    var requestListFromServer:RequestList?=null
+    var requestListFromServer: RequestList?=null
 
     private fun setRequestList(requestListFromServer: RequestList) {
         this.requestListFromServer = requestListFromServer
