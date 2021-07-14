@@ -7,7 +7,7 @@ import com.example.projectkfudemo.parametrclasses.requests.RequestList
 
 //Класс отправляет запрос и получает ответ для MyTask и CurrentTask
 class DataRequestListFromServer(_viewModelInterface: ViewModelInterface): ModelsByRequestToServer {
-    override val TAG = this.javaClass.simpleName
+    override val tag = this.javaClass.simpleName
 
     override var serverRequestsByRx: ServerRequestsByRx? = null
 
@@ -22,17 +22,17 @@ class DataRequestListFromServer(_viewModelInterface: ViewModelInterface): Models
     fun setPosition(position: Int?) {
         position?.let { serverRequestsByRx?.setPosition(it) }
         if (position==null) {
-            Log.i(TAG, "!Позиция не установилась")
+            Log.i(tag, "!Позиция не установилась")
         }
     }
 
     override fun sendRequestCurrentTask() {
-        Log.i(TAG, "!Отправка запроса на сервер")
+        Log.i(tag, "!Отправка запроса на сервер")
         serverRequestsByRx?.setRequestListByCurrentTask()
     }
 
     override fun sendRequestMyTask() {
-        Log.i(TAG, "!Отправка запроса на сервер")
+        Log.i(tag, "!Отправка запроса на сервер")
         serverRequestsByRx?.setRequestListByMyTask()
     }
 
@@ -42,9 +42,9 @@ class DataRequestListFromServer(_viewModelInterface: ViewModelInterface): Models
 
     override fun setData() {
         requestList = serverRequestsByRx!!.requestListStates
-        Log.i(TAG, "!Установка requestList, её размер: " + requestList.requests.size)
+        Log.i(tag, "!Установка requestList, её размер: " + requestList.requests.size)
         viewModelInterface.changedData()
-        Log.i(TAG, "!Установка list во ViewModel")
+        Log.i(tag, "!Установка list во ViewModel")
     }
 
 }

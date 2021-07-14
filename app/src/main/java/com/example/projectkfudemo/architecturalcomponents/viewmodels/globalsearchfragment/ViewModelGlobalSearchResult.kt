@@ -8,7 +8,7 @@ import com.example.projectkfudemo.parametrclasses.User
 import com.example.projectkfudemo.parametrclasses.requests.RequestList
 
 class ViewModelGlobalSearchResult: ViewModel(), ViewModelInterface {
-    override val TAG = this.javaClass.simpleName
+    override val tag = this.javaClass.simpleName
     override var user: User? =null
 
     override fun setObject(user: User) {
@@ -18,18 +18,18 @@ class ViewModelGlobalSearchResult: ViewModel(), ViewModelInterface {
     val liveDataSearchResultListFromServer = LiveDataSearchResultListFromServer
 
     override fun changedData() {
-        Log.i(TAG, "!выполнение setListsData")
+        Log.i(tag, "!выполнение setListsData")
     }
 
     fun setResultList(list: RequestList) {
-        Log.i(TAG, "!выполнение setResultList")
-        Log.i(TAG, "!размер list: " + list.requests.size)
+        Log.i(tag, "!выполнение setResultList")
+        Log.i(tag, "!размер list: " + list.requests.size)
         liveDataSearchResultListFromServer.postValue(list)
     }
 
     fun clearResultList() {
-        Log.i(TAG, "!запрос на очистку списка поиска")
-        Log.i(TAG, "!выполнение clearResultList")
+        Log.i(tag, "!запрос на очистку списка поиска")
+        Log.i(tag, "!выполнение clearResultList")
         liveDataSearchResultListFromServer.postValue(null)
     }
 

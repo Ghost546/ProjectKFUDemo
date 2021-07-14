@@ -7,12 +7,12 @@ import com.example.projectkfudemo.parametrclasses.requests.RequestList
 
 //класс отправляет запрос на сервер на поиск
 class SearchedDataOnRequestsFromTheServer(_viewModelInterface: ViewModelInterface): ModelsByRequestToServer {
-    override val TAG = this.javaClass.simpleName
+    override val tag = this.javaClass.simpleName
 
     var viewModelInterface = _viewModelInterface
 
     init {
-        Log.i(TAG, "!обект dataOnRequestsFromTheServer создался")
+        Log.i(tag, "!обект dataOnRequestsFromTheServer создался")
     }
 
     override var serverRequestsByRx: ServerRequestsByRx ?= null
@@ -30,7 +30,7 @@ class SearchedDataOnRequestsFromTheServer(_viewModelInterface: ViewModelInterfac
     }
 
     override fun sendRequest() {
-        Log.i(TAG, "!отправил запрос на получение данных для Spinners!")
+        Log.i(tag, "!отправил запрос на получение данных для Spinners!")
         serverRequestsByRx?.sendRequestsForRequestOnGlobalSearch()
     }
 
@@ -39,7 +39,7 @@ class SearchedDataOnRequestsFromTheServer(_viewModelInterface: ViewModelInterfac
                                            regUserId: Int?, workerId: Int?, text: String?,
                                            techGroup: Int?, office:String?, address: String?,
                                            roomNum:String?) {
-        Log.i(TAG, "!отправил параметры для отправки запроса!")
+        Log.i(tag, "!отправил параметры для отправки запроса!")
         serverRequestsByRx?.setParamsForRequestOnGlobalSearchToVariables(declarerFIO, cod, date1, date2,
                                                                          regType, statusId, regUserId,
                                                                          workerId, text, techGroup,
@@ -56,9 +56,9 @@ class SearchedDataOnRequestsFromTheServer(_viewModelInterface: ViewModelInterfac
 
     override fun setData() {
         if(serverRequestsByRx?.getRequestListFromServer()!=null) {
-            Log.i(TAG, "!RequestListStates не пустой!")
+            Log.i(tag, "!RequestListStates не пустой!")
             serverRequestsByRx?.requestListFromServer?.let { setRequestList(it) }
-            Log.i(TAG, "!Размер массива requestListFromServer: " + requestListFromServer?.requests?.size.toString())
+            Log.i(tag, "!Размер массива requestListFromServer: " + requestListFromServer?.requests?.size.toString())
             viewModelInterface.changedData()
         }
     }

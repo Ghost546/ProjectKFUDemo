@@ -7,6 +7,7 @@ import android.view.MenuItem;
 
 import com.example.projectkfudemo.R;
 import com.example.projectkfudemo.architecturalcomponents.ui.addcommenttorequest.AddCommentToRequestFragment;
+import com.example.projectkfudemo.architecturalcomponents.ui.addcommenttorequest.CategoryOfWorkFragment;
 import com.example.projectkfudemo.architecturalcomponents.viewmodels.addcommenttorequestfragment.ViewModelAddCommentToRequest;
 import com.example.projectkfudemo.architecturalcomponents.viewmodels.globalsearchfragment.ViewModelGlobalSearch;
 import com.example.projectkfudemo.architecturalcomponents.viewmodels.globalsearchfragment.ViewModelGlobalSearchResult;
@@ -95,7 +96,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
+    private final BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
         @Override
         public boolean onNavigationItemSelected(MenuItem item) {
             switch (item.getItemId()) {
@@ -278,6 +279,22 @@ public class MainActivity extends AppCompatActivity {
             Log.i(TAG, "!Хэш-код viewModelAddCommentToRequest" + viewModelAddCommentToRequest.hashCode());
         }
         Fragment selectedFragment = AddCommentToRequestFragment.Companion.newInstance(request);
+        fragmentTransaction.replace(R.id.fragment_container, selectedFragment);
+        fragmentTransaction.commit();
+    }
+
+    @NotNull
+    public void startFragmentCategoryOfWork() {
+        Log.i(TAG, "!Выполнение startFragmentAddCommentToRequest");
+        FragmentTransaction fragmentTransaction;
+        fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.addToBackStack(null);
+        if(viewModelAddCommentToRequest==null) {
+            Log.i(TAG, "!viewModelAddCommentToRequest == null");
+        } else {
+            Log.i(TAG, "!Хэш-код viewModelAddCommentToRequest" + viewModelAddCommentToRequest.hashCode());
+        }
+        Fragment selectedFragment = CategoryOfWorkFragment.Companion.newInstance();
         fragmentTransaction.replace(R.id.fragment_container, selectedFragment);
         fragmentTransaction.commit();
     }

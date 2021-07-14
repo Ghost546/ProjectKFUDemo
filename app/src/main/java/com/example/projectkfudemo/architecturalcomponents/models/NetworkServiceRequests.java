@@ -1,12 +1,14 @@
 package com.example.projectkfudemo.architecturalcomponents.models;
 
-import com.example.projectkfudemo.JSONApi.JSONApiDeclarerList;
-import com.example.projectkfudemo.JSONApi.JSONApiGlobalSearch;
-import com.example.projectkfudemo.JSONApi.JSONApiRequest;
-import com.example.projectkfudemo.JSONApi.JSONApiUserRequest;
-import com.example.projectkfudemo.JSONApi.JSONApiWorkCategoryList;
-import com.example.projectkfudemo.JSONApi.JSONApiWorkersList;
-import com.example.projectkfudemo.JSONApi.JSONLoginApi;
+import com.example.projectkfudemo.jsonapi.JSONApiDeclarerList;
+import com.example.projectkfudemo.jsonapi.JSONApiGlobalSearch;
+import com.example.projectkfudemo.jsonapi.JSONApiIsCommentScript;
+import com.example.projectkfudemo.jsonapi.JSONApiIsEmployeeScript;
+import com.example.projectkfudemo.jsonapi.JSONApiRequest;
+import com.example.projectkfudemo.jsonapi.JSONApiUserRequest;
+import com.example.projectkfudemo.jsonapi.JSONApiWorkCategoryList;
+import com.example.projectkfudemo.jsonapi.JSONApiWorkersList;
+import com.example.projectkfudemo.jsonapi.JSONLoginApi;
 
 import io.reactivex.schedulers.Schedulers;
 import retrofit2.Retrofit;
@@ -16,7 +18,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class NetworkServiceRequests {
     private static NetworkServiceRequests mInstance;
     private static final String BASE_URL = "https://portal-dis.kpfu.ru/"; //основной адрес
-    private Retrofit mRetrofit;
+    private final Retrofit mRetrofit;
 
     private NetworkServiceRequests() {
         mRetrofit = new Retrofit
@@ -33,7 +35,7 @@ public class NetworkServiceRequests {
         }
         return mInstance;
     }
-    public JSONApiGlobalSearch getJSONApiGlobalSearch() {
+    public JSONApiGlobalSearch getJSONGlobalSearchApi() {
         return mRetrofit.create(JSONApiGlobalSearch.class);
     }
 
@@ -57,7 +59,15 @@ public class NetworkServiceRequests {
         return mRetrofit.create(JSONApiDeclarerList.class);
     }
 
-    public JSONApiWorkCategoryList getJSONWorkCategoryList() {
+    public JSONApiWorkCategoryList getJSONWorkCategoryListApi() {
         return mRetrofit.create(JSONApiWorkCategoryList.class);
+    }
+
+    public JSONApiIsCommentScript getJSONIsCommentScriptApi() {
+        return mRetrofit.create(JSONApiIsCommentScript.class);
+    }
+
+    public JSONApiIsEmployeeScript getJSONIsEmployeeScriptApi() {
+        return mRetrofit.create(JSONApiIsEmployeeScript.class);
     }
 }

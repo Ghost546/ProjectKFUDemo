@@ -4,21 +4,21 @@ import android.util.Log
 import com.example.projectkfudemo.parametrclasses.User
 
 interface ModelsByRequestToServer {
-    val TAG: String
+    val tag: String
 
     //класс модели
     var serverRequestsByRx: ServerRequestsByRx?
 
     fun setObjectByUser(user: User) {
         serverRequestsByRx = ServerRequestsByRx(user)
-        Log.i(TAG, "!spinnerDataFromServer принял user! Конструктор с юзером")
-        Log.i(TAG, "!в serverRequestsByRx отправил user!")
+        Log.i(tag, "!spinnerDataFromServer принял user! Конструктор с юзером")
+        Log.i(tag, "!в serverRequestsByRx отправил user!")
     }
 
     fun setObjectByUserAndInterface(modelsByRequestToServer: ModelsByRequestToServer, user: User) {
         serverRequestsByRx = ServerRequestsByRx(modelsByRequestToServer, user)
-        Log.i(TAG, "!spinnerDataFromServer принял user! Конструктор с интерфейсом и юзером")
-        Log.i(TAG, "!в serverRequestsByRx отправил user!")
+        Log.i(tag, "!spinnerDataFromServer принял user! Конструктор с интерфейсом и юзером")
+        Log.i(tag, "!в serverRequestsByRx отправил user!")
     }
 
     //отправка запроса в модель из экрана CurrentTask

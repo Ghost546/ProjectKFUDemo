@@ -12,7 +12,7 @@ import com.example.projectkfudemo.architecturalcomponents.ui.globalsearch.Global
 import com.example.projectkfudemo.architecturalcomponents.viewmodels.ViewModelInterface
 
 class ViewModelMainActivity: ViewModel(), ViewModelInterface {
-    override val TAG = this.javaClass.simpleName
+    override val tag = this.javaClass.simpleName
 
     override var user: User?= null  //объект для хранения
     var spinnerDataFromServer: SpinnerDataFromServer = SpinnerDataFromServer(this) //объект отправляющий запросы
@@ -33,7 +33,7 @@ class ViewModelMainActivity: ViewModel(), ViewModelInterface {
 
     fun setObjectForRequests() {
         user?.let {
-            Log.i(TAG, "!из MyViewModelMainActivity отправил user в spinnerDataFromServer!")
+            Log.i(tag, "!из MyViewModelMainActivity отправил user в spinnerDataFromServer!")
             spinnerDataFromServer.setObject(user!!)
         }
     }
@@ -48,7 +48,7 @@ class ViewModelMainActivity: ViewModel(), ViewModelInterface {
     }
 
     override fun changedData() {
-        Log.i(TAG, "!Массивы пришли!")
+        Log.i(tag, "!Массивы пришли!")
         liveDataSearchDeclarers.postValue(spinnerDataFromServer.searchDeclarers)
         var mutableList = mutableListOf<String>()
         for (i in spinnerDataFromServer.searchDeclarers?.declarersList?.indices!!) {

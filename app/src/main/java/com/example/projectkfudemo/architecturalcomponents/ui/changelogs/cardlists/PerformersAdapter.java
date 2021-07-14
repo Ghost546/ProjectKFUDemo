@@ -13,9 +13,9 @@ import com.example.projectkfudemo.parametrclasses.forjson.Workers;
 import java.util.List;
 
 public class PerformersAdapter extends ArrayAdapter<Workers> {
-    private LayoutInflater inflater;
-    private int layout;
-    private List<Workers> workersList;
+    private final LayoutInflater inflater;
+    private final int layout;
+    private final List<Workers> workersList;
 
 
     public PerformersAdapter(Context context, int resource, List<Workers> workersList) {

@@ -5,7 +5,7 @@ import com.example.projectkfudemo.parametrclasses.User
 
 //класс прослойка отправляет запрос на сервер "назначить на себя"
 class AssignOnOneselfRequestToServer (_viewModelInterface: ViewModelInterface):ModelsByRequestToServer {
-    override val TAG: String
+    override val tag: String
         get() = this.javaClass.simpleName
 
     val viewModelInterface = _viewModelInterface

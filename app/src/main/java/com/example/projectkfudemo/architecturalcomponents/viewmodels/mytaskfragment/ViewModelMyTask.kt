@@ -9,7 +9,7 @@ import com.example.projectkfudemo.parametrclasses.User
 import com.example.projectkfudemo.parametrclasses.requests.RequestList
 
 class ViewModelMyTask: ViewModel(), ViewModelTasksInterface {
-    override val TAG: String = this.javaClass.simpleName
+    override val tag: String = this.javaClass.simpleName
 
     //CII
     override var user:User? = null

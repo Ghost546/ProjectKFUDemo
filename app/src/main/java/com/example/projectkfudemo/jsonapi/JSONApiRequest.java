@@ -1,4 +1,4 @@
-package com.example.projectkfudemo.JSONApi;
+package com.example.projectkfudemo.jsonapi;
 
 import com.example.projectkfudemo.parametrclasses.requests.RequestList;
 
@@ -12,5 +12,5 @@ public interface JSONApiRequest {
     //Запрос текущих заявок
     @FormUrlEncoded
     @POST("e-ksu/service_desk_mobile.get_request_list?")
-    public Observable<RequestList> getRequestWithLoginPassword(@Field("p_user_id") int user_id, @Field("p2") String p1, @Field("p_status_id") int status);
+    Observable<RequestList> getRequestWithLoginPassword(@Field("p_user_id") int user_id, @Field("p2") String p1, @Field("p_status_id") int status);
 }

@@ -56,6 +56,12 @@
     <string name="global_search_title">Search</string>
     <string name="search">Поиск</string>
     <string name="searching">Поиск…</string>
+    <string name="category_of_work">Категория работ</string>
+    <string name="work_on_request_completed">Работы по заявке выполнены</string>
+    <string name="expand">Расширить</string>
+    <string name="partially">Частично</string>
+    <string name="fully">Полностью</string>
+    <string name="save">Сохранить</string>
 
     <string-array name="change_logs_string_list">
         <item>Ответственные по исполнению заявки</item>

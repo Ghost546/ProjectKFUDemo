@@ -204,12 +204,12 @@ public class RequestGeneralViewFragment extends Fragment implements View.OnClick
                 public void onClick(View v) {
                     //здесь запрос "назначить заявку на себя"
                     assignToOneself();
-
                 }
             });
         } else {
             //TODO: перед сборкой apk сменить значение 2 на 3(2 для тестов, 3 в версиях для сборки)
-            if(requestGeneral.getRequest().getThatIsMyRequest() && status == 3) {//переход на экран "добавить комментарий"
+            if(requestGeneral.getRequest().getThatIsMyRequest() && status == 2) {//переход на экран "добавить комментарий"
+                fab2.setVisibility(View.VISIBLE);
                 fab2.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {//переход на экран "добавить комментарий"
@@ -226,12 +226,6 @@ public class RequestGeneralViewFragment extends Fragment implements View.OnClick
         getViewModel().setUser(user);       //установка данных о пользователе
         getViewModel().setRequest(request); //установка заявки которую назначают на себя
         getViewModel().setOnAction();       //оповещение о нажатии кнопки
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-
     }
 
     //id на тип заявки

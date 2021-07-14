@@ -3,13 +3,12 @@ package com.example.projectkfudemo.architecturalcomponents.viewmodels.requestgen
 import androidx.lifecycle.ViewModel
 import com.example.projectkfudemo.architecturalcomponents.livadatas.LiveDataLogAboutAssignOnOneself
 import com.example.projectkfudemo.architecturalcomponents.models.AssignOnOneselfRequestToServer
-import com.example.projectkfudemo.architecturalcomponents.ui.ViewModelGet
 import com.example.projectkfudemo.architecturalcomponents.viewmodels.ViewModelInterface
 import com.example.projectkfudemo.parametrclasses.User
 import com.example.projectkfudemo.parametrclasses.requests.Request
 
 class ViewModelRequestGeneralView:ViewModel(), ViewModelInterface {
-    override val TAG: String
+    override val tag: String
         get() = this.javaClass.simpleName
 
     override var user: User? = null

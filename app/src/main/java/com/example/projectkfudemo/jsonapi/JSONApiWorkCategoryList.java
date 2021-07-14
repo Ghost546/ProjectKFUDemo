@@ -1,4 +1,4 @@
-package com.example.projectkfudemo.JSONApi;
+package com.example.projectkfudemo.jsonapi;
 
 import com.example.projectkfudemo.parametrclasses.forjson.WorkCategoryList;
 
@@ -10,5 +10,5 @@ import retrofit2.http.POST;
 public interface JSONApiWorkCategoryList {
     @FormUrlEncoded
     @POST("e-ksu/service_desk_mobile.work_category_list?")
-    public Observable<WorkCategoryList> getSearchWorkCategory(@Field("p_user_id") int user_id);
+    Observable<WorkCategoryList> getSearchWorkCategory(@Field("p_user_id") int user_id);
 }

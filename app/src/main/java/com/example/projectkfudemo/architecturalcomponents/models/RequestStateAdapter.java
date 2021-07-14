@@ -13,9 +13,9 @@ import com.example.projectkfudemo.parametrclasses.requests.Request;
 import java.util.List;
 
 public class RequestStateAdapter extends ArrayAdapter<Request> {
-    private LayoutInflater inflater;
-    private int layout;
-    private List<Request> requests;
+    private final LayoutInflater inflater;
+    private final int layout;
+    private final List<Request> requests;
 
 
     public RequestStateAdapter(Context context, int resource, List<Request> requests) {

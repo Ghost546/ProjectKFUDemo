@@ -14,9 +14,9 @@ import com.example.projectkfudemo.parametrclasses.forjson.Log;
 import java.util.List;
 
 public class ApplicationAdapter extends ArrayAdapter<Log> {
-    private LayoutInflater inflater;
-    private int layout;
-    private List<Log> logsList;
+    private final LayoutInflater inflater;
+    private final int layout;
+    private final List<Log> logsList;
 
 
     public ApplicationAdapter(Context context, int resource, List<Log> logsList) {

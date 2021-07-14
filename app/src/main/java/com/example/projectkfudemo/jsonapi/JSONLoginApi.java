@@ -1,4 +1,4 @@
-package com.example.projectkfudemo.JSONApi;
+package com.example.projectkfudemo.jsonapi;
 
 import com.example.projectkfudemo.parametrclasses.User;
 

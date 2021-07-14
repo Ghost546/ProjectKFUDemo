@@ -7,12 +7,12 @@ import com.example.projectkfudemo.parametrclasses.forjson.SearchDeclarerList
 import com.example.projectkfudemo.parametrclasses.forjson.SearchWorkersList
 
 class SpinnerDataFromServer(_viewModelInterface: ViewModelInterface): ModelsByRequestToServer {
-    override val TAG = this.javaClass.simpleName
+    override val tag = this.javaClass.simpleName
 
     var viewModelMainActivityInterface = _viewModelInterface
 
     init {
-        Log.i(TAG, "!объект spinnerDataFromServer создался!")
+        Log.i(tag, "!объект spinnerDataFromServer создался!")
     }
 
     override var serverRequestsByRx: ServerRequestsByRx ?= null
@@ -33,19 +33,19 @@ class SpinnerDataFromServer(_viewModelInterface: ViewModelInterface): ModelsByRe
     }
 
     override fun sendRequest() {    //метод запрашивает метод на отправку запросов
-        Log.i(TAG, "!отправил запрос на получение данных для Spinners")
+        Log.i(tag, "!отправил запрос на получение данных для Spinners")
         serverRequestsByRx?.sendRequestForDataBySpinners()
     }
 
     override fun setData() {
         if (serverRequestsByRx?.searchDeclarers!=null && serverRequestsByRx?.searchWorkers != null) {
-            Log.i(TAG, "!Массивы пришли(SpinnerDataFromServer)!")
+            Log.i(tag, "!Массивы пришли(SpinnerDataFromServer)!")
             if (serverRequestsByRx?.searchDeclarers != null) {
-                Log.i(TAG, "!searchDeclarers пришёл(SpinnerDataFromServer)!")
+                Log.i(tag, "!searchDeclarers пришёл(SpinnerDataFromServer)!")
                 searchDeclarers = serverRequestsByRx?.searchDeclarers!!
             }
             if (serverRequestsByRx?.searchWorkers != null) {
-                Log.i(TAG, "!searchWorkers пришёл(SpinnerDataFromServer)!")
+                Log.i(tag, "!searchWorkers пришёл(SpinnerDataFromServer)!")
                 searchWorkers = serverRequestsByRx?.searchWorkers!!
             }
             viewModelMainActivityInterface.changedData()

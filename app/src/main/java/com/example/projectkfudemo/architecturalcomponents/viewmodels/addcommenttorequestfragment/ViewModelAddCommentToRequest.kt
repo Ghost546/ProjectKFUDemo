@@ -8,7 +8,7 @@ import com.example.projectkfudemo.parametrclasses.forjson.WorkCategoryList
 import com.example.projectkfudemo.parametrclasses.requests.Request
 
 class ViewModelAddCommentToRequest:ViewModel(), ViewModelInterface {
-    override val TAG = this.javaClass.simpleName
+    override val tag = this.javaClass.simpleName
 
     var workCategory:WorkCategoryList? = null
     override var user: User? = null
@@ -17,6 +17,8 @@ class ViewModelAddCommentToRequest:ViewModel(), ViewModelInterface {
     override fun setObject(user: User) {
         getDataWorkCategory.setObject(user)
     }
+
+
 
     var getDataWorkCategory = GetDataWorkCategory(this)
 

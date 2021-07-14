@@ -1,7 +1,6 @@
 package com.example.projectkfudemo.architecturalcomponents.viewmodels.globalsearchfragment
 
 import android.util.Log
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.projectkfudemo.architecturalcomponents.livadatas.LiveDataSearchResultFromServer
 import com.example.projectkfudemo.architecturalcomponents.models.SearchedDataOnRequestsFromTheServer
@@ -10,7 +9,7 @@ import com.example.projectkfudemo.architecturalcomponents.viewmodels.ViewModelIn
 import com.example.projectkfudemo.parametrclasses.User
 
 class ViewModelGlobalSearch: ViewModel(), ViewModelInterface {
-    override val TAG = this.javaClass.simpleName
+    override val tag = this.javaClass.simpleName
 
     override var user: User?= null  //объект для хранения
 
@@ -35,7 +34,7 @@ class ViewModelGlobalSearch: ViewModel(), ViewModelInterface {
 
     fun setObjectForRequests() {
         user?.let {
-            Log.i(TAG, "!из MyViewModelMainActivity отправил user в spinnerDataFromServer!")
+            Log.i(tag, "!из MyViewModelMainActivity отправил user в spinnerDataFromServer!")
             searchedDataOnRequestsFromTheServer.setObjectByUser(user!!)
         }
     }
@@ -45,7 +44,7 @@ class ViewModelGlobalSearch: ViewModel(), ViewModelInterface {
                                  regUserId: Int?, workerId: Int?, text: String?,
                                  techGroup: Int?, office:String?, address: String?,
                                  roomNum:String?) {
-        Log.i(TAG, "!отправил данные для параметров и вызвал настройку параметров")
+        Log.i(tag, "!отправил данные для параметров и вызвал настройку параметров")
         searchedDataOnRequestsFromTheServer.sendParamsForRequestOnGlobalSearch(declarerFIO, cod, date1,
                                                                                date2, regType, statusId,
                                                                                regUserId, workerId, text,
@@ -59,16 +58,16 @@ class ViewModelGlobalSearch: ViewModel(), ViewModelInterface {
     }
 
     fun showNextFragment() {
-        Log.i(TAG, "!Вызов метода showResultFragment")
+        Log.i(tag, "!Вызов метода showResultFragment")
         globalSearchInterface?.showResultFragment(searchedDataOnRequestsFromTheServer.requestListFromServer)
     }
 
     //для вызова через интерфейс из SearchedDataOnRequestsFromTheServer
     override fun changedData() {
-        Log.i(TAG, "!выполнение setListsData")
+        Log.i(tag, "!выполнение setListsData")
         liveDataSearchResultFromServer.postValue(searchedDataOnRequestsFromTheServer.requestListFromServer)
 //        showNextFragment()
-        Log.i(TAG, "!Размер массива requestListFromServer: " + searchedDataOnRequestsFromTheServer.requestListFromServer?.requests?.size.toString())
-        Log.i(TAG, "!Размер массива requestList в LiveData: " + liveDataSearchResultFromServer.value?.requests?.size.toString())
+        Log.i(tag, "!Размер массива requestListFromServer: " + searchedDataOnRequestsFromTheServer.requestListFromServer?.requests?.size.toString())
+        Log.i(tag, "!Размер массива requestList в LiveData: " + liveDataSearchResultFromServer.value?.requests?.size.toString())
     }
 }

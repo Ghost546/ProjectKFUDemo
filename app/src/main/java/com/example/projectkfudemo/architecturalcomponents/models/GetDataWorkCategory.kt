@@ -7,7 +7,7 @@ import javax.inject.Inject
 
 //класс нужен чтобы получать список "Категория работ"
 class GetDataWorkCategory @Inject constructor(_viewModelInterface: ViewModelInterface): ModelsByRequestToServer {
-    override val TAG: String = this.javaClass.simpleName
+    override val tag: String = this.javaClass.simpleName
 
     //интерфейс для взаимодействия с viewmodel которая создала объект по данному классу
     var viewModel: ViewModelInterface? = null

@@ -1,8 +1,7 @@
 package com.example.projectkfudemo.architecturalcomponents.livadatas
 
-import androidx.lifecycle.LiveData
+
 import androidx.lifecycle.MutableLiveData
-import com.example.projectkfudemo.parametrclasses.forjson.SearchDeclarer
 import com.example.projectkfudemo.parametrclasses.forjson.SearchDeclarerList
 
 object LiveDataSearchDeclarers: MutableLiveData<SearchDeclarerList>() {

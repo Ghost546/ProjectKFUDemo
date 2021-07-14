@@ -3,7 +3,7 @@ package com.example.projectkfudemo.architecturalcomponents.viewmodels
 import com.example.projectkfudemo.parametrclasses.User
 
 interface ViewModelInterface {
-    val TAG: String
+    val tag: String
     //объект для хранения данных о пользователе
     var user: User?
     //отправляет параметр пользователь в прослойку

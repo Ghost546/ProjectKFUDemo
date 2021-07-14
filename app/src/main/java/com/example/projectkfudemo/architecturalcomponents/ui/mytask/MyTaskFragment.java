@@ -89,6 +89,7 @@ public class MyTaskFragment extends Fragment implements Serializable, TasksVisib
         myInflater = inflater;
 
         User user = (User) args.getSerializable("user");
+
         Log.i(TAG, "!userId = " + user.getUserId() + " p2 = " + user.getP2());
 
         myTaskRequestListView = rootView.findViewById(R.id.my_tasks_list);

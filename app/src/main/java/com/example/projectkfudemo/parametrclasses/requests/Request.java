@@ -35,7 +35,7 @@ public class Request {
 
     @SerializedName("date_of_registration")
     @Expose
-    private String requestRegistrationDateString="";//дата регистрации (предварительно)
+    private final String requestRegistrationDateString="";//дата регистрации (предварительно)
 
     //позже разобраться установкой даты
     private LocalDate requestRegistrationDate;//дата регистрации (предварительно)
@@ -243,8 +243,7 @@ public class Request {
     }
 
     public String getStatusOfRequest() {
-        String status = actionsOverRequest.get(actionsOverRequest.size()-1).getStatusName();
-        return status;
+        return actionsOverRequest.get(actionsOverRequest.size()-1).getStatusName();
     }
 
     public Building getBuilding() {

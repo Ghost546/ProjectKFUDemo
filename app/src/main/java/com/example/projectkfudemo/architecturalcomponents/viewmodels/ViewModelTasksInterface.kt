@@ -25,29 +25,29 @@ interface ViewModelTasksInterface: ViewModelInterface {
 
     //читать логи, комментарии излишни
     fun setOnSelectedPosition(position: Int) {
-        Log.i(TAG, "!Вызов при смене типа отображаемых заявок")
-        Log.i(TAG, "!Изменение позиции на: $position (конкретная реализация)")
+        Log.i(tag, "!Вызов при смене типа отображаемых заявок")
+        Log.i(tag, "!Изменение позиции на: $position (конкретная реализация)")
     }
 
     //отправка запроса на сервер на заявки отдела
     fun sendRequestCurrentTask() {
-        Log.i(TAG, "!Отправка запроса на сервер")
+        Log.i(tag, "!Отправка запроса на сервер")
         dataRequestListFromServer.sendRequestCurrentTask()
     }
 
     //отправка запроса на сервер на заявки пользователя
     fun sendRequestMyTask() {
-        Log.i(TAG, "!Отправка запроса на сервер")
+        Log.i(tag, "!Отправка запроса на сервер")
         dataRequestListFromServer.sendRequestMyTask()
     }
 
 
     fun setPosition(position: Int) {
-        Log.i(TAG, "!Установка позиции во внутреннем объекте: $position")
+        Log.i(tag, "!Установка позиции во внутреннем объекте: $position")
         dataRequestListFromServer.setPosition(position)
     }
 
     fun setOnChangedSelectedPosition() {
-        Log.i(TAG, "!Вызов при изменении позиции в LiveDataSelectedPosition")
+        Log.i(tag, "!Вызов при изменении позиции в LiveDataSelectedPosition")
     }
 }

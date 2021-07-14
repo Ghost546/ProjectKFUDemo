@@ -1,4 +1,4 @@
-package com.example.projectkfudemo.JSONApi;
+package com.example.projectkfudemo.jsonapi;
 
 
 import com.example.projectkfudemo.parametrclasses.forjson.SearchWorkersList;
@@ -14,5 +14,5 @@ public interface JSONApiWorkersList {
     //ссылка для фио исполнителя
     @FormUrlEncoded
     @POST("e-ksu/service_desk_mobile.workers_list?")
-    public Observable<SearchWorkersList> getSearchWorkersList(@Field("p_user_id") int user_id);
+    Observable<SearchWorkersList> getSearchWorkersList(@Field("p_user_id") int user_id);
 }

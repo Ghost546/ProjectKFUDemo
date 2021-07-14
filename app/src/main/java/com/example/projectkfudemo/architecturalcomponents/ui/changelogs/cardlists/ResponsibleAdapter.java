@@ -14,9 +14,9 @@ import com.example.projectkfudemo.parametrclasses.forjson.Works;
 import java.util.List;
 
 public class ResponsibleAdapter extends ArrayAdapter<Works> {
-    private LayoutInflater inflater;
-    private int layout;
-    private List<Works> worksList;
+    private final LayoutInflater inflater;
+    private final int layout;
+    private final List<Works> worksList;
 
 
     public ResponsibleAdapter(Context context, int resource, List<Works> works) {
@@ -49,7 +49,7 @@ public class ResponsibleAdapter extends ArrayAdapter<Works> {
 
         Works works = worksList.get(position);
 
-        numberView.setText(" " + String.valueOf(position+1));
+        numberView.setText(" " + (position + 1));
         numberView.setVisibility(View.VISIBLE);
         numberViewHead.setVisibility(View.VISIBLE);
         numberSpace.setVisibility(View.VISIBLE);

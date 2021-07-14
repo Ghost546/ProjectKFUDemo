@@ -27,7 +27,7 @@ import java.util.List;
 
 
 public class GlobalSearchFragment extends Fragment implements View.OnClickListener, GlobalSearchInterface, LayoutVisibilityInterface, ProgressBarVisibilityInterface {
-    private String TAG = this.getClass().getSimpleName();
+    private final String TAG = this.getClass().getSimpleName();
 
     static Bundle args;
     MainActivity mainActivity;

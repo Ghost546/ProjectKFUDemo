@@ -2,17 +2,21 @@ package com.example.projectkfudemo.architecturalcomponents.models;
 
 import android.util.Log;
 
+import com.example.projectkfudemo.parametrclasses.CommentData;
 import com.example.projectkfudemo.parametrclasses.GlobalSearchParams;
 import com.example.projectkfudemo.parametrclasses.User;
 import com.example.projectkfudemo.parametrclasses.forjson.SearchDeclarerList;
 import com.example.projectkfudemo.parametrclasses.forjson.SearchWorkersList;
-import com.example.projectkfudemo.parametrclasses.forjson.WorkCategory;
 import com.example.projectkfudemo.parametrclasses.forjson.WorkCategoryList;
 
+import com.example.projectkfudemo.parametrclasses.requests.MyRequest;
+import com.example.projectkfudemo.parametrclasses.requests.Request;
 import com.example.projectkfudemo.parametrclasses.requests.RequestList;
 import com.google.firebase.crashlytics.FirebaseCrashlytics;
 
 import io.reactivex.Observer;
+import io.reactivex.Scheduler;
+import io.reactivex.SingleObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.Disposable;
@@ -24,6 +28,21 @@ public class ServerRequestsByRx { //из этого класса отправл�
 
     }
 
+    ServerRequestsByRx(User user) { //конструктор позволяющий создавать класс только при условии получении данных от пользователя
+        this.user = user;
+    }
+
+    ServerRequestsByRx(User user, MyRequest myRequest) {
+        this.user = user;
+        this.myRequest = myRequest;
+    }
+
+    User user;//главный параметр для отправки заявок
+
+    MyRequest myRequest;
+
+    CommentData commentData;
+
     public ServerRequestsByRx(ModelsByRequestToServer modelsByRequestToServer, User user) {
         this.modelsByRequestToServer = modelsByRequestToServer;
         this.user=user;
@@ -31,10 +50,7 @@ public class ServerRequestsByRx { //из этого класса отправл�
 
     private final String TAG = this.getClass().getSimpleName();
 
-    User user;//главный параметр для отправки заявок
-    ServerRequestsByRx(User user) { //конструктор позволяющий создавать класс только при условии получении данных от пользователя
-        this.user = user;
-    }
+
 
     RequestList requestListFromServer;  //список-ответ на глобальный поиск. наблюдать
 
@@ -212,8 +228,8 @@ public class ServerRequestsByRx { //из этого класса отправл�
 
     public void setRequestListByMyTask() {
         NetworkServiceRequests.getInstance().getJSONUserRequestApi().getRequestWithLoginPassword(user.getUserId(), user.getP2(), position-1)
-                .subscribeOn(Schedulers.io()) //Schedulers.io()
-                .observeOn(AndroidSchedulers.mainThread()) //AndroidSchedulers.mainThread()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<RequestList>() {
                     @Override
                     public void onSubscribe(Disposable d) {
@@ -248,7 +264,7 @@ public class ServerRequestsByRx { //из этого класса отправл�
                 globalSearchParams.getCod()+" | " + globalSearchParams.getDate1()+ " | " +globalSearchParams.getDate2()+" | " +
                 globalSearchParams.getRegType()+ " | " +globalSearchParams.getStatusId()+" | " +
                 globalSearchParams.getRegUserId()+" | " + globalSearchParams.getWorkerId()+ " | " + globalSearchParams.getText() + " | " +null+ " | " +null +"!");
-        NetworkServiceRequests.getInstance().getJSONApiGlobalSearch().
+        NetworkServiceRequests.getInstance().getJSONGlobalSearchApi().
                 getRequestListForSearch(user.getUserId(), user.getP2(), globalSearchParams.getDeclarerFIO(),
                         globalSearchParams.getCod(), globalSearchParams.getDate1(), globalSearchParams.getDate2(),
                         globalSearchParams.getRegType(), globalSearchParams.getStatusId(),
@@ -291,7 +307,7 @@ public class ServerRequestsByRx { //из этого класса отправл�
     }
 
     public void setWorkCategoryListByRetrofit() {
-        NetworkServiceRequests.getInstance().getJSONWorkCategoryList().getSearchWorkCategory(user.getUserId())
+        NetworkServiceRequests.getInstance().getJSONWorkCategoryListApi().getSearchWorkCategory(user.getUserId())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<WorkCategoryList>() {
@@ -313,6 +329,59 @@ public class ServerRequestsByRx { //из этого класса отправл�
 
                     @Override
                     public void onComplete() {
+
+                    }
+                });
+    }
+
+    public void setRequestComment() {
+        NetworkServiceRequests.getInstance().getJSONIsCommentScriptApi().setIsCommentScript(String.valueOf(user.getUserId()),
+                user.getP2(), String.valueOf(commentData.getMyRequest().getRequestId()), commentData.getBeginDate(), commentData.getEndData(),
+                commentData.getComment(), commentData.getClassifier(), commentData.getTypeOfActionWithComment(), commentData.getResult(), commentData.getSummury(),
+                commentData.getRecomend(), commentData.getUrl(), commentData.getStatus(), commentData.getExecutor(), commentData.getWid(), commentData.getCheck(),
+                commentData.getInventoryCard(), commentData.getFiles())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<RequestList>() {
+                    @Override
+                    public void onSubscribe(@NonNull Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(@NonNull RequestList requestList) {
+
+                    }
+
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+    }
+
+    public void setEmploye(String employe, String statusSort, String hashedValueOfThePassedParameters, String url) {
+        NetworkServiceRequests.getInstance().getJSONIsEmployeeScriptApi().setIsCommentScript(String.valueOf(user.getUserId()), user.getP2(), String.valueOf(myRequest.getRequestId()), employe, statusSort,hashedValueOfThePassedParameters,url)
+                .subscribeOn(Schedulers.io())
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .subscribe(new SingleObserver() {
+                    @Override
+                    public void onSubscribe(@NonNull Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onSuccess(@NonNull Object o) {
+
+                    }
+
+                    @Override
+                    public void onError(@NonNull Throwable e) {
 
                     }
                 });

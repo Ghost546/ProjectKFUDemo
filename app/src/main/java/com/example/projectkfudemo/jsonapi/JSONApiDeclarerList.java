@@ -1,4 +1,4 @@
-package com.example.projectkfudemo.JSONApi;
+package com.example.projectkfudemo.jsonapi;
 
 import com.example.projectkfudemo.parametrclasses.forjson.SearchDeclarerList;
 
@@ -11,5 +11,5 @@ public interface JSONApiDeclarerList {
     //ссылка для Заявку зарегистрировал
     @FormUrlEncoded
     @POST("e-ksu/service_desk_mobile.registrators_list?")
-    public Observable<SearchDeclarerList> getSearchDeclarerList(@Field("p_user_id") int user_id);
+    Observable<SearchDeclarerList> getSearchDeclarerList(@Field("p_user_id") int user_id);
 }
